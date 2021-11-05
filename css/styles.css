@@ -1,5 +1,6 @@
 :root {
-    --primary-color: rgb(27, 28, 31);
+    --primary-color: rgba(225, 236, 73, 0.863);
+    --text-color: #4E5254;
     /* var(--primary-color) */
 }
 
@@ -19,7 +20,7 @@ body {
 .logo {
     text-decoration: none;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--text-color);
     font-size: 3.5em;
     font-style: italic;
     font-family:'Lucida Sans';
@@ -28,7 +29,7 @@ body {
 }
 
 .navitemlist {
-    background: rgb(231, 81, 111);
+    background: var(--primary-color);
     display: flex;
     list-style-type:none;
     margin: 0;
