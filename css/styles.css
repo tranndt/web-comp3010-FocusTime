@@ -1,0 +1,65 @@
+:root {
+    --primary-color: rgb(27, 28, 31);
+    /* var(--primary-color) */
+}
+
+body {
+    background: rgb(215, 214, 218);
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.navbar {
+    background: rgb(189, 188, 194);
+    margin: 0;
+    padding: 1em;
+    height: 7em;
+}
+
+.logo {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 3.5em;
+    font-style: italic;
+    font-family:'Lucida Sans';
+    padding: 0.2em;
+
+}
+
+.navitemlist {
+    background: rgb(231, 81, 111);
+    display: flex;
+    list-style-type:none;
+    margin: 0;
+    position: absolute;
+    top: 16%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1em;
+    padding: 0.5em 0;
+    /* padding-left: 1.2em; */
+    box-shadow: 0 10px 50px rgb(189, 184, 184);
+}
+
+.navitemlist li {
+    display: block;
+    margin:0;
+    padding: 1em 2em 1em 1em; 
+    text-align: center;  
+    border-right: 0.02em solid rgba(0, 0, 0, 0.1);
+}
+
+.navitemlist li:last-child {
+    border-right: none;
+}
+
+.navitemlist li .navitem {
+    text-decoration: none;
+    display: none; /*block;*/
+    padding: 0 0.1em;
+}
+
+.navitemlist li a:hover .icon {
+    transform: translateY(-17%);
+}
