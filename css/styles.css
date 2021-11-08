@@ -109,7 +109,7 @@ body {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="100" height="50"> <polygon points="0,0 100,0 50,50" style="fill:%23666666;" /></svg>');
+    background-image: url(/assets/dropdownArrow.svg);
     background-position: right 10px top 50%;
     background-repeat: no-repeat;
     background-size: 10px;
