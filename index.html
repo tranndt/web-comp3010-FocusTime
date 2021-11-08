@@ -93,17 +93,29 @@
             if (!selectedTask.localeCompare("create-task")) {
                 var newTask = window.prompt("What is the new task?");
 
-                newOption = new Option(newTask, newTask);
-                taskBox.add(newOption, taskBox.options.length - 1);
-                taskBox.value = newOption.value;
+                if (newTask == "") {
+                    alert("Task name should not be empty. Please try again.");
+                }
+
+                else {
+                    newOption = new Option(newTask, newTask);
+                    taskBox.add(newOption, taskBox.options.length - 1);
+                    taskBox.value = newOption.value;
+                }
             }
 
             if (!selectedProj.localeCompare("create-proj")) {
                 var newProj = window.prompt("What is the new project?");
 
-                newOption = new Option(newProj, newProj);
-                projectBox.add(newOption, projectBox.options.length - 1);
-                projectBox.value = newOption.value;
+                if (newProj == "") {
+                    alert("Project name should not be empty. Please try again.");
+                }
+
+                else {
+                    newOption = new Option(newProj, newProj);
+                    projectBox.add(newOption, projectBox.options.length - 1);
+                    projectBox.value = newOption.value;
+                }
             }
         }
 
@@ -120,7 +132,6 @@
         //         selectBox.value = newOption.value;
         //     }
         // }
-
     </script>
 </body>
 </html>
