@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusTime</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<style> 
+    .bubble{
+        display: : inline-block;
+        width: 300px;
+        color: black;
+        height: 100%;
+        border-radius: 100%;
+        position: relative;
+        cursor: pointer;
+        background: blue;
+    }
+
+    .bubble:before{
+        content:"";
+        display:inline-block;
+        padding-top: 100%;
+    }
+
+    .bubble:after{
+        content:"";
+        position:absolute;
+        top:5%;
+        left:10%;
+        width:100%;
+        height:100%;
+        border-radius:100%;
+        -webkit-filter: blur(1px);
+        z-index: 2;
+        -webkit-transform: rotateZ(-30deg);
+        transform: rotateZ(-30deg);
+        display: block;
+    }
+
+    @keyframes pop{
+        from {
+            opacity: 1;
+            transform: translateZ(0) scale(1.75,1.75);
+        }
+
+        to{
+            opacity: 0;
+            transform: translateZ(0) scale(1.75,1.75);
+        }
+    }
+
+    .bubble:hover{
+        animation: pop 0.50s cubic-bezier(0.16,0.87,0.48,0.99) forwards;
+    }
+</style>
+<body>
+    <!-- <div class="navbar">
+        <div class="container">
+            <a href="#" class="logo">FocusTime</a>
+
+            <nav>
+                <ul class="navitemlist">
+                    <li>
+                        <a href="upcomingTasks.html">
+                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks"></div>
+                            <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="statistics.html">
+                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics"></div>
+                            <div class="navitem" data-text="Statistics">Statistics</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page"></div>
+                            <div class="navitem" data-text="Timer Page">Homepage</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/musicicon.svg" alt="Music"></div>
+                            <div class="navitem" data-text="Music">Music</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings"></div>
+                            <div class="navitem" data-text="Settings">Settings</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div> -->
+
+    <!-- <section class="statsscreen">
+        <div class="container">
+            <div class="bubble"><img src="./assets/stats/orange-circle-background.png"></img></div> 
+            <div class="bubbleitem" data-text="COMP3040">COMP3040</div>
+        </div>
+    </section> -->
+    <div class="bubble" onclick="pop">
+
+
+    </div>
+
+
+</body>
+</html>
