@@ -13,30 +13,32 @@ body {
 .navbar {
     background: rgb(189, 188, 194);
     margin: 0;
-    padding: 1em;
-    height: 7em;
+    padding: 5vh;
+    height: 10vh;
 }
 
 .logo {
     text-decoration: none;
     font-weight: bold;
     color: var(--text-color);
-    font-size: 3.5em;
+    font-size: 8vh;
     font-style: italic;
     font-family:'Lucida Sans';
-    padding: 0.2em;
+    padding: 5vh;
 
 }
 
+img { width: 100%; height: auto; }
+
 .navitemlist {
     background: var(--primary-color);
-    display: flex;
+    display: inline-flex;
     list-style-type:none;
     margin: 0;
     position: absolute;
-    top: 16%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 15vh;
+    /* left: 100vh; */
+    /* transform: translate(-50%, -50%); */
     border-radius: 1em;
     padding: 0.5em 0;
     /* padding-left: 1.2em; */
@@ -46,9 +48,9 @@ body {
 .navitemlist li {
     display: block;
     margin:0;
-    padding: 1em 2em 1em 1em; 
+    padding: 1vh 5vh 1vh 1vh; 
     text-align: center;  
-    border-right: 0.02em solid rgba(0, 0, 0, 0.1);
+    border-right: 0.02vh solid rgba(0, 0, 0, 0.1);
 }
 
 .navitemlist li:last-child {
@@ -62,5 +64,5 @@ body {
 }
 
 .navitemlist li a:hover .icon {
-    transform: translateY(-17%);
+    transform: translateY(-1.2vh);
 }
