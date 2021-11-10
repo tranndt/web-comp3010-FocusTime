@@ -28,11 +28,13 @@ body {
 
 }
 
-img { width: 100%; height: auto; }
+li .active {
+    background:rgb(116, 116, 116);
+}
 
 .navitemlist {
     background: var(--primary-color);
-    display: inline-flex;
+    display: flex;
     list-style-type:none;
     margin: 0;
     position: absolute;
@@ -40,9 +42,9 @@ img { width: 100%; height: auto; }
     /* left: 100vh; */
     /* transform: translate(-50%, -50%); */
     border-radius: 1em;
-    padding: 0.5em 0;
-    /* padding-left: 1.2em; */
-    box-shadow: 0 10px 50px rgb(189, 184, 184);
+    padding: 0.5vh 0;
+    padding-left: 2vh;
+    box-shadow: 0 10px 50px rgb(116, 116, 116);
 }
 
 .navitemlist li {
