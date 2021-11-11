@@ -2,343 +2,176 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="styles.css"></link>
 </head>
-<style>
-
-:root {
-    --primary-color: rgba(225, 236, 73, 0.863);
-    --text-color: #4E5254;
-    /* var(--primary-color) */
-}
-
-.navbar {
-    background: rgb(189, 188, 194);
-    margin: 0;
-    padding: 1em;
-    height: 7em;
-}
-
-.logo {
-    text-decoration: none;
-    font-weight: bold;
-    color: var(--text-color);
-    font-size: 3.5em;
-    font-style: italic;
-    font-family:'Lucida Sans';
-    padding: 0.2em;
-
-}
-
-.navitemlist {
-    background: var(--primary-color);
-    display: flex;
-    list-style-type:none;
-    margin: 0;
-    position: absolute;
-    top: 16%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 1em;
-    padding: 0.5em 0;
-    /* padding-left: 1.2em; */
-    box-shadow: 0 10px 50px rgb(189, 184, 184);
-}
-
-.navitemlist li {
-    display: block;
-    margin:0;
-    padding: 1em 2em 1em 1em; 
-    text-align: center;  
-    border-right: 0.02em solid rgba(0, 0, 0, 0.1);
-}
-
-.navitemlist li:last-child {
-    border-right: none;
-}
-
-.navitemlist li .navitem {
-    text-decoration: none;
-    display: none; /*block;*/
-    padding: 0 0.1em;
-}
-
-.navitemlist li a:hover .icon {
-    transform: translateY(-17%);
-}
-    body {
-	background: #83d6fa;
-	color: #333;
-	font: 100% Lato, Arial, Sans Serif;
-	height: 100vh;
-	margin: 0;
-	padding: 0;
-	overflow-x: hidden;
-}
-
-#background-wrap {
-    bottom: 0;
-	left: 0;
-	position: fixed;
-	right: 0;
-	top: 0;
-	z-index: -1;
-}
-
-/* KEYFRAMES */
-/* @-moz-keyframes
-@-webkit-keyframes */
-
-@keyframes animateBubble {
-    0% {
-        margin-top: 1000px;
-    }
-    100% {
-        margin-top: -100%;
-    }
-}
-
-
-@keyframes sideWays { 
-    0% { 
-        margin-left:0px;
-    }
-    100% { 
-        margin-left:50px;
-    }
-}
-
-@keyframes pop{
-        from {
-            opacity: 1;
-            transform: translateZ(0) scale(1.75,1.75);
-        }
-
-        to{
-            opacity: 0;
-            transform: translateZ(0) scale(1.75,1.75);
-        }
-    }
-
-.bubble:hover{
-    animation: pop 0.50s cubic-bezier(0.16,0.87,0.48,0.99) forwards;
-}
-
-/* ANIMATIONS */
-
-.x1 {
-	animation: animateBubble 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	left: -5%;
-	top: 5%;
-	transform: scale(0.6);
-}
-
-.x2 {
-	animation: animateBubble 20s linear infinite, sideWays 4s ease-in-out infinite alternate;
-	left: 5%;
-	top: 80%;
-	transform: scale(0.4);
-}
-
-.x3 {
-    -webkit-animation: animateBubble 28s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 28s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	animation: animateBubble 28s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	
-	left: 10%;
-	top: 40%;
-	
-	-webkit-transform: scale(0.7);
-	-moz-transform: scale(0.7);
-	transform: scale(0.7);
-}
-
-.x4 {
-    -webkit-animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
-	animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
-	
-	left: 20%;
-	top: 0;
-	
-	-webkit-transform: scale(0.3);
-	-moz-transform: scale(0.3);
-	transform: scale(0.3);
-}
-
-.x5 {
-    -webkit-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
-	animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
-	
-	left: 30%;
-	top: 50%;
-	
-	-webkit-transform: scale(0.5);
-	-moz-transform: scale(0.5);
-	transform: scale(0.5);
-}
-
-.x6 {
-    -webkit-animation: animateBubble 21s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 21s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	animation: animateBubble 21s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	
-	left: 50%;
-	top: 0;
-	
-	-webkit-transform: scale(0.8);
-	-moz-transform: scale(0.8);
-	transform: scale(0.8);
-}
-
-.x7 {
-    -webkit-animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	animation: animateBubble 20s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	
-	left: 65%;
-	top: 70%;
-	
-	-webkit-transform: scale(0.4);
-	-moz-transform: scale(0.4);
-	transform: scale(0.4);
-}
-
-.x8 {
-    -webkit-animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
-	animation: animateBubble 22s linear infinite, sideWays 3s ease-in-out infinite alternate;
-	
-	left: 80%;
-	top: 10%;
-	
-	-webkit-transform: scale(0.3);
-	-moz-transform: scale(0.3);
-	transform: scale(0.3);
-}
-
-.x9 {
-    -webkit-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
-	animation: animateBubble 29s linear infinite, sideWays 4s ease-in-out infinite alternate;
-	
-	left: 90%;
-	top: 50%;
-	
-	-webkit-transform: scale(0.6);
-	-moz-transform: scale(0.6);
-	transform: scale(0.6);
-}
-
-.x10 {
-    -webkit-animation: animateBubble 26s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	-moz-animation: animateBubble 26s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	animation: animateBubble 26s linear infinite, sideWays 2s ease-in-out infinite alternate;
-	
-	left: 80%;
-	top: 80%;
-	
-	-webkit-transform: scale(0.3);
-	-moz-transform: scale(0.3);
-	transform: scale(0.3);
-}
-
-/* OBJECTS */
-
-.bubble {
-    -webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	
-    -webkit-box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
-	-moz-box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
-	box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
-	
-    height: 200px;
-	position: absolute;
-	width: 200px;
-}
-
-.bubble:after {
-    background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,0.5)), color-stop(70%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* IE10+ */
-    background: radial-gradient(ellipse at center,  rgba(255,255,255,0.5) 0%,rgba(255,255,255,0) 70%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	
-    -webkit-box-shadow: inset 0 20px 30px rgba(255, 255, 255, 0.3);
-	-moz-box-shadow: inset 0 20px 30px rgba(255, 255, 255, 0.3);
-	box-shadow: inset 0 20px 30px rgba(255, 255, 255, 0.3);
-	
-	content: "";
-    height: 180px;
-	left: 10px;
-	position: absolute;
-	width: 180px;
-}
-</style>
 <body>
-<div class="navbar">
-        <div class="container">
-            <a href="#" class="logo">FocusTime</a>
+<div id="chart"></div>
+<!--<script type="application/javascript" src="bubble.js"></script>-->
+<script type="application/javascript">
+    var colours = getColours();
+    var width = 500, height = 500;
 
-            <nav>
-                <ul class="navitemlist">
-                    <li>
-                        <a href="upcomingTasks.html">
-                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks"></div>
-                            <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="statistics.html">
-                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics"></div>
-                            <div class="navitem" data-text="Statistics">Statistics</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="index.html">
-                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page"></div>
-                            <div class="navitem" data-text="Timer Page">Homepage</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="music.html">
-                            <div class="icon"><img src="assets/musicicon.svg" alt="Music"></div>
-                            <div class="navitem" data-text="Music">Music</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings.html">
-                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings"></div>
-                            <div class="navitem" data-text="Settings">Settings</div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    
-    <div id="background-wrap">
-        <div class="bubble x1"></div>
-        <div class="bubble x2"></div>
-        <div class="bubble x3"></div>
-        <div class="bubble x4"></div>
-        <div class="bubble x5"></div>
-        <div class="bubble x6"></div>
-        <div class="bubble x7"></div>
-        <div class="bubble x8"></div>
-        <div class="bubble x9"></div>
-        <div class="bubble x10"></div>
-    </div>
+    var svg = d3.select('#chart')
+        .append('svg')
+        .attr('height', height)
+        .attr('width', width)
+        .append('g');
+
+    var radiusScale = d3.scaleSqrt().domain([0, 100]).range([10, 50]);
+
+    // Collection of forces
+    var xForce = d3.forceX(width / 2).strength(0.05);
+    var yForce = d3.forceY(height / 2).strength(0.05);
+    var manyBodyForce = d3.forceManyBody().strength(function (d) {
+        return -0.07 * Math.pow(radiusScale(d.data.value), 2);
+    });
+
+    // Define the force simulation and attach these forces
+    var simulation = d3.forceSimulation()
+        .force('x', xForce)
+        .force('y', yForce)
+        .force('charge', manyBodyForce);
+
+
+    d3.queue()
+        .defer(d3.json, 'data.json')
+        .await(ready);
+
+    function ready(err, root) {
+
+        if (err) throw(err);
+
+        root = d3.hierarchy(root);
+
+        /*
+          root.leaves gives us all the final children (hence leaves) of each child in root.children
+           So essentially we are making a flat hierarchial structure
+           Each node represents a question, with its category accesible through its node.parent
+        */
+        var nodes = root.leaves();
+
+        // Initialize the force simulation with the nodes as objects to act upon.
+        // Let the simulation call the tick function for every clock cycle
+        simulation.nodes(nodes).on('tick', tick);
+
+        // These nodes will be a grouper for the circles and text
+        // Then we can apply transformation functions to the nodes and
+        // it will be applied to both.
+        var svgNodes = svg.selectAll('.node')
+            .data(nodes)
+            .enter()
+            .append('g')
+            .attr('class', 'node')
+            .attr('id', function (d) {
+                return d.data.name
+            })
+            .on('click', click);
+
+        svgNodes.append('circle')
+            .attr('class', function (d) {
+                return d.parent.data.name
+            })
+            .attr('r', function (d) {
+                return radiusScale(d.data.value);
+            })
+            .style('fill', function (d) {
+                return colours[d.parent.data.name.toUpperCase()]
+            });
+
+        svgNodes.append('text')
+            .attr('font-size', '12px')
+            .style('text-anchor', 'middle')
+            .text(function (d) {
+                return d.data.value;
+            });
+
+        /**
+         * Function that gets called on each time tick.
+         */
+        function tick() {
+            svgNodes.attr("transform", function (d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+        }
+
+        /**
+         * Checks if any other bubbles are expanded and collapses them if they are
+         * @param d
+         */
+        function clickCheck(d) {
+            // First check if any other bubble were expanded
+            var expandedNode = nodes.find(function (node) {
+                return node.data['activated'] === true;
+            });
+
+            if (expandedNode) {
+                // Decrease the size of the expanded circle
+                d3.select("#" + expandedNode.data.name)
+                    .select('circle')
+                    .transition()
+                    .duration(300)
+                    .attr('r', function (d) {
+                        return radiusScale(d.data['old_value']);
+                    });
+                //  Update its value in the node
+                expandedNode.data.value = expandedNode.data['old_value'];
+                expandedNode.data['activated'] = false;
+            }
+        }
+
+        function click(d) {
+
+            clickCheck(d);
+
+            if (d.data['activated']) {
+                d3.select(this)
+                    .select('circle')
+                    .transition()
+                    .duration(300)
+                    .attr('r', function (d) {
+                        return radiusScale(d.data['old_value']);
+                    });
+            } else {
+                // The maximum value that any circle will have (not radius)
+                // this translates to a radius of 80
+                // TODO: Refactor this to be varants elsewhere
+                var v = 300;
+
+                // Save the old value for setting back to original size
+                d.data['activated'] = true;
+                d.data['old_value'] = d.data.value;
+
+                // Set this node to have max size
+                d.data.value = v;
+
+                // Enlarge this circle
+                d3.select(this)
+                    .select('circle')
+                    .transition()
+                    .duration(500)
+                    .attr('r', function (d) {
+                        return radiusScale(d.data.value);
+                    });
+            }
+
+            // Update the nodes used by the simulation to calculate forces
+            simulation.nodes(nodes);
+
+            // TODO: Figure out why after expansion some bubbles are overlapping.
+            // Restart the simulation
+            simulation.alphaTarget(1).restart();
+        }
+    }
+
+    function getColours() {
+        return {
+            "INDOOR": '#ff9587',
+            "OUTDOOR": '#0dce72',
+            "LIFESTYLE": 'lightblue'
+        };
+    }
+</script>
 </body>
 </html>
