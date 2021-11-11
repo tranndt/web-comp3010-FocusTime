@@ -13,18 +13,20 @@ body {
 .navbar {
     background: rgb(189, 188, 194);
     margin: 0;
-    padding: 5vh;
-    height: 10vh;
+    width: 100vw;
+    height: 15vh;
 }
 
 .logo {
+    position: absolute;
     text-decoration: none;
     font-weight: bold;
     color: var(--text-color);
-    font-size: 8vh;
+    font-size: 5vh;
     font-style: italic;
     font-family:'Lucida Sans';
-    padding: 2vh;
+    padding: 3vh 1.5vw;
+    margin: 0;
 
 }
 
@@ -37,22 +39,23 @@ li .active {
     display: inline-flex;
     list-style-type:none;
     margin: 0;
+    margin-left:0.5vw;
     position: absolute;
-    top: 15vh;
+    top: 10vh;
     /* left: 100vh; */
     /* transform: translate(-50%, -50%); */
     border-radius: 1em;
     padding: 0.5vh 0;
-    padding-left: 0vh;
+    padding-left: 0vw;
     /* box-shadow: 0 10px 50px rgb(116, 116, 116); */
 }
 
 .navitemlist li {
     display: inline-flex;
     margin:0;
-    padding: 1vh 3vh 1vh; 
+    padding: 1vh 2vw 1vh; 
     text-align: center;  
-    border-right: 0.02vh solid rgba(0, 0, 0, 0.1);
+    border-right: 0.02vw solid rgba(0, 0, 0, 0.1);
 }
 
 .navitemlist li:last-child {
