@@ -49,5 +49,89 @@
             </nav>
         </div>
     </div>
+
+    <div class="container">
+        <div class="left-col">
+            <div class="timer">
+                Timer test
+            </div>
+    
+            <div class="task-proj-selector">
+                <div>My Task:
+                    <select class="select" name="" id="task-selector"  onchange="createNewOption()">
+                        <option disabled selected>Choose a task</option>
+                        <option value="task-1">Task 1</option>
+                        <option value="task-2">Task 2</option>
+                        <option value="create-task">+ Create new task</option>
+                    </select>
+                </div>
+                
+                <div>My Project:
+                    <select class="select" name="" id="project-selector"  onchange="createNewOption()">
+                        <option disabled selected>Choose a project</option>
+                        <option value="project-1">Project 1</option>
+                        <option value="project-2">Project 2</option>
+                        <option value="create-proj">+ Create new project</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-col">
+            Widgets column Test
+        </div>
+    </div>
+
+    <script>
+        function createNewOption() {
+            var taskBox = document.getElementById("task-selector");
+            var projectBox = document.getElementById("project-selector");
+            var selectedTask = taskBox.value;
+            var selectedProj = projectBox.value;
+            var newOption;
+
+            if (!selectedTask.localeCompare("create-task")) {
+                var newTask = window.prompt("What is the new task?");
+
+                if (newTask == "") {
+                    alert("Task name should not be empty. Please try again.");
+                }
+
+                else {
+                    newOption = new Option(newTask, newTask);
+                    taskBox.add(newOption, taskBox.options.length - 1);
+                    taskBox.value = newOption.value;
+                }
+            }
+
+            if (!selectedProj.localeCompare("create-proj")) {
+                var newProj = window.prompt("What is the new project?");
+
+                if (newProj == "") {
+                    alert("Project name should not be empty. Please try again.");
+                }
+
+                else {
+                    newOption = new Option(newProj, newProj);
+                    projectBox.add(newOption, projectBox.options.length - 1);
+                    projectBox.value = newOption.value;
+                }
+            }
+        }
+
+        // function createNewOption(selector, type) {
+        //     var selectBox = document.getElementById(selector);
+        //     var selectedValue = document.getElementById(selectBox).value;
+        //     var newOption;
+
+        //     if (!selectedValue.localeCompare("create-"+type)) {
+        //         var newValue = window.prompt("What is the new "+type+"?");
+
+        //         newOption = new Option(newValue, newValue);
+        //         selectBox.add(newOption, selectBox.options.length - 1);
+        //         selectBox.value = newOption.value;
+        //     }
+        // }
+    </script>
 </body>
 </html>

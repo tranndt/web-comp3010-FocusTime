@@ -75,3 +75,64 @@ li .active {
 .navitemlist li a:hover .icon {
     transform: translateY(-1.2vh);
 }
+
+.container .left-col {
+    margin: 1.6em 0 0 0;
+    width: 65%;
+    float: left;
+}
+
+.container .right-col {
+    margin: 1.6em 0 0 0;
+    width: 35%;
+    float: right;
+}
+
+.timer {
+    background-color: gray;
+    height: 27em;
+    margin-bottom: 0.5em;
+}
+
+.task-proj-selector {
+    float: clear;
+    display: block;
+    position: relative;
+    margin: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    color: var(--text-color);
+    background-color: white;
+}
+
+.select {
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: var(--text-color);
+    margin: 0.5em 0 10px 0;
+    /* max-width: 11em; */
+
+    /* replacing default arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url(/assets/dropdownArrow.svg);
+    background-position: right 10px top 50%;
+    background-repeat: no-repeat;
+    background-size: 10px;
+    padding-right: 30px;
+}
+
+.select:focus, .select:hover {
+    outline: none;
+    border: 1px solid #bbbbbb;
+}
+
+.select option {
+    background: #ffffffff;
+}
+
