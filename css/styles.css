@@ -24,7 +24,7 @@ body {
     font-size: 8vh;
     font-style: italic;
     font-family:'Lucida Sans';
-    padding: 5vh;
+    padding: 2vh;
 
 }
 
@@ -34,7 +34,7 @@ li .active {
 
 .navitemlist {
     background: var(--primary-color);
-    display: flex;
+    display: inline-flex;
     list-style-type:none;
     margin: 0;
     position: absolute;
