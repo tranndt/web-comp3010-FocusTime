@@ -1,5 +1,5 @@
 :root {
-    --primary-color: rgba(225, 236, 73, 0.863);
+    --primary-color: rgb(212, 221, 83);
     --text-color: #4E5254;
     /* var(--primary-color) */
 }
@@ -43,14 +43,14 @@ li .active {
     /* transform: translate(-50%, -50%); */
     border-radius: 1em;
     padding: 0.5vh 0;
-    padding-left: 2vh;
-    box-shadow: 0 10px 50px rgb(116, 116, 116);
+    padding-left: 0vh;
+    /* box-shadow: 0 10px 50px rgb(116, 116, 116); */
 }
 
 .navitemlist li {
-    display: block;
+    display: inline-flex;
     margin:0;
-    padding: 1vh 5vh 1vh 1vh; 
+    padding: 1vh 3vh 1vh; 
     text-align: center;  
     border-right: 0.02vh solid rgba(0, 0, 0, 0.1);
 }
