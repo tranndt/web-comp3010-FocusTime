@@ -124,3 +124,49 @@ body {
 .select option {
     background: #ffffffff;
 }
+
+.songView {
+    position: relative;
+    height:36vh; width:25vw;
+    margin: 0 0 0 1.875em;
+    color:black;
+    padding-left: 20px;
+    border-style:solid; 
+    border-width:1px; 
+    background-color:grey;
+}
+
+ul.line-separated {
+    background-color: black;
+    padding: 0;
+    height:24vh; 
+    width:93%; 
+    overflow:hidden; 
+    overflow-y:scroll;
+}
+
+ul.line-separated li {
+    background:#a3a3a3;
+    margin: 1px 0 0 0;
+    padding: 5px;
+    font-size: large;
+    line-height:2.5;
+    list-style-type: none;
+}
+
+.notesView {
+    position: relative;
+    height:36vh; width:25vw; 
+    margin: 1.6em 0 0 1.875em;
+    color:black;
+    padding-left: 20px; 
+    border-style:solid; 
+    border-width:1px; 
+    background-color:grey;
+}
+
+.notes{
+    position:absolute;
+    height:24vh; width:23vw;
+    font-size: 1.25em;
+}
