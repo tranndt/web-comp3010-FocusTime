@@ -7,6 +7,7 @@
     <title>FocusTime</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -78,60 +79,26 @@
         </div>
 
         <div class="right-col">
-            Widgets column Test
+            <div class="songView">
+                <h2>Song Queue</h2>
+                <nav>
+                    <ul class="line-separated">
+                        <li>1st Song</li>
+                        <li>2nd Song</li>
+                        <li>3rd Song</li>
+                        <li>4th Song</li>
+                        <li>5th Song</li>
+                        <li>6th Song</li>
+                        <li>7th Song</li>
+                        <li>8th Song</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="notesView">
+                <h2>Notes</h2>
+                <textarea class="notes" onkeyup="handleInput(event)">• </textarea>
+            </div>
         </div>
     </div>
-
-    <script>
-        function createNewOption() {
-            var taskBox = document.getElementById("task-selector");
-            var projectBox = document.getElementById("project-selector");
-            var selectedTask = taskBox.value;
-            var selectedProj = projectBox.value;
-            var newOption;
-
-            if (!selectedTask.localeCompare("create-task")) {
-                var newTask = window.prompt("What is the new task?");
-
-                if (newTask == "") {
-                    alert("Task name should not be empty. Please try again.");
-                }
-
-                else {
-                    newOption = new Option(newTask, newTask);
-                    taskBox.add(newOption, taskBox.options.length - 1);
-                    taskBox.value = newOption.value;
-                }
-            }
-
-            if (!selectedProj.localeCompare("create-proj")) {
-                var newProj = window.prompt("What is the new project?");
-
-                if (newProj == "") {
-                    alert("Project name should not be empty. Please try again.");
-                }
-
-                else {
-                    newOption = new Option(newProj, newProj);
-                    projectBox.add(newOption, projectBox.options.length - 1);
-                    projectBox.value = newOption.value;
-                }
-            }
-        }
-
-        // function createNewOption(selector, type) {
-        //     var selectBox = document.getElementById(selector);
-        //     var selectedValue = document.getElementById(selectBox).value;
-        //     var newOption;
-
-        //     if (!selectedValue.localeCompare("create-"+type)) {
-        //         var newValue = window.prompt("What is the new "+type+"?");
-
-        //         newOption = new Option(newValue, newValue);
-        //         selectBox.add(newOption, selectBox.options.length - 1);
-        //         selectBox.value = newOption.value;
-        //     }
-        // }
-    </script>
 </body>
 </html>
