@@ -73,8 +73,7 @@ li .active {
 }
 
 .navitemlist li a:hover .icon {
-<<<<<<< HEAD
-    transform: translateY(-17%);
+    transform: translateY(-1.2vh);
 }
 
 .container .left-col {
@@ -136,7 +135,4 @@ li .active {
 .select option {
     background: #ffffffff;
 }
-=======
-    transform: translateY(-1.2vh);
-}
->>>>>>> main
+
