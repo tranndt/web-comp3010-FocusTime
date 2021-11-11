@@ -31,7 +31,11 @@ body {
 }
 
 li .active {
-    background:rgb(116, 116, 116);
+    background:rgba(222, 226, 169, 0.747);
+    border-radius: 1em;
+    border-style:ridge;
+    border-color: rgba(206, 203, 59, 0.63);
+    margin:0;
 }
 
 .navitemlist {
