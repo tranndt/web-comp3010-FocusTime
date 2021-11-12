@@ -4,11 +4,53 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <link rel="stylesheet" href="styles.css"></link>
+    <link rel="stylesheet" href="css/styles.css"></link>
 </head>
 <body>
+
+    <div class="navbar">
+        <div class="container">
+            <a href="#" class="logo">FocusTime</a>
+
+            <nav>
+                <ul class="navitemlist">
+                    <li>
+                        <a href="upcomingTasks.html">
+                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks"></div>
+                            <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active" href="statistics.html">
+                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics"></div>
+                            <div class="navitem" data-text="Statistics">Statistics</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page"></div>
+                            <div class="navitem" data-text="Timer Page">Homepage</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/musicicon.svg" alt="Music"></div>
+                            <div class="navitem" data-text="Music">Music</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings"></div>
+                            <div class="navitem" data-text="Settings">Settings</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
 <div id="chart"></div>
-<!--<script type="application/javascript" src="bubble.js"></script>-->
+
 <script type="application/javascript">
     var colours = getColours();
     var width = 500, height = 500;
