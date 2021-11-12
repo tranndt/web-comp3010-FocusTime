@@ -62,8 +62,8 @@
     drag = simulation => {
       function dragstarted(d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
+        // d.fx = event.x;
+        // d.fy = event.y;
         console.log("Drag Started: "+d.fx+","+d.fy)
       }
       
@@ -79,12 +79,23 @@
         d.fy = null;
         console.log("Drag Ended: "+d.fx+","+d.fy)
       }
-      
+     
       return d3.drag()
           .on("start", dragstarted)
           .on("drag", dragged)
           .on("end", dragended);
     }
+
+    function clicked(d) {
+    if (d.defaultPrevented) return; // dragged
+    console.log(d)
+    d3.select(this).transition().duration(1000)
+        .attr("fill", "black")
+        .attr("r",d.r*4)
+        .transition()
+        .attr("r",d.r)
+  }
+
     
     const nodes = pack().leaves();
 
@@ -106,7 +117,7 @@
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
         .attr("fill", d => color(d.data.group))
-        .call(drag(simulation));
+        .call(drag(simulation)).on("click",clicked);
 
     node.transition()
         .delay((d, i) => Math.random() * 500)
