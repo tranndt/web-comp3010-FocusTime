@@ -136,22 +136,13 @@ body {
     background-color:grey;
 }
 
-ul.line-separated {
-    background-color: black;
-    padding: 0;
-    height:24vh; 
-    width:93%; 
-    overflow:hidden; 
-    overflow-y:scroll;
-}
-
-ul.line-separated li {
+.songList {
     background:#a3a3a3;
-    margin: 1px 0 0 0;
-    padding: 5px;
-    font-size: large;
-    line-height:2.5;
-    list-style-type: none;
+    position:absolute;
+    height:24vh; width:23vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
 }
 
 .notesView {
@@ -169,4 +160,38 @@ ul.line-separated li {
     position:absolute;
     height:24vh; width:23vw;
     font-size: 1.25em;
+}
+
+/* http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial */
+.trackbar { 
+    background:#DDD; 
+    height:50px; 
+    width:23vw; 
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+    vertical-align: middle;
+}
+
+.trackbar:nth-child(even) { background:#EEE; }
+
+.playbutton{ 
+    opacity:.8; 
+    display:block; 
+    float:left; 
+    width:25px; 
+    height:25px; 
+    margin:14px 0px 0px 14px; 
+    background:url(/assets/playButton.svg) no-repeat; 
+    border:none; 
+    cursor:pointer; 
+    outline:none; 
+}
+
+.playbutton:hover{ opacity:1; }
+
+.trackname{ 
+    float:left; 
+    color:#000; 
+    margin:12px 0px 0px 14px; 
+    font-size:1.1vw; 
+    font-weight:bold; 
 }
