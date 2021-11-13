@@ -30,6 +30,12 @@ body {
 
 }
 
+.logoimg{
+  position: absolute;
+  top: -11%;
+  left: 0%;
+}
+
 li .active {
     background:rgba(222, 226, 169, 0.747);
     border-radius: 1em;
@@ -76,17 +82,6 @@ li .active {
     transform: translateY(-1.2vh);
 }
 
-.details {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
-
 .albumoverlay {
   transition: .5s ease;
   opacity: 0;
@@ -98,12 +93,32 @@ li .active {
   text-align: center;
 }
 
+.details {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 54%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.details_overlay {
+  transition: 1s ease;
+  opacity: 0.97;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .play {
   transition: .5s ease;
   opacity: 0;
   position: absolute;
-  top: 49.5%;
-  left: 65%;
+  top: 54%;
+  left: 62%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   text-align: center;
@@ -113,64 +128,215 @@ li .active {
   opacity: 0.3;
 }
 
+.container:hover .albumoverlay {
+  opacity: 0.85;
+}
+
 .container:hover .play {
   opacity: 1;
 }
 
 .container:hover .details {
   opacity: 1;
+  cursor:pointer;
 }
 
-.container:hover .albumoverlay {
-  opacity: 0.9;
-}
-
-.text {
-  background-color: #04AA6D;
-  color: white;
-  font-size: 16px;
-  font-family:"Verdana";
-  padding: 16px 32px;
-}
-
-.blonde{
-  position: absolute;
-  top: 30%;
-  left: 8%;
-}
-
-.flowerboy{
-  position: absolute;
-  top: 30%;
-  left: 22%;
-}
-
-.logoimg{
-  position: absolute;
-  top: -11%;
-  left: 0%;
-}
-
-.musicheader{
+.h_today{
   position: absolute;
   top: 12%;
   left: 5%;
 }
 
-.filterheader{
+.h_filter{
   position: absolute;
   top: 12%;
   left: 52%;
 }
 
-.indie{
+.h_radar{
   position: absolute;
-  top: 30%;
-  left: 58%;
+  top: 71.5%;
+  left: 4.5%;
 }
 
-.classical{
+.h_popular{
+  position: absolute;
+  top: 60%;
+  left: 54.5%;
+}
+
+.t1{
   position: absolute;
   top: 30%;
-  left: 72%;
+  left: 5%;
+}
+
+.t2{
+  position: absolute;
+  top: 30%;
+  left: 15%;
+}
+
+.t3{
+  position: absolute;
+  top: 30%;
+  left: 25%;
+}
+
+.t4{
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}
+
+.t5{
+  position: absolute;
+  top: 55%;
+  left: 5%;
+}
+
+.t6{
+  position: absolute;
+  top: 55%;
+  left: 15%;
+}
+
+.t7{
+  position: absolute;
+  top: 55%;
+  left: 25%;
+}
+
+.t8{
+  position: absolute;
+  top: 55%;
+  left: 35%;
+}
+
+.f1{
+  position: absolute;
+  top: 30%;
+  left: 55%;
+  cursor:pointer;
+}
+
+.f2{
+  position: absolute;
+  top: 30%;
+  left: 62%;
+  cursor:pointer;
+}
+
+.f3{
+  position: absolute;
+  top: 30%;
+  left: 69%;
+  cursor:pointer;
+}
+
+.f4{
+  position: absolute;
+  top: 30%;
+  left: 76%;
+  cursor:pointer;
+}
+
+.f5{
+  position: absolute;
+  top: 48%;
+  left: 55%;
+  cursor:pointer;
+}
+
+.f6{
+  position: absolute;
+  top: 48%;
+  left: 62%;
+  cursor:pointer;
+}
+
+.f7{
+  position: absolute;
+  top: 48%;
+  left: 69%;
+  cursor:pointer;
+}
+
+.f8{
+  position: absolute;
+  top: 48%;
+  left: 76%;
+  cursor:pointer;
+}
+
+.r1{
+  position: absolute;
+  top: 95%;
+  left: 5%;
+}
+
+.r2{
+  position: absolute;
+  top: 95%;
+  left: 15%;
+}
+
+.r3{
+  position: absolute;
+  top: 95%;
+  left: 25%;
+}
+
+.r4{
+  position: absolute;
+  top: 95%;
+  left: 35%;
+}
+
+.p1{
+  position: absolute;
+  top: 82%;
+  left: 55%;
+}
+
+.p2{
+  position: absolute;
+  top: 82%;
+  left: 65%;
+}
+
+.p3{
+  position: absolute;
+  top: 82%;
+  left: 75%;
+}
+
+.p4{
+  position: absolute;
+  top: 82%;
+  left: 85%;
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+#text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
 }
