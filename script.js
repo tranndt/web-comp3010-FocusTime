@@ -188,3 +188,64 @@ function setCircleDasharray() {
     .getElementById("base-timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
 }
+// http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial 
+function audioApp(){
+	var audio = new Audio();
+	var audio_folder = "audio/";
+	var audio_ext = ".mp3";
+	var audio_index = 1;
+	var is_playing = false;
+	var playingtrack;
+	var trackbox = document.getElementById("trackbox");
+	var tracks = {
+	    "track1":["Ghost", "ghost"],
+		"track2":["Heart In Pieces", "heart_in_pieces"],
+		"track3":["Way 2 Sexy", "way_2_sexy"],
+        "track4":["Under Pressure", "under_pressure"],
+        "track5":["Lose Somebody", "lose_somebody"]
+	};
+	for(var track in tracks){
+		var tb = document.createElement("div");
+		var pb = document.createElement("button");
+		var tn = document.createElement("div");
+		tb.className = "trackbar";
+		pb.className = "playbutton";
+		tn.className = "trackname";
+		tn.innerHTML = audio_index+". "+tracks[track][0];
+		pb.id = tracks[track][1];
+		pb.addEventListener("click", switchTrack);
+		tb.appendChild(pb);
+		tb.appendChild(tn);
+		trackbox.appendChild(tb);
+		audio_index++;
+	}
+	audio.addEventListener("ended",function(){
+	    document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
+		playingtrack = "";
+		is_playing = false;
+	});
+	function switchTrack(event){
+		if(is_playing){
+		    if(playingtrack != event.target.id){
+			    is_playing = true;
+				document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
+			    event.target.style.background = "url(assets/pauseButton.svg)";
+			    audio.src = audio_folder+event.target.id+audio_ext;
+	            audio.play();
+			} else {
+			    audio.pause();
+			    is_playing = false;
+				event.target.style.background = "url(assets/playButton.svg)";
+			}
+		} else {
+			is_playing = true;
+			event.target.style.background = "url(assets/pauseButton.svg)";
+			if(playingtrack != event.target.id){
+				audio.src = audio_folder+event.target.id+audio_ext;
+			}
+	        audio.play();
+		}
+		playingtrack = event.target.id;
+	}
+}
+window.addEventListener("load", audioApp);
