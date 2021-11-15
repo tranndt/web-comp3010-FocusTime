@@ -25,7 +25,7 @@ body {
     font-size: 5vh;
     font-style: italic;
     font-family:'Lucida Sans';
-    padding: 3vh 1.5vw;
+    padding: 1vh 1.5vw;
     margin: 0;
 
 }
@@ -38,6 +38,11 @@ li .active {
     margin:0;
 }
 
+.navbar .container {
+    margin: 0;
+    padding: 0;
+}
+
 .navitemlist {
     background: var(--primary-color);
     display: inline-flex;
@@ -45,11 +50,12 @@ li .active {
     margin: 0;
     margin-left:0.5vw;
     position: absolute;
-    top: 10vh;
+    top: 6.5vh;
+    height: 56px;
     /* left: 100vh; */
     /* transform: translate(-50%, -50%); */
     border-radius: 1em;
-    padding: 0.5vh 0;
+    padding: 0.2vh 0;
     padding-left: 0vw;
     /* box-shadow: 0 10px 50px rgb(116, 116, 116); */
 }
@@ -80,6 +86,7 @@ li .active {
     margin: 1.6em 0 0 0;
     width: 65%;
     float: left;
+    position: relative;
 }
 
 .container .right-col {
@@ -91,27 +98,33 @@ li .active {
 .timer {
     background-color: gray;
     height: 27em;
-    margin-bottom: 0.5em;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .task-proj-selector {
     float: clear;
     display: inline-flexbox;
-    position: absolute;
+    position: relative;
     margin: 0;
+    top: 0vh;
+    left: 38%;
+    /* transform: translate(20vw, 5vh); */
     /* border: 1px solid black;
     border-radius: 5px; */
-    padding-top: 56vh;
-    padding-left: 23.5vw;
+    /* padding-top: 58vh;
+    padding-left:25vw; */
     /* width: 300px; */
     /* text-align: center; */
     color: var(--text-color);
+
     /* background-color: white; */
 }
 
 .task-proj-selector ul {
     background-color: white;
-    padding:0.5vh 2vh;
+    position: absolute;
+    padding:0.5vh 1.5vw;
     border-radius: 1em;
     list-style-type:none;
 }
@@ -119,9 +132,9 @@ li .active {
 .select {
     border: 1px solid #dddddd;
     border-radius: 5px;
-    padding: 8px 12px;
+    padding: 7px 10px;
     color: var(--text-color);
-    margin: 0.5em 0 10px 0;
+    margin: 0.5em 0 8px 0;
     /* max-width: 11em; */
 
     /* replacing default arrow */
@@ -129,10 +142,10 @@ li .active {
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: url(/assets/dropdownArrow.svg);
-    background-position: right 10px top 50%;
+    background-position: right 8px top 50%;
     background-repeat: no-repeat;
-    background-size: 10px;
-    padding-right: 30px;
+    background-size: 8px;
+    padding-right: 28px;
 }
 
 .select:focus, .select:hover {
