@@ -14,8 +14,8 @@
   <script src="http://d3js.org/d3.v5.min.js"></script>
   <script src="https://d3js.org/d3-array.v2.min.js"></script>
   <script>
-    n = 200;
-    m = 10;
+    n = 25;
+    m = 5;
     color = d3.scaleOrdinal(d3.range(m), d3.schemeCategory10);
     height = 600;
     width = 1000;
@@ -40,6 +40,21 @@
         ([, children]) => ({children})
       )
     })
+
+    // function writeJSON(data,file){
+    //   const fs = require('fs');
+    //   const data_str = JSON.stringify(data);
+    //   // write JSON string to a file
+    //   fs.writeFile(file, data_str, (err) => {
+    //       if (err) {
+    //           throw err;
+    //       }
+    //       console.log("JSON data is saved.");
+    //   });
+    // }
+    // writeJSON(data,"data_1.json")
+
+    console.log(JSON.stringify(data))
 
     // const data = d3.json('data.json', function(d){
     //     return d.data
@@ -96,6 +111,9 @@
     d3.select(this).transition().duration(1000)
         // .attr("fill", "black")
         .attr("r",d.r*4)
+        // .attr("r",d.r*500)
+        // .attr("fill", "white")
+
         .transition()
         .attr("r",d.r)
   }
@@ -128,11 +146,11 @@
           return t => d.r = i(t);
         });
 
-    simulation.on("tick", () => {
-      node
-          .attr("cx", d => d.x)
-          .attr("cy", d => d.y);
-    });
+    // simulation.on("tick", () => {
+    //   node
+    //       .attr("cx", d => d.x)
+    //       .attr("cy", d => d.y);
+    // });
 
     // invalidation.then(() => simulation.stop());
 
@@ -188,6 +206,32 @@
 
       return force;
     }
+
+    // 
+
+    bound = (value, min, max) => {
+      if (isNaN(value)) {
+        return 0;
+      }
+      if (value < min) {
+        return min;
+      }
+      if (value > max) {
+        return max;
+      }
+      return value;
+    }
+
+    //   min_cx = d.r
+    //   min_cy = d.r
+    //   max_cx = width - d.r
+    //   max_cy = height - d_r
+    simulation.on("tick", () => {
+      node
+          .attr("cx", d => bound(d.x, d.r, width - d.r))
+          .attr("cy", d => bound(d.y, d.r, height - d.r));
+    });
+
 
 </script>
 </body>
