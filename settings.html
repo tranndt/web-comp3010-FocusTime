@@ -9,45 +9,238 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar">
-        <div class="container">
-            <a href="#" class="logo">FocusTime</a>
+<div class="navbar">
+    <div class="container">
+        <nav>
+            <ul class="navitemlist">
+                <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:80%"> </div>
+                <li>
+                    <a href="upcomingTasks.html">
+                        <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="statistics.html">
+                        <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Statistics">Statistics</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 43.5%;"></div>
+                        <div class="navitem" data-text="Timer Page">Homepage</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="music.html">
+                        <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Music">Music</div>
+                    </a>
+                </li>
+                <li>
+                    <a class="active" href="settings.html">
+                        <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Settings">Settings</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 
-            <nav>
-                <ul class="navitemlist">
-                    <li>
-                        <a href="upcomingTasks.html">
-                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks"></div>
-                            <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="statistics.html">
-                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics"></div>
-                            <div class="navitem" data-text="Statistics">Statistics</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="index.html">
-                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page"></div>
-                            <div class="navitem" data-text="Timer Page">Homepage</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="music.html">
-                            <div class="icon"><img src="assets/musicicon.svg" alt="Music"></div>
-                            <div class="navitem" data-text="Music">Music</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings.html">
-                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings"></div>
-                            <div class="navitem" data-text="Settings">Settings</div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+<!-- Headers -->
+<div class="h_settings"><img src="assets/settings/header_settings.png" alt="header_settings" style="width:85%"> </div>
+<div class="h_theme"><img src="assets/settings/header_theme.png" alt="header_settings" style="width:50%"> </div>
+
+<!-- Theme Menu -->
+<div class = b>
+<div class="wrapper">
+    <div class="menu">
+        <div class="theme_menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="dd_wrap">
+            <ul>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-home"></i>
+                            </span>
+                            <span class="text">Light (Default)</span>
+                        </div>
+                    </a></li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-volleyball-ball"></i>
+                            </span>
+                            <span class="text">Dark</span>
+                        </div>
+                    </a>
+                    <div class="dd_menu">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-running"></i>
+                                        </span>
+                                        <span class="text">
+                                            Blue
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-biking"></i>
+                                        </span>
+                                        <span class="text">Green</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="far fa-futbol"></i>
+                                        </span>
+                                        <span class="text">Orange</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-swimmer"></i>
+                                        </span>
+                                        <span class="text">Yellow</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-utensils"></i>
+                            </span>
+                            <span class="text">Blue</span>
+                        </div>
+                    </a>
+                    <div class="dd_menu">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-pizza-slice"></i>
+                                        </span>
+                                        <span class="text">
+                                            Pizza
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-egg"></i>
+                                        </span>
+                                        <span class="text">Eggs</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-ice-cream"></i>
+                                        </span>
+                                        <span class="text">Ice Cream</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-carrot"></i>
+                                        </span>
+                                        <span class="text">Carrot</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="wrap">
+                                        <span class="icon">
+                                            <i class="fas fa-hamburger"></i>
+                                        </span>
+                                        <span class="text">Burger</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </span>
+                            <span class="text">Green</span>
+                        </div>
+                    </a></li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-cog"></i>
+                            </span>
+                            <span class="text">Yellow</span>
+                        </div>
+                    </a></li>
+            </ul>
         </div>
     </div>
+</div>
+</div>
+
 </body>
+
+<script>
+    var theme_menu = document.querySelector(".theme_menu");
+    var dd_wrap = document.querySelector(".dd_wrap");
+    var a_parent = document.querySelectorAll(".a_parent");
+
+    theme_menu.addEventListener("click", function () {
+        dd_wrap.classList.toggle("active");
+        a_parent.forEach(function (aitem) {
+            aitem.classList.remove("active");
+        })
+    })
+
+
+
+    a_parent.forEach(function (aitem) {
+
+        aitem.addEventListener("click", function () {
+            a_parent.forEach(function (aitem) {
+                aitem.classList.remove("active");
+            })
+            aitem.classList.add("active");
+        })
+    })
+</script>
 </html>
