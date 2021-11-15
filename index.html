@@ -79,23 +79,28 @@
             </div>
     
             <div class="task-proj-selector">
-                <div>My Task:
-                    <select class="select" name="" id="task-selector"  onchange="createNewOption()">
-                        <option disabled selected>Choose a task</option>
-                        <option value="task-1">Task 1</option>
-                        <option value="task-2">Task 2</option>
-                        <option value="create-task">+ Create new task</option>
-                    </select>
-                </div>
+                <ul>
+                    <li> Task:
+                        <select class="select" name="" id="task-selector"  onchange="createNewOption()">
+                            <option disabled selected>Choose a task</option>
+                            <option value="task-1">Task 1</option>
+                            <option value="task-2">Task 2</option>
+                            <option value="create-task">+ Create new task</option>
+                        </select>
+                    </li>
+                    <li> Project:
+                        <select class="select" name="" id="project-selector"  onchange="createNewOption()">
+                            <option disabled selected>Choose a project</option>
+                            <option value="project-1">Project 1</option>
+                            <option value="project-2">Project 2</option>
+                            <option value="create-proj">+ Create new project</option>
+                        </select>
+                    </li>
+
+                </ul>
                 
-                <div>My Project:
-                    <select class="select" name="" id="project-selector"  onchange="createNewOption()">
-                        <option disabled selected>Choose a project</option>
-                        <option value="project-1">Project 1</option>
-                        <option value="project-2">Project 2</option>
-                        <option value="create-proj">+ Create new project</option>
-                    </select>
-                </div>
+                
+                
             </div>
         </div>
 

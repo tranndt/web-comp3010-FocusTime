@@ -96,16 +96,24 @@ li .active {
 
 .task-proj-selector {
     float: clear;
-    display: block;
+    display: inline-flexbox;
     position: absolute;
-    margin: auto;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px;
-    width: 300px;
-    text-align: center;
+    margin: 0;
+    /* border: 1px solid black;
+    border-radius: 5px; */
+    padding-top: 56vh;
+    padding-left: 23.5vw;
+    /* width: 300px; */
+    /* text-align: center; */
     color: var(--text-color);
+    /* background-color: white; */
+}
+
+.task-proj-selector ul {
     background-color: white;
+    padding:0.5vh 2vh;
+    border-radius: 1em;
+    list-style-type:none;
 }
 
 .select {
