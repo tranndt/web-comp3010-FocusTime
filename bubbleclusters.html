@@ -41,7 +41,13 @@
       )
     })
 
-    // data = d3.json('data.json')
+    // const data = d3.json('data.json', function(d){
+    //     return d.data
+    // })
+    // const nodes = data.leaves();
+    // nodes = d3.hierarchy(data).leaves()
+
+    const nodes = pack().leaves()
     console.log(data)
 
     function centroid(nodes) {
@@ -56,8 +62,6 @@
       }
       return {x: x / z, y: y / z};
     }
-
-    var evnt;
 
     drag = simulation => {
       function dragstarted(d) {
@@ -90,14 +94,11 @@
     if (d.defaultPrevented) return; // dragged
     console.log(d)
     d3.select(this).transition().duration(1000)
-        .attr("fill", "black")
+        // .attr("fill", "black")
         .attr("r",d.r*4)
         .transition()
         .attr("r",d.r)
   }
-
-    
-    const nodes = pack().leaves();
 
     const simulation = d3.forceSimulation(nodes)
         .force("x", d3.forceX(width / 2).strength(0.01))
