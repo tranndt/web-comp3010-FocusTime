@@ -50,67 +50,148 @@
         </div>
     </div>
 
-    <h1>Projects</h1>
+    <h1 id="upcoming-tasks-title">My Projects</h1>
     <div class="accordion">
-        <div>
-            <input type="checkbox" name="" id="section1" class="accordion__input">
-            <label for="section1" class="accordion__label">COMP 3020</label>
-                <div class="accordion__content">
-                    <table class="content-table">
-                        <thead>
-                            <tr>
-                            <th>Task</th>
-                            <th>Status</th>
-                            <th>Due Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <td>MS1</td>
-                            <td>100% Complete</td>
-                            <td>Oct 8, 2021 4:00PM</td>
-                            </tr>
-                            <tr>
-                            <td>MS2</td>
-                            <td>100% Complete</td>
-                            <td>Oct 22, 2021 4:00PM</td>
-                            </tr>
-                            <tr>
-                            <td>MS3</td>
-                            <td>30% Complete</td>
-                            <td>Nov 26, 2021 4:00PM</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" style="width:100%"><button class="newItem">+ Create new task</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <div class="accordion-item">
+            <div class="accordion-item-header active">
+                  COMP 3020
+            </div>
+            <div class="accordion-item-body" id="table1Parent">
+                <div class="accordion-item-body-content">
+                  <table class="content-table" id="table1">
+                      <thead>
+                          <tr>
+                          <th>Task</th>
+                          <th>Status</th>
+                          <th>Due Date</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                          <td>MS1</td>
+                          <td>100% Complete</td>
+                          <td>Oct 8, 2021 4:00PM</td>
+                          </tr>
+                          <tr>
+                          <td>MS2</td>
+                          <td>100% Complete</td>
+                          <td>Oct 22, 2021 4:00PM</td>
+                          </tr>
+                          <tr>
+                          <td>MS3</td>
+                          <td>30% Complete</td>
+                          <td>Nov 26, 2021 4:00PM</td>
+                          </tr>
+                          <tr>
+                              <td colspan="3" style="width:100%"><button class="newItem" onclick="createNewTask('table1', 'table1Parent')">+ Create new task</button></td>
+                          </tr>
+                      </tbody>
+                  </table>
+                </div>
             </div>
         </div>
 
-        <div>
-          <input type="checkbox" name="" id="section2" class="accordion__input">
-          <label for="section2" class="accordion__label">Project 2</label>
-          <div class="accordion__content">
-            <p>
-              test
-            </p>
+        <div class="accordion-item">
+          <div class="accordion-item-header">
+                ECE 4600
           </div>
-        </div>
-
-        <div>
-          <input type="checkbox" name="" id="section3" class="accordion__input">
-          <label for="section3" class="accordion__label">Project 3</label>
-          <div class="accordion__content">
-            <p>
-              test
-            </p>
+          <div class="accordion-item-body" id="table2Parent">
+              <div class="accordion-item-body-content">
+                <table class="content-table" id="table2">
+                    <thead>
+                        <tr>
+                        <th>Task</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>DR1</td>
+                        <td>100% Complete</td>
+                        <td>Oct 8, 2021 4:00PM</td>
+                        </tr>
+                        <tr>
+                        <td>DR2</td>
+                        <td>100% Complete</td>
+                        <td>Oct 22, 2021 4:00PM</td>
+                        </tr>
+                        <tr>
+                        <td>DR3</td>
+                        <td>30% Complete</td>
+                        <td>Nov 26, 2021 4:00PM</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="width:100%"><button class="newItem" onclick="createNewTask('table2', 'table2Parent')">+ Create new task</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </div>
           </div>
-        </div>
       </div>
+
+      <div class="accordion-item">
+          <div class="accordion-item-header">
+                +Create New Project
+          </div>
+          <div class="accordion-item-body">
+              <div class="accordion-item-body-content">
+                  <form>
+                      <label for="projectName">New Project Name:</label>
+                      <input type="text" id="projectName" name="projectName">
+                  </form>  
+              </div>
+          </div>
+      </div>
+
+    </div>
 </body>
 
 <script>
+    const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+
+    accordionItemHeaders.forEach(accordionItemHeader => {
+    const accordionItemBody = accordionItemHeader.nextElementSibling;
+    if(accordionItemHeader.classList.contains("active")) {
+        accordionItemBody.style.maxHeight = "250px";
+    }
+
+    accordionItemHeader.addEventListener("click", event => {
+    accordionItemHeader.classList.toggle("active");
+    const accordionItemBody = accordionItemHeader.nextElementSibling;
+    if(accordionItemHeader.classList.contains("active")) {
+        accordionItemBody.style.maxHeight = "250px";
+    }
+    else {
+        accordionItemBody.style.maxHeight = 0;
+    }
+    
+    });
+    });
+
+    function createNewTask(tableID, tableParentID) {
+    // let task = prompt('What is the new task?');
+    // let progress = prompt('What is the new task\'s progress?');
+    // let date = prompt('When is the new task\'s due date?');
+
+    let task = 'MS4';
+    let progress = '0%';
+    let date = 'Dec 8, 2021';
+    let table = document.getElementById(tableID);
+    let tableParent = document.getElementById(tableParentID);
+
+    let newRow = `
+                <tr>
+                    <td>${task}</td>
+                    <td>${progress}</td>
+                    <td>${date}</td>
+                </tr>`;
+
+    table.innerHTML += newRow;
+    tableParent.style.maxHeight = accordionItemBody.scrollHeight + "px";
+    // let lastRow = table.rows.length;
+    // lastRow.insertAdjacentHTML('beforebegin', newRow);
+    }
 
 </script>
 
