@@ -56,19 +56,9 @@
   <script src="https://d3js.org/d3-array.v2.min.js"></script>
   <script>
    // 
-  height = 600;
-  width = 1000;
-  const navbar = document.getElementsByClassName("navitemlist")[0]
-  var svg = d3.select('svg')
-        .attr('height',height)
-        .attr('width',width)
-  // const svg = d3.select(DOM.svg(width, height));
 
    // Importing data 
-    n = 20;
-    m = 5;
-    color = d3.scaleOrdinal(d3.range(m), d3.schemeCategory10);
-    data = ({
+   data = ({
       children: Array.from(
         d3.group(
           Array.from({length: n}, (_, i) => ({
@@ -80,7 +70,6 @@
         ([, children]) => ({children})
       )
     })
-    console.log(JSON.stringify(data))
 
     function pack() {
       return d3.pack()
@@ -90,33 +79,29 @@
       .sum(d => d.value))
     } 
 
+   bound = (value, min, max) => {
+      if (isNaN(value)) {
+        return 0;
+      }
+      if (value < min) {
+        return min;
+      }
+      if (value > max) {
+        return max;
+      }
+      return value;
+    }
+
+    const navbar = document.getElementsByClassName("navitemlist")[0]
+    n = 20;
+    m = 5;
+    color = d3.scaleOrdinal(d3.range(m), d3.schemeCategory10);
+    height = 600;
+    width = 1000;
+
+    console.log(JSON.stringify(data))
     const nodes = pack().leaves()
 
-    // Drag, Click & Hover 
-    drag = simulation => {
-      function dragstarted(d) {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
-      }
-      function dragged(d) {
-        d.fx = event.x;
-        d.fy = event.y -navbar.offsetHeight-d.r;
-      }
-      function dragended(d) {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-      }
-      return d3.drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended);
-    }
-
-    clicked = d => {
-      if (d.defaultPrevented) return; // dragged
-    }
-
-    // Bubble Interaction & Logic
     function centroid(nodes) {
       let x = 0;
       let y = 0;
@@ -130,9 +115,86 @@
       return {x: x / z, y: y / z};
     }
 
+    drag = simulation => {
+      function dragstarted(d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        // d.fx = event.x;
+        // d.fy = event.y;
+        // console.log("Drag Started: "+d.fx+","+d.fy)
+      }
+      
+      function dragged(d) {
+        d.fx = event.x;
+        d.fy = event.y -navbar.offsetHeight-d.r;
+        // console.log("Dragged: "+d.fx+","+d.fy)
+      }
+      
+      function dragended(d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+        // console.log("Drag Ended: "+d.fx+","+d.fy)
+      }
+     
+      return d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended);
+    }
+
+    function clicked(d) {
+    if (d.defaultPrevented) return; // dragged
+    console.log(d)
+    // d.r = d.r*2
+    // d3.select(this).transition().duration(1000)
+        // .attr("fill", "black")
+        // .attr("r",d.r*4)
+        // .transition()
+        // .attr("r",d.r)
+  }
+
+    const simulation = d3.forceSimulation(nodes)
+        .force("x", d3.forceX(width / 2).strength(0.01))
+        .force("y", d3.forceY(height / 2).strength(0.01))
+        .force("cluster", forceCluster())
+        .force("collide", forceCollide());
+
+    // const svg = d3.select(DOM.svg(width, height));
+    var svg = d3.select('svg')
+            .attr('height',height)
+            .attr('width',width)
+
+    const node = svg.append("g")
+      .selectAll("circle")
+      .data(nodes)
+      .join("circle")
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y)
+        .attr("fill", d => color(d.data.group))
+        .attr("stroke", "black")
+        .attr("stroke-width", 3)
+        .call(drag(simulation)).on("click",clicked);
+
+    node.transition()
+        .delay((d, i) => Math.random() * 500)
+        .duration(750)
+        .attrTween("r", d => {
+          const i = d3.interpolate(0, d.r);
+          return t => d.r = i(t);
+        });
+
+    simulation.on("tick", () => {
+      node
+          .attr("cx", d => bound(d.x, d.r, width - d.r))
+          .attr("cy", d => bound(d.y, d.r, height - d.r));
+    });
+
+    // invalidation.then(() => simulation.stop());
+
     function forceCluster() {
       const strength = 0.2;
       let nodes;
+
       function force(alpha) {
         const centroids = d3.rollup(nodes, centroid, d => d.data.group);
         const l = alpha * strength;
@@ -142,6 +204,7 @@
           d.vy -= (d.y - cy) * l;
         }
       }
+
       force.initialize = _ => nodes = _;
       return force;
     }
@@ -175,86 +238,14 @@
           });
         }
       }
+
       force.initialize = _ => maxRadius = d3.max(nodes = _, d => d.r) + Math.max(padding1, padding2);
+
       return force;
     }
 
-    bound = (value, min, max) => {
-        if (isNaN(value)){return 0;}
-        if (value < min) {return min;}
-        if (value > max) {return max;}
-        return value;
-    }
+ 
 
-    isColliding = (d1,d2) => {
-      const dx = d2.x - d1.x;
-      const dy = d2.y - d1.y;
-      const sum_dr = d1.r + d2.r;
-      // don't use the square root because it's 1) slower, and 2) not needed for collision detection
-      const squaredDistance = Math.pow(dx, 2) + Math.pow(dy, 2);
-
-      return squaredDistance < Math.pow(sum_dr, 2);
-    }
-
-    collide = (d1,d2) => {
-      const dx = d2.x - d1.x;
-      const dy = d2.y - d1.y;
-      const dr = Math.sqrt(dx**2 + dy**2);
-      const sum_dr = d1.r + d2.r;
-      d2.x = d1.x + dx*sum_dr/dr;
-      d2.y = d1.y + dy*sum_dr/dr;
-    }
-
-    getBubbles = () => {}
-
-    checkCollisions = (d1) => {
-      // this could be much more efficient, but you need ~1,000+ balls for it
-      // to start to matter, so I kept it simple
-      for (const d2 of getBubbles()) {
-        if (d1.r === d2.r & d1.x === d2.x & d1.y === d2.y) continue;
-        else if (isColliding(d1,d2)) {
-          collide(d1, d2);
-        }
-      }
-    }
-  
-
-
-    
-    // Running Simulation 
-    const simulation = d3.forceSimulation(nodes)
-        .force("x", d3.forceX(width / 2).strength(0.01))
-        .force("y", d3.forceY(height / 2).strength(0.01))
-        .force("cluster", forceCluster())
-        .force("collide", forceCollide());
-
-    const node = svg.append("g")
-      .selectAll("circle")
-      .data(nodes)
-      .join("circle")
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y)
-        .attr("fill", d => color(d.data.group))
-        .attr("stroke", "black")
-        .attr("stroke-width", 3)
-        .call(drag(simulation)).on("click",clicked);
-
-    node.transition()
-        .delay((d, i) => Math.random() * 500)
-        .duration(750)
-        .attrTween("r", d => {
-          const i = d3.interpolate(0, d.r);
-          return t => d.r = i(t);
-        });
-
-    simulation.on("tick", () => {
-      node
-        .attr("cx", d => bound(d.x, d.r, width - d.r))
-        .attr("cy", d => bound(d.y, d.r, height - d.r));
-    });
-
-    var circles = d3.select("svg").selectAll('circle')
-    console.log(circles)
 
 </script>
 </body>
