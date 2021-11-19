@@ -1,0 +1,24 @@
+- Hook up mock Data
+    - JSON - Create data with 
+    {
+    "children":
+        [{"children": // Group
+            [{"group":8,"value":1.5945410769758943}]
+        }]
+    }
+
+    {
+    "children":
+        [{"children":
+            [{"taskid":1, "project":"COMP3020","task":"Task 1", "duration":234.233},
+            {"taskid":2, "project":"COMP3020","task":"Task 2", "duration":154.233}]
+        },
+        {"children": 
+            [{"taskid":3, "project":"COMP3040","task":"Task 3", "duration":190.233},
+            {"taskid":4, "project":"COMP3040","task":"Task 4", "duration":100.233}]
+        }]
+    }
+
+
+- Hover - tool tips
+- Sort out the collision detection
