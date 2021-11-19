@@ -95,12 +95,77 @@ li .active {
     float: right;
 }
 
-.timer {
+/* .timer {
     background-color: gray;
     height: 55vh;
     margin: 0;
     padding: 0;
+} */
+
+/* Sets the containers height and width */
+.base-timer {
+    position: relative;
+    /* height: 56em;
+    width: 56em; */
 }
+
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+    fill: none;
+    stroke: none;
+}
+
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+    stroke-width: 1.4;
+    stroke: grey;
+}
+
+.timer-details {
+    background-color: burlywood;
+    position:absolute;
+    width:30%;
+    height: 60%;
+    top:10vh;
+    left:24.5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.session-time {
+    background-color: rgb(190, 184, 230);
+    font-size: 6vh;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.break-time {
+    background-color: palegreen;
+    font-size: 2vh;
+    color: red;
+}
+
+.timer-controls{
+    background-color: crimson;
+    width:80%;
+    height:23%;
+    display: flex;
+    justify-content: space-evenly;
+    overflow: hidden;
+}
+
+.timer-button {
+    height: 100%;
+    width:20%;
+    border: dotted darkgreen 2px;
+    display: grid;
+    place-items: center;
+    border-radius: 100%;
+    transition: background-color 0.3s ease;
+}
+
 
 .task-proj-selector {
     float: clear;

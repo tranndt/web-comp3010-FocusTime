@@ -54,7 +54,48 @@
     <div class="container">
         <div class="left-col">
             <div class="timer">
-                
+                <!-- <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                    <--
+                    with relative unit such as percentage, the visual size
+                    of the square looks unchanged regardless of the viewBox
+                    --
+                    <rect x="0" y="0" width="100%" height="100%"/>
+                  
+                    <--
+                    with a large viewBox the circle looks small
+                    as it is using user units for the r attribute:
+                    4 resolved against 100 as set in the viewBox
+                    --
+                    <circle cx="50%" cy="50%" r="19" fill="white"/>
+                  </svg> -->
+                <div class="base-timer">
+                    <svg class="base-timer__svg" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                      <g class="base-timer__circle">
+                        <circle class="base-timer__path-elapsed" cx="52.5%" cy="50%" r="19" />
+                      </g>
+                    </svg>
+                    <div class="timer-details">
+                        <div class="session-time">
+                            <span id="hr">1</span>:<span id="min">20</span>:<span id="sec">50</span>
+                        </div>
+                        <div class="break-time">
+                            break time 
+                        </div>
+                        <div class="timer-controls">
+                            <div class="timer-button" id="start-pause">
+                                Start/  Pause
+                            </div>
+                            <!-- <div  class="timer-button" id="pause">
+                                Pause
+                            </div> -->
+                            <div  class="timer-button" id="stop">
+                                Stop
+                            </div>
+                        </div>
+                      <!-- Remaining time label -->
+                    </div>
+                  </div>
+                  <script src="timerLogic.js"></script>
 
 
                 <!-- <div class="base-timer">
