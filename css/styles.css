@@ -161,11 +161,12 @@ li .active {
     border-bottom: 1px solid #dddddd;
 }
 
-.content-table tbody tr:nth-of-type(even) {
+.content-table tbody tr:nth-of-type(even), tr:last-of-type  {
     background-color: #f3f3f3;
 }
 
 .newItem {
+      background-color: inherit;
       border: none;
       font-size: inherit;
       cursor: pointer;
@@ -222,7 +223,19 @@ li .active {
     overflow: auto;
     transition: max-height 0.2s ease-out;
 }
-  
+
+#newProject {
+    background-color: #fff;
+    color: #111;
+    margin: 1rem 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
+    padding: 0.25rem 2rem 0.25rem 1.5rem;
+    min-height: 3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 @media(max-width:767px) {
     html {
       font-size: 14px;
