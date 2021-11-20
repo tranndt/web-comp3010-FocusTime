@@ -127,7 +127,7 @@ body {
 
 .songView {
     position: relative;
-    height:36vh; width:25vw;
+    height:40vh; width:25vw;
     margin: 0 0 0 1.875em;
     color:black;
     padding-left: 20px;
@@ -147,7 +147,7 @@ body {
 
 .notesView {
     position: relative;
-    height:36vh; width:25vw; 
+    height:40vh; width:25vw; 
     margin: 1.6em 0 0 1.875em;
     color:black;
     padding-left: 20px; 
@@ -158,7 +158,7 @@ body {
 
 .notes{
     position:absolute;
-    height:24vh; width:23vw;
+    height:28vh; width:23vw;
     font-size: 1.25em;
 }
 
@@ -188,10 +188,49 @@ body {
 
 .playbutton:hover{ opacity:1; }
 
+.mutebutton{ 
+    opacity:.8; 
+    display:block;
+    position: absolute;
+    bottom: 10px;
+    left: 20px; 
+    float:left; 
+    width:35px; 
+    height:30px; 
+    background:url(/assets/volume.svg) no-repeat; 
+    border:none; 
+    cursor:pointer; 
+    outline:none; 
+}
+
+.mutebutton:hover{ opacity:1; }
+
 .trackname{ 
     float:left; 
     color:#000; 
     margin:12px 0px 0px 14px; 
-    font-size:1.1vw; 
+    font-size:1vw; 
     font-weight:bold; 
+}
+
+.volumeslider { width: 70px }
+
+input[type='range'] {
+	-webkit-appearance: none !important;
+	float:left;
+    position: absolute;
+    bottom: 15px;
+    left: 60px; 
+	padding:0px;
+	background: #000;
+	height:13px;
+	border-bottom:#333 1px solid;
+}
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+	background: radial-gradient(#FFF, #333);
+	height:11px;
+	width:11px;
+	border-radius:100%;
+	cursor:pointer;
 }

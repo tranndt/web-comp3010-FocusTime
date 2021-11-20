@@ -111,6 +111,10 @@ function audioApp(){
 		playingtrack = "";
 		is_playing = false;
 	});
+  var mutebtn = document.getElementById("mutebutton"); 
+	mutebtn.addEventListener("click", mute);
+	var sd = document.getElementById("volumeslider");
+	sd.addEventListener("input",setVolume);
 	function switchTrack(event){
 		if(is_playing){
 		    if(playingtrack != event.target.id){
@@ -133,6 +137,19 @@ function audioApp(){
 	        audio.play();
 		}
 		playingtrack = event.target.id;
+	}
+  function mute() {
+		if(audio.muted){
+		    audio.muted = false;
+		    mutebtn.style.background = "url(assets/volume.svg) no-repeat";
+	    } else {
+		    audio.muted = true;
+		    mutebtn.style.background = "url(assets/muteVolume.svg) no-repeat";
+	    }
+	}
+	
+	function setVolume() {
+		audio.volume = sd.value / 100;
 	}
 }
 window.addEventListener("load", audioApp);
