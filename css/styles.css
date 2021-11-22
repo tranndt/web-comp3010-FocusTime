@@ -140,6 +140,7 @@ li .active {
     flex-flow: row-wrap;
     align-items: center;
     justify-content: space-evenly;
+    transition: display 0.3s ease;
     /* font-size: 6vh;
     font-weight: bold;
     color: var(--text-color); */
@@ -167,6 +168,7 @@ li .active {
     color: var(--text-color);
     display: flex;
     justify-content: center;
+    transition: display 0.3s ease;
 }
 
 .break-time {
@@ -193,6 +195,7 @@ li .active {
     border-radius: 100%;
     background-color: crimson;
     transition: background-color 0.3s ease;
+    cursor:pointer;
 }
 
 

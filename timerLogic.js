@@ -5,7 +5,7 @@ const input_min = 20;
 const input_sec = 50;
 
 const convert_to_secs = (input_hr, input_min, input_sec) => {
-    return input_hr*60*60 + input_min*60 + input_sec;
+    return Number(input_hr)*60*60 + Number(input_min)*60 + Number(input_sec);
 };
 
 const convert_from_secs = (input_sec) => {
@@ -31,6 +31,19 @@ const start_pause_btn = document.querySelector('#start-pause');
 const stop_btn = document.querySelector('#stop');
 const time_input_elem = document.querySelector('#input-time');
 const main_timer_elem = document.querySelector('#timer-set'); //main timer
+const time_inputs = document.querySelectorAll('.time-inputs');
+
+var total_secs = null;
+
+console.log(time_inputs);
+
+time_inputs.forEach(elem => {
+    elem.value = 0;
+    elem.addEventListener('input', () => {
+        total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
+        console.log('total-secs:', total_secs);
+    })
+});
 
 
 var time = 0; //in seconds
@@ -48,7 +61,8 @@ const READY = 4;
 let state = STOPPED;
 start_pause_btn.disabled = true;
 // main_timer_elem.style.visibility = "hidden";
-main_timer_elem.style.display = "none";
+// main_timer_elem.style.display = "none";
+time_input_elem.style.display = "none";
 
 
 start_pause_btn.addEventListener('click', () => {
@@ -68,7 +82,8 @@ start_pause_btn.addEventListener('click', () => {
 
         //only run when timer is >= 0
         state = RUNNING;
-        intervalID = setInterval(f, 1000);
+        countdown();//start countdown immediately when clicked
+        intervalID = setInterval(countdown, 1000);
     } 
     
     else { //if running, paused
@@ -120,7 +135,13 @@ stop_btn.addEventListener('click', () => {
         main_timer_elem.style.display = "flex";
         time_input_elem.style.display = "none";
         //input field disappears, and main field appears with set time
-        time = 20;
+        time = total_secs;
+
+        const [hr, min, sec] = convert_from_secs(time);
+        hr_elem.textContent = String(hr).padStart(2,'0');
+        min_elem.textContent = String(min).padStart(2,'0');
+        sec_elem.textContent = String(sec).padStart(2,'0');
+
         start_pause_btn.disabled = false;
         start_pause_btn.textContent = "Start";
 
@@ -160,7 +181,7 @@ stop_btn.addEventListener('click', () => {
 
 });
 
-const f = () => {
+const countdown = () => {
     console.log(time);
 
     const [hr, min, sec] = convert_from_secs(time);
