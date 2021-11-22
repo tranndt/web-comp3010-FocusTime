@@ -16,12 +16,6 @@ const convert_from_secs = (input_sec) => {
     return [hr, min, sec];
 };
 
-// const hours_from_mins = (input_min) => {
-//     const min = input_min % 60;
-//     const hr = Math.floor(input_min / 60);
-//     return [hr, min];
-// };
-
 const test1 = convert_to_secs(input_hr,input_min, input_sec);
 console.log('test1', test1);
 
@@ -34,26 +28,73 @@ const hr_elem = document.querySelector('#hr');
 const min_elem = document.querySelector('#min');
 const sec_elem= document.querySelector('#sec');
 const start_pause_btn = document.querySelector('#start-pause');
+const stop_btn = document.querySelector('#stop');
+
+var time = 59;
+
+let intervalID = null;
+
+const RUNNING = 0;
+const PAUSED = 1;
+const STOPPED = 2;
+
+let state = STOPPED; 
 
 start_pause_btn.addEventListener('click', () => {
-    start_pause_btn.style.backgroundColor = 'blue';
-    start_pause_btn.textContent = "Start";
+    if (state != RUNNING) { //if not running, start
+        start_pause_btn.style.backgroundColor = 'blue';
+        start_pause_btn.textContent = "Start";
 
-    setTimeout(() => {
-        start_pause_btn.style.backgroundColor = 'crimson';
-        start_pause_btn.textContent = "Pause";
-    }, 100);
+        setTimeout(() => {
+            start_pause_btn.style.backgroundColor = 'crimson';
+            start_pause_btn.textContent = "Pause";
+        }, 100);
 
+        console.log('AFTER setTimeout()');
+
+        //only run when timer is >= 0
+        state = RUNNING;
+        intervalID = setInterval(f, 1000);
+    } 
     
+    else { //if running, paused
+        clearInterval(intervalID);
+        state = PAUSED;
 
-    console.log('AFTER setTimeout()');
+        start_pause_btn.style.backgroundColor = 'blue';
+        start_pause_btn.textContent = "Pause";
 
-    const repeat_time = 1000; //1s = 1000ms
-    setInterval(f, repeat_time);
+        setTimeout(() => {
+            start_pause_btn.style.backgroundColor = 'crimson';
+            start_pause_btn.textContent = "Resume";
+        }, 100);
+
+    }
 
 });
 
-var time = 10;
+stop_btn.addEventListener('click', () => {
+    stop_btn.style.backgroundColor = 'blue';
+
+    setTimeout(() => {
+        stop_btn.style.backgroundColor = 'crimson';
+    }, 100);
+
+    console.log('AFTER stop timer');
+
+    //stop decrementing timer
+    hr_elem.textContent = '00';
+    min_elem.textContent = '00';
+    sec_elem.textContent = '00';
+
+    clearInterval(intervalID);
+    state = STOPPED;
+
+    start_pause_btn.disabled = true
+
+    time = 0;
+
+});
 
 const f = () => {
     console.log(time);
@@ -64,10 +105,13 @@ const f = () => {
         console.log("Time's up!!");
         start_pause_btn.textContent = "Start";
     }
-    if(time < 0) {
+    if(time <= 0) {
         hr_elem.textContent = '00';
         min_elem.textContent = '00';
         sec_elem.textContent = '00';
+
+        //stop decrementing timer
+        clearInterval(intervalID);
     }
     else {
         hr_elem.textContent = String(hr).padStart(2,'0');

@@ -156,13 +156,14 @@ li .active {
     overflow: hidden;
 }
 
-.timer-button {
+.timer-button  {
     height: 100%;
     width:20%;
     border: dotted darkgreen 2px;
     display: grid;
     place-items: center;
     border-radius: 100%;
+    background-color: crimson;
     transition: background-color 0.3s ease;
 }
 
