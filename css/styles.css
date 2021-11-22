@@ -134,11 +134,39 @@ li .active {
     justify-content: space-evenly;
 }
 
-.session-time {
+.session-time .input-time{
+    background-color: rgb(190, 184, 230);
+    display: flex;
+    flex-flow: row-wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    /* font-size: 6vh;
+    font-weight: bold;
+    color: var(--text-color); */
+}
+
+/* .session-time .input-time{
+    display:none;
+}  */
+
+.session-time .input-time input,input::-webkit-input-placeholder{
+    width:15%;
+    display:inline-block;
+    padding: 1.1vh 1.5vw 1.1vh 0.5vw;
+    line-height:20%;
+    font-size: 4vh;
+    overflow: visible;
+    /* text-align: center; */
+} 
+
+
+.session-time .timer-set{
     background-color: rgb(190, 184, 230);
     font-size: 6vh;
     font-weight: bold;
     color: var(--text-color);
+    display: flex;
+    justify-content: center;
 }
 
 .break-time {

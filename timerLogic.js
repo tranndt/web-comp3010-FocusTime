@@ -30,15 +30,20 @@ const sec_elem= document.querySelector('#sec');
 const start_pause_btn = document.querySelector('#start-pause');
 const stop_btn = document.querySelector('#stop');
 
-var time = 59;
+var time = 0; //in seconds
 
 let intervalID = null;
 
+//timer states
 const RUNNING = 0;
 const PAUSED = 1;
 const STOPPED = 2;
+const EDIT = 3;
+const READY = 4;
 
-let state = STOPPED; 
+//initial state
+let state = STOPPED;
+start_pause_btn.disabled = true; 
 
 start_pause_btn.addEventListener('click', () => {
     if (state != RUNNING) { //if not running, start
@@ -49,6 +54,8 @@ start_pause_btn.addEventListener('click', () => {
             start_pause_btn.style.backgroundColor = 'crimson';
             start_pause_btn.textContent = "Pause";
         }, 100);
+
+        stop_btn.textContent = "Stop";
 
         console.log('AFTER setTimeout()');
 
@@ -63,6 +70,7 @@ start_pause_btn.addEventListener('click', () => {
 
         start_pause_btn.style.backgroundColor = 'blue';
         start_pause_btn.textContent = "Pause";
+        stop_btn.textContent = "Stop";
 
         setTimeout(() => {
             start_pause_btn.style.backgroundColor = 'crimson';
@@ -74,25 +82,66 @@ start_pause_btn.addEventListener('click', () => {
 });
 
 stop_btn.addEventListener('click', () => {
+
     stop_btn.style.backgroundColor = 'blue';
 
     setTimeout(() => {
         stop_btn.style.backgroundColor = 'crimson';
     }, 100);
 
-    console.log('AFTER stop timer');
 
-    //stop decrementing timer
-    hr_elem.textContent = '00';
-    min_elem.textContent = '00';
-    sec_elem.textContent = '00';
+    if (state == STOPPED) {//button=set, timer-input = OFF
+        //set state to set
+        //turn input fields on
+        console.log('State: EDIT');
+        state = EDIT;
+        stop_btn.textContent = "Done";
+        
+        start_pause_btn.disabled = true;
+        start_pause_btn.textContent = "Start";
+    }
+    else if (state == EDIT) {//button=done, timer-input = ON
+        //check if input is done
+        //get inputs
+        //if done:  state
+        console.log('State: READY');
+        state = READY;
+        stop_btn.textContent = "Set"; //allow to edit after input
+        //input field disappears, and main field appears with set time
+        time = 20;
+        start_pause_btn.disabled = false;
+        start_pause_btn.textContent = "Start";
+    }
+    else if (state == READY) {
+        state = EDIT;
+        stop_btn.textContent = "Done";
 
-    clearInterval(intervalID);
-    state = STOPPED;
+        start_pause_btn.disabled = true;
+        start_pause_btn.textContent = "Start";
 
-    start_pause_btn.disabled = true
+        console.log('State: EDIT');
 
-    time = 0;
+    }
+    else {
+        //stop timer
+        state = STOPPED;
+        stop_btn.textContent = "Set"; //allow to edit 
+
+        start_pause_btn.disabled = true;
+        start_pause_btn.textContent = "Start";
+
+        console.log('AFTER stop timer');
+
+        //stop decrementing timer
+        hr_elem.textContent = '00';
+        min_elem.textContent = '00';
+        sec_elem.textContent = '00';
+
+        clearInterval(intervalID);
+        state = STOPPED;
+
+        time = 0;
+    }
 
 });
 

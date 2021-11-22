@@ -76,20 +76,28 @@
                     </svg>
                     <div class="timer-details">
                         <div class="session-time">
-                            <span id="hr">1</span>:<span id="min">20</span>:<span id="sec">50</span>
+                            <div class="input-time">
+                                <input id="hr-input" type="text" placeholder="hr">:
+                                <input id="min-input" type="text" placeholder="min">:
+                                <input id="sec-input" type="text" placeholder="sec"> 
+                            </div>
+                            <div class = "timer-set">
+                                <span id="hr">01</span>:<span id="min">20</span>:<span id="sec">50</span>
+                            </div>
+                            
                         </div>
                         <div class="break-time">
                             break time 
                         </div>
                         <div class="timer-controls">
                             <button class="timer-button" id="start-pause">
-                                Start
+                                START
                             </button>
                             <!-- <div  class="timer-button" id="pause">
                                 Pause
                             </div> -->
                             <button  class="timer-button" id="stop">
-                                Stop
+                                SET
                             </button>
                         </div>
                       <!-- Remaining time label -->
