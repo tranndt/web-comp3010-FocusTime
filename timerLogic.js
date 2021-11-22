@@ -29,6 +29,9 @@ const min_elem = document.querySelector('#min');
 const sec_elem= document.querySelector('#sec');
 const start_pause_btn = document.querySelector('#start-pause');
 const stop_btn = document.querySelector('#stop');
+const time_input_elem = document.querySelector('#input-time');
+const main_timer_elem = document.querySelector('#timer-set'); //main timer
+
 
 var time = 0; //in seconds
 
@@ -43,12 +46,16 @@ const READY = 4;
 
 //initial state
 let state = STOPPED;
-start_pause_btn.disabled = true; 
+start_pause_btn.disabled = true;
+// main_timer_elem.style.visibility = "hidden";
+main_timer_elem.style.display = "none";
+
 
 start_pause_btn.addEventListener('click', () => {
     if (state != RUNNING) { //if not running, start
         start_pause_btn.style.backgroundColor = 'blue';
         start_pause_btn.textContent = "Start";
+        main_timer_elem.style.display = "flex";
 
         setTimeout(() => {
             start_pause_btn.style.backgroundColor = 'crimson';
@@ -99,6 +106,8 @@ stop_btn.addEventListener('click', () => {
         
         start_pause_btn.disabled = true;
         start_pause_btn.textContent = "Start";
+        main_timer_elem.style.display = "none";
+        time_input_elem.style.display = "flex";
     }
     else if (state == EDIT) {//button=done, timer-input = ON
         //check if input is done
@@ -107,14 +116,20 @@ stop_btn.addEventListener('click', () => {
         console.log('State: READY');
         state = READY;
         stop_btn.textContent = "Set"; //allow to edit after input
+
+        main_timer_elem.style.display = "flex";
+        time_input_elem.style.display = "none";
         //input field disappears, and main field appears with set time
         time = 20;
         start_pause_btn.disabled = false;
         start_pause_btn.textContent = "Start";
+
     }
     else if (state == READY) {
         state = EDIT;
         stop_btn.textContent = "Done";
+        main_timer_elem.style.display = "none";
+        time_input_elem.style.display = "flex";
 
         start_pause_btn.disabled = true;
         start_pause_btn.textContent = "Start";
