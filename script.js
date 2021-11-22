@@ -85,12 +85,16 @@ function audioApp(){
 	var playingtrack;
 	var trackbox = document.getElementById("trackbox");
 	var tracks = {
-	    "track1":["Ghost", "ghost"],
-		"track2":["Heart In Pieces", "heart_in_pieces"],
-		"track3":["Way 2 Sexy", "way_2_sexy"],
-        "track4":["Under Pressure", "under_pressure"],
-        "track5":["Lose Somebody", "lose_somebody"]
+		0:["Lord Foog the 2st", "lord_foog_the_2st"],
+	    1:["Ghost", "ghost"],
+		2:["Heart In Pieces", "heart_in_pieces"],
+		3:["Way 2 Sexy", "way_2_sexy"],
+        4:["Under Pressure", "under_pressure"],
+        5:["Lose Somebody", "lose_somebody"]
 	};
+	const keys = Object.keys(tracks);
+	var audio_tracker = 0;
+	var audio_max_tracks = 0;
 	for(var track in tracks){
 		var tb = document.createElement("div");
 		var pb = document.createElement("button");
@@ -105,29 +109,59 @@ function audioApp(){
 		tb.appendChild(tn);
 		trackbox.appendChild(tb);
 		audio_index++;
+		audio_max_tracks++;
 	}
-	audio.addEventListener("ended",function(){
-	    document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
-		playingtrack = "";
-		is_playing = false;
-	});
-  var mutebtn = document.getElementById("mutebutton"); 
+	audio.addEventListener("ended",nextTrack);
+	// audio.addEventListener("ended",function(){
+	//     document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
+	// 	playingtrack = "";
+	// 	is_playing = false;
+	// });
+  	var mutebtn = document.getElementById("mutebutton"); 
 	mutebtn.addEventListener("click", mute);
 	var sd = document.getElementById("volumeslider");
 	sd.addEventListener("input",setVolume);
+
+	// create a function that calculates the total length of the song queue (album)
+	
+	function nextTrack() {
+		// reset the button display after the track finishes 
+		document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
+		// counter which keeps track of which track user is on and which track to play next
+		if (audio_tracker < audio_max_tracks) {
+			audio_tracker++;
+			playingtrack = tracks[audio_tracker][1];
+			document.getElementById(playingtrack).style.background = "url(assets/pauseButton.svg)";
+			audio.src = audio_folder+playingtrack+audio_ext;
+	        audio.play();
+		}
+  		else {
+			audio_tracker = 0;
+		  	playingtrack = "";
+		  	is_playing = false;
+		}
+	}
 	function switchTrack(event){
+		// case where user switches tracks while one is already playing
 		if(is_playing){
+			// if current playing track does not equal the next chosen track
 		    if(playingtrack != event.target.id){
 			    is_playing = true;
 				document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
 			    event.target.style.background = "url(assets/pauseButton.svg)";
 			    audio.src = audio_folder+event.target.id+audio_ext;
+				// keeping track of which track number we are currently at
+				for(var key in keys) {
+					if(tracks[key][1] == event.target.id)
+						audio_tracker = key;
+				}
 	            audio.play();
 			} else {
 			    audio.pause();
 			    is_playing = false;
 				event.target.style.background = "url(assets/playButton.svg)";
 			}
+		// case where user chooses a track while nothing is playing
 		} else {
 			is_playing = true;
 			event.target.style.background = "url(assets/pauseButton.svg)";
@@ -138,7 +172,7 @@ function audioApp(){
 		}
 		playingtrack = event.target.id;
 	}
-  function mute() {
+  	function mute() {
 		if(audio.muted){
 		    audio.muted = false;
 		    mutebtn.style.background = "url(assets/volume.svg) no-repeat";
@@ -146,8 +180,7 @@ function audioApp(){
 		    audio.muted = true;
 		    mutebtn.style.background = "url(assets/muteVolume.svg) no-repeat";
 	    }
-	}
-	
+	}	
 	function setVolume() {
 		audio.volume = sd.value / 100;
 	}
