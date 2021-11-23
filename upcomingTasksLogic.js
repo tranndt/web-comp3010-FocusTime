@@ -34,19 +34,20 @@ function createNewTask(tableID) {
 // let date = prompt('When is the new task\'s due date?');
 
 let task = 'MS4';
-let progress = '0%';
-let date = 'Dec 8, 2021';
+let progress = '--';
+let date = 'Oct 20, 2021';
 let table = document.getElementById(tableID);
 
 let newRow = `
             <tr>
                 <td>${task}</td>
                 <td>${progress}</td>
-                <td>${date}</td>
+                <td class="date">${date}</td>
             </tr>`;
 
 let lastRow = table.rows[table.rows.length-1];
 lastRow.insertAdjacentHTML('beforebegin', newRow);
+sortByDate(table);
 }
 
 function createNewProject() {
@@ -92,4 +93,36 @@ if (newProjectName.localeCompare("") && newProjectName != null) {
 else {
     alert("Please input a valid project name.");
 }
+}
+
+function sortByDate(table) {
+    let rows = table.querySelectorAll("tbody tr"),
+        values = [],
+        val,
+        lastRow;
+
+    for (var index = 0; index < rows.length - 1; index++) {
+        node = rows[index].querySelector(".date");
+        val = node.innerText;
+        values.push({value : val, row: rows[index]});
+    }
+
+    lastRow = rows[index];
+
+    values.sort(sortDateVal);
+
+    for (let idx = 0; idx < values.length; idx++) {
+        table.querySelector("tbody").appendChild(values[idx].row);
+    }
+
+    table.querySelector("tbody").appendChild(lastRow);
+}
+
+function sortDateVal(a, b) {
+    var dateA = new Date(a.value).toISOString(),
+        dateB = new Date(b.value).toISOString(),
+        dateAvalue = Date.parse(dateA),
+        dateBvalue = Date.parse(dateB);
+
+    return dateAvalue - dateBvalue;
 }
