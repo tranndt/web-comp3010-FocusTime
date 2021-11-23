@@ -57,7 +57,7 @@ li .active {
     border-radius: 1em;
     padding: 0.2vh 0;
     padding-left: 0vw;
-    /* box-shadow: 0 10px 50px rgb(116, 116, 116); */
+    /* box-shadow: 0 0px 20px rgb(211, 50, 50); */
 }
 
 .navitemlist li {
@@ -122,7 +122,7 @@ li .active {
 }
 
 .timer-details {
-    background-color: burlywood;
+    /* background-color: burlywood; */
     position:absolute;
     width:30%;
     height: 60%;
@@ -135,7 +135,7 @@ li .active {
 }
 
 .session-time .input-time{
-    background-color: rgb(190, 184, 230);
+    /* background-color: rgb(190, 184, 230); */
     display: flex;
     flex-flow: row-wrap;
     align-items: center;
@@ -162,7 +162,7 @@ li .active {
 
 
 .session-time .timer-set{
-    background-color: rgb(190, 184, 230);
+    /* background-color: rgb(190, 184, 230); */
     font-size: 6vh;
     font-weight: bold;
     color: var(--text-color);
@@ -178,7 +178,7 @@ li .active {
 }
 
 .timer-controls{
-    background-color: crimson;
+    /* background-color: crimson; */
     width:80%;
     height:23%;
     display: flex;
@@ -188,12 +188,12 @@ li .active {
 
 .timer-button  {
     height: 100%;
-    width:20%;
-    border: dotted darkgreen 2px;
+    width:5vw;
+    border: solid rgb(84, 84, 88) 3px;
     display: grid;
     place-items: center;
     border-radius: 100%;
-    background-color: crimson;
+    /* background-color: rgb(131, 105, 110); */
     transition: background-color 0.3s ease;
     cursor:pointer;
 }
@@ -260,10 +260,17 @@ li .active {
     height:36vh; width:25vw;
     margin: 0 0 0 1.875em;
     color:black;
+    padding-top: 0.1vh;
     padding-left: 20px;
-    border-style:solid; 
-    border-width:1px; 
+    /* border-style:solid;  */
+    border: none; 
     background-color:grey;
+    border-radius: 1em;
+}
+
+.songView h2 {
+    margin-bottom:1vh;
+    font-size: 3vh;
 }
 
 .songList {
@@ -281,9 +288,17 @@ li .active {
     margin: 1.6em 0 0 1.875em;
     color:black;
     padding-left: 20px; 
-    border-style:solid; 
-    border-width:1px; 
+    padding-top: 0.1vh;
+
+    /* border-style:solid;  */
+    border: none; 
     background-color:grey;
+    border-radius: 1em;
+}
+
+.notesView h2 {
+    margin-bottom:1vh;
+    font-size: 3vh;
 }
 
 .notes{

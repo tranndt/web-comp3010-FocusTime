@@ -72,7 +72,7 @@ start_pause_btn.addEventListener('click', () => {
         main_timer_elem.style.display = "flex";
 
         setTimeout(() => {
-            start_pause_btn.style.backgroundColor = 'crimson';
+            start_pause_btn.style.backgroundColor = 'rgb(215, 214, 218)';
             start_pause_btn.textContent = "Pause";
         }, 100);
 
@@ -95,7 +95,7 @@ start_pause_btn.addEventListener('click', () => {
         stop_btn.textContent = "Stop";
 
         setTimeout(() => {
-            start_pause_btn.style.backgroundColor = 'crimson';
+            start_pause_btn.style.backgroundColor = 'rgb(215, 214, 218)';
             start_pause_btn.textContent = "Resume";
         }, 100);
 
@@ -105,10 +105,10 @@ start_pause_btn.addEventListener('click', () => {
 
 stop_btn.addEventListener('click', () => {
 
-    stop_btn.style.backgroundColor = 'blue';
+    stop_btn.style.backgroundColor = 'yellow';
 
     setTimeout(() => {
-        stop_btn.style.backgroundColor = 'crimson';
+        stop_btn.style.backgroundColor = 'rgb(215, 214, 218)';
     }, 100);
 
 
