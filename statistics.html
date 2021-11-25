@@ -196,27 +196,27 @@
       return squaredDistance < Math.pow(sum_dr, 2);
     }
 
-    collide = (d1,d2) => {
-      const dx = d2.x - d1.x;
-      const dy = d2.y - d1.y;
-      const dr = Math.sqrt(dx**2 + dy**2);
-      const sum_dr = d1.r + d2.r;
-      d2.x = d1.x + dx*sum_dr/dr;
-      d2.y = d1.y + dy*sum_dr/dr;
-    }
+    // collide = (d1,d2) => {
+    //   const dx = d2.x - d1.x;
+    //   const dy = d2.y - d1.y;
+    //   const dr = Math.sqrt(dx**2 + dy**2);
+    //   const sum_dr = d1.r + d2.r;
+    //   d2.x = d1.x + dx*sum_dr/dr;
+    //   d2.y = d1.y + dy*sum_dr/dr;
+    // }
 
-    getBubbles = () => {}
+    // getBubbles = () => {}
 
-    checkCollisions = (d1) => {
-      // this could be much more efficient, but you need ~1,000+ balls for it
-      // to start to matter, so I kept it simple
-      for (const d2 of getBubbles()) {
-        if (d1.r === d2.r & d1.x === d2.x & d1.y === d2.y) continue;
-        else if (isColliding(d1,d2)) {
-          collide(d1, d2);
-        }
-      }
-    }
+    // checkCollisions = (d1) => {
+    //   // this could be much more efficient, but you need ~1,000+ balls for it
+    //   // to start to matter, so I kept it simple
+    //   for (const d2 of getBubbles()) {
+    //     if (d1.r === d2.r & d1.x === d2.x & d1.y === d2.y) continue;
+    //     else if (isColliding(d1,d2)) {
+    //       collide(d1, d2);
+    //     }
+    //   }
+    // }
   
 
 
@@ -239,6 +239,15 @@
         .attr("stroke-width", 3)
         .call(drag(simulation)).on("click",clicked);
 
+    node.append('text')
+        .attr('font-size', '100px')
+        .style('text-anchor', 'middle')
+        .style('color','blue')
+        .text(function (d) {
+            return d.data.value;
+        });
+
+
     node.transition()
         .delay((d, i) => Math.random() * 500)
         .duration(750)
@@ -253,8 +262,8 @@
         .attr("cy", d => bound(d.y, d.r, height - d.r));
     });
 
-    var circles = d3.select("svg").selectAll('circle')
-    console.log(circles)
+    // var circles = d3.select("svg").selectAll('circle')
+    // console.log(circles)
 
 </script>
 </body>
