@@ -126,3 +126,16 @@ function sortDateVal(a, b) {
 
     return dateAvalue - dateBvalue;
 }
+
+const searchInput = document.getElementById('searchID');
+
+searchInput.addEventListener('keyup', function(event) {
+    let rows = document.querySelectorAll(".content-table > tbody > tr");
+
+    const q = event.target.value.toLowerCase();
+    rows.forEach((row) => {
+        row.querySelector("td").textContent.toLowerCase().startsWith(q)
+        ? (row.style.display = "table-row")
+        : (row.style.display = "none");
+    });
+})
