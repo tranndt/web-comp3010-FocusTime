@@ -32,6 +32,14 @@ const stop_btn = document.querySelector('#stop');
 const time_input_elem = document.querySelector('#input-time');
 const main_timer_elem = document.querySelector('#timer-set'); //main timer
 const time_inputs = document.querySelectorAll('.time-inputs');
+const progress = document.querySelector('.base-timer__path-remaining');
+const radius = progress.r.baseVal.value;
+const circumference = radius * 2 * Math.PI;
+
+progress.style.strokeDasharray = circumference;
+progress.style.strokeDashoffset = circumference;
+console.log(radius);
+
 
 var total_secs = null;
 
@@ -174,12 +182,19 @@ stop_btn.addEventListener('click', () => {
         sec_elem.textContent = '00';
 
         clearInterval(intervalID);
+        setProgress(0);
         state = STOPPED;
 
         time = 0;
     }
 
 });
+
+
+function setProgress(percent) {
+  const offset = circumference - (percent / 100) * circumference;
+  progress.style.strokeDashoffset = offset;
+}
 
 const countdown = () => {
     console.log(time);
@@ -197,6 +212,7 @@ const countdown = () => {
 
         //stop decrementing timer
         clearInterval(intervalID);
+        setProgress(0);
     }
     else {
         hr_elem.textContent = String(hr).padStart(2,'0');
@@ -204,8 +220,30 @@ const countdown = () => {
         sec_elem.textContent = String(sec).padStart(2,'0');
     }
 
-    
+    let time_percent = Math.ceil(((total_secs-time)/total_secs)*100);
+    setProgress(time_percent);
     time--;
+    if (time == -1) {//change to STOPPED state once time is up
+        //stop timer
+        state = STOPPED;
+        stop_btn.textContent = "Set"; //allow to edit 
+
+        start_pause_btn.disabled = true;
+        start_pause_btn.textContent = "Start";
+
+        console.log('AFTER stop timer');
+
+        //stop decrementing timer
+        hr_elem.textContent = '00';
+        min_elem.textContent = '00';
+        sec_elem.textContent = '00';
+
+        clearInterval(intervalID);
+        setProgress(0);
+        state = STOPPED;
+
+        time = 0;
+    }
 };
 
 
