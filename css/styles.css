@@ -162,7 +162,7 @@ li .active {
     border-bottom: 1px solid #dddddd;
 }
 
-.content-table tbody tr:nth-of-type(even), tr:last-of-type  {
+.content-table tbody tr:nth-of-type(even), .content-table tbody tr:last-of-type  {
     background-color: #f3f3f3;
 }
 
