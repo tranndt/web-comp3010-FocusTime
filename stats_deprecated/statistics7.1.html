@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="navbar">
+    <!-- <div class="navbar">
         <div class="container">
             <a href="#" class="logo">FocusTime</a>
 
@@ -49,52 +49,35 @@
                 </ul>
             </nav>
         </div>
-    </div>
+    </div> -->
 
   <svg id="chart"></svg>
   <script src="http://d3js.org/d3.v5.min.js"></script>
   <script src="https://d3js.org/d3-array.v2.min.js"></script>
   <script>
-   // 
-  height = 600;
-  width = 1000;
-  const navbar = document.getElementsByClassName("navitemlist")[0]
-  var svg = d3.select('svg')
-        .attr('height',height)
-        .attr('width',width)
-  // const svg = d3.select(DOM.svg(width, height));
 
-   // Importing data 
-    n = 20;
-    m = 5;
-    color = d3.scaleOrdinal(d3.range(m), d3.schemeCategory10);
-    data = ({
-      children: Array.from(
-        d3.group(
-          Array.from({length: n}, (_, i) => ({
-            group: Math.random() * m | 0,
-            value: -Math.log(Math.random())
-          })),
-          d => d.group
-        ),
-        ([, children]) => ({children})
-      )
-    })
-    console.log(JSON.stringify(data))
+  d3.csv("stats_deprecated/data2.csv").then(data => {
+    height = 800;
+    width = 1000;
+    const navbar = document.getElementsByClassName("navitemlist")[0]
+    var svg = d3.select('svg')
+          .attr('height',height)
+          .attr('width',width)
 
-    function pack() {
+    const nodes = pack(data).data;
+    function pack(data) {
       return d3.pack()
       .size([width, height])
       .padding(1)
     (d3.hierarchy(data)
-      .sum(d => d.value))
+      .sum(d => d.duration))
     } 
+    console.log(pack(nodes).data)
 
-    const nodes = pack().leaves()
+    clicked = d => {
+      if (d.defaultPrevented) return; // dragged
+    }
 
-    console.log(nodes)
-
-    // Drag, Click & Hover 
     drag = simulation => {
       function dragstarted(d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -108,17 +91,13 @@
         d.fx = null;
         d.fy = null;
       }
+
       return d3.drag()
           .on("start", dragstarted)
           .on("drag", dragged)
           .on("end", dragended);
     }
 
-    clicked = d => {
-      if (d.defaultPrevented) return; // dragged
-    }
-
-    // Bubble Interaction & Logic
     function centroid(nodes) {
       let x = 0;
       let y = 0;
@@ -136,10 +115,10 @@
       const strength = 0.2;
       let nodes;
       function force(alpha) {
-        const centroids = d3.rollup(nodes, centroid, d => d.data.group);
+        const centroids = d3.rollup(nodes, centroid, d => d.project);
         const l = alpha * strength;
         for (const d of nodes) {
-          const {x: cx, y: cy} = centroids.get(d.data.group);
+          const {x: cx, y: cy} = centroids.get(d.project);
           d.vx -= (d.x - cx) * l;
           d.vy -= (d.y - cy) * l;
         }
@@ -164,7 +143,7 @@
           quadtree.visit((q, x1, y1, x2, y2) => {
             if (!q.length) do {
               if (q.data !== d) {
-                const r = d.r + q.data.r + (d.data.group === q.data.data.group ? padding1 : padding2);
+                const r = d.r + q.data.r + (d.project === q.data.project ? padding1 : padding2);
                 let x = d.x - q.data.x, y = d.y - q.data.y, l = Math.hypot(x, y);
                 if (l < r) {
                   l = (l - r) / l * alpha;
@@ -188,41 +167,68 @@
         return value;
     }
 
-    isColliding = (d1,d2) => {
-      const dx = d2.x - d1.x;
-      const dy = d2.y - d1.y;
-      const sum_dr = d1.r + d2.r;
-      // don't use the square root because it's 1) slower, and 2) not needed for collision detection
-      const squaredDistance = Math.pow(dx, 2) + Math.pow(dy, 2);
+    var Tooltip = d3.select("#my_dataviz")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "2px")
+            .style("border-radius", "5px")
+            .style("padding", "5px")
 
-      return squaredDistance < Math.pow(sum_dr, 2);
+        // Three function that change the tooltip when user hover / move / leave a cell
+    var mouseover = function(d) {
+        Tooltip
+        .style("opacity", 1)
+    }
+    var mousemove = function(d) {
+        Tooltip
+        .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+            + "<br><b>" + d.task  + "</b>"
+            + "<br>" + fmt(d.duration))
+        .style("left", (d3.mouse(this)[0]+20) + "px")
+        .style("top", (d3.mouse(this)[1]) + "px")
+    }
+    var mouseleave = function(d) {
+        Tooltip
+        .style("opacity", 0)
     }
 
-    // collide = (d1,d2) => {
-    //   const dx = d2.x - d1.x;
-    //   const dy = d2.y - d1.y;
-    //   const dr = Math.sqrt(dx**2 + dy**2);
-    //   const sum_dr = d1.r + d2.r;
-    //   d2.x = d1.x + dx*sum_dr/dr;
-    //   d2.y = d1.y + dy*sum_dr/dr;
-    // }
+            // What happens when a circle is dragged?
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(.03).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
 
-    // getBubbles = () => {}
-
-    // checkCollisions = (d1) => {
-    //   // this could be much more efficient, but you need ~1,000+ balls for it
-    //   // to start to matter, so I kept it simple
-    //   for (const d2 of getBubbles()) {
-    //     if (d1.r === d2.r & d1.x === d2.x & d1.y === d2.y) continue;
-    //     else if (isColliding(d1,d2)) {
-    //       collide(d1, d2);
-    //     }
-    //   }
-    // }
-  
+    }
+    function dragended(d) {
+        // if (!d3.event.active) simulation.alphaTarget(.03);
+        d.fx = null;
+        d.fy = null;
 
 
-    
+    }
+
+    function fmt (seconds) {
+      const format = val => `0${Math.floor(val)}`.slice(-2)
+      const hours = Math.floor(seconds / 3600)
+      const minutes = Math.floor((seconds % 3600) / 60)
+      const odd_secs = seconds % 60
+      if (hours <= 0){ hh = ''} else {hh = hours+'h '}
+      if (minutes <= 0){ mm = ''} else {mm = minutes+'m '}
+      ss = odd_secs + 's'
+      return hh+mm+ss
+    }
+
+    function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
     // Running Simulation 
     const simulation = d3.forceSimulation(nodes)
         .force("x", d3.forceX(width / 2).strength(0.01))
@@ -230,33 +236,71 @@
         .force("cluster", forceCluster())
         .force("collide", forceCollide());
 
-    const node = svg.append("g")
-      .selectAll("circle")
-      .data(nodes)
-      .join("circle")
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y)
-        .attr("fill", d => color(d.data.group))
-        .attr("stroke", "black")
-        .attr("stroke-width", 3)
-        .call(drag(simulation)).on("click",clicked);
+    color = d3.scaleOrdinal(d3.range(10), d3.schemeCategory10);
+    size = d3.scaleLinear().domain([0, 1500]).range([20,120]) 
+    // const node = svg.append("g")
+    //   .selectAll("circle")
+    //   .data(nodes)
+    //   .join("circle")
+    //     .attr("cx", d => d.x)
+    //     .attr("cy", d => d.y)
+    //     .attr("fill", d => color(d.project))
+    //     .attr("stroke", "black")
+    //     .attr("stroke-width", 3)
+    //     .call(drag(simulation)).on("click",clicked);
 
-    node.append('text')
-        .attr('font-size', '100px')
-        .style('text-anchor', 'middle')
-        .style('color','blue')
-        .text(function (d) {
-            return d.data.value;
-        });
+    // node.append('text')
+    //     .attr('font-size', '100px')
+    //     .style('text-anchor', 'middle')
+    //     .style('color','blue')
+    //     .text(function (d) {
+    //         return d.taskid;
+    //     });
+
+    var node = svg.append("g")
+            .selectAll("circle")
+            .data(nodes)
+            // .enter()
+            .join("circle")
+            // .append("circle")
+            // .attr("class", "node")
+            .attr("r", d => size(d.duration))
+            .attr("cx", d => getRandomInt(width))
+            .attr("cy", d => getRandomInt(height))
+            .style("fill", function(d){ return color(d.project)})
+            .style("fill-opacity", 1)
+            .attr("stroke", "black")
+            .style("stroke-width", 2)
+            .on("mouseover", mouseover) // What to do when hovered
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
+            .call(drag(simulation))
+            // .on("click",clicked);
+            // .call(d3.drag() // call specific function when circle is dragged
+            //     .on("start", dragstarted)
+            //     .on("drag", dragged)
+            //     .on("end", dragended));
 
 
-    node.transition()
-        .delay((d, i) => Math.random() * 500)
-        .duration(750)
-        .attrTween("r", d => {
-          const i = d3.interpolate(0, d.r);
-          return t => d.r = i(t);
-        });
+        // Apply these forces to the nodes and update their positions.
+        // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
+        // simulation
+        //     .nodes(nodes)
+        //     .on("tick", function(d){
+        //         console.log(d)
+        //         node
+        //             .attr("cx", function(d){ return d.x; })
+        //             .attr("cy", function(d){ return d.y; })
+        //     });
+
+
+    // node.transition()
+    //     .delay((d, i) => Math.random() * 500)
+    //     .duration(750)
+    //     .attrTween("r", d => {
+    //       const i = d3.interpolate(0, d.r);
+    //       return t => d.r = i(t);
+    //     });
 
     simulation.on("tick", () => {
       node
@@ -264,9 +308,11 @@
         .attr("cy", d => bound(d.y, d.r, height - d.r));
     });
 
-    // var circles = d3.select("svg").selectAll('circle')
-    // console.log(circles)
 
+  })
+
+    
+  
 </script>
 </body>
 </html>

@@ -131,7 +131,7 @@
         Tooltip
         .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
             + "<br><b>" + d.task  + "</b>"
-            + "<br>" + d.duration + " s")
+            + "<br>" + fmt(d.duration))
         .style("left", (d3.mouse(this)[0]+20) + "px")
         .style("top", (d3.mouse(this)[1]) + "px")
     }
@@ -195,6 +195,17 @@
         d.fy = null;
     }
 
+
+    function fmt (seconds) {
+        const format = val => `0${Math.floor(val)}`.slice(-2)
+        const hours = Math.floor(seconds / 3600)
+        const minutes = Math.floor((seconds % 3600) / 60)
+        const odd_secs = seconds % 60
+        if (hours <= 0){ hh = ''} else {hh = hours+'h '}
+        if (minutes <= 0){ mm = ''} else {mm = minutes+'m '}
+        ss = odd_secs + 's'
+        return hh+mm+ss
+        }
     })
 
 
