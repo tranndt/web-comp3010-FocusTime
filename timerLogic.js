@@ -1,5 +1,4 @@
 // 1: 20: 50
-
 const input_hr = 1;
 const input_min = 20;
 const input_sec = 50;
@@ -46,7 +45,7 @@ var total_secs = null;
 console.log(time_inputs);
 
 time_inputs.forEach(elem => {
-    elem.value = 0;
+    // elem.value = 0;
     elem.addEventListener('input', () => {
         total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
         console.log('total-secs:', total_secs);
@@ -54,9 +53,11 @@ time_inputs.forEach(elem => {
 });
 
 
-var time = 0; //in seconds
+var time = 0; //in seconds, time left
 
-let intervalID = null;
+let intervalID = null; //countdown interval
+
+// let intervalID = null; //countdown interval
 
 //timer states
 const RUNNING = 0;
@@ -65,24 +66,36 @@ const STOPPED = 2;
 const EDIT = 3;
 const READY = 4;
 
+//colors
+const disabled_background = 'rgb(238, 225, 218)';
+const disabled_text = "rgb(158, 150, 147)";
+const enabled_text = "rgb(54, 38, 30)";
+const main_btn_color = 'rgb(238, 185, 161)';
+const click_color = 'rgb(173, 72, 35)';
+
 //initial state
 let state = STOPPED;
 start_pause_btn.disabled = true;
-// main_timer_elem.style.visibility = "hidden";
-// main_timer_elem.style.display = "none";
 time_input_elem.style.display = "none";
-
+stop_btn.style.backgroundColor = main_btn_color;
+start_pause_btn.style.backgroundColor = disabled_background;
+start_pause_btn.style.color = disabled_text;
+start_pause_btn.style.cursor = 'default';
 
 start_pause_btn.addEventListener('click', () => {
+    start_pause_btn.style.backgroundColor = click_color;
+
     if (state != RUNNING) { //if not running, start
-        start_pause_btn.style.backgroundColor = 'blue';
-        start_pause_btn.textContent = "Start";
+
         main_timer_elem.style.display = "flex";
 
         setTimeout(() => {
-            start_pause_btn.style.backgroundColor = 'rgb(215, 214, 218)';
-            start_pause_btn.textContent = "Pause";
+            start_pause_btn.style.backgroundColor = main_btn_color;
         }, 100);
+
+        //set timer in running state -> pause,stop btn
+        start_pause_btn.textContent = "Pause";
+        start_pause_btn.style.color =  enabled_text;
 
         stop_btn.textContent = "Stop";
 
@@ -98,14 +111,15 @@ start_pause_btn.addEventListener('click', () => {
         clearInterval(intervalID);
         state = PAUSED;
 
-        start_pause_btn.style.backgroundColor = 'blue';
-        start_pause_btn.textContent = "Pause";
+        // start_pause_btn.textContent = "Pause";
+        start_pause_btn.style.color =  enabled_text;
         stop_btn.textContent = "Stop";
 
         setTimeout(() => {
-            start_pause_btn.style.backgroundColor = 'rgb(215, 214, 218)';
-            start_pause_btn.textContent = "Resume";
+            start_pause_btn.style.backgroundColor = main_btn_color;
         }, 100);
+
+        start_pause_btn.textContent = "Resume";
 
     }
 
@@ -113,11 +127,12 @@ start_pause_btn.addEventListener('click', () => {
 
 stop_btn.addEventListener('click', () => {
 
-    stop_btn.style.backgroundColor = 'yellow';
+    stop_btn.style.backgroundColor = click_color;
 
     setTimeout(() => {
-        stop_btn.style.backgroundColor = 'rgb(215, 214, 218)';
+        stop_btn.style.backgroundColor = main_btn_color;
     }, 100);
+
 
 
     if (state == STOPPED) {//button=set, timer-input = OFF
@@ -128,7 +143,11 @@ stop_btn.addEventListener('click', () => {
         stop_btn.textContent = "Done";
         
         start_pause_btn.disabled = true;
+        start_pause_btn.style.backgroundColor = disabled_background;
+        start_pause_btn.style.color = disabled_text;
         start_pause_btn.textContent = "Start";
+        start_pause_btn.style.cursor = 'default';
+
         main_timer_elem.style.display = "none";
         time_input_elem.style.display = "flex";
     }
@@ -151,7 +170,10 @@ stop_btn.addEventListener('click', () => {
         sec_elem.textContent = String(sec).padStart(2,'0');
 
         start_pause_btn.disabled = false;
+        start_pause_btn.style.backgroundColor = main_btn_color;
+        start_pause_btn.style.color = enabled_text;
         start_pause_btn.textContent = "Start";
+        start_pause_btn.style.cursor = 'pointer';
 
     }
     else if (state == READY) {
@@ -162,6 +184,9 @@ stop_btn.addEventListener('click', () => {
 
         start_pause_btn.disabled = true;
         start_pause_btn.textContent = "Start";
+        start_pause_btn.style.backgroundColor = disabled_background;
+        start_pause_btn.style.color = disabled_text;
+        start_pause_btn.style.cursor = 'default';
 
         console.log('State: EDIT');
 
@@ -173,6 +198,9 @@ stop_btn.addEventListener('click', () => {
 
         start_pause_btn.disabled = true;
         start_pause_btn.textContent = "Start";
+        start_pause_btn.style.backgroundColor = disabled_background;
+        start_pause_btn.style.color = disabled_text;
+        start_pause_btn.style.cursor = 'default';
 
         console.log('AFTER stop timer');
 
@@ -230,6 +258,9 @@ const countdown = () => {
 
         start_pause_btn.disabled = true;
         start_pause_btn.textContent = "Start";
+        start_pause_btn.style.backgroundColor = disabled_background;
+        start_pause_btn.style.color = disabled_text;
+        start_pause_btn.style.cursor = 'default';
 
         console.log('AFTER stop timer');
 
@@ -239,8 +270,11 @@ const countdown = () => {
         sec_elem.textContent = '00';
 
         clearInterval(intervalID);
-        setProgress(0);
+        setProgress(100);
         state = STOPPED;
+        setTimeout(() => {
+            setProgress(0);
+        }, 1000);
 
         time = 0;
     }

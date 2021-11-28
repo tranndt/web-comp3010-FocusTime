@@ -118,22 +118,27 @@ li .active {
 
 /* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
-    stroke-width: 1.4;
-    stroke: grey;
+    stroke-width: 1.8;
+    stroke: rgb(212, 142, 114);
 }
 
 .base-timer__path-remaining {
-    transition :0.5s;
+    transition :0.9s;
     transform:rotate(-90deg);
     transform-origin:50% 50%;
-    stroke: green;
-    stroke-width: 1.4;
+    stroke: rgb(182, 182, 182);
+    stroke-width: 1.7;
+}
+
+.base-timer__init-line{
+    stroke: rgb(95, 6, 6);
+    stroke-width: 0.5;
 }
   
-  .base-timer__svg {
-    /* Flips the svg and makes the animation to move left-to-right */
-    transform: scaleX(-1);
-  }
+.base-timer__svg {
+/* Flips the svg and makes the animation to move left-to-right */
+transform: scaleX(-1);
+}
 
 
 .timer-details {
@@ -187,9 +192,9 @@ li .active {
 }
 
 .break-time {
-    background-color: palegreen;
+    background-color: rgb(238, 225, 218);
     font-size: 2vh;
-    color: red;
+    color: rgb(173, 72, 35);
 }
 
 .timer-controls{
@@ -203,8 +208,10 @@ li .active {
 
 .timer-button  {
     height: 100%;
-    width:5vw;
-    border: solid rgb(84, 84, 88) 3px;
+    width:5.7vw;
+    color: rgb(54, 38, 30);
+    font-size: 2vh;
+    border: solid rgb(158, 86, 53) 1px;
     display: grid;
     place-items: center;
     border-radius: 100%;
