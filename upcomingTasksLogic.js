@@ -1,4 +1,4 @@
-const accordionItemHeaders = document.querySelectorAll(".accordion-item-header");
+accordionItemsList = document.querySelectorAll(".accordion-item-header");
 const newTaskRow = `<tr><td colspan="3" style="width:100%"><button class="newItem" onclick="createNewTask(this.closest('table').id)">+ Create new task</button></td></tr>`;
 const tableHeader = `<thead>
                         <tr>
@@ -9,113 +9,160 @@ const tableHeader = `<thead>
                     </thead>`;
 var tableCount = 2;
 
-accordionItemHeaders.forEach(accordionItemHeader => {
-const accordionItemBody = accordionItemHeader.nextElementSibling;
-if(accordionItemHeader.classList.contains("active")) {
-    accordionItemBody.style.maxHeight = "250px";
-}
+addAccordionItemEvent(accordionItemsList);
 
-accordionItemHeader.addEventListener("click", event => {
-accordionItemHeader.classList.toggle("active");
-const accordionItemBody = accordionItemHeader.nextElementSibling;
-if(accordionItemHeader.classList.contains("active")) {
-    accordionItemBody.style.maxHeight = "250px";
-}
-else {
-    accordionItemBody.style.maxHeight = 0;
-}
-
-});
-});
-
-function createNewTask(tableID) {
-// let task = prompt('What is the new task?');
-// let progress = prompt('What is the new task\'s progress?');
-// let date = prompt('When is the new task\'s due date?');
-
-let task = 'MS4';
-let progress = '--';
-let date = 'Oct 20, 2021';
-let table = document.getElementById(tableID);
-
-let newRow = `
-            <tr>
-                <td>${task}</td>
-                <td>${progress}</td>
-                <td class="date">${date}</td>
-            </tr>`;
-
-let lastRow = table.rows[table.rows.length-1];
-lastRow.insertAdjacentHTML('beforebegin', newRow);
-sortByDate(table);
-}
-
-function createNewProject() {
-let newProjDiv = document.getElementById("newProject");
-let newProjectName = prompt("What is the new project?");
-tableCount++;
-let newTableID = "table"+tableCount;
-
-if (newProjectName.localeCompare("") && newProjectName != null) {
-    let newDiv = document.createElement("div");
-    let newProjectItem = `<div class="accordion-item">
-            <div class="accordion-item-header">
-                ${newProjectName}
-            </div>
-            <div class="accordion-item-body" id="table2Parent">
-                <div class="accordion-item-body-content">
-                    <table class="content-table" id="${newTableID}">
-                        ${tableHeader}
-                        ${newTaskRow}
-                    </table>
-                </div> 
-            </div>
-        </div>`;
-
-    newDiv.innerHTML = newProjectItem;
-    newProjDiv.insertAdjacentElement('beforebegin', newDiv);
-
-    let accordionItemHeader = newDiv.firstChild.childNodes[1];
-
-    accordionItemHeader.addEventListener("click", event => {
+function addAccordionItemEvent(accordionItemHeaders) {
+    accordionItemHeaders.forEach(accordionItemHeader => {
+        accordionItemHeader.addEventListener("click", event => {
         accordionItemHeader.classList.toggle("active");
         const accordionItemBody = accordionItemHeader.nextElementSibling;
+    
         if(accordionItemHeader.classList.contains("active")) {
-            accordionItemBody.style.maxHeight = "250px";
+            if (accordionItemBody.tagName.localeCompare("TR")) {
+                accordionItemBody.style.maxHeight = "250px";
+            }
+    
+            else {
+                accordionItemBody.style.display = "table-row";
+            }
         }
         else {
-            accordionItemBody.style.maxHeight = 0;
+            if (accordionItemBody.tagName.localeCompare("TR")) {
+                accordionItemBody.style.maxHeight = "0";
+            }
+    
+            else {
+                accordionItemBody.style.display = "none";
+            }
         }
-        
+      });
     });
 }
 
-else {
-    alert("Please input a valid project name.");
+function createNewTask(tableID, taskNameID, taskDateID) {
+    let newTaskName = document.getElementById(taskNameID).value;
+    let progress = '--';
+    let date = document.getElementById(taskDateID).value;
+    let table = document.getElementById(tableID);
+
+    if (newTaskName.localeCompare("")) {
+        let newRows = `
+                    <tr class="accordion-item-header taskHeader">
+                        <td>${newTaskName}</td>
+                        <td>${progress}</td>
+                        <td class="date">${date}</td>
+                    </tr>
+                    <tr class="accordion-item-body taskDetails">
+                        <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                            <ul>
+                                <li>Due 4:00PM</li>
+                                <li>Submit PDF on UMLearn</li>
+                            </ul>
+                        </td>
+                    </tr>`;
+
+        let lastRow = table.rows[table.rows.length-2];
+        lastRow.insertAdjacentHTML('beforebegin', newRows);
+        
+        // add event listener to new taskHeader
+
+        sortByDate(table);
+    }
+
+    else {
+        alert('Task name cannot be empty. Please try again.');
+    }
 }
+
+function createNewProject() {
+    let newProjDiv = document.getElementById("newProject");
+    let newProjectName = prompt("What is the new project?");
+    let headers = [];
+
+    if (newProjectName.localeCompare("") && newProjectName != null) {
+        tableCount++;
+        let newTableID = "table"+tableCount;
+        let newTaskNameID = "taskName"+tableCount;
+        let newTaskDateID = "taskDate"+tableCount;
+        let newDiv = document.createElement("div");
+
+        let newTaskRows = `<tr class="newItem-container accordion-item-header">
+                        <td colspan="3" style="width:100%" class="newItem">+ Create new task</td>
+                    </tr>
+                    <tr class="accordion-item-body taskDetails newItem-container-details">
+                    <td>
+                        <label for="taskName">New Task Name:</label>
+                        <input type="text" class="taskName" id="${newTaskNameID}" name="taskName" size="20">
+                    </td> 
+                    <td>
+                        <label for="taskDate">Due on:</label>
+                        <input type="date" class="taskDate" id="${newTaskDateID}" name="taskDate" value="2021-12-31">
+                    </td>
+                    <td>
+                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}')">Done</button>
+                    </td>
+                    </tr>`;
+
+        let newProjectItem = `<div class="accordion-item">
+                <div class="accordion-item-header">
+                    ${newProjectName}
+                </div>
+                <div class="accordion-item-body" id="table2Parent">
+                    <div class="accordion-item-body-content">
+                        <table class="content-table" id="${newTableID}">
+                            ${tableHeader}
+                            ${newTaskRows}
+                        </table>
+                    </div> 
+                </div>
+            </div>`;
+
+        console.log(newTaskRows);
+
+        newDiv.innerHTML = newProjectItem;
+        newProjDiv.insertAdjacentElement('beforebegin', newDiv);
+
+        let accordionItemHeader = newDiv.firstChild.childNodes[1];
+        let newTaskHeader = document.getElementById(newTableID).getElementsByClassName("newItem-container")[0];
+        headers.push(accordionItemHeader);
+        headers.push(newTaskHeader);
+        addAccordionItemEvent(headers);
+    }
+
+    else {
+        alert("Please input a valid project name.");
+    }
 }
 
 function sortByDate(table) {
-    let rows = table.querySelectorAll("tbody tr"),
+    let rows = table.querySelectorAll(".taskHeader"),
         values = [],
         val,
-        lastRow;
+        taskDetails = table.querySelectorAll(".taskDetails"),
+        lastRow,
+        lastRowDetails;
 
-    for (var index = 0; index < rows.length - 1; index++) {
+    for (var index = 0; index < rows.length; index++) {
         node = rows[index].querySelector(".date");
         val = node.innerText;
         values.push({value : val, row: rows[index]});
     }
 
-    lastRow = rows[index];
+    lastRow = table.querySelector(".newItem-container");
+    lastRowDetails = table.querySelector(".newItem-container-details");
 
     values.sort(sortDateVal);
 
+    let detailsIndex = 0;
     for (let idx = 0; idx < values.length; idx++) {
         table.querySelector("tbody").appendChild(values[idx].row);
+        table.querySelector("tbody").appendChild(taskDetails[detailsIndex]);
+        detailsIndex++;
     }
 
+    detailsIndex = 0;
     table.querySelector("tbody").appendChild(lastRow);
+    table.querySelector("tbody").appendChild(lastRowDetails);
 }
 
 function sortDateVal(a, b) {
