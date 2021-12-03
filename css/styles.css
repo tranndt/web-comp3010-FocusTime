@@ -6,6 +6,7 @@
 
 body {
     background: rgb(215, 214, 218);
+    /* background: rgb(88, 88, 88); */
     margin: 0;
     font-family: sans-serif;
 }
@@ -373,6 +374,12 @@ li .active .iconhover {
   left: 2.7%;
 }
 
+.h_defaulttab{
+  position: absolute;
+  top: 40%;
+  left: 3.2%;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 *{
@@ -388,7 +395,8 @@ li .active .iconhover {
 .wrapper{
 	display: flex;
 	justify-content: center;
-	margin-top: 150px;
+	margin-top: 15vh;
+  margin-right: 70vw;
 }
 
 .theme_menu{
@@ -409,6 +417,31 @@ li .active .iconhover {
 	background: #9e3c48;
 }
 
+.wrapper2{
+	display: flex;
+	justify-content: center;
+	margin-top: 3vh;
+  margin-right: 70vw;
+}
+
+.tab_menu{
+	width: 80px;
+	height: 50px;
+	background: #dc555f;
+	border-radius: 3px;
+	text-align: center;
+	color: #fff;
+	line-height: 50px;
+	font-size: 26px;
+	cursor: pointer;
+	margin: 0 auto 30px;
+	transition: all 0.2s ease;
+}
+
+.tab_menu:hover{
+	background: #9e3c48;
+}
+
 .dd_wrap{
 	width: 225px;
 	position: relative;
@@ -423,8 +456,8 @@ li .active .iconhover {
 	display: block;
 	background: #dc555f;
 	color: #fff;
-	padding: 20px 25px;
-	width: 100%;
+	padding: 20px 20px;
+	width: 80%;
 	letter-spacing: 2px;
 	/* text-transform: uppercase; */
 	transition: all 0.2s ease;
