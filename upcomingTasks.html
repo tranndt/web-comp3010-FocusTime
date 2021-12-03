@@ -119,14 +119,18 @@
                         <tr class="accordion-item-body taskDetails newItem-container-details">
                             <td>
                                 <label for="taskName">New Task Name:</label>
-                                <input type="text" class="taskName" id="taskName1" name="taskName" size="20">
+                                <input type="text" class="taskName" id="taskName1" name="taskName" size="20" placeholder="Task Name">
                             </td> 
                             <td>
                                 <label for="taskDate">Due on:</label>
                                 <input type="date" class="taskDate" id="taskDate1" name="taskDate" value="2021-12-31">
                             </td>
                             <td>
-                                <button class="doneButton" onclick="createNewTask('table1', 'taskName1', 'taskDate1')">Done</button>
+                                <div class="taskProgress-container">
+                                <label for="taskProgress">Progress:</label>
+                                <input type="number" class="taskProgress" id="taskProgress1" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                </div>
+                                <button class="doneButton" onclick="createNewTask('table1', 'taskName1', 'taskDate1', 'taskProgress1')">Done</button>
                             </td>
                         </tr>
                     </tbody>
@@ -206,7 +210,11 @@
                                 <input type="date" class="taskDate" id="taskDate2" name="taskDate" value="2021-12-31">
                             </td>
                             <td>
-                                <button class="doneButton" onclick="createNewTask('table2', 'taskName2', 'taskDate2')">Done</button>
+                                <div class="taskProgress-container">
+                                    <label for="taskProgress">Progress:</label>
+                                    <input type="number" class="taskProgress" id="taskProgress2" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                    </div>
+                                <button class="doneButton" onclick="createNewTask('table2', 'taskName2', 'taskDate2', 'taskProgress2')">Done</button>
                             </td>
                         </tr>
                       </tbody>

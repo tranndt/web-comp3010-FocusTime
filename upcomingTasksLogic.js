@@ -39,14 +39,26 @@ function addAccordionItemEvent(accordionItemHeaders) {
     });
 }
 
-function createNewTask(tableID, taskNameID, taskDateID) {
+function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
     let newTaskName = document.getElementById(taskNameID).value;
-    let progress = '--';
+    let progress = document.getElementById(taskProgressID).value;
     let date = document.getElementById(taskDateID).value;
     let table = document.getElementById(tableID);
     let newRow = [];
 
-    if (newTaskName.localeCompare("")) {
+    if (newTaskName.localeCompare("") && progress >= 0 && progress <= 100) {
+        if (progress == 0) {
+            progress = '--';
+        }
+
+        else if (progress == 100) {
+            progress = '&#10004';
+        }
+
+        else {
+            progress += '% Complete';
+        }
+
         let newRows = `
                     <tr class="accordion-item-header taskHeader">
                         <td>${newTaskName}</td>
@@ -55,7 +67,7 @@ function createNewTask(tableID, taskNameID, taskDateID) {
                     </tr>
                     <tr class="accordion-item-body taskDetails">
                         <td colspan="3" style="width:100%" class="accordion-item-body-content">
-                        <p>Task Details<p>
+                        <p>Task Notes<p>
                         </td>
                     </tr>`;
 
@@ -71,7 +83,7 @@ function createNewTask(tableID, taskNameID, taskDateID) {
     }
 
     else {
-        alert('Task name cannot be empty. Please try again.');
+        alert('Task name cannot be empty and/or Progress should be 0-100. Please try again.');
     }
 }
 
@@ -85,6 +97,7 @@ function createNewProject() {
         let newTableID = "table"+tableCount;
         let newTaskNameID = "taskName"+tableCount;
         let newTaskDateID = "taskDate"+tableCount;
+        let newTaskProgressID = "taskProgress"+tableCount;
         let newDiv = document.createElement("div");
 
         let newTaskRows = `<tr class="newItem-container accordion-item-header">
@@ -100,7 +113,11 @@ function createNewProject() {
                         <input type="date" class="taskDate" id="${newTaskDateID}" name="taskDate" value="2021-12-31">
                     </td>
                     <td>
-                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}')">Done</button>
+                        <div class="taskProgress-container">
+                        <label for="taskProgress">Progress:</label>
+                        <input type="number" class="taskProgress" id="${newTaskProgressID}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                        </div>
+                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}', '${newTaskProgressID}')">Done</button>
                     </td>
                     </tr>`;
 
