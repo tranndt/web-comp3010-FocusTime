@@ -82,7 +82,7 @@ function audioApp(){
 	var audio_ext = ".mp3";
 	var audio_index = 1;
 	var is_playing = false;
-	var playingtrack;
+	var playingtrack; 
 	var trackbox = document.getElementById("trackbox");
 	var tracks = {
 	    0:["Ghost", "ghost"],
@@ -144,11 +144,6 @@ function audioApp(){
 				document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
 			    event.target.style.background = "url(assets/pauseButton.svg)";
 			    audio.src = audio_folder+event.target.id+audio_ext;
-				// keeping track of which track number we are currently at
-				for(var key in keys) {
-					if(tracks[key][1] == event.target.id)
-						audio_tracker = key;
-				}
 	            audio.play();
 			} else {
 			    audio.pause();
@@ -163,6 +158,11 @@ function audioApp(){
 				audio.src = audio_folder+event.target.id+audio_ext;
 			}
 	        audio.play();
+		}
+		// keeping track of which track number we are currently at
+		for(var key in keys) {
+			if(tracks[key][1] == event.target.id)
+				audio_tracker = key;
 		}
 		playingtrack = event.target.id;
 	}
