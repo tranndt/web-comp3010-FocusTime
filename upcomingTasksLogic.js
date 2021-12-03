@@ -44,6 +44,7 @@ function createNewTask(tableID, taskNameID, taskDateID) {
     let progress = '--';
     let date = document.getElementById(taskDateID).value;
     let table = document.getElementById(tableID);
+    let newRow = [];
 
     if (newTaskName.localeCompare("")) {
         let newRows = `
@@ -54,17 +55,17 @@ function createNewTask(tableID, taskNameID, taskDateID) {
                     </tr>
                     <tr class="accordion-item-body taskDetails">
                         <td colspan="3" style="width:100%" class="accordion-item-body-content">
-                            <ul>
-                                <li>Due 4:00PM</li>
-                                <li>Submit PDF on UMLearn</li>
-                            </ul>
+                        <p>Task Details<p>
                         </td>
                     </tr>`;
 
         let lastRow = table.rows[table.rows.length-2];
         lastRow.insertAdjacentHTML('beforebegin', newRows);
         
-        // add event listener to new taskHeader
+        let taskHeaders = table.getElementsByClassName("taskHeader").length;
+        let newTaskHeader = table.getElementsByClassName("taskHeader")[taskHeaders - 1];
+        newRow.push(newTaskHeader);
+        addAccordionItemEvent(newRow);
 
         sortByDate(table);
     }
