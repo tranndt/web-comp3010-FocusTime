@@ -195,7 +195,7 @@ function audioApp(){
 	var audio_ext = ".mp3";
 	var audio_index = 1;
 	var is_playing = false;
-	var playingtrack;
+	var playingtrack; 
 	var trackbox = document.getElementById("trackbox");
 	var tracks = {
 	    0:["Ghost", "ghost"],
@@ -224,11 +224,6 @@ function audioApp(){
 		audio_max_tracks++;
 	}
 	audio.addEventListener("ended",nextTrack);
-	// audio.addEventListener("ended",function(){
-	//     document.getElementById(playingtrack).style.background = "url(assets/playButton.svg)";
-	// 	playingtrack = "";
-	// 	is_playing = false;
-	// });
   	var mutebtn = document.getElementById("mutebutton"); 
 	mutebtn.addEventListener("click", mute);
 	var sd = document.getElementById("volumeslider");
@@ -248,7 +243,6 @@ function audioApp(){
 	        audio.play();
 		}
   		else {
-			audio_tracker = 0;
 		  	playingtrack = "";
 		  	is_playing = false;
 		}
@@ -282,6 +276,11 @@ function audioApp(){
 					audio_tracker = key;
 			}
 	        audio.play();
+		}
+		// keeping track of which track number we are currently at
+		for(var key in keys) {
+			if(tracks[key][1] == event.target.id)
+				audio_tracker = key;
 		}
 		playingtrack = event.target.id;
 	}
