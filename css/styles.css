@@ -25,7 +25,7 @@ body {
     font-size: 5vh;
     font-style: italic;
     font-family:'Lucida Sans';
-    padding: 3vh 1.5vw;
+    padding: 1vh 1.5vw;
     margin: 0;
 
 }
@@ -38,6 +38,11 @@ li .active {
     margin:0;
 }
 
+.navbar .container {
+    margin: 0;
+    padding: 0;
+}
+
 .navitemlist {
     background: var(--primary-color);
     display: inline-flex;
@@ -45,11 +50,12 @@ li .active {
     margin: 0;
     margin-left:0.5vw;
     position: absolute;
-    top: 10vh;
+    top: 6.5vh;
+    height: 56px;
     /* left: 100vh; */
     /* transform: translate(-50%, -50%); */
     border-radius: 1em;
-    padding: 0.5vh 0;
+    padding: 0.2vh 0;
     padding-left: 0vw;
     /* box-shadow: 0 10px 50px rgb(116, 116, 116); */
 }
@@ -80,6 +86,7 @@ li .active {
     margin: 1.6em 0 0 0;
     width: 65%;
     float: left;
+    position: relative;
 }
 
 .container .right-col {
@@ -88,32 +95,112 @@ li .active {
     float: right;
 }
 
-.timer {
+/* .timer {
     background-color: gray;
-    height: 27em;
-    margin-bottom: 0.5em;
+    height: 55vh;
+    margin: 0;
+    padding: 0;
+} */
+
+/* Sets the containers height and width */
+.base-timer {
+    position: relative;
+    /* height: 56em;
+    width: 56em; */
 }
+
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+    fill: none;
+    stroke: none;
+}
+
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+    stroke-width: 1.4;
+    stroke: grey;
+}
+
+.timer-details {
+    background-color: burlywood;
+    position:absolute;
+    width:30%;
+    height: 60%;
+    top:10vh;
+    left:24.5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.session-time {
+    background-color: rgb(190, 184, 230);
+    font-size: 6vh;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.break-time {
+    background-color: palegreen;
+    font-size: 2vh;
+    color: red;
+}
+
+.timer-controls{
+    background-color: crimson;
+    width:80%;
+    height:23%;
+    display: flex;
+    justify-content: space-evenly;
+    overflow: hidden;
+}
+
+.timer-button {
+    height: 100%;
+    width:20%;
+    border: dotted darkgreen 2px;
+    display: grid;
+    place-items: center;
+    border-radius: 100%;
+    transition: background-color 0.3s ease;
+}
+
 
 .task-proj-selector {
     float: clear;
-    display: block;
-    position: relative;
-    margin: auto;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px;
+    display: inline-flexbox;
+    position: absolute;
+    margin: 0;
+    top: 58vh;
+    left:25vw;
+    right:25vw;
+    /* transform: translate(20vw, 5vh); */
+    /* border: 1px solid black;
+    border-radius: 5px; */
+    /* padding-top: 58vh;
+    padding-left:25vw; */
     width: 300px;
-    text-align: center;
+    /* text-align: center; */
     color: var(--text-color);
+
+    /* background-color: white; */
+}
+
+.task-proj-selector ul {
     background-color: white;
+    position: absolute;
+    padding:0.5vh 1.5vw;
+    border-radius: 1em;
+    list-style-type:none;
 }
 
 .select {
     border: 1px solid #dddddd;
     border-radius: 5px;
-    padding: 8px 12px;
+    padding: 7px 10px;
     color: var(--text-color);
-    margin: 0.5em 0 10px 0;
+    margin: 0.5em 0 8px 0;
     /* max-width: 11em; */
 
     /* replacing default arrow */
@@ -121,10 +208,10 @@ li .active {
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: url(/assets/dropdownArrow.svg);
-    background-position: right 10px top 50%;
+    background-position: right 8px top 50%;
     background-repeat: no-repeat;
-    background-size: 10px;
-    padding-right: 30px;
+    background-size: 8px;
+    padding-right: 28px;
 }
 
 .select:focus, .select:hover {
@@ -138,7 +225,7 @@ li .active {
 
 /* upcomingTasks - tables */
 .content-table {
-    table-layout: fixed;
+    /* table-layout: fixed; */
     width: 100%;
     border-collapse: collapse;
     margin: auto;
@@ -178,7 +265,7 @@ li .active {
 
 /* upcomingTasks - accordion */
 #upcoming-tasks-title{
-    margin: 4rem 0 0 5rem;
+    margin: 1rem 0 0 5rem;
 }
 
 .accordion {
@@ -329,3 +416,180 @@ div.accordion-item-header.active::after {
   .search:focus, .taskName:focus, .taskDate:focus, .taskProgress:focus {
     outline: none;
   } 
+.songView {
+    position: relative;
+    height:40vh; width:25vw;
+    margin: 0 0 0 1.875em;
+    color:black;
+    padding-left: 20px;
+    border-style:solid; 
+    border-width:1px; 
+    background-color:grey;
+}
+
+.songList {
+    background:#a3a3a3;
+    position:absolute;
+    height:24vh; width:23vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+}
+
+.notesView {
+    position: relative;
+    height:40vh; width:25vw; 
+    margin: 1.6em 0 0 1.875em;
+    color:black;
+    padding-left: 20px; 
+    border-style:solid; 
+    border-width:1px; 
+    background-color:grey;
+}
+
+.notes{
+    position:absolute;
+    height:28vh; width:23vw;
+    font-size: 1.25em;
+}
+
+/* body {
+    font-family: sans-serif;
+    display: grid;
+    height: 100vh;
+    place-items: center;
+  } */
+  
+  /* .base-timer {
+    position: absolute;
+    margin: 0;
+    padding: 5vh 20vw;
+    width: 25vw;
+    height: 25vh;
+  }
+  
+  .base-timer__svg {
+    transform: scaleX(-1);
+  }
+  
+  .base-timer__circle {
+    fill: none;
+    stroke: none;
+  }
+  
+  .base-timer__path-elapsed {
+    stroke-width: 0.2em;
+    stroke: grey;
+  }
+  
+  .base-timer__path-remaining {
+    stroke-width: 0.2em;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;
+  }
+  
+  .base-timer__path-remaining.green {
+    color: rgb(65, 184, 131);
+  }
+  
+  .base-timer__path-remaining.orange {
+    color: orange;
+  }
+  
+  .base-timer__path-remaining.red {
+    color: red;
+  }
+  
+  .base-timer__label {
+    /* position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 0; *
+    
+    position: absolute;
+    margin: 0;
+    padding: 25vh 31vw;
+
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px; *
+  } */
+
+  
+/* http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial */
+.trackbar { 
+    background:#DDD; 
+    height:50px; 
+    width:23vw; 
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+    vertical-align: middle;
+}
+
+.trackbar:nth-child(even) { background:#EEE; }
+
+.playbutton{ 
+    opacity:.8; 
+    display:block; 
+    float:left; 
+    width:25px; 
+    height:25px; 
+    margin:14px 0px 0px 14px; 
+    background:url(/assets/playButton.svg) no-repeat; 
+    border:none; 
+    cursor:pointer; 
+    outline:none; 
+}
+
+.playbutton:hover{ opacity:1; }
+
+.mutebutton{ 
+    opacity:.8; 
+    display:block;
+    position: absolute;
+    bottom: 10px;
+    left: 20px; 
+    float:left; 
+    width:35px; 
+    height:30px; 
+    background:url(/assets/volume.svg) no-repeat; 
+    border:none; 
+    cursor:pointer; 
+    outline:none; 
+}
+
+.mutebutton:hover{ opacity:1; }
+
+.trackname{ 
+    float:left; 
+    color:#000; 
+    margin:12px 0px 0px 14px; 
+    font-size:1vw; 
+    font-weight:bold; 
+}
+
+.volumeslider { width: 70px }
+
+input[type='range'] {
+	-webkit-appearance: none !important;
+	float:left;
+    position: absolute;
+    bottom: 15px;
+    left: 60px; 
+	padding:0px;
+	background: #000;
+	height:13px;
+	border-bottom:#333 1px solid;
+}
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+	background: radial-gradient(#FFF, #333);
+	height:11px;
+	width:11px;
+	border-radius:100%;
+	cursor:pointer;
+}
