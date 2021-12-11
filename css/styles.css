@@ -6,7 +6,7 @@
 
 body {
     background: rgb(215, 214, 218);
-    /* background: rgb(88, 88, 88); */
+    /* background: rgb(80, 80, 80); */
     margin: 0;
     font-family: sans-serif;
 }
@@ -338,6 +338,12 @@ li .active .iconhover {
   left: 87.5%;
 }
 
+.back{
+  position: absolute;
+  top: 24%;
+  left: 42.5%;
+}
+
 #overlay {
   position: fixed;
   display: none;
@@ -392,7 +398,7 @@ li .active .iconhover {
   font-weight: bold;
 }
 
-.wrapper{
+.themewrapper{
 	display: flex;
 	justify-content: center;
 	margin-top: 15vh;
@@ -417,7 +423,7 @@ li .active .iconhover {
 	background: #9e3c48;
 }
 
-.wrapper2{
+.tabwrapper{
 	display: flex;
 	justify-content: center;
 	margin-top: 3vh;

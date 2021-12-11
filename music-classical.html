@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusTime</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="container">
+        <nav>
+            <ul class="navitemlist">
+                <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:80%"> </div>
+                <li>
+                    <a href="upcomingTasks.html">
+                        <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="statistics.html">
+                        <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Statistics">Statistics</div> 
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="52" height="52"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Timer Page">Homepage</div>
+                    </a>
+                </li>
+                <li>
+                    <a class="active" href="music.html">
+                        <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Music">Music</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Settings">Settings</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Headers -->
+<div class="h_today"><img src="assets/music/header_filtered.png" alt="htoday" style="width:70%"> </div>
+<a href="music.html">
+    <div class="back"><img src="assets/music/back.png" alt="back" width="50%"></div>
+</a>
+
+<!-- Today's Picks -->
+<div class="today">
+
+    <!-- Filtered Classical Album 1: Bach -->
+    <div class="t1">
+        <div class="container">
+            <img src="assets/music/albums/album_bach.jpg" alt="t1" class="image" style="width:85%">
+            <div class="albumoverlay">
+                <img src="assets/music/overlays/overlay_filter1.png" alt="albumoverlay" style="width:130%">
+            </div>
+            <div class="play">
+                <img src="assets/play.png" alt="play" style="width:60%">
+            </div>
+            <div class="details">
+                <img src="assets/details.png" alt="details" style="width:30%" onclick="detailsT1()">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Filtered Classical Album 2: Aphex Twin -->
+    <div class="t2">
+        <div class="container">
+            <img src="assets/music/albums/album_drukqs.png" alt="t2" class="image" style="width:85%">
+            <div class="albumoverlay">
+                <img src="assets/music/overlays/overlay_filter2.png" alt="albumoverlay" style="width:130%">
+            </div>
+            <div class="play">
+                <img src="assets/play.png" alt="play" style="width:60%">
+            </div>
+            <div class="details">
+                <img src="assets/details.png" alt="details" style="width:30%" onclick="detailsT2()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtered Classical Album 3: Lang Lang -->
+    <div class="t3">
+        <div class="container">
+            <img src="assets/music/albums/album_pianobook.jpg" alt="t3" class="image" style="width:85%">
+            <div class="albumoverlay">
+                <img src="assets/music/overlays/overlay_filter3.png" alt="albumoverlay" style="width:130%">
+            </div>
+            <div class="play">
+                <img src="assets/play.png" alt="play" style="width:60%">
+            </div>
+            <div class="details">
+                <img src="assets/details.png" alt="details" style="width:30%" onclick="detailsT3()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtered Classical Album 4: Mendelssohn -->
+    <div class="t4">
+        <div class="container">
+            <img src="assets/music/albums/album_mendelssohn.jpg" alt="t4" class="image" style="width:85%">
+            <div class="albumoverlay">
+                <img src="assets/music/overlays/overlay_filter3.png" alt="albumoverlay" style="width:130%">
+            </div>
+            <div class="play">
+                <img src="assets/play.png" alt="play" style="width:60%">
+            </div>
+            <div class="details">
+                <img src="assets/details.png" alt="details" style="width:30%" onclick="detailsT3()">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Album Detail Overlay -->
+<div id="overlay" onclick="detailsClose()">
+    <div class="details_overlay">
+            <img src="#" id = "detailoverlay" alt="details"> 
+    </div> 
+</div>
+
+<script>
+
+    // Detail Overlays: Today's Picks
+    function detailsT1() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("detailoverlay").src = "assets/music/details/details_blonde.png";
+    }
+
+    function detailsT2() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("detailoverlay").src = "assets/music/details/details_flowerboy.png";
+    }    
+
+    function detailsT3() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("detailoverlay").src = "assets/music/details/details_ctrl.png";
+    }
+
+    // Close Overlay
+    function detailsClose() {
+        document.getElementById("overlay").style.display = "none";
+    }
+</script>
+
+</body>
+</html>

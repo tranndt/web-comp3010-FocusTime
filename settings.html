@@ -60,22 +60,22 @@
 <div class="h_defaulttab"><img src="assets/settings/header_defaulttab.png" alt="header_settings" style="width:45%"></div>
 
 <!-- Theme Menu -->
-<div class="wrapper">
+<div class="themewrapper">
     <div class="menu">
         <div class="theme_menu">
             <i class="fas fa-bars"></i>
         </div>
         <div class="dd_wrap">
             <ul>
-                <li><a href="#" class="a_parent" onclick="chBackcolor(rgb(215, 214, 218))">
-                        <div class="wrap">
+                <li><a href="#" class="a_parent" onclick="chBackcolor(1)">
+                        <div class="wrap" >
                             <span class="icon">
                                 <i class="light"></i>
                             </span>
                             <span class="text">Light</span>
                         </div>
                     </a></li>
-                <li><a href="#" class="a_parent" onclick="chBackcolor(rgb(88, 88, 88))">
+                <li><a href="#" class="a_parent" onclick="chBackcolor(2)">
                         <div class="wrap">
                             <span class="icon">
                                 <i class="dark"></i>
@@ -115,7 +115,7 @@
 </div>
 
 <!-- Default Tab Menu -->
-<div class="wrapper2">
+<div class="tabwrapper">
     <div class="menu">
         <div class="tab_menu">
         </div>
@@ -200,7 +200,12 @@
     })
 
     function chBackcolor(color) {
-            document.body.style.background = color;
+        if (color == 1){
+            document.body.style.background = "C0C0C0";}
+        if (color == 2) {
+            document.body.style.background = "#4D4D4D";
+            document.navbar.style.background = "5F5F5F";
+        }    
     }
 </script>
 </html>
