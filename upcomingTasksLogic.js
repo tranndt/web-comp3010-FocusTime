@@ -59,6 +59,8 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
             progress += '% Complete';
         }
 
+        date = formatDate(date);
+
         let newRows = `
                     <tr class="accordion-item-header taskHeader">
                         <td>${newTaskName}</td>
@@ -110,7 +112,7 @@ function createNewProject() {
                     </td> 
                     <td>
                         <label for="taskDate">Due on:</label>
-                        <input type="date" class="taskDate" id="${newTaskDateID}" name="taskDate" value="2021-12-31">
+                        <input type="date" class="taskDate" id="${newTaskDateID}" name="taskDate" value="2021-12-31" onkeydown="return false">
                     </td>
                     <td>
                         <div class="taskProgress-container">
@@ -190,6 +192,16 @@ function sortDateVal(a, b) {
         dateBvalue = Date.parse(dateB);
 
     return dateAvalue - dateBvalue;
+}
+
+function formatDate(date) {
+    let months = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    
+    let currFormat = date.split('-');
+    let monthVal = currFormat[1];
+    let newDateFormat = months[monthVal - 1]+" "+currFormat[2]+", "+currFormat[0]; 
+    
+    return newDateFormat;
 }
 
 const searchInput = document.getElementById('searchID');
