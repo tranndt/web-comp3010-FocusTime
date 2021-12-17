@@ -7,6 +7,7 @@
     <title>FocusTime</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -17,31 +18,31 @@
                 <ul class="navitemlist">
                     <li>
                         <a href="upcomingTasks.html">
-                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks"></div>
+                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks" title="Upcoming Tasks"></div>
                             <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
                         </a>
                     </li>
                     <li>
                         <a href="statistics.html">
-                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics"></div>
+                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics" title="Statistics"></div>
                             <div class="navitem" data-text="Statistics">Statistics</div>
                         </a>
                     </li>
-                    <li class="active">
-                        <a href="index.html">
-                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page"></div>
+                    <li>
+                        <a class="active" href="index.html">
+                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page" title="Timer"></div>
                             <div class="navitem" data-text="Timer Page">Homepage</div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
-                            <div class="icon"><img src="assets/musicicon.svg" alt="Music"></div>
+                            <div class="icon"><img src="assets/musicicon.svg" alt="Music" title ="Music"></div>
                             <div class="navitem" data-text="Music">Music</div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
-                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings"></div>
+                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings" title="Settings"></div>
                             <div class="navitem" data-text="Settings">Settings</div>
                         </a>
                     </li>
@@ -49,5 +50,122 @@
             </nav>
         </div>
     </div>
+
+    <div class="container">
+        <div class="left-col">
+            <div class="timer">
+                <!-- <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                    <--
+                    with relative unit such as percentage, the visual size
+                    of the square looks unchanged regardless of the viewBox
+                    --
+                    <rect x="0" y="0" width="100%" height="100%"/>
+                  
+                    <--
+                    with a large viewBox the circle looks small
+                    as it is using user units for the r attribute:
+                    4 resolved against 100 as set in the viewBox
+                    --
+                    <circle cx="50%" cy="50%" r="19" fill="white"/>
+                  </svg> -->
+                <div class="base-timer">
+                    <svg class="base-timer__svg" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                      <g class="base-timer__circle">
+                        <circle class="base-timer__path-elapsed" cx="52.5%" cy="50%" r="19" />
+                      </g>
+                    </svg>
+                    <div class="timer-details">
+                        <div class="session-time">
+                            <span id="hr">1</span>:<span id="min">20</span>:<span id="sec">50</span>
+                        </div>
+                        <div class="break-time">
+                            break time 
+                        </div>
+                        <div class="timer-controls">
+                            <div class="timer-button" id="start-pause">
+                                Start/  Pause
+                            </div>
+                            <!-- <div  class="timer-button" id="pause">
+                                Pause
+                            </div> -->
+                            <div  class="timer-button" id="stop">
+                                Stop
+                            </div>
+                        </div>
+                      <!-- Remaining time label -->
+                    </div>
+                  </div>
+                  <script src="timerLogic.js"></script>
+
+
+                <!-- <div class="base-timer">
+                    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                      <g class="base-timer__circle">
+                        <circle class="base-timer__path-elapsed" ></circle>
+                        <path
+                          id="base-timer-path-remaining"
+                          stroke-dasharray="283"
+                          class="base-timer__path-remaining ${remainingPathColor}"
+                          d="
+                            M 50, 50
+                            m -45, 0
+                            a 45,45 0 1,0 90,0
+                            a 45,45 0 1,0 -90,0
+                          "
+                        ></path>
+                      </g>
+                    </svg>
+                    
+                </div>
+                <div id="base-timer-label" class="base-timer__label">
+                    <script type = "text/javascript">  
+                        formatTime(timeLeft) 
+                    </script> 
+                </div> -->
+            </div>
+            
+    
+            <div class="task-proj-selector">
+                <ul>
+                    <li> Task:
+                        <select class="select" name="" id="task-selector"  onchange="createNewOption()">
+                            <option disabled selected>Choose a task</option>
+                            <option value="task-1">Task 1</option>
+                            <option value="task-2">Task 2</option>
+                            <option value="create-task">+ Create new task</option>
+                        </select>
+                    </li>
+                    <li> Project:
+                        <select class="select" name="" id="project-selector"  onchange="createNewOption()">
+                            <option disabled selected>Choose a project</option>
+                            <option value="project-1">Project 1</option>
+                            <option value="project-2">Project 2</option>
+                            <option value="create-proj">+ Create new project</option>
+                        </select>
+                    </li>
+
+                </ul>
+                
+                
+                
+            </div>
+        </div>
+
+        <div class="right-col">
+            <div class="songView">
+                <h2>Song Queue</h2>
+                <div class="songList">
+                    <div id="trackbox"></div>
+                </div>
+                <button class="mutebutton" id="mutebutton"></button>
+                <input id="volumeslider" type="range" min="0" max="100" value="15" step="1">
+            </div>
+            <div class="notesView">
+                <h2>Notes</h2>
+                <textarea class="notes" onkeyup="handleInput(event)">• </textarea>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+
