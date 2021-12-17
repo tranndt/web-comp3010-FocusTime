@@ -192,8 +192,7 @@ transform: scaleX(-1);
 }
 
 .break-time {
-    background-color: rgb(238, 225, 218);
-    font-size: 2vh;
+    font-size: 2.5vh;
     color: rgb(173, 72, 35);
 }
 
