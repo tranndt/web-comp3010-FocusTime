@@ -198,11 +198,23 @@ function audioApp(){
 	var playingtrack; 
 	var trackbox = document.getElementById("trackbox");
 	var tracks = {
-	    0:["Ghost", "ghost"],
-		1:["Heart In Pieces", "heart_in_pieces"],
-		2:["Way 2 Sexy", "way_2_sexy"],
-        3:["Under Pressure", "under_pressure"],
-        4:["Lose Somebody", "lose_somebody"]
+	    0:["Nikes", "nikes"],
+		1:["Ivy", "ivy"],
+		2:["Pink + White", "pink+white"],
+        3:["Be Yourself", "be_yourself"],
+        4:["Solo", "solo"],
+		5:["Skyline To", "skyline_to"],
+		6:["Self Control", "self_control"],
+		7:["Good Guy", "good_guy"],
+        8:["Nights", "nights"],
+        9:["Solo (Reprise)", "solo_reprise"],
+		10:["Pretty Sweet", "pretty_sweet"],
+		11:["Facebook Story", "facebook_story"],
+		12:["Close To You", "close_to_you"],
+        13:["White Ferrari", "white_ferrari"],
+        14:["Seigfried", "seigfried"],
+		15:["Godspeed", "godspeed"],
+		16:["Future Free", "future_free"]
 	};
 	const keys = Object.keys(tracks);
 	var audio_tracker = 0;
@@ -298,3 +310,5 @@ function audioApp(){
 	}
 }
 window.addEventListener("load", audioApp);
+
+const ALBUM_LENGTH = 3608;
