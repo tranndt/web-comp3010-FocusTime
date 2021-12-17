@@ -53,74 +53,40 @@
     <div class="container">
         <div class="left-col">
             <div class="timer">
-                <!-- <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
-                    <--
-                    with relative unit such as percentage, the visual size
-                    of the square looks unchanged regardless of the viewBox
-                    --
-                    <rect x="0" y="0" width="100%" height="100%"/>
-                  
-                    <--
-                    with a large viewBox the circle looks small
-                    as it is using user units for the r attribute:
-                    4 resolved against 100 as set in the viewBox
-                    --
-                    <circle cx="50%" cy="50%" r="19" fill="white"/>
-                  </svg> -->
                 <div class="base-timer">
                     <svg class="base-timer__svg" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
                       <g class="base-timer__circle">
-                        <circle class="base-timer__path-elapsed" cx="52.5%" cy="50%" r="19" />
+                        <circle class="base-timer__path-elapsed" cx="48%" cy="50%" r="19" />
+                        <circle class="base-timer__path-remaining" cx="50%" cy="45%" r="19" />
+                        <line class="base-timer__init-line" x1="47.77" y1="0" x2="47.77" y2="2"/>
                       </g>
                     </svg>
                     <div class="timer-details">
                         <div class="session-time">
-                            <span id="hr">1</span>:<span id="min">20</span>:<span id="sec">50</span>
+                            <div class="input-time" id = "input-time">
+                                <input class="time-inputs" id="hr-input" type="text" placeholder="hr">:
+                                <input class="time-inputs" id="min-input" type="text" placeholder="min">:
+                                <input class="time-inputs" id="sec-input" type="text" placeholder="sec"> 
+                            </div>
+                            <div class = "timer-set" id="timer-set">
+                                <span id="hr">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+                            </div> 
                         </div>
                         <div class="break-time">
-                            # of Pauses 
+                            <span>Break:</span>
+                            <span id="br-hr">00</span>:<span id="br-min">00</span>:<span id="br-sec">00</span> 
                         </div>
                         <div class="timer-controls">
-                            <div class="timer-button" id="start-pause">
-                                Start/  Pause
-                            </div>
-                            <!-- <div  class="timer-button" id="pause">
-                                Pause
-                            </div> -->
-                            <div  class="timer-button" id="stop">
-                                Stop
-                            </div>
+                            <button class="timer-button" id="start-pause">
+                                Start
+                            </button>
+                            <button  class="timer-button" id="stop">
+                                Set
+                            </button>
                         </div>
-                      <!-- Remaining time label -->
                     </div>
                   </div>
                   <script src="timerLogic.js"></script>
-
-
-                <!-- <div class="base-timer">
-                    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                      <g class="base-timer__circle">
-                        <circle class="base-timer__path-elapsed" ></circle>
-                        <path
-                          id="base-timer-path-remaining"
-                          stroke-dasharray="283"
-                          class="base-timer__path-remaining ${remainingPathColor}"
-                          d="
-                            M 50, 50
-                            m -45, 0
-                            a 45,45 0 1,0 90,0
-                            a 45,45 0 1,0 -90,0
-                          "
-                        ></path>
-                      </g>
-                    </svg>
-                    
-                </div>
-                <div id="base-timer-label" class="base-timer__label">
-                    <script type = "text/javascript">  
-                        formatTime(timeLeft) 
-                    </script> 
-                </div> -->
             </div>
             
     
