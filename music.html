@@ -32,7 +32,7 @@
                 </li>
                 <li>
                     <a href="index.html">
-                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="52" height="52"></div>
+                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
                         <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
                         <div class="navitem" data-text="Timer Page">Homepage</div>
                     </a>
@@ -510,6 +510,60 @@
     function detailsClose() {
         document.getElementById("overlay").style.display = "none";
     }
+
+    function chBackcolor(color) {
+        var header = document.getElementsByClassName('navbar')[0];       
+        var nav = document.getElementsByClassName('navitemlist')[0];
+
+        // Light
+        if (color == 1){
+            document.body.style.background = "#DEDEDE";}
+            header.setAttribute("style", "background-color:#BABABA;");  
+            nav.setAttribute("style", "background-color:#DBD163;");    
+            localStorage.theme = 1;    
+
+        // Dark
+        if (color == 2) {
+            document.body.style.background = "#696969";
+            header.setAttribute("style", "background-color:#5C5C5C;");
+            nav.setAttribute("style", "background-color:#898989;");
+            localStorage.theme = 2;
+        }    
+
+        // Ocean
+        if (color == 3) {
+            document.body.style.background = "#9EBEDB";
+            header.setAttribute("style", "background-color:#8AA6C0;");
+            nav.setAttribute("style", "background-color:#C5D478;");
+            localStorage.theme = 3;
+        }     
+        
+        // Forest
+        if (color == 4) {
+            document.body.style.background = "#A0D665";
+            header.setAttribute("style", "background-color:#8CBB58;");
+            nav.setAttribute("style", "background-color:#CADDB5;");
+            localStorage.theme = 4;
+        }        
+
+        // Sunset    
+        if (color == 5) {
+            document.body.style.background = "#F4BE7F";
+            header.setAttribute("style", "background-color:#F1A954;");
+            nav.setAttribute("style", "background-color:#F1D554;");
+            localStorage.theme = 5;
+        }                                   
+    }
+
+    function setTheme() {
+         if (localStorage.theme) {
+            chBackcolor(localStorage.theme);
+        } else {
+            localStorage.theme = 1;
+        }
+    }
+
+    window.onload = setTheme();
 </script>
 
 </body>

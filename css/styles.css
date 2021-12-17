@@ -399,6 +399,7 @@ li .active .iconhover {
 }
 
 .themewrapper{
+  visibility: visible;
 	display: flex;
 	justify-content: center;
 	margin-top: 15vh;
@@ -417,6 +418,7 @@ li .active .iconhover {
 	cursor: pointer;
 	margin: 0 auto 30px;
 	transition: all 0.2s ease;
+  display:flex;
 }
 
 .theme_menu:hover{
@@ -424,6 +426,7 @@ li .active .iconhover {
 }
 
 .tabwrapper{
+  visibility: visible;
 	display: flex;
 	justify-content: center;
 	margin-top: 3vh;
@@ -442,6 +445,7 @@ li .active .iconhover {
 	cursor: pointer;
 	margin: 0 auto 30px;
 	transition: all 0.2s ease;
+  display:flex;
 }
 
 .tab_menu:hover{
