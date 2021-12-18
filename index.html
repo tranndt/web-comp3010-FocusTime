@@ -7,6 +7,7 @@
     <title>FocusTime</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="navbar">
@@ -49,5 +50,84 @@
             </nav>
         </div>
     </div>
+
+    <div class="container">
+        <div class="left-col">
+            <div class="timer">
+                <div class="base-timer">
+                    <svg class="base-timer__svg" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                      <g class="base-timer__circle">
+                        <circle class="base-timer__path-elapsed" cx="48%" cy="50%" r="19" />
+                        <circle class="base-timer__path-remaining" cx="50%" cy="45%" r="19" />
+                        <line class="base-timer__init-line" x1="47.77" y1="0" x2="47.77" y2="2"/>
+                      </g>
+                    </svg>
+                    <div class="timer-details">
+                        <div class="session-time">
+                            <div class="input-time" id = "input-time">
+                                <input class="time-inputs" id="hr-input" type="text" placeholder="hr">:
+                                <input class="time-inputs" id="min-input" type="text" placeholder="min">:
+                                <input class="time-inputs" id="sec-input" type="text" placeholder="sec"> 
+                            </div>
+                            <div class = "timer-set" id="timer-set">
+                                <span id="hr">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+                            </div> 
+                        </div>
+                        <div class="break-time">
+                            <span>Break:</span>
+                            <span id="br-hr">00</span>:<span id="br-min">00</span>:<span id="br-sec">00</span> 
+                        </div>
+                        <div class="timer-controls">
+                            <button class="timer-button" id="start-pause">
+                                Start
+                            </button>
+                            <button  class="timer-button" id="stop">
+                                Set
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+                  <script src="timerLogic.js"></script>
+            </div>
+            
+    
+            <div class="task-proj-selector">
+                <ul>
+                    <li> Task:
+                        <select class="select" name="" id="task-selector"  onchange="createNewOption()">
+                            <option disabled selected>Choose a task</option>
+                            <option value="task-1">Task 1</option>
+                            <option value="task-2">Task 2</option>
+                            <option value="create-task">+ Create new task</option>
+                        </select>
+                    </li>
+                    <li> Project:
+                        <select class="select" name="" id="project-selector"  onchange="createNewOption()">
+                            <option disabled selected>Choose a project</option>
+                            <option value="project-1">Project 1</option>
+                            <option value="project-2">Project 2</option>
+                            <option value="create-proj">+ Create new project</option>
+                        </select>
+                    </li>
+                </ul>    
+            </div>
+        </div>
+
+        <div class="right-col">
+            <div class="songView">
+                <h2>Album: Blond</h2>
+                <div class="songList">
+                    <div id="trackbox"></div>
+                </div>
+                <button class="mutebutton" id="mutebutton"></button>
+                <input id="volumeslider" type="range" min="0" max="100" value="15" step="1">
+            </div>
+            <div class="notesView">
+                <h2>Notes</h2>
+                <textarea class="notes" onkeyup="handleInput(event)">• </textarea>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
