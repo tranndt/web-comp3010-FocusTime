@@ -81,7 +81,7 @@ var svg = d3.select("#my_dataviz")
     .attr("width", width)
     .attr("height", height)
 
-d3.csv("stats_deprecated/data2.csv", function(data) {
+    d3.csv("stats_deprecated/data2.csv", function(data) {
 data = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project);
 // Filter a bit the data -> more than 1 million inhabitants
 // data = data.filter(function(d){ 
@@ -124,6 +124,8 @@ var mouseleave = function(d) {
     Tooltip
     .style("opacity", 0)
 }
+console.log( Math.random()*width)
+
 
 // Initialize the circle: all located at the center of the svg area
 var node = svg.append("g")
@@ -134,8 +136,8 @@ var node = svg.append("g")
     .append("circle")
     .attr("class", "node")
     .attr("r", function(d){ return size(d[1])})
-    .attr("cx", width / 2)
-    .attr("cy", height / 2)
+    .attr("cx", d => Math.random() * width)
+    .attr("cy", d => Math.random() * height)
     .style("fill", function(d){ return color(d[0])})
     .style("fill-opacity", 1)
     .attr("stroke", "black")
@@ -151,9 +153,9 @@ var node = svg.append("g")
 
 // Features of the forces applied to the nodes:
 var simulation = d3.forceSimulation()
-    .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
-    .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-    .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.value)+3) }).iterations(1)) // Force that avoids circle overlapping
+    .force("center", d3.forceCenter().x(width/3).y(height / 2)) // Attraction to the center of the svg area
+    .force("charge", d3.forceManyBody().strength(0.5)) // Nodes are attracted one each other of value is > 0
+    .force("collide", d3.forceCollide().strength(-1).radius(function(d){ return (size(d.value)+3) }).iterations(1)) // Force that avoids circle overlapping
 
 // Apply these forces to the nodes and update their positions.
 // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
@@ -247,6 +249,106 @@ var mouseleave = function(d) {
     .style("opacity", 0)
 }
 
+drag = simulation => {
+      function dragstarted(d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+      }
+      function dragged(d) {
+        d.fx = event.x;
+        d.fy = event.y;
+        Tooltip
+        .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+        + "<br><b>" + d.task  + "</b>"
+        + "<br>" + fmt(d.duration))
+        .style("left", (d3.mouse(this)[0]+20) + "px")
+        .style("top", (d3.mouse(this)[1]) + "px")
+      }
+      function dragended(d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+      return d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended);
+    }
+
+    function centroid(nodes) {
+      let x = 0;
+      let y = 0;
+      let z = 0;
+      for (const d of nodes) {
+        let k = size(d.duration) ** 2;
+        x += d.x * k;
+        y += d.y * k;
+        z += k;
+      }
+      return {x: x / z, y: y / z};
+    }
+
+    function forceCluster() {
+      const strength = 0.2;
+      let nodes;
+      function force(alpha) {
+        const centroids = d3.rollup(nodes, centroid, d => d.project);
+        const l = alpha * strength;
+        for (const d of nodes) {
+          const {x: cx, y: cy} = centroids.get(d.project);
+          d.vx -= (d.x - cx) * l;
+          d.vy -= (d.y - cy) * l;
+        }
+      }
+      force.initialize = _ => nodes = _;
+      return force;
+    }
+
+    function forceCollide() {
+      const alpha = 0.4; // fixed for greater rigidity!
+      const padding1 = 3; // separation between same-color nodes
+      const padding2 = 6; // separation between different-color nodes
+      let nodes;
+      let maxRadius;
+
+      function force() {
+        const quadtree = d3.quadtree(nodes, d => d.x, d => d.y);
+        for (const d of nodes) {
+          const r = size(d.duration) + maxRadius;
+          const nx1 = d.x - r, ny1 = d.y - r;
+          const nx2 = d.x + r, ny2 = d.y + r;
+          quadtree.visit((q, x1, y1, x2, y2) => {
+            if (!q.length) do {
+              if (q.data !== d) {
+                // console.log(q)
+                const r = size(d.duration) + size(q.data.r) + (d.project === q.data.project ? padding1 : padding2);
+                let x = d.x - q.data.x, y = d.y - q.data.y, l = Math.hypot(x, y);
+                if (l < r) {
+                  l = (l - r) / l * alpha;
+                  d.x -= x *= l, d.y -= y *= l;
+                  q.data.x += x, q.data.y += y;
+                }
+              }
+            } while (q = q.next);
+            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+          });
+        }
+      }
+      force.initialize = _ => maxRadius = d3.max(nodes = _, d => size(d.duration)) + Math.max(padding1, padding2);
+      return force;
+    }
+
+// Features of the forces applied to the nodes:
+var simulation = d3.forceSimulation()
+    .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
+    .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+    .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.value)+3) }).iterations(1)) // Force that avoids circle overlapping
+
+// const simulation = d3.forceSimulation(data)
+//         .force("x", d3.forceX(width / 2).strength(0.01))
+//         .force("y", d3.forceY(height / 2).strength(0.01))
+//         .force("cluster", forceCluster())
+//         .force("collide", forceCollide());
+
 // Initialize the circle: all located at the center of the svg area
 var node = svg.append("g")
     .attr("class","container tasks hidden")
@@ -256,8 +358,8 @@ var node = svg.append("g")
     .append("circle")
     .attr("class", "node")
     .attr("r", function(d){ return size(d.duration)})
-    .attr("cx", width / 2)
-    .attr("cy", height / 2)
+    .attr("cx", Math.random() * width)
+    .attr("cy", Math.random() * height)
     .style("fill", function(d){ return color(d.project)})
     .style("fill-opacity", 1)
     .attr("stroke", "black")
@@ -265,17 +367,10 @@ var node = svg.append("g")
     .on("mouseover", mouseover) // What to do when hovered
     .on("mousemove", mousemove)
     .on("mouseleave", mouseleave)
-    .call(d3.drag() // call specific function when circle is dragged
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
-
-
-// Features of the forces applied to the nodes:
-var simulation = d3.forceSimulation()
-    .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
-    .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
-    .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.value)+3) }).iterations(1)) // Force that avoids circle overlapping
+    .call(drag(simulation)) // call specific function when circle is dragged
+        // .on("start", dragstarted)
+        // .on("drag", dragged)
+        // .on("end", dragended));
 
 // Apply these forces to the nodes and update their positions.
 // Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
@@ -287,27 +382,28 @@ simulation
             .attr("cy", function(d){ return d.y; })
     });
 
-// What happens when a circle is dragged?
-function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(.03).restart();
-    d.fx = d.x;
-    d.fy = d.y;
-}
-function dragged(d) {
-    d.fx = d3.event.x;
-    d.fy = d3.event.y;
-    Tooltip
-    .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
-        + "<br><b>" + d.task  + "</b>"
-        + "<br>" + fmt(d.duration))
-    .style("left", (d3.mouse(this)[0]+20) + "px")
-    .style("top", (d3.mouse(this)[1]) + "px")
-}
-function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(.03);
-    d.fx = null;
-    d.fy = null;
-}
+// // What happens when a circle is dragged?
+// function dragstarted(d) {
+//     if (!d3.event.active) simulation.alphaTarget(.03).restart();
+//     d.fx = d.x;
+//     d.fy = d.y;
+// }
+// function dragged(d) {
+//     d.fx = d3.event.x;
+//     d.fy = d3.event.y;
+//     Tooltip
+//     .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+//         + "<br><b>" + d.task  + "</b>"
+//         + "<br>" + fmt(d.duration))
+//     .style("left", (d3.mouse(this)[0]+20) + "px")
+//     .style("top", (d3.mouse(this)[1]) + "px")
+// }
+// function dragended(d) {
+//     if (!d3.event.active) simulation.alphaTarget(.03);
+//     d.fx = null;
+//     d.fy = null;
+// }
+
 
 
 function fmt (seconds) {
@@ -322,6 +418,9 @@ function fmt (seconds) {
     }
 })
 
+</script>
+
+<script>
 function filterSelection(c) {
     var x, i;
     x = document.getElementsByClassName("container");
@@ -333,7 +432,7 @@ function filterSelection(c) {
          w3AddClass(x[i], "show");
       }
       else w3AddClass(x[i], "hidden")
-      console.log(x[i].className.baseVal)
+    //   console.log(x[i].className.baseVal)
     }
   }
   

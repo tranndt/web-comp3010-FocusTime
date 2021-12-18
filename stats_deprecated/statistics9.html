@@ -119,8 +119,6 @@
     var width = 800
     var height = 800
 
-    const off_h = document.getElementsByClassName("navbar")[0].offsetHeight
-
     var svg = d3.select("#myStatsBubbles")
         .append("svg")
         .attr("width",width)
@@ -157,8 +155,8 @@
             .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
                 + "<br><b>" + d.task  + "</b>"
                 + "<br>" + fmt(d.duration))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
+            .style("left", (d3.mouse(this)[0]+20) + "px")
+            .style("top", (d3.mouse(this)[1]) + "px")
         }
         var mouseleave = function(d) {
             Tooltip
@@ -178,8 +176,8 @@
             .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
                 + "<br><b>" + d.task  + "</b>"
                 + "<br>" + fmt(d.duration))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
+            .style("left", (d3.mouse(this)[0]+20) + "px")
+            .style("top", (d3.mouse(this)[1]) + "px")
         }
 
         function dragended(d) {
@@ -221,7 +219,7 @@
             .range(d3.schemeSet1);
 
         var node = svg.append("g")
-            .attr("class","statscontainer tasks show")
+            .attr("class","stats container tasks show")
             .selectAll("circle")
             .data(data)
             .enter()
@@ -285,8 +283,8 @@
             .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
                 + "<br>" + d.length  + " Tasks"
                 + "<br>" + fmt(d[1]))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
+            .style("left", (d3.mouse(this)[0]+20) + "px")
+            .style("top", (d3.mouse(this)[1]) + "px")
         }
         var mouseleave = function(d) {
             Tooltip
@@ -306,8 +304,8 @@
             .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
                 + "<br>" + d.length  + " Tasks"
                 + "<br>" + fmt(d[1]))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
+            .style("left", (d3.mouse(this)[0]+20) + "px")
+            .style("top", (d3.mouse(this)[1]) + "px")
         }
 
         function dragended(d) {
@@ -347,7 +345,7 @@
             .range(d3.schemeSet1);
 
         var node = svg.append("g")
-            .attr("class","statscontainer projects hidden")
+            .attr("class","stats container projects hidden")
             .selectAll("circle")
             .data(data_rollup)
             .enter()
@@ -396,7 +394,7 @@
 <script>
 function filterSelection(c) {
     var x, i;
-    x = document.getElementsByClassName("statscontainer");
+    x = document.getElementsByClassName("stats container");
     if (c == "all") c = "";
     for (i = 0; i < x.length; i++) {
       w3RemoveClass(x[i], "show");
