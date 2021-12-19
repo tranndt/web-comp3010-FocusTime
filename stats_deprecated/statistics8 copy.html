@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<style>
+
+.node:hover{
+    /* stroke-width: 7px !important; */
+        filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
+        opacity: 1 !important;
+        cursor: pointer;
+    }
+
+div.tooltip{
+  position: absolute;
+  text-align: center;
+  padding: 5px;
+  font: 12px sans-serif;		
+  background-color: white;
+  border: 1px #b7b7b7 solid;	
+  pointer-events: none;	
+  width: 100px;
+}
+
+.show {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.div.myBtnContainer {
+    align-items: center; 
+}
+
+.container {
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ddd;
+}
+
+.btn.active {
+  background-color: #666;
+  color: white;
+}
+</style>
+<body>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <!-- Color palette -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src = "https://d3js.org/d3-array.v3.min.js"></script>
+    <!-- Create a div where the graph will take place -->
+    <div id="myBtnContainer">
+      <button class="btn active" onclick="filterSelection('projects')">Projects</button>
+      <button class="btn" onclick="filterSelection('tasks')">Tasks</button>
+     </div>
+    <div id="my_dataviz"></div>
+
+<!-- <script src="stats_deprecated/filter.js"></script> -->
+<script>
+
+// set the dimensions and margins of the graph
+var width = 800
+var height = 800
+
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+.append("svg")
+    .attr("width", width)
+    .attr("height", height)
+
+    d3.csv("stats_deprecated/data2.csv", function(data) {
+data = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project);
+// Filter a bit the data -> more than 1 million inhabitants
+// data = data.filter(function(d){ 
+//     return d.duration>1 })
+var color = d3.scaleOrdinal()
+.domain(["COMP 3020","COMP 3040","COMP 2140","COMP 4710"])
+.range(d3.schemeSet1);
+
+// Size scale for countries
+var size = d3.scaleLinear()
+    .domain([0, 2000])
+    .range([20,100])  // circle will be between 7 and 55 px wide
+
+
+// create a tooltip
+var Tooltip = d3.select("#my_dataviz")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+
+// Three function that change the tooltip when user hover / move / leave a cell
+var mouseover = function(d) {
+    Tooltip
+    .style("opacity", 1)
+}
+var mousemove = function(d) {
+    Tooltip
+    .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
+        + "<br>" + d.length  + " Tasks"
+        + "<br>" + fmt(d[1]))
+    .style("left", (d3.mouse(this)[0]+20) + "px")
+    .style("top", (d3.mouse(this)[1]) + "px")
+}
+var mouseleave = function(d) {
+    Tooltip
+    .style("opacity", 0)
+}
+console.log( Math.random()*width)
+
+
+// Initialize the circle: all located at the center of the svg area
+var node = svg.append("g")
+    .attr("class","container projects")
+    .selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class", "node")
+    .attr("r", function(d){ return size(d[1])})
+    .attr("cx", d => Math.random() * width)
+    .attr("cy", d => Math.random() * height)
+    .style("fill", function(d){ return color(d[0])})
+    .style("fill-opacity", 1)
+    .attr("stroke", "black")
+    .style("stroke-width", 2)
+    .on("mouseover", mouseover) // What to do when hovered
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
+    .call(d3.drag() // call specific function when circle is dragged
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+
+// Features of the forces applied to the nodes:
+var simulation = d3.forceSimulation()
+    .force("center", d3.forceCenter().x(width/3).y(height / 2)) // Attraction to the center of the svg area
+    .force("charge", d3.forceManyBody().strength(0.5)) // Nodes are attracted one each other of value is > 0
+    .force("collide", d3.forceCollide().strength(-1).radius(function(d){ return (size(d.value)+3) }).iterations(1)) // Force that avoids circle overlapping
+
+// Apply these forces to the nodes and update their positions.
+// Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
+simulation
+    .nodes(data)
+    .on("tick", function(d){
+        node
+            .attr("cx", function(d){ return d.x; })
+            .attr("cy", function(d){ return d.y; });
+        });
+
+// What happens when a circle is dragged?
+
+function dragstarted(d) {
+if (!d3.event.active) simulation.alphaTarget(.03).restart();
+d.fx = d.x;
+d.fy = d.y;
+}
+function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+    Tooltip
+    .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
+        + "<br>" + d.length  + " Tasks"
+        + "<br>" + fmt(d[1]))
+    .style("left", (d3.mouse(this)[0]+20) + "px")
+    .style("top", (d3.mouse(this)[1]) + "px")
+}
+function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(.03);
+    d.fx = null;
+    d.fy = null;
+}
+function fmt (seconds) {
+    const format = val => `0${Math.floor(val)}`.slice(-2)
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const odd_secs = seconds % 60
+    if (hours <= 0){ hh = ''} else {hh = hours+'h '}
+    if (minutes <= 0){ mm = ''} else {mm = minutes+'m '}
+    ss = odd_secs + 's'
+    return hh+mm+ss
+    }
+
+
+})
+
+d3.csv("stats_deprecated/data2.csv", function(data) {
+
+// Filter a bit the data -> more than 1 million inhabitants
+data = data.filter(function(d){ 
+    return d.duration>1 })
+
+// Color palette for continents?
+var color = d3.scaleOrdinal()
+    // .domain(["Asia", "Europe", "Africa", "Oceania", "Americas"])
+    .domain(["COMP 3020","COMP 3040","COMP 2140","COMP 4710"])
+    .range(d3.schemeSet1);
+
+// Size scale for countries
+var size = d3.scaleLinear()
+    .domain([0, 1000])
+    .range([20,100])  // circle will be between 7 and 55 px wide
+
+// create a tooltip
+var Tooltip = d3.select("#my_dataviz")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+
+// Three function that change the tooltip when user hover / move / leave a cell
+var mouseover = function(d) {
+    Tooltip
+    .style("opacity", 1)
+}
+var mousemove = function(d) {
+    Tooltip
+    .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+        + "<br><b>" + d.task  + "</b>"
+        + "<br>" + fmt(d.duration))
+    .style("left", (d3.mouse(this)[0]+20) + "px")
+    .style("top", (d3.mouse(this)[1]) + "px")
+}
+var mouseleave = function(d) {
+    Tooltip
+    .style("opacity", 0)
+}
+
+drag = simulation => {
+      function dragstarted(d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+      }
+      function dragged(d) {
+        d.fx = event.x;
+        d.fy = event.y;
+        Tooltip
+        .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+        + "<br><b>" + d.task  + "</b>"
+        + "<br>" + fmt(d.duration))
+        .style("left", (d3.mouse(this)[0]+20) + "px")
+        .style("top", (d3.mouse(this)[1]) + "px")
+      }
+      function dragended(d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+      return d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended);
+    }
+
+    function centroid(nodes) {
+      let x = 0;
+      let y = 0;
+      let z = 0;
+      for (const d of nodes) {
+        let k = size(d.duration) ** 2;
+        x += d.x * k;
+        y += d.y * k;
+        z += k;
+      }
+      return {x: x / z, y: y / z};
+    }
+
+    function forceCluster() {
+      const strength = 0.2;
+      let nodes;
+      function force(alpha) {
+        const centroids = d3.rollup(nodes, centroid, d => d.project);
+        const l = alpha * strength;
+        for (const d of nodes) {
+          const {x: cx, y: cy} = centroids.get(d.project);
+          d.vx -= (d.x - cx) * l;
+          d.vy -= (d.y - cy) * l;
+        }
+      }
+      force.initialize = _ => nodes = _;
+      return force;
+    }
+
+    function forceCollide() {
+      const alpha = 0.4; // fixed for greater rigidity!
+      const padding1 = 3; // separation between same-color nodes
+      const padding2 = 6; // separation between different-color nodes
+      let nodes;
+      let maxRadius;
+
+      function force() {
+        const quadtree = d3.quadtree(nodes, d => d.x, d => d.y);
+        for (const d of nodes) {
+          const r = size(d.duration) + maxRadius;
+          const nx1 = d.x - r, ny1 = d.y - r;
+          const nx2 = d.x + r, ny2 = d.y + r;
+          quadtree.visit((q, x1, y1, x2, y2) => {
+            if (!q.length) do {
+              if (q.data !== d) {
+                // console.log(q)
+                const r = size(d.duration) + size(q.data.r) + (d.project === q.data.project ? padding1 : padding2);
+                let x = d.x - q.data.x, y = d.y - q.data.y, l = Math.hypot(x, y);
+                if (l < r) {
+                  l = (l - r) / l * alpha;
+                  d.x -= x *= l, d.y -= y *= l;
+                  q.data.x += x, q.data.y += y;
+                }
+              }
+            } while (q = q.next);
+            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+          });
+        }
+      }
+      force.initialize = _ => maxRadius = d3.max(nodes = _, d => size(d.duration)) + Math.max(padding1, padding2);
+      return force;
+    }
+
+// Features of the forces applied to the nodes:
+var simulation = d3.forceSimulation()
+    .force("center", d3.forceCenter().x(width / 2).y(height / 2)) // Attraction to the center of the svg area
+    .force("charge", d3.forceManyBody().strength(.1)) // Nodes are attracted one each other of value is > 0
+    .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.value)+3) }).iterations(1)) // Force that avoids circle overlapping
+
+// const simulation = d3.forceSimulation(data)
+//         .force("x", d3.forceX(width / 2).strength(0.01))
+//         .force("y", d3.forceY(height / 2).strength(0.01))
+//         .force("cluster", forceCluster())
+//         .force("collide", forceCollide());
+
+// Initialize the circle: all located at the center of the svg area
+var node = svg.append("g")
+    .attr("class","container tasks hidden")
+    .selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class", "node")
+    .attr("r", function(d){ return size(d.duration)})
+    .attr("cx", Math.random() * width)
+    .attr("cy", Math.random() * height)
+    .style("fill", function(d){ return color(d.project)})
+    .style("fill-opacity", 1)
+    .attr("stroke", "black")
+    .style("stroke-width", 2)
+    .on("mouseover", mouseover) // What to do when hovered
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
+    .call(drag(simulation)) // call specific function when circle is dragged
+        // .on("start", dragstarted)
+        // .on("drag", dragged)
+        // .on("end", dragended));
+
+// Apply these forces to the nodes and update their positions.
+// Once the force algorithm is happy with positions ('alpha' value is low enough), simulations will stop.
+simulation
+    .nodes(data)
+    .on("tick", function(d){
+        node
+            .attr("cx", function(d){ return d.x; })
+            .attr("cy", function(d){ return d.y; })
+    });
+
+// // What happens when a circle is dragged?
+// function dragstarted(d) {
+//     if (!d3.event.active) simulation.alphaTarget(.03).restart();
+//     d.fx = d.x;
+//     d.fy = d.y;
+// }
+// function dragged(d) {
+//     d.fx = d3.event.x;
+//     d.fy = d3.event.y;
+//     Tooltip
+//     .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+//         + "<br><b>" + d.task  + "</b>"
+//         + "<br>" + fmt(d.duration))
+//     .style("left", (d3.mouse(this)[0]+20) + "px")
+//     .style("top", (d3.mouse(this)[1]) + "px")
+// }
+// function dragended(d) {
+//     if (!d3.event.active) simulation.alphaTarget(.03);
+//     d.fx = null;
+//     d.fy = null;
+// }
+
+
+
+function fmt (seconds) {
+    const format = val => `0${Math.floor(val)}`.slice(-2)
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const odd_secs = seconds % 60
+    if (hours <= 0){ hh = ''} else {hh = hours+'h '}
+    if (minutes <= 0){ mm = ''} else {mm = minutes+'m '}
+    ss = odd_secs + 's'
+    return hh+mm+ss
+    }
+})
+
+</script>
+
+<script>
+function filterSelection(c) {
+    var x, i;
+    x = document.getElementsByClassName("container");
+    if (c == "all") c = "";
+    for (i = 0; i < x.length; i++) {
+      w3RemoveClass(x[i], "show");
+      w3RemoveClass(x[i], "hidden");
+      if (x[i].className.baseVal.indexOf(c) > -1){
+         w3AddClass(x[i], "show");
+      }
+      else w3AddClass(x[i], "hidden")
+    //   console.log(x[i].className.baseVal)
+    }
+  }
+  
+  function w3AddClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.baseVal.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      if (arr1.indexOf(arr2[i]) == -1) {element.className.baseVal += " " + arr2[i];}
+    }
+  }
+  
+  function w3RemoveClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.baseVal.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+      while (arr1.indexOf(arr2[i]) > -1) {
+        arr1.splice(arr1.indexOf(arr2[i]), 1);     
+      }
+    }
+    element.className.baseVal = arr1.join(" ");
+  }
+  
+  // Add active class to the current button (highlight it)
+  var btnContainer = document.getElementById("myBtnContainer");
+  var btns = btnContainer.getElementsByClassName("btn");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("click", function(){
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
+
+
+
+</script>
+
+</body>
+</html>
