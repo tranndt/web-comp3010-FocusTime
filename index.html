@@ -115,7 +115,7 @@
 
         <div class="right-col">
             <div class="songView">
-                <h2>Album: Blond</h2>
+                <h2 id="songTitle" class="songView-header">Album: Blond</h2>
                 <div class="songList">
                     <div id="trackbox"></div>
                 </div>
@@ -130,4 +130,13 @@
     </div>
 
 </body>
+
+<script>
+    var album_title = document.getElementById("songTitle");
+    album_title.innerHTML = "Album: " + localStorage.getItem("album_title");
+    
+    //if localStorage.getItem("album_title") == "Blonde" {
+
+    //}
+</script>
 </html>

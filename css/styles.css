@@ -939,7 +939,7 @@ div.accordion-item-header.active::after {
     border-radius: 1em;
 }
 
-.songView h2 {
+.songView-header {
     margin-bottom:1vh;
     font-size: 3vh;
 }
