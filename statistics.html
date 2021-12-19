@@ -124,10 +124,16 @@
     </div>
 </body>
 <script>
-    var width = 800
-    var height = 800
+    var width = 1000
+    var height = 700
 
     const off_h = document.getElementsByClassName("navbar")[0].offsetHeight
+    const bound = (value, min, max) => {
+            if (isNaN(value)){return 0;}
+            if (value < min) {return min;}
+            if (value > max) {return max;}
+            return value;
+        }
 
     var svg = d3.select("#myStatsBubbles")
         .append("svg")
@@ -142,7 +148,7 @@
         var simulation = d3.forceSimulation()
             .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
             .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.35).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
+            .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
 
             
         // create a tooltip
@@ -214,9 +220,9 @@
             return result;
         };
 
-
         data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-        // console.log(data)
+        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
+
         // console.log(array_column(data_rollup,0))
         // console.log(array_range(data,"duration"))
 
@@ -243,6 +249,10 @@
             .domain(array_range(data,"duration"))
             .range([30,80])
 
+        var sizedot = d3.scaleLinear()
+            .domain(array_range(data,"duration"))
+            .range([3,8])
+
         var color = d3.scaleOrdinal()
             .domain(array_column(data_rollup,0))
             .range(d3.schemeSet1);
@@ -254,24 +264,28 @@
         // Add one dot in the legend for each name.
         var dotsize = 20
         var allgroups = array_column(data_rollup,0)
-        svg.selectAll("myrect") // selectAll
+        var alldurations = array_column(data_rollup,1)
+        // console.log("allgroups",alldurations[allgroups.indexOf('COMP 3020')])
+        svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
         .data(allgroups)
         .enter()
         .append("circle")
-            .attr("cx", 390)
-            .attr("cy", function(d,i){ return 10 + i*(dotsize+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-            .attr("r", 7)
+            .attr("cx", (d,i) => 100 - dotsize + i * 150)
+            .attr("cy", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("r", (d,i) => sizedot(alldurations[i]))
             .style("fill", function(d){ return color(d)})
+            .style("stroke", "black")
+            .style("stroke-width", 1)
             .on("mouseover", highlightSelection)
             .on("mouseleave", unhighlightSelection)
 
         // Add labels beside legend dots
-        svg.selectAll("mylabels")
+        svg.append("g").attr("class","mylabels").selectAll("mylabels")
         .data(allgroups)
         .enter()
         .append("text")
-            .attr("x", 390 + dotsize*.8)
-            .attr("y", function(d,i){ return i * (dotsize + 5) + (dotsize/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("x", (d,i) => 100 + i * 150)
+            .attr("y", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
             .style("fill", function(d){ return color(d)})
             .text(function(d){ return d})
             .attr("text-anchor", "left")
@@ -324,15 +338,15 @@
             .nodes(data)
             .on("tick", function(d){
                 node
-                    .attr("cx", function(d){ return d.x; })
-                    .attr("cy", function(d){ return d.y; })
+                    .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
+                    .attr("cy", d => bound(d.y, 50, height - 150)) // d.y
                 });
-
     })
         
     // Projects Container View  
     d3.csv("stats_deprecated/data2.csv", function(data) {
         data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
         console.log(data_rollup)
 
@@ -417,7 +431,7 @@
 
         var size = d3.scaleLinear()
             .domain(array_range(data_rollup,1))
-            .range([60,120])
+            .range([50,100])
 
         var color = d3.scaleOrdinal()
             .domain(array_column(data_rollup,0))
@@ -429,7 +443,7 @@
             .data(data_rollup)
             .enter()
             .append("circle")
-            .attr("class", "node")
+            .attr("class", d => "project node " + d[0])
             .attr("r", function(d){return size(d[1])})
             .attr("cx", function(d){return Math.random()*d[1]})
             .attr("cy", function(d){return Math.random()*d[1]})
@@ -450,8 +464,8 @@
             .nodes(data_rollup)
             .on("tick", function(d){
                 node
-                    .attr("cx", function(d){ return d.x; })
-                    .attr("cy", function(d){ return d.y; })
+                .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
+                .attr("cy", d => bound(d.y, 50, height - 150)) // d.y
             });
 
     });
@@ -487,7 +501,7 @@ function filterSelection(c) {
 
   function highlightSelection(c) {
     var x, i;
-    x = document.getElementsByClassName("task node");
+    x = document.getElementsByClassName("node");
     if (c == "all") c = "";
     for (i = 0; i < x.length; i++) {
       w3RemoveClass(x[i], "highlight");
@@ -501,7 +515,7 @@ function filterSelection(c) {
 
   function unhighlightSelection(c) {
     var x, i;
-    x = document.getElementsByClassName("task node");
+    x = document.getElementsByClassName("node");
     if (c == "all") c = "";
     for (i = 0; i < x.length; i++) {
       w3RemoveClass(x[i], "unhighlight");
