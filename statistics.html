@@ -125,6 +125,8 @@
         <button class="tasks btn active" onclick="btnSelection('tasks')">Tasks</button>
         <button class="projects btn" onclick="btnSelection('projects')">Projects</button>
     </div>
+    <div id="myFilterContainer">
+    </div>
     <div id="listcontainer">
     </div>
 </body>
@@ -156,28 +158,6 @@
         result.push(max);
         return result;
     };
-
-    
-
-    // var tasklist = d3.select(".tasklist")
-
-    // d3.csv("stats_deprecated/data2.csv", function(data) {   
-    //     console.log("data",data)
-    //     console.log("tasklist",tasklist)
-
-    //     var mylist = tasklist.append("div")
-    //         .selectAll("li")
-    //         .data(data)
-    //         .enter()
-    //         .text(d => {
-    //             console.log(d.task)
-    //             d.task
-    //         })
-    //         .exit()
-
-    //     console.log("mylist",mylist)
-
-    // });
 
     var svg = d3.select("#myStatsBubbles")
         .append("svg")
@@ -525,12 +505,10 @@
         else if (c === "tasks") displayTaskList()
         else if (c === "projects") displayProjectList()
         for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "show");
-        w3RemoveClass(x[i], "hidden");
-        if (x[i].className.baseVal.indexOf(c) > -1){
-            w3AddClass(x[i], "show");
-        }
-        else w3AddClass(x[i], "hidden")
+            w3RemoveClass(x[i], "show");
+            w3RemoveClass(x[i], "hidden");
+            if (x[i].className.baseVal.indexOf(c) > -1) w3AddClass(x[i], "show");
+            else w3AddClass(x[i], "hidden")
         }
     }
 
@@ -680,8 +658,7 @@
     }
 
     function btnSelection(c){
-        c = asClassName(c)
-        filterSelection(c)
+
         var btns = document.getElementById("myBtnContainer").getElementsByClassName("btn");
         selectedBtn = document.getElementById("myBtnContainer").getElementsByClassName(c)[0];
         for (var i = 0; i < btns.length; i++) {
@@ -689,6 +666,11 @@
                 btns[i].className = btns[i].className.replace(" active","")
         }
         selectedBtn.className += " active"
+        filterSelection(c)
+
+        var clicked = document.getElementById("myBtnContainer").getElementsByClassName("clicked")[0];
+        var currentFilter = clicked.className.split(" ")[2]
+        projectFilter(currentFilter)
     }
 
     function projectFilterSelection(c){
