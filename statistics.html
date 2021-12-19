@@ -167,7 +167,6 @@
     // Tasks Container View  
     d3.csv("stats_deprecated/data2.csv", function(data) {
         // console.log(data)
-        // console.log(d3.pack(data))
 
         var simulation = d3.forceSimulation()
             .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
@@ -231,9 +230,6 @@
         data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
         data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-        // console.log(array_column(data_rollup,0))
-        // console.log(array_range(data,"duration"))
-
         a_ = 0.3
         b_ = 1- a_
         var centroid_x = d3.scaleOrdinal()
@@ -272,7 +268,7 @@
         var dotsize = 20
         var allgroups = array_column(data_rollup,0)
         var alldurations = array_column(data_rollup,1)
-        // console.log("allgroups",alldurations[allgroups.indexOf('COMP 3020')])
+
         svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
         .data(allgroups)
         .enter()
@@ -433,9 +429,6 @@
             result.push(max);
             return result;
         };
-
-
-                // console.log(data)
 
         var size = d3.scaleLinear()
             .domain(array_range(data_rollup,1))
@@ -621,13 +614,16 @@
                 .domain(array_column(data_rollup,0))
                 .range(d3.schemeSet1);
 
-            btnContainer = document.getElementById("myBtnContainer")
-            html = ""
+            btnContainer = document.getElementById("myFilterContainer")
+            html = '<button class="clear project filter-btn" onclick="projectFilterSelection(\'all\')">Clear Filter</button>'
             for (const i in allgroups){
                 d = allgroups[i]
                 span = '<button class="project filter-btn '+ asClassName(d) +'" onclick="projectFilterSelection(\''+ d +'\')">' + d +'</button>'
                 html += span
-                console.log(color(d))
+                addCssRule(".filter-btn."+asClassName(d), {
+                    'background-color': "white",
+                    'color': color(d)
+                });
                 addCssRule(".filter-btn."+asClassName(d)+".clicked", {
                     'background-color': color(d),
                     'color': "white"
@@ -637,7 +633,6 @@
                     'color': "white"
                 });
             }
-            html += '<button class="clear project filter-btn" onclick="projectFilterSelection(\'all\')">Clear Filter</button>'
             btnContainer.innerHTML += html
 
         });
@@ -658,7 +653,6 @@
     }
 
     function btnSelection(c){
-
         var btns = document.getElementById("myBtnContainer").getElementsByClassName("btn");
         selectedBtn = document.getElementById("myBtnContainer").getElementsByClassName(c)[0];
         for (var i = 0; i < btns.length; i++) {
@@ -668,16 +662,18 @@
         selectedBtn.className += " active"
         filterSelection(c)
 
-        var clicked = document.getElementById("myBtnContainer").getElementsByClassName("clicked")[0];
-        var currentFilter = clicked.className.split(" ")[2]
-        projectFilter(currentFilter)
+        var clicked = document.getElementById("myFilterContainer").getElementsByClassName("clicked")[0];
+        if (clicked != null){
+            var currentFilter = clicked.className.split(" ")[2];
+            projectFilter(currentFilter);
+        }
     }
 
     function projectFilterSelection(c){
         c = asClassName(c)
         projectFilter(c)
-        var btns = document.getElementById("myBtnContainer").getElementsByClassName("filter-btn");
-        selectedBtn = document.getElementById("myBtnContainer").getElementsByClassName(c)[0];
+        var btns = document.getElementById("myFilterContainer").getElementsByClassName("filter-btn");
+        selectedBtn = document.getElementById("myFilterContainer").getElementsByClassName(c)[0];
         for (var i = 0; i < btns.length; i++) {
             if (btns[i].className.indexOf("clicked") > -1)
                 btns[i].className = btns[i].className.replace(" clicked","")
