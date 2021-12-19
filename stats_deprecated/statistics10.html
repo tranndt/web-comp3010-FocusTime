@@ -12,6 +12,7 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <!-- Array -->
     <script src = "https://d3js.org/d3-array.v3.min.js"></script>
+
     <title>Focus Time - Statistics</title>
 </head>
 <style>
@@ -21,14 +22,6 @@
 
     .hidden {
         display: none;
-    }
-
-    .unhighlight {
-        opacity: 0.05;
-    }
-
-    .highlight {
-        opacity: 1;
     }
 
     .div.myBtnContainer {
@@ -137,13 +130,84 @@
     // Tasks Container View  
     d3.csv("stats_deprecated/data2.csv", function(data) {
         console.log(data)
-        console.log(d3.pack(data))
+        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+        data_group = Array.from(d3.group(data, d => d.project).entries())
+        // console.log(data_group)
+
+        // clustering experiment
+        data1 = ({
+            children: Array.from(
+                d3.group(data, d => d.project),
+                ([, children]) => ({children}),
+            )
+            })
+        console.log(data1)
+
+        function pack() {
+            return d3.pack()
+            .size([width, height])
+            .padding(1)
+            (d3.hierarchy(data1)
+            .sum(d => d.duration))
+            } 
+        const nodes = pack().leaves()
+
+        // function unroll(rollup, keys, label = "value", p = {}) {
+        //     return Array.from(rollup, ([key, value]) => 
+        //         value instanceof Map 
+        //         ? unroll(value, keys.slice(1), label, Object.assign({}, { ...p, [keys[0]]: key } ))
+        //         : Object.assign({}, { ...p, [keys[0]]: key, [label] : value })
+        //     ).flat();
+        // }
+        // console.log("unroll",unroll(data_rollup, ["project", "duration"]))
+
+        function centroid(nodes) {
+            let x = 0;
+            let y = 0;
+            let z = 0;
+            for (const d of nodes) {
+                let k = d.r ** 2;
+                x += d.x * k;
+                y += d.y * k;
+                z += k;
+            }
+            return {x: x / z, y: y / z};
+        }
+
+        console.log("nodes",nodes)
+        const centroids = d3.rollup(nodes, centroid,d => d.data.project);
+        console.log("centroids",centroids)
+        // for (const d of nodes) {
+        //     // console.log(centroid(nodes))
+        //     // console.log(centroids.get(d.project))
+        //     console.log(d)
+        //     const {x: cx, y: cy} = centroids.get(d.data.project);
+        //     console.log(cx,cy)
+        // }
+
+        function forceCluster() {
+            const strength = 0.2;
+            var nodes;
+            function force(alpha) {
+                const centroids = d3Array.rollup(nodes, centroid,d => d.data.project);
+                const l = alpha * strength;
+                for (const d of nodes) {
+                    console.log("d",d)
+                    const {x: cx, y: cy} = centroids.get(d.data.project);
+                    d.vx -= (d.x - cx) * l;
+                    d.vy -= (d.y - cy) * l;
+                }
+            }
+            force.initialize = _ => nodes = _;
+            return force;
+        }
+
 
         var simulation = d3.forceSimulation()
             .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
-            .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.35).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
-
+            .force("charge", d3.forceManyBody().strength(.15)) // Nodes are attracted one each other of value is > 0
+            .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
+            .force("cluster", forceCluster())
             
         // create a tooltip
         var Tooltip = d3.select("#myStatsBubbles")
@@ -215,84 +279,29 @@
         };
 
 
-        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
         // console.log(data)
         // console.log(array_column(data_rollup,0))
         // console.log(array_range(data,"duration"))
 
-        a_ = 0.3
-        b_ = 1- a_
-        var centroid_x = d3.scaleOrdinal()
-            .domain(array_column(data_rollup,0))
-            .range([a_*width,b_*width,a_*width,b_*width]);
-
-        var centroid_y = d3.scaleOrdinal()
-            .domain(array_column(data_rollup,0))
-            .range([a_*height,a_*height,b_*height,b_*height]);
-
-        function starting_x (d) {
-            offset_dir = Math.random() < 0.5 ? 1 : -1;
-            return centroid_x(d.project) + offset_dir*size(d.duration)
-        }
-        function starting_y (d) {
-            offset_dir = Math.random() < 0.5 ? 1 : -1;
-            return centroid_y(d.project) + offset_dir*size(d.duration)
-        }
 
         var size = d3.scaleLinear()
             .domain(array_range(data,"duration"))
-            .range([30,80])
+            .range([20,100])
 
         var color = d3.scaleOrdinal()
             .domain(array_column(data_rollup,0))
             .range(d3.schemeSet1);
 
-
-        // ---------------------------//
-        //       LEGEND              //
-        // ---------------------------//
-        // Add one dot in the legend for each name.
-        var dotsize = 20
-        var allgroups = array_column(data_rollup,0)
-        svg.selectAll("myrect") // selectAll
-        .data(allgroups)
-        .enter()
-        .append("circle")
-            .attr("cx", 390)
-            .attr("cy", function(d,i){ return 10 + i*(dotsize+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-            .attr("r", 7)
-            .style("fill", function(d){ return color(d)})
-            .on("mouseover", highlightSelection)
-            .on("mouseleave", unhighlightSelection)
-
-        // Add labels beside legend dots
-        svg.selectAll("mylabels")
-        .data(allgroups)
-        .enter()
-        .append("text")
-            .attr("x", 390 + dotsize*.8)
-            .attr("y", function(d,i){ return i * (dotsize + 5) + (dotsize/2)}) // 100 is where the first dot appears. 25 is the distance between dots
-            .style("fill", function(d){ return color(d)})
-            .text(function(d){ return d})
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
-            .on("mouseover", highlightSelection)
-            .on("mouseleave", unhighlightSelection)
-
-        // ---------------------------//
-        //       LEGEND              //
-        // ---------------------------//
-
         var node = svg.append("g")
             .attr("class","statscontainer tasks show")
             .selectAll("circle")
-            .data(data)
+            .data(data1)
             .enter()
             .append("circle")
-            .attr("class", d => "task node " + d.project)
+            .attr("class", "node")
             .attr("r", function(d){return size(d.duration)})
-            .attr("cx", function(d){return starting_x(d) })
-            .attr("cy", function(d){return starting_y(d) })
+            .attr("cx", function(d){return Math.random()*d.duration})
+            .attr("cy", function(d){return Math.random()*d.duration})
             .style("fill", function(d){return color(d.project)})
             .style("fill-opacity", 1)
             .attr("stroke", "black")
@@ -304,24 +313,10 @@
                 .on("start", dragstarted)
                 .on("drag", dragged)
                 .on("end", dragended));
-            
-        node.append("text")
-            // .data(data)
-            // .attr("x", 0)
-            // .attr("y", 0)
-            .attr("class","label")
-            .attr("r", 0)
-            .attr("dy", ".35em")
-            .style("font", "10px sans-serif")
-            .attr("pointer-events", "none")
-            .attr("text-anchor", "middle")
-            .style("fill-opacity", 1)
-            .style("display","inline")
-            .text(d => d.task);
-            
+
 
         simulation
-            .nodes(data)
+            .nodes(data1)
             .on("tick", function(d){
                 node
                     .attr("cx", function(d){ return d.x; })
@@ -338,8 +333,8 @@
 
         var simulation = d3.forceSimulation()
             .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
-            .force("charge", d3.forceManyBody().strength(1000)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d[1])+3) }).iterations(1)) // Force that avoids circle overlapping
+            .force("charge", d3.forceManyBody().strength(.15)) // Nodes are attracted one each other of value is > 0
+            .force("collide", d3.forceCollide().strength(.2).radius(function(d){ return (size(d[1])+3) }).iterations(1)) // Force that avoids circle overlapping
 
         // create a tooltip
         var Tooltip = d3.select("#myStatsBubbles")
@@ -417,7 +412,7 @@
 
         var size = d3.scaleLinear()
             .domain(array_range(data_rollup,1))
-            .range([60,120])
+            .range([20,100])
 
         var color = d3.scaleOrdinal()
             .domain(array_column(data_rollup,0))
@@ -482,38 +477,10 @@ function filterSelection(c) {
          w3AddClass(x[i], "show");
       }
       else w3AddClass(x[i], "hidden")
+    //   console.log(x[i].className.baseVal)
     }
   }
-
-  function highlightSelection(c) {
-    var x, i;
-    x = document.getElementsByClassName("task node");
-    if (c == "all") c = "";
-    for (i = 0; i < x.length; i++) {
-      w3RemoveClass(x[i], "highlight");
-      w3RemoveClass(x[i], "unhighlight");
-      if (x[i].className.baseVal.indexOf(c) > -1){
-         w3AddClass(x[i], "highlight");
-      }
-      else w3AddClass(x[i], "unhighlight")
-    }
-  }
-
-  function unhighlightSelection(c) {
-    var x, i;
-    x = document.getElementsByClassName("task node");
-    if (c == "all") c = "";
-    for (i = 0; i < x.length; i++) {
-      w3RemoveClass(x[i], "unhighlight");
-      w3RemoveClass(x[i], "highlight");
-      if (x[i].className.baseVal.indexOf(c) > -1){
-         w3AddClass(x[i], "unhighlight");
-      }
-      else w3AddClass(x[i], "highlight")
-    }
-    highlightSelection("all")
-  }
- 
+  
   function w3AddClass(element, name) {
     var i, arr1, arr2;
     arr1 = element.className.baseVal.split(" ");

@@ -23,14 +23,6 @@
         display: none;
     }
 
-    .unhighlight {
-        opacity: 0.05;
-    }
-
-    .highlight {
-        opacity: 1;
-    }
-
     .div.myBtnContainer {
         align-items: center; 
     }
@@ -247,49 +239,13 @@
             .domain(array_column(data_rollup,0))
             .range(d3.schemeSet1);
 
-
-        // ---------------------------//
-        //       LEGEND              //
-        // ---------------------------//
-        // Add one dot in the legend for each name.
-        var dotsize = 20
-        var allgroups = array_column(data_rollup,0)
-        svg.selectAll("myrect") // selectAll
-        .data(allgroups)
-        .enter()
-        .append("circle")
-            .attr("cx", 390)
-            .attr("cy", function(d,i){ return 10 + i*(dotsize+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-            .attr("r", 7)
-            .style("fill", function(d){ return color(d)})
-            .on("mouseover", highlightSelection)
-            .on("mouseleave", unhighlightSelection)
-
-        // Add labels beside legend dots
-        svg.selectAll("mylabels")
-        .data(allgroups)
-        .enter()
-        .append("text")
-            .attr("x", 390 + dotsize*.8)
-            .attr("y", function(d,i){ return i * (dotsize + 5) + (dotsize/2)}) // 100 is where the first dot appears. 25 is the distance between dots
-            .style("fill", function(d){ return color(d)})
-            .text(function(d){ return d})
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
-            .on("mouseover", highlightSelection)
-            .on("mouseleave", unhighlightSelection)
-
-        // ---------------------------//
-        //       LEGEND              //
-        // ---------------------------//
-
         var node = svg.append("g")
             .attr("class","statscontainer tasks show")
             .selectAll("circle")
             .data(data)
             .enter()
             .append("circle")
-            .attr("class", d => "task node " + d.project)
+            .attr("class", "node")
             .attr("r", function(d){return size(d.duration)})
             .attr("cx", function(d){return starting_x(d) })
             .attr("cy", function(d){return starting_y(d) })
@@ -482,38 +438,10 @@ function filterSelection(c) {
          w3AddClass(x[i], "show");
       }
       else w3AddClass(x[i], "hidden")
+    //   console.log(x[i].className.baseVal)
     }
   }
-
-  function highlightSelection(c) {
-    var x, i;
-    x = document.getElementsByClassName("task node");
-    if (c == "all") c = "";
-    for (i = 0; i < x.length; i++) {
-      w3RemoveClass(x[i], "highlight");
-      w3RemoveClass(x[i], "unhighlight");
-      if (x[i].className.baseVal.indexOf(c) > -1){
-         w3AddClass(x[i], "highlight");
-      }
-      else w3AddClass(x[i], "unhighlight")
-    }
-  }
-
-  function unhighlightSelection(c) {
-    var x, i;
-    x = document.getElementsByClassName("task node");
-    if (c == "all") c = "";
-    for (i = 0; i < x.length; i++) {
-      w3RemoveClass(x[i], "unhighlight");
-      w3RemoveClass(x[i], "highlight");
-      if (x[i].className.baseVal.indexOf(c) > -1){
-         w3AddClass(x[i], "unhighlight");
-      }
-      else w3AddClass(x[i], "highlight")
-    }
-    highlightSelection("all")
-  }
- 
+  
   function w3AddClass(element, name) {
     var i, arr1, arr2;
     arr1 = element.className.baseVal.split(" ");
