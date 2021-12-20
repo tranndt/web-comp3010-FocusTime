@@ -26,24 +26,33 @@
                     "ml a3 a3 a4 mr";
         }
 
-        #logo{
+        .navbar {
             background-color: rgb(146, 146, 146);
+        }
+
+        #navbar-left {
             grid-area: l;
         }
 
-        .navbar{
+        #navbar-center{
+            grid-area: n;
+            height: 100%;
+        }
+
+        .navitemlist{
             background: rgb(212, 221, 83);
             position: relative;
-            display: inline-flex;
-            grid-area: n;
+            /* display: inline-flex; */
             /* margin-left: auto; */
             justify-content: center;
-            align-items: center;
+            align-content: center;
             border-radius: 1.5em;
-            margin-top: 1em;
+            height: 60%;
+            margin-top: 1.25em; 
             margin-bottom: 1em;
 
         }
+
         #app-interface-upperleft{
             background-color: orange;
             grid-area: a1;
@@ -79,22 +88,21 @@
         li .active {
             background:rgba(78, 78, 64, 0.466);
             border-radius: 0.8em;
-            padding: 0.3em;
-            /* border-width: 2em 2em 2em 2em; */
-            /* border-style: solid; */
-            /* border-color: rgba(138, 141, 99, 0.747); */
+            padding: 0.25em;
         } 
 
 
         ul{
             padding-inline-start: 0px;
+            margin-block-start: 0px;
+            margin-block-end: 0px;
         }
 
         .navitemlist li {
             display: inline-flex;
-            padding: 1.25em 1em 1em 1.25em; 
+            padding: 0em 1.25em 0em 1.25em;
             text-align: center;  
-            /* border-right: 0.05em solid rgba(0, 0, 0, 0.1); */
+            border-right: 0.05em solid rgba(0, 0, 0, 0.1);
         }
 
         .navitemlist li:last-child {
@@ -111,10 +119,11 @@
 </head>
 <body>
     <div class="body-container">
-        <div id="logo">
+        <div class="navbar margin" id="navbar-margin-left">Navbar Margin Left</div>
+        <div class="navbar" id="navbar-left">
             <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
         </div>
-        <div class="navbar">
+        <div class="navbar" id="navbar-center">
             <ul class="navitemlist">
                 <li>
                     <a href="upcomingTasks.html">
@@ -131,14 +140,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="index.html">
+                    <a class="active" href="index.html">
                         <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
                         <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
                         <div class="navitem" data-text="Timer Page">Homepage</div>
                     </a>
                 </li>
                 <li>
-                    <a class="active" href="music.html">
+                    <a href="music.html">
                         <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
                         <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
                         <div class="navitem" data-text="Music">Music</div>
@@ -153,6 +162,8 @@
                 </li>
             </ul>
         </div>
+        <div class="navbar" id="navbar-right">Navbar Right</div>
+        <div class="navbar margin" id="navbar-margin-right">Navbar Margin Right</div>
         <div class="margin" id="margin-left">Margin Left</div>
         <div class="margin" id="margin-right">Margin Right</div>
         <div id="app-interface-upperleft">App Interface UpperLeft</div>
