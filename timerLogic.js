@@ -274,6 +274,7 @@ const br_countdown = () => {
     console.log("break time:" , br_time);
 
     if (br_time <= 60 && br_time > 0) {
+        //notify users
         console.log("1 minute break remaining. Focus time will resume automatically after this.");
     }
 
@@ -283,6 +284,17 @@ const br_countdown = () => {
         clear_timer(br_hr, br_min, br_sec);
         clearInterval(br_intervalID);
         br_time = 0;
+
+        if(time > 0) { //resume main timer,set timer in running state -> pause,stop btn
+            //notify users
+            state = RUNNING;
+
+            //disable pause -> no more breaks
+            disable_start_pause_button("No break left!");
+
+            countdown();//start main countdown again
+            intervalID = setInterval(countdown, 1000);
+        }
     }
     else {
         set_timer(br_hr, br_min, br_sec, br_time);
