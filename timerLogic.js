@@ -18,6 +18,7 @@ const convert_from_secs = (input_sec) => {
 
 //--------------------------------------------------------
 
+const toast_elem = document.getElementById("toast");
 const hr_elem = document.querySelector('#hr');
 const min_elem = document.querySelector('#min');
 const sec_elem= document.querySelector('#sec');
@@ -105,6 +106,84 @@ const set_timer = (hr_pos, min_pos, sec_pos, curr_time_sec) => {
     hr_pos.textContent = String(hr).padStart(2,'0');
     min_pos.textContent = String(min).padStart(2,'0');
     sec_pos.textContent = String(sec).padStart(2,'0');
+};
+
+function setProgress(percent) { //set progress of the circular progress bar
+    const offset = circumference - (percent / 100) * circumference;
+    progress.style.strokeDashoffset = offset;
+  }
+  
+const countdown = () => {
+    console.log(time);
+
+    if(time <= 0) {//change to STOPPED state once time is up
+
+        state = STOPPED;
+
+        console.log("Time's up!!");
+        start_pause_btn.textContent = "Start";
+        stop_btn.textContent = "Set"; //allow to edit 
+
+        //stop decrementing timer
+        clear_timer(hr_elem, min_elem, sec_elem);
+        clearInterval(intervalID);
+        clearInterval(br_intervalID);
+        setProgress(100);
+        setTimeout(() => {
+            setProgress(0);
+        }, 1000);
+        time = 0;
+
+        //notify users of time over, use dialog box to get time progress input
+        toast_elem.className = "show";
+        toast_elem.textContent = "Focus time over. Good job!";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+    }
+    else {
+        set_timer(hr_elem, min_elem, sec_elem, time);
+    }
+
+    let time_percent = Math.ceil(((total_secs-time)/total_secs)*100);
+    setProgress(time_percent);
+    time--;
+};
+
+const br_countdown = () => {
+    console.log("break time:" , br_time);
+
+    if (br_time <= 60 && br_time > 0) {
+
+        toast_elem.className = "show";
+        toast_elem.textContent = "Less than 1 minute break remaining. Focus time will resume automatically after this.";
+
+    }
+
+    if(br_time <= 0) {
+        //stop decrementing timer
+        console.log("Break Time over! Focus time running.");
+        clear_timer(br_hr, br_min, br_sec);
+        clearInterval(br_intervalID);
+        br_time = 0;
+
+        if(time > 0) { //resume main timer,set timer in running state -> pause,stop btn
+            //notify users
+            toast_elem.textContent = "Break Over! Focus time resumed."
+            setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+            state = RUNNING;
+
+            //disable pause -> no more breaks
+            disable_start_pause_button("No break left!");
+
+            countdown();//start main countdown again
+            intervalID = setInterval(countdown, 1000);
+        }
+    }
+    else {
+        set_timer(br_hr, br_min, br_sec, br_time);
+    }
+
+    br_time--;
 };
 
 start_pause_btn.addEventListener('click', () => {
@@ -233,74 +312,5 @@ stop_btn.addEventListener('click', () => {
     }
 
 });
-
-
-function setProgress(percent) { //set progress of the circular progress bar
-  const offset = circumference - (percent / 100) * circumference;
-  progress.style.strokeDashoffset = offset;
-}
-
-const countdown = () => {
-    console.log(time);
-
-    if(time <= 0) {//change to STOPPED state once time is up
-
-        state = STOPPED;
-
-        console.log("Time's up!!");
-        start_pause_btn.textContent = "Start";
-        stop_btn.textContent = "Set"; //allow to edit 
-
-        //stop decrementing timer
-        clear_timer(hr_elem, min_elem, sec_elem);
-        clearInterval(intervalID);
-        clearInterval(br_intervalID);
-        setProgress(100);
-        setTimeout(() => {
-            setProgress(0);
-        }, 1000);
-        time = 0;
-    }
-    else {
-        set_timer(hr_elem, min_elem, sec_elem, time);
-    }
-
-    let time_percent = Math.ceil(((total_secs-time)/total_secs)*100);
-    setProgress(time_percent);
-    time--;
-};
-
-const br_countdown = () => {
-    console.log("break time:" , br_time);
-
-    if (br_time <= 60 && br_time > 0) {
-        //notify users
-        console.log("1 minute break remaining. Focus time will resume automatically after this.");
-    }
-
-    if(br_time <= 0) {
-        //stop decrementing timer
-        console.log("Break Time over! Focus time running.");
-        clear_timer(br_hr, br_min, br_sec);
-        clearInterval(br_intervalID);
-        br_time = 0;
-
-        if(time > 0) { //resume main timer,set timer in running state -> pause,stop btn
-            //notify users
-            state = RUNNING;
-
-            //disable pause -> no more breaks
-            disable_start_pause_button("No break left!");
-
-            countdown();//start main countdown again
-            intervalID = setInterval(countdown, 1000);
-        }
-    }
-    else {
-        set_timer(br_hr, br_min, br_sec, br_time);
-    }
-
-    br_time--;
-};
 
 
