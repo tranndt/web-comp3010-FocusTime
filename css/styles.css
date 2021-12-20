@@ -692,7 +692,7 @@ transform: scaleX(-1);
     /* padding-top: 58vh;
     padding-left:25vw; */
     width: 300px;
-    /* text-align: center; */
+    text-align: center;
     color: var(--text-color);
     /* background-color: white; */
 }
@@ -711,6 +711,7 @@ transform: scaleX(-1);
     padding: 7px 10px;
     color: var(--text-color);
     margin: 0.5em 0 8px 0;
+    font-weight: normal;
     /* max-width: 11em; */
 
     /* replacing default arrow */
@@ -730,6 +731,7 @@ transform: scaleX(-1);
 }
 
 .select option {
+    font-weight: normal;
     background: #ffffffff;
 }
 
