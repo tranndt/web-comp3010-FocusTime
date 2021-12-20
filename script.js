@@ -25,55 +25,31 @@ const handleInput = (event) => {
     }
 }
 
-function createNewOption() {
-    var taskBox = document.getElementById("task-selector");
-    var projectBox = document.getElementById("project-selector");
-    var selectedTask = taskBox.value;
-    var selectedProj = projectBox.value;
+function createNewOption(selectorID, type) {
+	var selectBox = document.getElementById(selectorID);
+    var selectedValue = selectBox.value;
     var newOption;
 
-    if (!selectedTask.localeCompare("create-task")) {
-        var newTask = window.prompt("What is the new task?");
+	if (!selectedValue.localeCompare("create-"+type)) {
+        var newOptionValue = window.prompt("What is the new "+type+"?");
 
-        if (newTask == "") {
-            alert("Task name should not be empty. Please try again.");
-        }
+		if (newOptionValue !== null) {
+			if (newOptionValue.localeCompare("")) {
+				newOption = new Option(newOptionValue, newOptionValue);
+				selectBox.add(newOption, selectBox.options.length - 1);
+				selectBox.value = newOption.value;
+			}
+		
+			else {
+				alert(type+" name should not be empty. Please try again.");
+			}
+		}
 
-        else {
-            newOption = new Option(newTask, newTask);
-            taskBox.add(newOption, taskBox.options.length - 1);
-            taskBox.value = newOption.value;
-        }
-    }
-
-    if (!selectedProj.localeCompare("create-proj")) {
-        var newProj = window.prompt("What is the new project?");
-
-        if (newProj == "") {
-            alert("Project name should not be empty. Please try again.");
-        }
-
-        else {
-            newOption = new Option(newProj, newProj);
-            projectBox.add(newOption, projectBox.options.length - 1);
-            projectBox.value = newOption.value;
-        }
+		else {
+			selectBox.value = selectBox.options[0].firstChild.textContent;
+		}
     }
 }
-
-// function createNewOption(selector, type) {
-//     var selectBox = document.getElementById(selector);
-//     var selectedValue = document.getElementById(selectBox).value;
-//     var newOption;
-
-//     if (!selectedValue.localeCompare("create-"+type)) {
-//         var newValue = window.prompt("What is the new "+type+"?");
-
-//         newOption = new Option(newValue, newValue);
-//         selectBox.add(newOption, selectBox.options.length - 1);
-//         selectBox.value = newOption.value;
-//     }
-// }
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
