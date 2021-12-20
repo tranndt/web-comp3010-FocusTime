@@ -336,6 +336,101 @@ function audioApp(album_title){
 			15:["Male Fantasy", "ivy"]
 		};
 	}
+	else if (album_title == "An Evening With Silk Sonic") {
+		tracks = {
+			0:["Silk Sonic Intro", "nikes"],
+			1:["Leave The Door Open", "ivy"],
+			2:["Fly As Me", "pink+white"],
+			3:["After Last Night", "be_yourself"],
+			4:["Smokin Out The Window", "solo"],
+			5:["Put On A Smile", "skyline_to"],
+			6:["777", "self_control"],
+			7:["Skate", "good_guy"],
+			8:["Blast Off", "nights"]
+		};
+	}
+	else if (album_title == "Punk") {
+		tracks = {
+			0:["Die Slow", "nikes"],
+			1:["Stressed", "ivy"],
+			2:["Stupid/Asking", "pink+white"],
+			3:["Recognize Real", "be_yourself"],
+			4:["Contagious", "solo"],
+			5:["Peepin Out The Window", "skyline_to"],
+			6:["Rich Nigga Shit", "self_control"],
+			7:["Livin It Up", "good_guy"],
+			8:["Yea Yea Yea", "nights"],
+			9:["Insure My Wrist", "solo_reprise"],
+			10:["Scoliosis", "pretty_sweet"],
+			11:["Bubbly", "facebook_story"],
+			12:["Road Rage", "close_to_you"],
+			13:["Faces", "white_ferrari"],
+			14:["Droppin Jewels", "nikes"],
+			15:["Fifth Day Dead", "ivy"],
+			16:["Icy Hot", "close_to_you"],
+			17:["Love You More", "white_ferrari"],
+			18:["Hate The Game", "nikes"],
+			19:["Day Before", "ivy"]
+		};
+	}
+	else if (album_title == "Faces") {
+		tracks = {
+			0:["Inside Outside", "nikes"],
+			1:["Here We Go", "ivy"],
+			2:["Friends", "pink+white"],
+			3:["Angle Dust", "be_yourself"],
+			4:["Malibu", "solo"],
+			5:["What Do You Do", "skyline_to"],
+			6:["It Just Doesn't Matter", "self_control"],
+			7:["Therapy", "good_guy"],
+			8:["Polo Jeans", "nights"],
+			9:["Happy Birthday", "solo_reprise"],
+			10:["Wedding", "pretty_sweet"],
+			11:["Funeral", "facebook_story"],
+			12:["Diablo", "close_to_you"],
+			13:["Ave Maria", "white_ferrari"],
+			14:["55", "nikes"],
+			15:["San Francisco", "ivy"],
+			16:["Colors and Shapes", "close_to_you"],
+			17:["Insomniak", "white_ferrari"],
+			18:["Uber", "nikes"],
+			19:["Rain", "ivy"],
+			20:["Apparition", "nikes"],
+			21:["Thumbalina", "ivy"],
+			22:["New Faces v2", "pink+white"],
+			23:["Grand Finale", "be_yourself"],
+			24:["Yeah - Bonus", "solo"]
+		};
+	}
+	else if (album_title == "The Melodic Blue") {
+		tracks = {
+			0:["trademark usa", "nikes"],
+			1:["pink panties", "ivy"],
+			2:["scapegoats", "pink+white"],
+			3:["range brothers", "be_yourself"],
+			4:["issues", "solo"],
+			5:["gorgeous", "skyline_to"],
+			6:["south africa", "self_control"],
+			7:["lost souls", "good_guy"],
+			8:["cocoa", "nights"],
+			9:["family ties", "solo_reprise"],
+			10:["scars", "pretty_sweet"],
+			11:["during activity", "facebook_story"],
+			12:["booman", "close_to_you"],
+			13:["first order of business", "white_ferrari"],
+			14:["vent", "nikes"],
+			15:["San Francisco", "ivy"],
+			16:["Colors and Shapes", "close_to_you"],
+			17:["Insomniak", "white_ferrari"],
+			18:["Uber", "nikes"],
+			19:["Rain", "ivy"],
+			20:["Apparition", "nikes"],
+			21:["Thumbalina", "ivy"],
+			22:["New Faces v2", "pink+white"],
+			23:["Grand Finale", "be_yourself"],
+			24:["Yeah - Bonus", "solo"]
+		};
+	}
 
 	const keys = Object.keys(tracks);
 	var audio_tracker = 0;

@@ -8,9 +8,9 @@ const convert_to_secs = (input_hr, input_min, input_sec) => {
     return Number(input_hr)*60*60 + Number(input_min)*60 + Number(input_sec);
 };
 
-const get_album_length = (album_sec) => {
+var album_sec = -1;
+const set_album_length = (album_sec) => {
     console.log('album_sec', album_sec);
-    return album_sec;
 };
 
 const convert_from_secs = (input_sec) => {
