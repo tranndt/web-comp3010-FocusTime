@@ -983,7 +983,7 @@ div.accordion-item-header.active::after {
 /* http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial */
 .trackbar { 
     background:#DDD; 
-    height:50px; 
+    height:60px; 
     width:23vw; 
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
     vertical-align: middle;
