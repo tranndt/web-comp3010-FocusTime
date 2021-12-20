@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css"></link>
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <!-- Color palette -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <!-- Array -->
+    <script src = "https://d3js.org/d3-array.v3.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <title>Focus Time - Statistics</title>
+</head>
+<style>
+    .show {
+        display: block;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .unhighlight {
+        opacity: 0.05;
+    }
+
+    .highlight {
+        opacity: 1;
+    }
+
+    .div.myBtnContainer {
+        align-items: center; 
+    }
+
+    .container {
+        margin-top: 20px;
+        overflow: hidden;
+    }
+
+    .btn, .filter-btn{
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: #f1f1f1;
+        border-radius: 50px;
+        cursor: pointer;
+        }
+
+    .btn:hover ,.filter-btn:hover{
+        background-color: #ddd;
+    }
+
+    .btn.active {
+        background-color: #666;
+        color: white;
+    }
+
+    .node:hover{
+    /* stroke-width: 7px !important; */
+        filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
+        opacity: 1 !important;
+        cursor: pointer;
+    }
+
+    div.tooltip{
+        position: absolute;
+        text-align: center;
+        padding: 5px;
+        font: 12px sans-serif;		
+        background-color: white;
+        border: 1px #b7b7b7 solid;	
+        pointer-events: none;	
+        width: 100px;
+    }
+
+
+</style>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <a href="#" class="logo">FocusTime</a>
+
+            <nav>
+                <ul class="navitemlist">
+                    <li>
+                        <a href="upcomingTasks.html">
+                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks"></div>
+                            <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active" href="statistics.html">
+                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics"></div>
+                            <div class="navitem" data-text="Statistics">Statistics</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page"></div>
+                            <div class="navitem" data-text="Timer Page">Homepage</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/musicicon.svg" alt="Music"></div>
+                            <div class="navitem" data-text="Music">Music</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings"></div>
+                            <div class="navitem" data-text="Settings">Settings</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div id="myStatsBubbles"></div>
+    <div id="myBtnContainer">
+        <button class="tasks btn active" onclick="btnSelection('tasks')">Tasks</button>
+        <button class="projects btn" onclick="btnSelection('projects')">Projects</button>
+    </div>
+    <div id="myFilterContainer">
+    </div>
+    <div id="listcontainer">
+    </div>
+</body>
+<!-- Task scripts-->
+<script src="statScript.js"></script>
+</html>

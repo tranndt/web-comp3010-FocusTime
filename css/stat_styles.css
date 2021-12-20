@@ -1,0 +1,61 @@
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.unhighlight {
+    opacity: 0.05;
+}
+
+.highlight {
+    opacity: 1;
+}
+
+.div.myBtnContainer {
+    align-items: center; 
+}
+
+.container {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.btn, .filter-btn{
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    border-radius: 50px;
+    cursor: pointer;
+    }
+
+.btn:hover ,.filter-btn:hover{
+    background-color: #ddd;
+}
+
+.btn.active {
+    background-color: #666;
+    color: white;
+}
+
+.node:hover{
+/* stroke-width: 7px !important; */
+    filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
+    opacity: 1 !important;
+    cursor: pointer;
+}
+
+div.tooltip{
+    position: absolute;
+    text-align: center;
+    padding: 5px;
+    font: 12px sans-serif;		
+    background-color: white;
+    border: 1px #b7b7b7 solid;	
+    pointer-events: none;	
+    width: 100px;
+}
+
