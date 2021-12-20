@@ -123,7 +123,7 @@
 
         <div class="right-col">
             <div class="songView">
-                <h2>Album: Blond</h2>
+                <h2 id="songTitle" class="songView-header">Album: Blond</h2>
                 <div class="songList">
                     <div id="trackbox"></div>
                 </div>
@@ -138,4 +138,17 @@
     </div>
 
 </body>
+
+<script>
+    var album_title = document.getElementById("songTitle");
+    if (sessionStorage.getItem("album_title") === null) {
+        album_title.innerHTML = "Album: Choose an Album";
+    }
+    else {
+        album_title.innerHTML = "Album: " + sessionStorage.getItem("album_title");
+        window.addEventListener("load", function(){audioApp(sessionStorage.getItem("album_title"))}, false);
+        window.addEventListener("load", function(){set_album_length(sessionStorage.getItem("album_length"))}, false);
+    }
+    
+</script>
 </html>
