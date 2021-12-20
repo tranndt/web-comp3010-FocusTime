@@ -684,9 +684,9 @@ transform: scaleX(-1);
 .session-time .input-time input,input::-webkit-input-placeholder{
     width:15%;
     display:inline-block;
-    padding: 1.1vh 1.5vw 1.1vh 0.5vw;
+    padding: 1.1vh 0vw 1.1vh 0.2vw;
     line-height:20%;
-    font-size: 4vh;
+    font-size: 2vh;
     overflow: visible;
     /* text-align: center; */
 } 
