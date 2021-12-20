@@ -19,6 +19,9 @@ const convert_from_secs = (input_sec) => {
 //--------------------------------------------------------
 
 const toast_elem = document.getElementById("toast");
+const dbox_elem = document.getElementById("dialogBox");
+const task_amount = document.querySelector('#dbox-input');
+const dbox_btn = document.querySelector('#confirm-btn');
 const hr_elem = document.querySelector('#hr');
 const min_elem = document.querySelector('#min');
 const sec_elem= document.querySelector('#sec');
@@ -139,6 +142,8 @@ const countdown = () => {
         toast_elem.textContent = "Focus time over. Good job!";
 
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+
+        dbox_elem.style.display = "block";
     }
     else {
         set_timer(hr_elem, min_elem, sec_elem, time);
@@ -185,6 +190,10 @@ const br_countdown = () => {
 
     br_time--;
 };
+
+dbox_btn.addEventListener('click', () => {
+    dbox_elem.style.display = "none";
+});
 
 start_pause_btn.addEventListener('click', () => {
     start_pause_btn.style.backgroundColor = click_color;
@@ -309,6 +318,8 @@ stop_btn.addEventListener('click', () => {
         
         time = 0;
         br_time = 0;
+
+        dbox_elem.style.display = "block";
     }
 
 });

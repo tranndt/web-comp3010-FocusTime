@@ -34,6 +34,36 @@ The toast - position it at the bottom and in the middle of the screen */
     visibility: visible; /* Show the snackbar */
 }
 
+#dialogBox {
+    position: fixed;
+    top: 40%;
+    left:34%;
+    transform: translate(-50%);
+    width: auto;
+    height: auto;
+    padding: 0.5em;
+    color: black;
+    border: 1px solid #5f6063;
+    background-color: rgb(252, 252, 253);
+    z-index: 1;
+    display: none;
+}
+
+#dbox-input {
+    margin:1vh 0vh 1vh 0vh;
+}
+
+/* #dbox-input input,input::-webkit-input-placeholder {
+    font-weight: normal;
+    width:15%;
+    display:inline-block;
+    padding: 1.1vh 1.5vw 1.1vh 0.5vw;
+    line-height:20%;
+    font-size: 1px;
+    overflow: visible;
+} */
+
+
 .navbar {
     background: rgb(189, 188, 194);
     margin: 0;
