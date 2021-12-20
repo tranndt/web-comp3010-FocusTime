@@ -11,6 +11,59 @@ body {
     font-family: sans-serif;
 }
 
+
+/* Code for the toast messages adapted from - https://www.w3schools.com/howto/howto_js_snackbar.asp 
+The toast - position it at the bottom and in the middle of the screen */
+#toast {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: rgba(51, 51, 51, 0.897); /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 0.5em; /* Rounded borders */
+    padding: 1.5vh; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 9%; /* right align the toast */
+    bottom: 2vh; /* 2vh from the bottom */
+}
+
+/* Show the toast when clicking on a button (class added with JavaScript) */
+#toast.show {
+    visibility: visible; /* Show the snackbar */
+}
+
+#dialogBox {
+    position: fixed;
+    top: 40%;
+    left:34%;
+    transform: translate(-50%);
+    width: auto;
+    height: auto;
+    padding: 0.5em;
+    color: black;
+    border: 1px solid #5f6063;
+    background-color: rgb(252, 252, 253);
+    z-index: 1;
+    display: none;
+}
+
+#dbox-input {
+    margin:1vh 0vh 1vh 0vh;
+}
+
+/* #dbox-input input,input::-webkit-input-placeholder {
+    font-weight: normal;
+    width:15%;
+    display:inline-block;
+    padding: 1.1vh 1.5vw 1.1vh 0.5vw;
+    line-height:20%;
+    font-size: 1px;
+    overflow: visible;
+} */
+
+
 .navbar {
     background: rgb(189, 188, 194);
     margin: 0;
@@ -804,10 +857,10 @@ div.accordion-item-header {
     cursor: pointer;
   }
   
-  tr.accordion-item-header {
-    cursor: pointer;
-    width: 100%;
-  }
+tr.accordion-item-header {
+cursor: pointer;
+width: 100%;
+}
 
 .accordion-item-header:hover {
     background: lightgray;
@@ -837,31 +890,31 @@ div.accordion-item-header.active::after {
     border-bottom: 2px solid var(--primary-color);
   }
 
-  .taskDetails {
-    display: none;
-  }
+.taskDetails {
+display: none;
+}
 
-  .doneButton {
-    border-radius: 50px;
-    padding: 0.75rem;
-    margin-left: 15px;
-    width: 100px;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: var(--primary-color);
-    float: clear;
-  }
-  
-  .taskName, .taskDate, .taskProgress {
-    border: none;
-    width: 100%;
-    /* height: 100%; */
-    height: 1.5rem;
-    position: relative;
-    background-color: inherit;
-    border-bottom: 1px solid black;
-    font-weight: normal;
-  }
+.doneButton {
+border-radius: 50px;
+padding: 0.75rem;
+margin-left: 15px;
+width: 100px;
+font-size: 15px;
+font-weight: bold;
+background-color: var(--primary-color);
+float: clear;
+}
+
+.taskName, .taskDate, .taskProgress {
+border: none;
+width: 100%;
+/* height: 100%; */
+height: 1.5rem;
+position: relative;
+background-color: inherit;
+border-bottom: 1px solid black;
+font-weight: normal;
+}
 
 .taskProgress-container {
     width: 30%;
@@ -902,32 +955,32 @@ div.accordion-item-header.active::after {
     float: left;
 }
   
-  .search-box {
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
-    /* background-color: white; */
-    padding: 0px;
-    margin: -3px 0 0 0 ;
-  } 
-  
-  .search {
-    border: none;
-    height: 100%;
-    width: 100%;
-    padding: auto;
-    border-radius: 50px;
-    font-size: 15px;
-    background-color: white;
-  }
-  
-  .material-icons {
-    font-size: 25;
-  }
-  
-  .search:focus, .taskName:focus, .taskDate:focus, .taskProgress:focus {
-    outline: none;
-  }
+.search-box {
+width: 100%;
+height: 100%;
+vertical-align: middle;
+/* background-color: white; */
+padding: 0px;
+margin: -3px 0 0 0 ;
+} 
+
+.search {
+border: none;
+height: 100%;
+width: 100%;
+padding: auto;
+border-radius: 50px;
+font-size: 15px;
+background-color: white;
+}
+
+.material-icons {
+font-size: 25;
+}
+
+.search:focus, .taskName:focus, .taskDate:focus, .taskProgress:focus {
+outline: none;
+}
   
 .taskDetails input::placeholder, .search-container input::placeholder {
     font-weight: normal;

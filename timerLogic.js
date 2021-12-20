@@ -16,14 +16,12 @@ const convert_from_secs = (input_sec) => {
     return [hr, min, sec];
 };
 
-const test1 = convert_to_secs(input_hr,input_min, input_sec);
-console.log('test1', test1);
-
-const test2 = convert_from_secs(test1);
-console.log(`test2: [hr:min:sec] ${test2[0]} : ${test2[1]} : ${test2[2]}`);
-
 //--------------------------------------------------------
 
+const toast_elem = document.getElementById("toast");
+const dbox_elem = document.getElementById("dialogBox");
+const task_amount = document.querySelector('#dbox-input');
+const dbox_btn = document.querySelector('#confirm-btn');
 const hr_elem = document.querySelector('#hr');
 const min_elem = document.querySelector('#min');
 const sec_elem= document.querySelector('#sec');
@@ -41,30 +39,14 @@ const circumference = radius * 2 * Math.PI;
 
 progress.style.strokeDasharray = circumference;
 progress.style.strokeDashoffset = circumference;
-console.log(radius);
 
-
-var total_secs = null;
-
-console.log(time_inputs);
-
-time_inputs.forEach(elem => {
-    // elem.value = 0;
-    elem.addEventListener('input', () => {
-        total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
-        console.log('total-secs:', total_secs);
-    })
-});
-
+var total_secs = null; // input from screen
 
 var time = 0; //in seconds, time left
-var br_time = 0;
+var br_time = 0;//break time left
 
 let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
-
-
-// let intervalID = null; //countdown interval
 
 //timer states
 const RUNNING = 0;
@@ -89,6 +71,130 @@ start_pause_btn.style.backgroundColor = disabled_background;
 start_pause_btn.style.color = disabled_text;
 start_pause_btn.style.cursor = 'default';
 
+
+console.log(time_inputs);
+
+time_inputs.forEach(elem => {
+    // elem.value = 0;
+    elem.addEventListener('input', () => {
+        total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
+        console.log('total-secs:', total_secs);
+    })
+});
+
+const disable_start_pause_button = (button_text) => {
+    start_pause_btn.disabled = true;
+    start_pause_btn.textContent = button_text;
+    start_pause_btn.style.backgroundColor = disabled_background;
+    start_pause_btn.style.color = disabled_text;
+    start_pause_btn.style.cursor = 'default';
+};
+
+const enable_start_pause_button = (button_text) => {
+    start_pause_btn.disabled = false;
+    start_pause_btn.style.backgroundColor = main_btn_color;
+    start_pause_btn.style.color = enabled_text;
+    start_pause_btn.textContent = button_text;
+    start_pause_btn.style.cursor = 'pointer';
+};
+
+const clear_timer = (hr, min, sec) => {
+    hr.textContent = '00';
+    min.textContent = '00';
+    sec.textContent = '00';
+};
+
+const set_timer = (hr_pos, min_pos, sec_pos, curr_time_sec) => {
+    const [hr, min, sec] = convert_from_secs(curr_time_sec);
+    hr_pos.textContent = String(hr).padStart(2,'0');
+    min_pos.textContent = String(min).padStart(2,'0');
+    sec_pos.textContent = String(sec).padStart(2,'0');
+};
+
+function setProgress(percent) { //set progress of the circular progress bar
+    const offset = circumference - (percent / 100) * circumference;
+    progress.style.strokeDashoffset = offset;
+  }
+  
+const countdown = () => {
+    console.log(time);
+
+    if(time <= 0) {//change to STOPPED state once time is up
+
+        state = STOPPED;
+
+        console.log("Time's up!!");
+        start_pause_btn.textContent = "Start";
+        stop_btn.textContent = "Set"; //allow to edit 
+
+        //stop decrementing timer
+        clear_timer(hr_elem, min_elem, sec_elem);
+        clearInterval(intervalID);
+        clearInterval(br_intervalID);
+        setProgress(100);
+        setTimeout(() => {
+            setProgress(0);
+        }, 1000);
+        time = 0;
+
+        //notify users of time over, use dialog box to get time progress input
+        toast_elem.className = "show";
+        toast_elem.textContent = "Focus time over. Good job!";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+
+        dbox_elem.style.display = "block";
+    }
+    else {
+        set_timer(hr_elem, min_elem, sec_elem, time);
+    }
+
+    let time_percent = Math.ceil(((total_secs-time)/total_secs)*100);
+    setProgress(time_percent);
+    time--;
+};
+
+const br_countdown = () => {
+    console.log("break time:" , br_time);
+
+    if (br_time <= 60 && br_time > 0) {
+
+        toast_elem.className = "show";
+        toast_elem.textContent = "Less than 1 minute break remaining. Focus time will resume automatically after this.";
+
+    }
+
+    if(br_time <= 0) {
+        //stop decrementing timer
+        console.log("Break Time over! Focus time running.");
+        clear_timer(br_hr, br_min, br_sec);
+        clearInterval(br_intervalID);
+        br_time = 0;
+
+        if(time > 0) { //resume main timer,set timer in running state -> pause,stop btn
+            //notify users
+            toast_elem.textContent = "Break Over! Focus time resumed."
+            setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+            state = RUNNING;
+
+            //disable pause -> no more breaks
+            disable_start_pause_button("No break left!");
+
+            countdown();//start main countdown again
+            intervalID = setInterval(countdown, 1000);
+        }
+    }
+    else {
+        set_timer(br_hr, br_min, br_sec, br_time);
+    }
+
+    br_time--;
+};
+
+dbox_btn.addEventListener('click', () => {
+    dbox_elem.style.display = "none";
+});
+
 start_pause_btn.addEventListener('click', () => {
     start_pause_btn.style.backgroundColor = click_color;
 
@@ -96,7 +202,7 @@ start_pause_btn.addEventListener('click', () => {
 
         main_timer_elem.style.display = "flex";
 
-        setTimeout(() => {
+        setTimeout(() => { //button blink effect
             start_pause_btn.style.backgroundColor = main_btn_color;
         }, 100);
 
@@ -121,11 +227,10 @@ start_pause_btn.addEventListener('click', () => {
         clearInterval(intervalID);
         state = PAUSED;
 
-        // start_pause_btn.textContent = "Pause";
         start_pause_btn.style.color =  enabled_text;
         stop_btn.textContent = "Stop";
 
-        setTimeout(() => {
+        setTimeout(() => {//button blink effect
             start_pause_btn.style.backgroundColor = main_btn_color;
         }, 100);
 
@@ -133,7 +238,6 @@ start_pause_btn.addEventListener('click', () => {
 
         br_countdown();//start br countdown immediately when clicked
         br_intervalID = setInterval(br_countdown, 1000);
-
 
     }
 
@@ -143,11 +247,9 @@ stop_btn.addEventListener('click', () => {
 
     stop_btn.style.backgroundColor = click_color;
 
-    setTimeout(() => {
+    setTimeout(() => {//button blink effect
         stop_btn.style.backgroundColor = main_btn_color;
     }, 100);
-
-
 
     if (state == STOPPED) {//button=set, timer-input = OFF
         //set state to set
@@ -155,12 +257,8 @@ stop_btn.addEventListener('click', () => {
         console.log('State: EDIT');
         state = EDIT;
         stop_btn.textContent = "Done";
-        
-        start_pause_btn.disabled = true;
-        start_pause_btn.style.backgroundColor = disabled_background;
-        start_pause_btn.style.color = disabled_text;
-        start_pause_btn.textContent = "Start";
-        start_pause_btn.style.cursor = 'default';
+
+        disable_start_pause_button("Start");
 
         main_timer_elem.style.display = "none";
         time_input_elem.style.display = "flex";
@@ -180,35 +278,21 @@ stop_btn.addEventListener('click', () => {
         br_time = BREAK_PERCENT*time;
 
         // set main time
-        const [hr, min, sec] = convert_from_secs(time);
-        hr_elem.textContent = String(hr).padStart(2,'0');
-        min_elem.textContent = String(min).padStart(2,'0');
-        sec_elem.textContent = String(sec).padStart(2,'0');
+        set_timer(hr_elem, min_elem, sec_elem, time);
 
         //set break time
-        const [br_hr_val, br_min_val, br_sec_val] = convert_from_secs(br_time);
-        br_hr.textContent = String(br_hr_val).padStart(2,'0');
-        br_min.textContent = String(br_min_val).padStart(2,'0');
-        br_sec.textContent = String(br_sec_val).padStart(2,'0');
+        set_timer(br_hr, br_min, br_sec, br_time);
 
-        start_pause_btn.disabled = false;
-        start_pause_btn.style.backgroundColor = main_btn_color;
-        start_pause_btn.style.color = enabled_text;
-        start_pause_btn.textContent = "Start";
-        start_pause_btn.style.cursor = 'pointer';
+        enable_start_pause_button("Start");
 
     }
-    else if (state == READY) {
+    else if (state == READY) {// after clicking done, left button = start, right = set -> if clicked, right becomes done
         state = EDIT;
         stop_btn.textContent = "Done";
         main_timer_elem.style.display = "none";
         time_input_elem.style.display = "flex";
 
-        start_pause_btn.disabled = true;
-        start_pause_btn.textContent = "Start";
-        start_pause_btn.style.backgroundColor = disabled_background;
-        start_pause_btn.style.color = disabled_text;
-        start_pause_btn.style.cursor = 'default';
+        disable_start_pause_button("Start");
 
         console.log('State: EDIT');
 
@@ -218,138 +302,26 @@ stop_btn.addEventListener('click', () => {
         state = STOPPED;
         stop_btn.textContent = "Set"; //allow to edit 
 
-        start_pause_btn.disabled = true;
-        start_pause_btn.textContent = "Start";
-        start_pause_btn.style.backgroundColor = disabled_background;
-        start_pause_btn.style.color = disabled_text;
-        start_pause_btn.style.cursor = 'default';
+        disable_start_pause_button("Start");
 
         console.log('AFTER stop timer');
 
         //stop decrementing timer
-        hr_elem.textContent = '00';
-        min_elem.textContent = '00';
-        sec_elem.textContent = '00';
+        clear_timer(hr_elem, min_elem, sec_elem);
 
         //reset break timer
-        br_hr.textContent = '00';
-        br_min.textContent = '00';
-        br_sec.textContent = '00';
+        clear_timer(br_hr, br_min, br_sec);
 
         clearInterval(intervalID);
         clearInterval(br_intervalID);
         setProgress(0);
-        state = STOPPED;
-
+        
         time = 0;
         br_time = 0;
+
+        dbox_elem.style.display = "block";
     }
 
 });
-
-
-function setProgress(percent) {
-  const offset = circumference - (percent / 100) * circumference;
-  progress.style.strokeDashoffset = offset;
-}
-
-const countdown = () => {
-    console.log(time);
-
-    const [hr, min, sec] = convert_from_secs(time);
-
-    if (time === 0) {
-        console.log("Time's up!!");
-        start_pause_btn.textContent = "Start";
-    }
-    if(time <= 0) {
-        hr_elem.textContent = '00';
-        min_elem.textContent = '00';
-        sec_elem.textContent = '00';
-
-        //stop decrementing timer
-        clearInterval(intervalID);
-        clearInterval(br_intervalID);
-        setProgress(0);
-    }
-    else {
-        hr_elem.textContent = String(hr).padStart(2,'0');
-        min_elem.textContent = String(min).padStart(2,'0');
-        sec_elem.textContent = String(sec).padStart(2,'0');
-    }
-
-    let time_percent = Math.ceil(((total_secs-time)/total_secs)*100);
-    setProgress(time_percent);
-    time--;
-    if (time == -1) {//change to STOPPED state once time is up
-        //stop timer
-        state = STOPPED;
-        stop_btn.textContent = "Set"; //allow to edit 
-
-        start_pause_btn.disabled = true;
-        start_pause_btn.textContent = "Start";
-        start_pause_btn.style.backgroundColor = disabled_background;
-        start_pause_btn.style.color = disabled_text;
-        start_pause_btn.style.cursor = 'default';
-
-        console.log('AFTER stop timer');
-
-        //stop decrementing timer
-        hr_elem.textContent = '00';
-        min_elem.textContent = '00';
-        sec_elem.textContent = '00';
-
-        clearInterval(intervalID);
-        clearInterval(br_intervalID);
-        setProgress(100);
-        state = STOPPED;
-        setTimeout(() => {
-            setProgress(0);
-        }, 1000);
-
-        time = 0;
-    }
-};
-
-const br_countdown = () => {
-    console.log("break time:" , br_time);
-
-    const [br_hr_val, br_min_val, br_sec_val] = convert_from_secs(br_time);
-
-    if (br_time === 0) {
-        console.log("Break Time over! Focus time running.");
-    }
-
-    if (br_time === 60) {
-        console.log("1 minute break remaining. Focus time will resume automatically after this.");
-    }
-    if(br_time <= 0) {
-        br_hr.textContent = '00';
-        br_min.textContent = '00';
-        br_sec.textContent = '00';
-
-        //stop decrementing timer
-        clearInterval(br_intervalID);
-    }
-    else {
-        br_hr.textContent = String(br_hr_val).padStart(2,'0');
-        br_min.textContent = String(br_min_val).padStart(2,'0');
-        br_sec.textContent = String(br_sec_val).padStart(2,'0');
-    }
-
-    br_time--;
-    if (br_time == -1) {//change to STOPPED state once time is up
-        
-        console.log('AFTER stop break timer');
-
-        //stop decrementing timer
-        br_hr.textContent = '00';
-        br_min.textContent = '00';
-        br_sec.textContent = '00';
-
-        clearInterval(br_intervalID);
-        br_time = 0;
-    }
-};
 
 
