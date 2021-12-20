@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
+    <title>Grid</title>
+    <style>
+        body{
+            margin: 0px; 
+            height: 100%;
+            background-color: rgb(221, 221, 221);
+        }
+
+        .body-container{
+            height: 100%;
+            display: grid;
+            grid-template-columns: auto 500px 500px 500px auto;
+            grid-template-rows: 100px 200px 200px 200px 200px;
+            grid-template-areas: 
+                    "m1 l n r m2"
+                    "ml a1 a1 a2 mr"
+                    "ml a1 a1 a2 mr"
+                    "ml a1 a1 a4 mr"
+                    "ml a3 a3 a4 mr";
+        }
+
+        #logo{
+            background-color: rgb(146, 146, 146);
+            grid-area: l;
+        }
+
+        .navbar{
+            background: rgb(212, 221, 83);
+            position: relative;
+            display: inline-flex;
+            grid-area: n;
+            /* margin-left: auto; */
+            justify-content: center;
+            align-items: center;
+            border-radius: 1.5em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+
+        }
+        #app-interface-upperleft{
+            background-color: orange;
+            grid-area: a1;
+        }
+
+        #app-interface-upperright{
+            background-color: green;
+            grid-area: a2;
+        }
+
+        #app-interface-lowerleft{
+            background-color: pink;
+            grid-area: a3;
+        }
+
+        #app-interface-lowerright{
+            background-color: yellow;
+            grid-area: a4;
+        }
+
+        .logoimg{
+            display: block;
+            position: relative;
+            top: -95%;
+            left: 0%; 
+        }
+
+
+        li .active .iconhover {
+            opacity: 1;
+        } 
+
+        li .active {
+            background:rgba(78, 78, 64, 0.466);
+            border-radius: 0.8em;
+            padding: 0.3em;
+            /* border-width: 2em 2em 2em 2em; */
+            /* border-style: solid; */
+            /* border-color: rgba(138, 141, 99, 0.747); */
+        } 
+
+
+        ul{
+            padding-inline-start: 0px;
+        }
+
+        .navitemlist li {
+            display: inline-flex;
+            padding: 1.25em 1em 1em 1.25em; 
+            text-align: center;  
+            /* border-right: 0.05em solid rgba(0, 0, 0, 0.1); */
+        }
+
+        .navitemlist li:last-child {
+            border-right: none;
+        }
+
+        .navitemlist li .navitem {
+            text-decoration: none;
+            display: none; /*block;*/
+            padding: 0 0.1em;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="body-container">
+        <div id="logo">
+            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+        </div>
+        <div class="navbar">
+            <ul class="navitemlist">
+                <li>
+                    <a href="upcomingTasks.html">
+                        <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
+                        <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="statistics.html">
+                        <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
+                        <div class="navitem" data-text="Statistics">Statistics</div> 
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
+                        <div class="navitem" data-text="Timer Page">Homepage</div>
+                    </a>
+                </li>
+                <li>
+                    <a class="active" href="music.html">
+                        <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
+                        <div class="navitem" data-text="Music">Music</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
+                        <div class="navitem" data-text="Settings">Settings</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="margin" id="margin-left">Margin Left</div>
+        <div class="margin" id="margin-right">Margin Right</div>
+        <div id="app-interface-upperleft">App Interface UpperLeft</div>
+        <div id="app-interface-upperright">App Interface UpperRight</div>
+        <div id="app-interface-lowerleft">App Interface LowerLeft</div>
+        <div id="app-interface-lowerright">App Interface LowerRight</div>
+
+    </div>
+
+</body>
+</html>
