@@ -86,7 +86,7 @@ The toast - position it at the bottom and in the middle of the screen */
 .logoimg{
   display: inline-flex;
   position: absolute;
-  top: -290%;
+  top: -270%;
   left: -3%;
 }
 
