@@ -752,6 +752,7 @@ transform: scaleX(-1);
 
 .content-table th,
 .content-table td {
+    font-weight: normal; 
     padding: 12px 15px;
 }
 
@@ -775,7 +776,7 @@ transform: scaleX(-1);
 
 /* upcomingTasks - accordion */
 #upcoming-tasks-title{
-    margin: 1rem 0 0 5rem;
+    margin: 4rem 0 0 5rem;
 }
 
 .accordion {
@@ -849,10 +850,6 @@ div.accordion-item-header.active::after {
     float: clear;
   }
   
-  .taskName {
-    border: 0 0 1px 0;
-  }
-  
   .taskName, .taskDate, .taskProgress {
     border: none;
     width: 100%;
@@ -861,6 +858,7 @@ div.accordion-item-header.active::after {
     position: relative;
     background-color: inherit;
     border-bottom: 1px solid black;
+    font-weight: normal;
   }
 
 .taskProgress-container {
@@ -889,9 +887,9 @@ div.accordion-item-header.active::after {
 }
 
 .search-container {
-    margin: 1.5rem 0 0 0;
+    margin: 1.3rem 0 0 0;
     position: relative;
-    height: 25px;
+    height: 35px;
     border: 2px solid black;
     background-color: white;
     border-radius: 50px;
@@ -906,7 +904,9 @@ div.accordion-item-header.active::after {
     width: 100%;
     height: 100%;
     vertical-align: middle;
-    background-color: white;
+    /* background-color: white; */
+    padding: 0px;
+    margin: -3px 0 0 0 ;
   } 
   
   .search {
@@ -925,7 +925,22 @@ div.accordion-item-header.active::after {
   
   .search:focus, .taskName:focus, .taskDate:focus, .taskProgress:focus {
     outline: none;
-  } 
+  }
+  
+.taskDetails input::placeholder, .search-container input::placeholder {
+    font-weight: normal;
+    font-size: 0.9rem;
+}
+
+.taskDetails ul li, .taskDetails p {
+  font-weight: normal;
+  list-style-type: disc;
+}
+
+.taskDetails ul {
+  padding: 1px 0 0 20px;
+}
+
 .songView {
     position: relative;
     height:40vh; width:25vw;
