@@ -68,7 +68,7 @@
                       </thead>
                       <tbody>
                         <tr class="accordion-item-header taskHeader">
-                            <td>MS1</td>
+                            <td>Task 1</td>
                             <td>&#10004</td>
                             <td class="date">Oct 8, 2021</td>
                         </tr>
@@ -84,7 +84,7 @@
 
 
                         <tr class="accordion-item-header taskHeader">
-                            <td>MS2</td>
+                            <td>Task 2</td>
                             <td>&#10004</td>
                             <td class="date">Oct 22, 2021</td>
                         </tr>
@@ -98,7 +98,7 @@
                         </tr>
 
                         <tr class="accordion-item-header taskHeader">
-                            <td>MS3</td>
+                            <td>Task 3</td>
                             <td>30% Complete</td>
                             <td class="date">Nov 26, 2021</td>
                         </tr>
@@ -140,9 +140,9 @@
 
         <div class="accordion-item">
           <div class="accordion-item-header">
-                ECE 4600
+                COMP 3040
           </div>
-          <div class="accordion-item-body" id="table2Parent">
+          <div class="accordion-item-body" id="table3Parent">
               <div class="accordion-item-body-content">
                 <table class="content-table" id="table2">
                     <thead>
@@ -154,7 +154,7 @@
                     </thead>
                     <tbody>
                         <tr class="accordion-item-header taskHeader">
-                            <td>MS1</td>
+                            <td>Task 4</td>
                             <td>&#10004</td>
                             <td class="date">Oct 8, 2021</td>
                         </tr>
@@ -170,7 +170,7 @@
 
 
                         <tr class="accordion-item-header taskHeader">
-                            <td>MS2</td>
+                            <td>Task 5</td>
                             <td>&#10004</td>
                             <td class="date">Oct 22, 2021</td>
                         </tr>
@@ -184,7 +184,7 @@
                         </tr>
 
                         <tr class="accordion-item-header taskHeader">
-                            <td>MS3</td>
+                            <td>Task 6</td>
                             <td>30% Complete</td>
                             <td class="date">Nov 26, 2021</td>
                         </tr>
@@ -221,6 +221,217 @@
               </div>
           </div>
       </div>
+
+      <div class="accordion-item">
+        <div class="accordion-item-header">
+              COMP 2140
+        </div>
+        <div class="accordion-item-body" id="table3Parent">
+            <div class="accordion-item-body-content">
+              <table class="content-table" id="table3">
+                  <thead>
+                      <tr>
+                      <th>Task</th>
+                      <th>Status</th>
+                      <th>Due Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="accordion-item-header taskHeader">
+                          <td>Task 7</td>
+                          <td>&#10004</td>
+                          <td class="date">Oct 8, 2021</td>
+                      </tr>
+
+                      <tr class="accordion-item-body taskDetails">
+                          <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                              <ul>
+                                  <li>Due 4:00PM</li>
+                                  <li>Submit PDF on UMLearn</li>
+                              </ul>
+                          </td>
+                      </tr>
+
+
+                      <tr class="accordion-item-header taskHeader">
+                          <td>Task 8</td>
+                          <td>&#10004</td>
+                          <td class="date">Oct 22, 2021</td>
+                      </tr>
+                      <tr class="accordion-item-body taskDetails">
+                          <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                              <ul>
+                                  <li>Due 4:00PM</li>
+                                  <li>Submit PDF on UMLearn</li>
+                              </ul>
+                          </td>
+                      </tr>
+
+                      <tr class="accordion-item-header taskHeader">
+                          <td>Task 9</td>
+                          <td>30% Complete</td>
+                          <td class="date">Nov 26, 2021</td>
+                      </tr>
+                      <tr class="accordion-item-body taskDetails">
+                          <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                              <ul>
+                                  <li>Due 4:00PM</li>
+                                  <li>Submit PDF on UMLearn</li>
+                              </ul>
+                          </td>
+                      </tr>
+                      <tr class="newItem-container accordion-item-header">
+                          <td colspan="3" style="width:100%" class="newItem">+ Create new task</td>
+                      </tr>
+                      <tr class="accordion-item-body taskDetails newItem-container-details">
+                          <td>
+                              <label for="taskName">New Task Name:</label>
+                              <input type="text" class="taskName" id="taskName3" name="taskName" size="20">
+                          </td> 
+                          <td>
+                              <label for="taskDate">Due on:</label>
+                              <input type="date" class="taskDate" id="taskDate3" name="taskDate" value="2021-12-31" onkeydown="return false">
+                          </td>
+                          <td>
+                              <div class="taskProgress-container">
+                                  <label for="taskProgress">Progress:</label>
+                                  <input type="number" class="taskProgress" id="taskProgress3" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                  </div>
+                              <button class="doneButton" onclick="createNewTask('table3', 'taskName3', 'taskDate3', 'taskProgress3')">Done</button>
+                          </td>
+                      </tr>
+                    </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <div class="accordion-item-header">
+              COMP 4710
+        </div>
+        <div class="accordion-item-body" id="table4Parent">
+            <div class="accordion-item-body-content">
+              <table class="content-table" id="table4">
+                  <thead>
+                      <tr>
+                      <th>Task</th>
+                      <th>Status</th>
+                      <th>Due Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="accordion-item-header taskHeader">
+                          <td>Task 10</td>
+                          <td>&#10004</td>
+                          <td class="date">Oct 8, 2021</td>
+                      </tr>
+
+                      <tr class="accordion-item-body taskDetails">
+                          <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                              <ul>
+                                  <li>Due 4:00PM</li>
+                                  <li>Submit PDF on UMLearn</li>
+                              </ul>
+                          </td>
+                      </tr>
+
+
+                      <tr class="accordion-item-header taskHeader">
+                          <td>Task 11</td>
+                          <td>&#10004</td>
+                          <td class="date">Oct 22, 2021</td>
+                      </tr>
+                      <tr class="accordion-item-body taskDetails">
+                          <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                              <ul>
+                                  <li>Due 4:00PM</li>
+                                  <li>Submit PDF on UMLearn</li>
+                              </ul>
+                          </td>
+                      </tr>
+
+                      <tr class="newItem-container accordion-item-header">
+                          <td colspan="3" style="width:100%" class="newItem">+ Create new task</td>
+                      </tr>
+                      <tr class="accordion-item-body taskDetails newItem-container-details">
+                          <td>
+                              <label for="taskName">New Task Name:</label>
+                              <input type="text" class="taskName" id="taskName4" name="taskName" size="20">
+                          </td> 
+                          <td>
+                              <label for="taskDate">Due on:</label>
+                              <input type="date" class="taskDate" id="taskDate4" name="taskDate" value="2021-12-31" onkeydown="return false">
+                          </td>
+                          <td>
+                              <div class="taskProgress-container">
+                                  <label for="taskProgress">Progress:</label>
+                                  <input type="number" class="taskProgress" id="taskProgress4" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                  </div>
+                              <button class="doneButton" onclick="createNewTask('table4', 'taskName4', 'taskDate4', 'taskProgress4')">Done</button>
+                          </td>
+                      </tr>
+                    </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <div class="accordion-item-header">
+              COMP 4230
+        </div>
+        <div class="accordion-item-body" id="table5Parent">
+            <div class="accordion-item-body-content">
+              <table class="content-table" id="table5">
+                  <thead>
+                      <tr>
+                      <th>Task</th>
+                      <th>Status</th>
+                      <th>Due Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="accordion-item-header taskHeader">
+                          <td>Task 12</td>
+                          <td>&#10004</td>
+                          <td class="date">Oct 8, 2021</td>
+                      </tr>
+
+                      <tr class="accordion-item-body taskDetails">
+                          <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                              <ul>
+                                  <li>Due 4:00PM</li>
+                                  <li>Submit PDF on UMLearn</li>
+                              </ul>
+                          </td>
+                      </tr>
+
+                      <tr class="newItem-container accordion-item-header">
+                          <td colspan="3" style="width:100%" class="newItem">+ Create new task</td>
+                      </tr>
+                      <tr class="accordion-item-body taskDetails newItem-container-details">
+                          <td>
+                              <label for="taskName">New Task Name:</label>
+                              <input type="text" class="taskName" id="taskName5" name="taskName" size="20">
+                          </td> 
+                          <td>
+                              <label for="taskDate">Due on:</label>
+                              <input type="date" class="taskDate" id="taskDate5" name="taskDate" value="2021-12-31" onkeydown="return false">
+                          </td>
+                          <td>
+                              <div class="taskProgress-container">
+                                  <label for="taskProgress">Progress:</label>
+                                  <input type="number" class="taskProgress" id="taskProgress5" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                  </div>
+                              <button class="doneButton" onclick="createNewTask('table5', 'taskName5', 'taskDate5', 'taskProgress5')">Done</button>
+                          </td>
+                      </tr>
+                    </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
 
       <button id="newProject" onclick="createNewProject()">
         +Create New Project
