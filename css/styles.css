@@ -692,7 +692,7 @@ transform: scaleX(-1);
     /* padding-top: 58vh;
     padding-left:25vw; */
     width: 300px;
-    /* text-align: center; */
+    text-align: center;
     color: var(--text-color);
     /* background-color: white; */
 }
@@ -711,6 +711,7 @@ transform: scaleX(-1);
     padding: 7px 10px;
     color: var(--text-color);
     margin: 0.5em 0 8px 0;
+    font-weight: normal;
     /* max-width: 11em; */
 
     /* replacing default arrow */
@@ -730,6 +731,7 @@ transform: scaleX(-1);
 }
 
 .select option {
+    font-weight: normal;
     background: #ffffffff;
 }
 
@@ -775,13 +777,19 @@ transform: scaleX(-1);
 }
 
 /* upcomingTasks - accordion */
+.header {
+  width: 80%;
+  margin: 5rem auto 0 auto;
+}
+
 #upcoming-tasks-title{
-    margin: 4rem 0 0 5rem;
+    float: left;
 }
 
 .accordion {
     width: 80%;
-    margin: 2rem auto;
+    margin: 0 auto;
+    clear: both;
 }
 
 .accordion-item {
@@ -867,14 +875,15 @@ div.accordion-item-header.active::after {
 }
 
 #newProject {
+    float: left;
     background-color: var(--primary-color);
-    width: 100%;
-    margin: 1rem 0;
+    width: fit-content;
+    margin: 0 0 0 2rem;
     border-radius: 0.5rem;
     text-align: left;
     box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
-    padding: 0.25rem 2rem 0.25rem 1.5rem;
-    min-height: 3rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    min-height: 2rem;
     font-size: inherit;
     font-weight: bold;
     cursor: pointer;
@@ -887,8 +896,9 @@ div.accordion-item-header.active::after {
 }
 
 .search-container {
-    margin: 1.3rem 0 0 0;
-    position: relative;
+    float: right;
+    margin: 0 0 1.3rem 0;
+    /* position: fixed; */
     height: 35px;
     border: 2px solid black;
     background-color: white;
@@ -897,11 +907,11 @@ div.accordion-item-header.active::after {
     min-height: 2rem;
     font-size: inherit;
     font-weight: bold;
-    float: left;
+    width: fit-content;
 }
   
   .search-box {
-    width: 100%;
+    width: 100px;
     height: 100%;
     vertical-align: middle;
     /* background-color: white; */
