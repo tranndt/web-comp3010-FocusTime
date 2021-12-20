@@ -133,10 +133,14 @@
 
 <script>
     var album_title = document.getElementById("songTitle");
-    album_title.innerHTML = "Album: " + localStorage.getItem("album_title");
+    if (sessionStorage.getItem("album_title") === null) {
+        album_title.innerHTML = "Album: Choose an Album";
+    }
+    else {
+        album_title.innerHTML = "Album: " + sessionStorage.getItem("album_title");
+        window.addEventListener("load", function(){audioApp(sessionStorage.getItem("album_title"))}, false);
+        window.addEventListener("load", function(){get_album_length(sessionStorage.getItem("album_length"))}, false);
+    }
     
-    //if localStorage.getItem("album_title") == "Blonde" {
-
-    //}
 </script>
 </html>

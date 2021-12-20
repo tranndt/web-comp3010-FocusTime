@@ -189,33 +189,154 @@ let remainingPathColor = COLOR_CODES.info.color;
 //     .setAttribute("stroke-dasharray", circleDasharray);
 // }
 // http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial 
-function audioApp(){
+function audioApp(album_title){
 	var audio = new Audio();
 	var audio_folder = "audio/";
 	var audio_ext = ".mp3";
 	var audio_index = 1;
 	var is_playing = false;
-	var playingtrack; 
+	var playingtrack, tracks; 
 	var trackbox = document.getElementById("trackbox");
-	var tracks = {
-	    0:["Nikes", "nikes"],
-		1:["Ivy", "ivy"],
-		2:["Pink + White", "pink+white"],
-        3:["Be Yourself", "be_yourself"],
-        4:["Solo", "solo"],
-		5:["Skyline To", "skyline_to"],
-		6:["Self Control", "self_control"],
-		7:["Good Guy", "good_guy"],
-        8:["Nights", "nights"],
-        9:["Solo (Reprise)", "solo_reprise"],
-		10:["Pretty Sweet", "pretty_sweet"],
-		11:["Facebook Story", "facebook_story"],
-		12:["Close To You", "close_to_you"],
-        13:["White Ferrari", "white_ferrari"],
-        14:["Seigfried", "seigfried"],
-		15:["Godspeed", "godspeed"],
-		16:["Future Free", "futura_free"]
-	};
+	if (album_title == "Blonde") {
+		tracks = {
+			0:["Nikes", "nikes"],
+			1:["Ivy", "ivy"],
+			2:["Pink + White", "pink+white"],
+			3:["Be Yourself", "be_yourself"],
+			4:["Solo", "solo"],
+			5:["Skyline To", "skyline_to"],
+			6:["Self Control", "self_control"],
+			7:["Good Guy", "good_guy"],
+			8:["Nights", "nights"],
+			9:["Solo (Reprise)", "solo_reprise"],
+			10:["Pretty Sweet", "pretty_sweet"],
+			11:["Facebook Story", "facebook_story"],
+			12:["Close To You", "close_to_you"],
+			13:["White Ferrari", "white_ferrari"],
+			14:["Seigfried", "seigfried"],
+			15:["Godspeed", "godspeed"],
+			16:["Future Free", "futura_free"]
+		};
+	}
+	else if (album_title == "Flower Boy") {
+		tracks = {
+			0:["Foreword", "nikes"],
+			1:["Where This Flower Blooms", "ivy"],
+			2:["Sometimes...", "pink+white"],
+			3:["See You Again", "be_yourself"],
+			4:["Who Dat Boy", "solo"],
+			5:["Pothole", "skyline_to"],
+			6:["Garden Shed", "self_control"],
+			7:["Boredom", "good_guy"],
+			8:["I Ain't Got Time!", "nights"],
+			9:["911 / Mr. Lonely", "solo_reprise"],
+			10:["Droppin' Seeds", "pretty_sweet"],
+			11:["November", "facebook_story"],
+			12:["Glitter", "close_to_you"],
+			13:["Enjoy Right Now, Today", "white_ferrari"]
+		};
+	}
+	else if (album_title == "Ctrl") {
+		tracks = {
+			0:["Supermodel", "nikes"],
+			1:["Love Galore", "ivy"],
+			2:["Droves In The Wind", "pink+white"],
+			3:["Drew Barrymore", "be_yourself"],
+			4:["Prom", "solo"],
+			5:["The Weekend", "skyline_to"],
+			6:["Go Gina", "self_control"],
+			7:["Garden (Say It Like Dat)", "good_guy"],
+			8:["Broken Clocks", "nights"],
+			9:["Anything", "solo_reprise"],
+			10:["Wavy (Interlude)", "pretty_sweet"],
+			11:["Normal Girl", "facebook_story"],
+			12:["Pretty Little Birds", "close_to_you"],
+			13:["20 Something", "white_ferrari"]
+		};
+	}
+	else if (album_title == "Kids See Ghosts") {
+		tracks = {
+			0:["Feel The Love", "nikes"],
+			1:["Fire", "ivy"],
+			2:["4th Dimension", "pink+white"],
+			3:["Freeee (Ghost Town Pt. 2)", "be_yourself"],
+			4:["Reborn", "solo"],
+			5:["Kids See Ghosts", "skyline_to"],
+			6:["Cudi Montage", "self_control"]
+		};
+	}
+	else if (album_title == "Coloring Book") {
+		tracks = {
+			0:["All We Got", "nikes"],
+			1:["No Problem", "ivy"],
+			2:["Summer Friends", "pink+white"],
+			3:["D.R.A.M. Sings Special", "be_yourself"],
+			4:["Blessings", "solo"],
+			5:["Same Drugs", "skyline_to"],
+			6:["Mixtape", "self_control"],
+			7:["Angels", "good_guy"],
+			8:["Juke Jam", "nights"],
+			9:["All Night", "solo_reprise"],
+			10:["How Great", "pretty_sweet"],
+			11:["Smoke Break", "facebook_story"],
+			12:["Finish Line / Drown", "close_to_you"],
+			13:["Blessings", "white_ferrari"]
+		};
+	}
+	else if (album_title == "Freudian") {
+		tracks = {
+			0:["Get You", "nikes"],
+			1:["Best Part", "ivy"],
+			2:["Hold Me Down", "pink+white"],
+			3:["Neu Roses (Transgressor's Song)", "be_yourself"],
+			4:["Loose", "solo"],
+			5:["We Find Love", "skyline_to"],
+			6:["Blessed", "self_control"],
+			7:["Take Me Away", "good_guy"],
+			8:["Transform", "nights"],
+			9:["Freudian", "solo_reprise"]
+		};
+	}
+	else if (album_title == "American Teen") {
+		tracks = {
+			0:["American Teen", "nikes"],
+			1:["Young Dumb & Broke", "ivy"],
+			2:["Location", "pink+white"],
+			3:["Another Sad Love Song", "be_yourself"],
+			4:["Saved", "solo"],
+			5:["Coaster", "skyline_to"],
+			6:["8TEEN", "self_control"],
+			7:["Let's Go", "good_guy"],
+			8:["Hopeless", "nights"],
+			9:["Cold Blooded", "solo_reprise"],
+			10:["Winter", "pretty_sweet"],
+			11:["Therapy", "facebook_story"],
+			12:["Keep Me", "close_to_you"],
+			13:["Shot Down", "white_ferrari"],
+			14:["Angels", "nikes"]
+		};
+	}
+	else if (album_title == "Happier Than Ever") {
+		tracks = {
+			0:["Getting Older", "nikes"],
+			1:["I Didn't Change My Number", "ivy"],
+			2:["Billie Bossa Nova", "pink+white"],
+			3:["my future", "be_yourself"],
+			4:["Oxytooin", "solo"],
+			5:["GOLDWING", "skyline_to"],
+			6:["Lost Cause", "self_control"],
+			7:["Halley's Comet", "good_guy"],
+			8:["Not My Responsibility", "nights"],
+			9:["OverHeated", "solo_reprise"],
+			10:["Everybody Dies", "pretty_sweet"],
+			11:["Your Power", "facebook_story"],
+			12:["NDA", "close_to_you"],
+			13:["Therefore I Am", "white_ferrari"],
+			14:["Happier Than Ever", "nikes"],
+			15:["Male Fantasy", "ivy"]
+		};
+	}
+
 	const keys = Object.keys(tracks);
 	var audio_tracker = 0;
 	var audio_max_tracks = 0;
@@ -309,6 +430,3 @@ function audioApp(){
 		audio.volume = sd.value / 100;
 	}
 }
-window.addEventListener("load", audioApp);
-
-const ALBUM_LENGTH = 3608;

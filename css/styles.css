@@ -166,6 +166,7 @@ li .active {
 
 .container:hover .play {
   opacity: 1;
+  cursor:pointer;
 }
 
 .container:hover .details {

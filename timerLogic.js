@@ -8,6 +8,11 @@ const convert_to_secs = (input_hr, input_min, input_sec) => {
     return Number(input_hr)*60*60 + Number(input_min)*60 + Number(input_sec);
 };
 
+const get_album_length = (album_sec) => {
+    console.log('album_sec', album_sec);
+    return album_sec;
+};
+
 const convert_from_secs = (input_sec) => {
     const sec = input_sec % 60;
     const minFromSec = Math.floor(input_sec / 60);
@@ -81,6 +86,7 @@ const main_btn_color = 'rgb(238, 185, 161)';
 const click_color = 'rgb(173, 72, 35)';
 
 //initial state
+timer_set = false;
 let state = STOPPED;
 start_pause_btn.disabled = true;
 time_input_elem.style.display = "none";
@@ -152,6 +158,7 @@ stop_btn.addEventListener('click', () => {
     if (state == STOPPED) {//button=set, timer-input = OFF
         //set state to set
         //turn input fields on
+        timer_set = true;
         console.log('State: EDIT');
         state = EDIT;
         stop_btn.textContent = "Done";
@@ -176,9 +183,13 @@ stop_btn.addEventListener('click', () => {
         main_timer_elem.style.display = "flex";
         time_input_elem.style.display = "none";
         //input field disappears, and main field appears with set time
-        time = total_secs;
-        br_time = BREAK_PERCENT*time;
 
+        if (timer_set == true) {
+            time = total_secs;
+        }
+        else 
+        
+        br_time = BREAK_PERCENT*time;
         // set main time
         const [hr, min, sec] = convert_from_secs(time);
         hr_elem.textContent = String(hr).padStart(2,'0');
