@@ -7,7 +7,7 @@ const tableHeader = `<thead>
                         <th>Due Date</th>
                         </tr>
                     </thead>`;
-var tableCount = 2;
+var tableCount = 5;
 
 addAccordionItemEvent(accordionItemsList);
 
