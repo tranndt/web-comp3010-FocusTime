@@ -10,6 +10,14 @@
     <script src="script.js"></script>
 </head>
 <body>
+    <div id="toast">Some text some message..</div>
+    <div id="dialogBox">
+        <div id="dbox-msg">Time over. Good Job! Innput the amoount of work done (percentage).</div>
+        <input id="dbox-input" type="text">
+        <div>
+            <button id="confirm-btn">Done</button>
+        </div>
+    </div>
     <div class="navbar">
         <div class="container">
             <a href="#" class="logo">FocusTime</a>
@@ -94,7 +102,7 @@
             <div class="task-proj-selector">
                 <ul>
                     <li> Task:
-                        <select class="select" name="" id="task-selector"  onchange="createNewOption()">
+                        <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')">
                             <option disabled selected>Choose a task</option>
                             <option value="task-1">Task 1</option>
                             <option value="task-2">Task 2</option>
@@ -102,7 +110,7 @@
                         </select>
                     </li>
                     <li> Project:
-                        <select class="select" name="" id="project-selector"  onchange="createNewOption()">
+                        <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'proj')">
                             <option disabled selected>Choose a project</option>
                             <option value="project-1">Project 1</option>
                             <option value="project-2">Project 2</option>
@@ -115,7 +123,7 @@
 
         <div class="right-col">
             <div class="songView">
-                <h2>Album: Blond</h2>
+                <h2 id="songTitle" class="songView-header">Album: Blond</h2>
                 <div class="songList">
                     <div id="trackbox"></div>
                 </div>
@@ -130,4 +138,17 @@
     </div>
 
 </body>
+
+<script>
+    var album_title = document.getElementById("songTitle");
+    if (sessionStorage.getItem("album_title") === null) {
+        album_title.innerHTML = "Album: Choose an Album";
+    }
+    else {
+        album_title.innerHTML = "Album: " + sessionStorage.getItem("album_title");
+        window.addEventListener("load", function(){audioApp(sessionStorage.getItem("album_title"))}, false);
+        window.addEventListener("load", function(){set_album_length(sessionStorage.getItem("album_length"))}, false);
+    }
+    
+</script>
 </html>
