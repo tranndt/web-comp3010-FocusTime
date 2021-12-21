@@ -9,6 +9,7 @@ const convert_to_secs = (input_hr, input_min, input_sec) => {
 };
 
 const convert_from_secs = (input_sec) => {
+    input_sec =  Number(input_sec);
     const sec = input_sec % 60;
     const minFromSec = Math.floor(input_sec / 60);
     const min = minFromSec % 60;
@@ -20,6 +21,7 @@ const convert_from_secs = (input_sec) => {
 
 const toast_elem = document.getElementById("toast");
 const dbox_elem = document.getElementById("dialogBox");
+const dbox_msg = document.getElementById("dbox-msg");
 const task_amount = document.querySelector('#dbox-input');
 const dbox_btn = document.querySelector('#confirm-btn');
 const hr_elem = document.querySelector('#hr');
@@ -44,6 +46,7 @@ var total_secs = null; // input from screen
 
 var time = 0; //in seconds, time left
 var br_time = 0;//break time left
+var task_done_input = -1; // amount of task done in percentage.
 
 let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
@@ -149,6 +152,7 @@ const countdown = () => {
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
         dbox_elem.style.display = "block";
+        dbox_msg.textContent = "Focus time over! Type in your progress as percentage.";
     }
     else {
         set_timer(hr_elem, min_elem, sec_elem, time);
@@ -197,6 +201,13 @@ const br_countdown = () => {
 };
 
 dbox_btn.addEventListener('click', () => {
+    task_done_input = Number(task_amount.value);
+    if (typeof(Storage) !== "undefined") {
+        // Store to for sessionStorage
+        sessionStorage.setItem("task_done", task_done_input);
+      } else {
+        // Sorry! No Web Storage support..
+      }
     dbox_elem.style.display = "none";
 });
 
@@ -214,6 +225,8 @@ start_pause_btn.addEventListener('click', () => {
         //set timer in running state -> pause,stop btn
         start_pause_btn.textContent = "Pause";
         start_pause_btn.style.color =  enabled_text;
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 1000);
 
         stop_btn.textContent = "Stop";
 
@@ -324,7 +337,13 @@ stop_btn.addEventListener('click', () => {
         time = 0;
         br_time = 0;
 
+        toast_elem.className = "show";
+        toast_elem.textContent = "Focus time over. Good job!";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
+
         dbox_elem.style.display = "block";
+        dbox_msg.textContent = "Focus time over! Type in your progress as percentage.";
     }
 
 });
