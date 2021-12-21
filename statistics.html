@@ -10,11 +10,10 @@
     <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <!--Our own scripts-->
-    <link rel="stylesheet" href="css/stat_styles.css">
+    <!-- <link rel="stylesheet" href="css/stat_styles.css"> -->
     <title>Grid</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
         body{
             margin: 0px; 
             height: 100%;
@@ -27,9 +26,10 @@
             height: 100%;
             display: grid;
             grid-template-columns: auto 500px 500px 500px auto;
-            grid-template-rows: 100px 200px 200px 200px 200px;
+            grid-template-rows: 100px 50px 200px 200px 200px 200px;
             grid-template-areas: 
                     "m1 l n r m2"
+                    "ml a0 a0 a0 mr"
                     "ml a1 a1 a2 mr"
                     "ml a1 a1 a4 mr"
                     "ml a1 a1 a4 mr"
@@ -90,6 +90,17 @@
             margin-top: 1px;
         }
 
+        #app-interface-namespace{
+            /* background-color: rgba(255, 77, 160, 0.274); */
+            grid-area: a0;
+            font-size: 40px;
+            font-weight: bold;
+            padding-bottom: 1em;
+            padding-left: 1em;
+            /* display: flex;
+            justify-content: center; */
+        }
+
         #app-interface-upperleft{
             /* background-color: rgba(255, 166, 0, 0.24); */
             grid-area: a1;
@@ -98,8 +109,11 @@
 
         #app-interface-upperright{
             /* background-color: rgba(0, 128, 0, 0.212); */
+            background-color: #f1f1f1;
+
             grid-area: a2;
-            padding: 1em;
+            /* padding: 1em; */
+
         }
 
         #app-interface-lowerleft{
@@ -160,6 +174,147 @@
             padding: 0 0.1em;
         }
 
+        #myBtnContainer{
+            display: grid;
+            grid-template-columns: 1fr 2fr 2fr 1fr;
+            grid-template-rows:  2fr auto 50px;
+            grid-template-areas: "flt0 flt flt flt"
+                                "flt0 clr clr clr"
+                                "tbtn tbtn ptn ptn";
+        }
+
+        #task-btn{
+            border: none;
+            outline: none;
+            /* padding: 12px 16px; */
+            /* background-color: #f1f1f1; */
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            grid-area: tbtn;
+        }
+
+        #project-btn{
+            border: none;
+            outline: none;
+            /* padding: 12px 16px; */
+            /* background-color: #f1f1f1; */
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            grid-area: ptn;
+        }
+
+        #myFilterContainer{
+            border: none;
+            outline: none;
+            padding: 12px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            grid-area: flt;
+            display: grid;
+            justify-content: space-between;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr) );
+            grid-template-rows: 1fr 1fr;
+            align-items: flex-end;
+        }
+
+        #filter-header{
+            grid-area: flt0;
+            background-color: #f1f1f1;
+            padding: 24px 16px;
+        }
+
+        #clear-filter{
+            grid-area: clr;
+            border-radius: 50px;
+            background-color: #ffffff;
+            margin: 0px 13px 0px 13px;
+
+            /* margin-left: 1em;
+            margin-right: 1em; */
+
+        }
+        #clear-filter:hover{
+            background-color: rgb(255, 95, 67);
+            color: rgb(73, 3, 3);
+        }
+
+        .filter-btn{
+            border: none;
+            outline: none;
+            margin: 3px 1px 3px 1px;
+
+
+            padding: 10px 10px;
+            background-color: #f1f1f1;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            /* font-size: 9px; */
+
+        }
+
+
+        /* STYLE */
+
+        .show {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .unhighlight {
+            opacity: 0.05;
+        }
+
+        .highlight {
+            opacity: 1;
+        }
+
+        /* .div.myBtnContainer {
+            align-items: center; 
+        } */
+
+        .container {
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+
+
+        .btn:hover ,.filter-btn:hover{
+            background-color: #ddd;
+        }
+
+        .btn.active {
+            background-color: #666;
+            color: white;
+        }
+
+        .node:hover{
+        /* stroke-width: 7px !important; */
+            filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
+            opacity: 1 !important;
+            cursor: pointer;
+        }
+
+        div.tooltip{
+            position: absolute;
+            text-align: center;
+            padding: 5px;
+            font: 12px sans-serif;		
+            background-color: white;
+            border: 1px #b7b7b7 solid;	
+            pointer-events: none;	
+            width: 100px;
+        }
+
     </style>
 </head>
 <body>
@@ -211,15 +366,19 @@
         <div class="navbar margin" id="navbar-margin-right">Navbar Margin Right</div>
         <div class="margin" id="margin-left">Margin Left</div>
         <div class="margin" id="margin-right">Margin Right</div>
+        <div id="app-interface-namespace">Statistics
+        </div>
         <div id="app-interface-upperleft">
             <div id="myStatsBubbles"></div>
         </div>
         <div id="app-interface-upperright">
             <div id="myBtnContainer">
-                <button class="tasks btn active" onclick="btnSelection('tasks')">Tasks</button>
-                <button class="projects btn" onclick="btnSelection('projects')">Projects</button>
+                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
+                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
+                <div id="myFilterContainer"></div>
+                <div id="filter-header">Filter</div>
+                <button class="clear project filter-btn" id=clear-filter onclick="projectFilterSelection('all')">Clear Filter</button>
             </div>
-            <div id="myFilterContainer"></div>
         </div>
         <!-- <div id="app-interface-lowerleft">App Interface LowerLeft</div> -->
         <div id="app-interface-lowerright">

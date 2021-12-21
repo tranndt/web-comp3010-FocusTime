@@ -468,7 +468,7 @@ function createProjectFilterButtons(){
         .range(d3.schemeSet1);
 
     btnContainer = document.getElementById("myFilterContainer")
-    html = '<button class="clear project filter-btn" onclick="projectFilterSelection(\'all\')">Clear Filter</button>'
+    html = ""
     for (const i in allgroups){
         d = allgroups[i]
         span = '<button class="project filter-btn '+ asClassName(d) +'" onclick="projectFilterSelection(\''+ d +'\')">' + d +'</button>'
