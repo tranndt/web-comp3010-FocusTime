@@ -135,7 +135,28 @@
     var width = 1000
     var height = 700
 
+    data = Array.from(
+        [{taskid: '1', task: 'Task 1', project: 'COMP 3020', duration: '200'},
+        {taskid: '2', task: 'Task 2', project: 'COMP 3020', duration: '250'},
+        {taskid: '3', task: 'Task 3', project: 'COMP 3020', duration: '300'},
+        {taskid: '4', task: 'Task 4', project: 'COMP 3040', duration: '245'},
+        {taskid: '5', task: 'Task 5', project: 'COMP 3040', duration: '200'},
+        {taskid: '6', task: 'Task 6', project: 'COMP 3040', duration: '500'},
+        {taskid: '7', task: 'Task 7', project: 'COMP 2140', duration: '710'},
+        {taskid: '8', task: 'Task 8', project: 'COMP 2140', duration: '400'},
+        {taskid: '9', task: 'Task 9', project: 'COMP 2140', duration: '300'},
+        {taskid: '10', task: 'Task 10', project: 'COMP 4710', duration: '400'},
+        {taskid: '11', task: 'Task 11', project: 'COMP 4710', duration: '200'},
+        {taskid: '12', task: 'Task 12', project: 'COMP 4230', duration: '400'}
+    ]);
+
+    var svg = d3.select("#myStatsBubbles")
+        .append("svg")
+        .attr("width",width)
+        .attr("height",height)
+
     const off_h = document.getElementsByClassName("navbar")[0].offsetHeight
+
     const bound = (value, min, max) => {
             if (isNaN(value)){return 0;}
             if (value < min) {return min;}
@@ -158,22 +179,15 @@
         result.push(max);
         return result;
     };
-
-    var svg = d3.select("#myStatsBubbles")
-        .append("svg")
-        .attr("width",width)
-        .attr("height",height)
-
     // Tasks Container View  
-    d3.csv("stats_deprecated/data2.csv", function(data) {
-        // console.log(data)
 
+    function taskSimulation(data){
         var simulation = d3.forceSimulation()
-            .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
-            .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
+        .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
+        .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
+        .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
 
-            
+        
         // create a tooltip
         var Tooltip = d3.select("#myStatsBubbles")
             .append("div")
@@ -344,132 +358,112 @@
                     .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
                     .attr("cy", d => bound(d.y, 50, height - 150)) // d.y
                 });
-    })
-</script> 
+    }
 
-<!-- Project scripts-->
-<script>
+    function projectSimulation(data){
     // Projects Container View  
-    d3.csv("stats_deprecated/data2.csv", function(data) {
-        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
+    data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+    data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-        // console.log(data_rollup)
+    // console.log(data_rollup)
 
-        var simulation = d3.forceSimulation()
-            .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
-            .force("charge", d3.forceManyBody().strength(1000)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d[1])+3) }).iterations(1)) // Force that avoids circle overlapping
+    var simulation = d3.forceSimulation()
+        .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
+        .force("charge", d3.forceManyBody().strength(1000)) // Nodes are attracted one each other of value is > 0
+        .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d[1])+3) }).iterations(1)) // Force that avoids circle overlapping
 
-        // create a tooltip
-        var Tooltip = d3.select("#myStatsBubbles")
-            .append("div")
-            .style("opacity", 0)
-            .attr("class", "tooltip")
-            .style("background-color", "white")
-            .style("border", "solid")
-            .style("border-width", "2px")
-            .style("border-radius", "5px")
-            .style("padding", "5px")
+    // create a tooltip
+    var Tooltip = d3.select("#myStatsBubbles")
+        .append("div")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
 
-        // Three function that change the tooltip when user hover / move / leave a cell
-        var mouseover = function(d) {
-            Tooltip
-            .style("opacity", 1)
-        }
-        var mousemove = function(d) {
-            Tooltip
-            .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
-                + "<br><b>" + d.length  + " Tasks" + "</b>"
-                + "<br>" + fmt(d[1]))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
-        }
-        var mouseleave = function(d) {
-            Tooltip
-            .style("opacity", 0)
-        }
+    // Three function that change the tooltip when user hover / move / leave a cell
+    var mouseover = function(d) {
+        Tooltip
+        .style("opacity", 1)
+    }
+    var mousemove = function(d) {
+        Tooltip
+        .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
+            + "<br><b>" + d.length  + " Tasks" + "</b>"
+            + "<br>" + fmt(d[1]))
+        .style("left", (d3.mouse(this)[0]+10) + "px")
+        .style("top", (d3.mouse(this)[1]+off_h) + "px")
+    }
+    var mouseleave = function(d) {
+        Tooltip
+        .style("opacity", 0)
+    }
 
-        function dragstarted(d) {
-            if (!d3.event.active) simulation.alphaTarget(.03).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(.03).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
 
-        function dragged(d) {
-            d.fx = d3.event.x;
-            d.fy = d3.event.y;
-            Tooltip
-            .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
-                + "<br><b>" + d.length  + " Tasks" + "</b>"
-                + "<br>" + fmt(d[1]))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
-        }
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+        Tooltip
+        .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
+            + "<br><b>" + d.length  + " Tasks" + "</b>"
+            + "<br>" + fmt(d[1]))
+        .style("left", (d3.mouse(this)[0]+10) + "px")
+        .style("top", (d3.mouse(this)[1]+off_h) + "px")
+    }
 
-        function dragended(d) {
-            if (!d3.event.active) simulation.alphaTarget(.03);
-            d.fx = null;
-            d.fy = null;
-        }
-
-        const array_column = (array, column) => {
-            const result = [];
-            array.forEach(e => {
-                result.push(e[column]);
-            });
-            return result;
-        };
-
-        const array_range = (array, attr) => {
-            const result = [];
-            var min = Math.min.apply(null, array.map(item => item[attr])),
-                max = Math.max.apply(null, array.map(item => item[attr]));
-            result.push(min);
-            result.push(max);
-            return result;
-        };
-
-        var size = d3.scaleLinear()
-            .domain(array_range(data_rollup,1))
-            .range([50,100])
-
-        var color = d3.scaleOrdinal()
-            .domain(array_column(data_rollup,0))
-            .range(d3.schemeSet1);
-
-        var node = svg.append("g")
-            .attr("class","statscontainer projects hidden")
-            .selectAll("circle")
-            .data(data_rollup)
-            .enter()
-            .append("circle")
-            .attr("class", d => "project node " + d[0])
-            .attr("r", function(d){return size(d[1])})
-            .attr("cx", function(d){return Math.random()*d[1]})
-            .attr("cy", function(d){return Math.random()*d[1]})
-            .style("fill", function(d){return color(d[0])})
-            .style("fill-opacity", 1)
-            .attr("stroke", "black")
-            .style("stroke-width", 2)
-                .on("mouseover", mouseover) // What to do when hovered
-                .on("mousemove", mousemove)
-                .on("mouseleave", mouseleave)
-            .call(d3.drag() // call specific function when circle is dragged
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended));
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(.03);
+        d.fx = null;
+        d.fy = null;
+    }
 
 
-        simulation
-            .nodes(data_rollup)
-            .on("tick", function(d){
-                node
-                .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
-                .attr("cy", d => bound(d.y, 50, height - 150)) // d.y
-            });
+    var size = d3.scaleLinear()
+        .domain(array_range(data_rollup,1))
+        .range([50,100])
 
-    });
+    var color = d3.scaleOrdinal()
+        .domain(array_column(data_rollup,0))
+        .range(d3.schemeSet1);
+
+    var node = svg.append("g")
+        .attr("class","statscontainer projects hidden")
+        .selectAll("circle")
+        .data(data_rollup)
+        .enter()
+        .append("circle")
+        .attr("class", d => "project node " + d[0])
+        .attr("r", function(d){return size(d[1])})
+        .attr("cx", function(d){return Math.random()*d[1]})
+        .attr("cy", function(d){return Math.random()*d[1]})
+        .style("fill", function(d){return color(d[0])})
+        .style("fill-opacity", 1)
+        .attr("stroke", "black")
+        .style("stroke-width", 2)
+            .on("mouseover", mouseover) // What to do when hovered
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
+        .call(d3.drag() // call specific function when circle is dragged
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended));
+
+
+    simulation
+        .nodes(data_rollup)
+        .on("tick", function(d){
+            node
+            .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
+            .attr("cy", d => bound(d.y, 50, height - 150)) // d.y
+        });
+    }
 
     function fmt (seconds) {
         const format = val => `0${Math.floor(val)}`.slice(-2)
@@ -482,13 +476,9 @@
         return hh+mm+ss
     }
 
-
-</script>
-<!-- Filter buttons scripts-->
-<script>
-
-    createProjectFilterButtons()
-    clearProjectFilter()
+    /*-------------------------*/
+    /* Creating Filter Buttons */
+    /*-------------------------*/
 
     function filterSelection(c) {
         c = asClassName(c)
@@ -546,55 +536,51 @@
     
 
     function displayTaskList(project){
-        d3.csv("stats_deprecated/data2.csv",data => {
-            data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-            data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
+        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-            listcontainer = document.getElementById("listcontainer")
+        listcontainer = document.getElementById("listcontainer")
 
-            var color = d3.scaleOrdinal()
-                .domain(array_column(data_rollup,0))
-                .range(d3.schemeSet1);
+        var color = d3.scaleOrdinal()
+            .domain(array_column(data_rollup,0))
+            .range(d3.schemeSet1);
 
-            html = ""
-            for (const i in data.slice(0,data.length)){
-                d = data[i]
-                if (project == null | project == "all" | asClassName(d.project) == project){
-                    span ='<li class = "task-li '+ asClassName(d.project)+'"">'
-                        + '<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
-                        + "<br><b>" + d.task  + "</b>"
-                        + "<br>" + fmt(d.duration) + '</li>'
-                    html += span
-                }
+        html = ""
+        for (const i in data.slice(0,data.length)){
+            d = data[i]
+            if (project == null | project == "all" | asClassName(d.project) == project){
+                span ='<li class = "task-li '+ asClassName(d.project)+'"">'
+                    + '<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+                    + "<br><b>" + d.task  + "</b>"
+                    + "<br>" + fmt(d.duration) + '</li>'
+                html += span
             }
-            listcontainer.innerHTML = html
-        })
+        }
+        listcontainer.innerHTML = html
     }
 
     function displayProjectList(project){
-        d3.csv("stats_deprecated/data2.csv",data => {
-            data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-            data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
+        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-            var color = d3.scaleOrdinal()
-                .domain(array_column(data_rollup,0))
-                .range(d3.schemeSet1);
+        var color = d3.scaleOrdinal()
+            .domain(array_column(data_rollup,0))
+            .range(d3.schemeSet1);
 
-            listcontainer = document.getElementById("listcontainer")
+        listcontainer = document.getElementById("listcontainer")
 
-            html = ""
-            for (const i in data_rollup){
-                d = data_rollup[i]
-                if (project == null | project == "all" | asClassName(d[0])  === project){
-                    span ='<li class = "project-li '+ asClassName(d[0])+'"">'
-                        + '<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
-                        + "<br><b>" + d.length  + " Tasks" + "</b>"
-                        + "<br>" + fmt(d[1]) + '</li>'
-                    html += span
-                }
+        html = ""
+        for (const i in data_rollup){
+            d = data_rollup[i]
+            if (project == null | project == "all" | asClassName(d[0])  === project){
+                span ='<li class = "project-li '+ asClassName(d[0])+'"">'
+                    + '<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
+                    + "<br><b>" + d.length  + " Tasks" + "</b>"
+                    + "<br>" + fmt(d[1]) + '</li>'
+                html += span
             }
-            listcontainer.innerHTML = html
-        })
+        }
+        listcontainer.innerHTML = html
     }
 
     function addCssRule(rule, css) {
@@ -603,39 +589,36 @@
     }
 
     function createProjectFilterButtons(){
-        d3.csv("stats_deprecated/data2.csv",data => {
-            data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration),d => d.project)
-            data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
+        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration),d => d.project)
+        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-            var allgroups = array_column(data_rollup,0)
-            var alldurations = array_column(data_rollup,1)
+        var allgroups = array_column(data_rollup,0)
+        var alldurations = array_column(data_rollup,1)
 
-            var color = d3.scaleOrdinal()
-                .domain(array_column(data_rollup,0))
-                .range(d3.schemeSet1);
+        var color = d3.scaleOrdinal()
+            .domain(array_column(data_rollup,0))
+            .range(d3.schemeSet1);
 
-            btnContainer = document.getElementById("myFilterContainer")
-            html = '<button class="clear project filter-btn" onclick="projectFilterSelection(\'all\')">Clear Filter</button>'
-            for (const i in allgroups){
-                d = allgroups[i]
-                span = '<button class="project filter-btn '+ asClassName(d) +'" onclick="projectFilterSelection(\''+ d +'\')">' + d +'</button>'
-                html += span
-                addCssRule(".filter-btn."+asClassName(d), {
-                    'background-color': "white",
-                    'color': color(d)
-                });
-                addCssRule(".filter-btn."+asClassName(d)+".clicked", {
-                    'background-color': color(d),
-                    'color': "white"
-                });
-                addCssRule(".filter-btn."+asClassName(d)+":hover", {
-                    'background-color': color(d),
-                    'color': "white"
-                });
-            }
-            btnContainer.innerHTML += html
-
-        });
+        btnContainer = document.getElementById("myFilterContainer")
+        html = '<button class="clear project filter-btn" onclick="projectFilterSelection(\'all\')">Clear Filter</button>'
+        for (const i in allgroups){
+            d = allgroups[i]
+            span = '<button class="project filter-btn '+ asClassName(d) +'" onclick="projectFilterSelection(\''+ d +'\')">' + d +'</button>'
+            html += span
+            addCssRule(".filter-btn."+asClassName(d), {
+                'background-color': "white",
+                'color': color(d)
+            });
+            addCssRule(".filter-btn."+asClassName(d)+".clicked", {
+                'background-color': color(d),
+                'color': "white"
+            });
+            addCssRule(".filter-btn."+asClassName(d)+":hover", {
+                'background-color': color(d),
+                'color': "white"
+            });
+        }
+        btnContainer.innerHTML += html
     }   
 
     function clearProjectFilter(){
@@ -689,6 +672,16 @@
     function asProjectName(c){
         return c.replace("-"," ")
     }
+
+    /*------------------------*/
+    /* Running the simulation */
+    /*------------------------*/
+
+    createProjectFilterButtons()
+    clearProjectFilter()
+    taskSimulation(data);
+    projectSimulation(data)
+
 
 </script>
 </html>
