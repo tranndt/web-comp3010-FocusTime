@@ -461,6 +461,47 @@
         </div>
     </div>
 
+    <div class="accordion-item">
+        <div class="accordion-item-header">
+              Miscelllaneous
+        </div>
+        <div class="accordion-item-body" id="table6Parent">
+            <div class="accordion-item-body-content">
+              <table class="content-table" id="table6">
+                  <thead>
+                      <tr>
+                      <th>Task</th>
+                      <th>Status</th>
+                      <th>Due Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr class="newItem-container accordion-item-header">
+                          <td colspan="3" style="width:100%" class="newItem">+ Create new task</td>
+                      </tr>
+                      <tr class="accordion-item-body taskDetails newItem-container-details">
+                          <td>
+                              <label for="taskName">New Task Name:</label>
+                              <input type="text" class="taskName" id="taskName6" name="taskName" size="20">
+                          </td> 
+                          <td>
+                              <label for="taskDate">Due on:</label>
+                              <input type="date" class="taskDate" id="taskDate6" name="taskDate" value="2021-12-31" onkeydown="return false">
+                          </td>
+                          <td>
+                              <div class="taskProgress-container">
+                                  <label for="taskProgress">Progress:</label>
+                                  <input type="number" class="taskProgress" id="taskProgress6" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                  </div>
+                              <button class="doneButton" onclick="createNewTask('table6', 'taskName6', 'taskDate6', 'taskProgress6')">Done</button>
+                          </td>
+                      </tr>
+                    </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+
     </div>
 
 </body>

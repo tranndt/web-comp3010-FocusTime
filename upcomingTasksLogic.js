@@ -7,7 +7,9 @@ const tableHeader = `<thead>
                         <th>Due Date</th>
                         </tr>
                     </thead>`;
-var tableCount = 5;
+var tableCount = 6;
+var projectCount = 5;
+var taskCount = 12;
 
 addAccordionItemEvent(accordionItemsList);
 
@@ -136,8 +138,6 @@ function createNewProject() {
                     </div> 
                 </div>
             </div>`;
-
-        console.log(newTaskRows);
 
         newDiv.innerHTML = newProjectItem;
         newProjDiv.insertAdjacentElement('beforebegin', newDiv);
