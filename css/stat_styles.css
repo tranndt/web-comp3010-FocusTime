@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 .show {
     display: block;
 }
@@ -30,6 +32,9 @@
     background-color: #f1f1f1;
     border-radius: 50px;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+
     }
 
 .btn:hover ,.filter-btn:hover{
