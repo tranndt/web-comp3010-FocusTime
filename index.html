@@ -12,45 +12,55 @@
 <body>
     <div id="toast">Some text some message..</div>
     <div id="dialogBox">
-        <div id="dbox-msg">Time over. Good Job! Innput the amoount of work done (percentage).</div>
+        <div id="dbox-msg">Time over. Good Job! Innput the amount of work done (percentage).</div>
         <input id="dbox-input" type="text">
         <div>
             <button id="confirm-btn">Done</button>
         </div>
     </div>
+    <!-- Navigation Bar -->
     <div class="navbar">
         <div class="container">
-            <a href="#" class="logo">FocusTime</a>
-
             <nav>
                 <ul class="navitemlist">
+                    <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:80%"> </div>
                     <li>
                         <a href="upcomingTasks.html">
-                            <div class="icon"><img src="assets/upcomingtasksicon.svg" alt="Upcoming Tasks"></div>
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
                             <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
                         </a>
                     </li>
                     <li>
                         <a href="statistics.html">
-                            <div class="icon"><img src="assets/statisticsicon.svg" alt="Statistics"></div>
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
                             <div class="navitem" data-text="Statistics">Statistics</div>
                         </a>
                     </li>
                     <li>
-                        <a class="active" href="index.html">
-                            <div class="icon"><img src="assets/timericon.svg" alt="Timer Page"></div>
+                        <a class = "active" href="index.html">
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
                             <div class="navitem" data-text="Timer Page">Homepage</div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
-                            <div class="icon"><img src="assets/musicicon.svg" alt="Music"></div>
+                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
                             <div class="navitem" data-text="Music">Music</div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
-                            <div class="icon"><img src="assets/settingsicon.svg" alt="Settings"></div>
+                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
                             <div class="navitem" data-text="Settings">Settings</div>
                         </a>
                     </li>
@@ -149,6 +159,7 @@
         window.addEventListener("load", function(){audioApp(sessionStorage.getItem("album_title"))}, false);
         window.addEventListener("load", function(){set_album_length(sessionStorage.getItem("album_length"))}, false);
     }
+    
     
 </script>
 </html>

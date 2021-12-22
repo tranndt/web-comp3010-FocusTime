@@ -86,7 +86,7 @@ The toast - position it at the bottom and in the middle of the screen */
 .logoimg{
   display: inline-flex;
   position: absolute;
-  top: -290%;
+  top: -270%;
   left: -3%;
 }
 
@@ -103,10 +103,10 @@ li .active .iconhover {
 }
 
 li .active {
-    background:rgba(222, 226, 169, 0.747);
+    /* background:rgba(222, 226, 169, 0.747);
     border-radius: 1em;
     border-style:ridge;
-    border-color: rgba(206, 203, 59, 0.63);
+    border-color: rgba(206, 203, 59, 0.63); */
     margin:0;
 }
 
