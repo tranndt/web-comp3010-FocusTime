@@ -897,7 +897,7 @@ div.accordion-item-header.active::after {
     border-bottom: 2px solid var(--primary-color);
   }
 
-.taskDetails {
+.taskDetails, .newItem-container-details {
 display: none;
 }
 
@@ -991,7 +991,7 @@ font-weight: normal;
     outline: none;
   }
   
-.taskDetails input::placeholder, .search-container input::placeholder {
+.newItem-container-details input::placeholder, .search-container input::placeholder {
     font-weight: normal;
     font-size: 0.9rem;
 }

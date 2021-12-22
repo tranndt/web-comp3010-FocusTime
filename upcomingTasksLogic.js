@@ -9,7 +9,8 @@ const tableHeader = `<thead>
                     </thead>`;
 var tableCount = 6;
 var projectCount = 5;
-var taskCount = 12;
+var taskCount = 13;
+var taskDetailsCount = 13; 
 
 addAccordionItemEvent(accordionItemsList);
 
@@ -107,7 +108,7 @@ function createNewProject() {
         let newTaskRows = `<tr class="newItem-container accordion-item-header">
                         <td colspan="3" style="width:100%" class="newItem">+ Create new task</td>
                     </tr>
-                    <tr class="accordion-item-body taskDetails newItem-container-details">
+                    <tr class="accordion-item-body newItem-container-details">
                     <td>
                         <label for="taskName">New Task Name:</label>
                         <input type="text" class="taskName" id="${newTaskNameID}" name="taskName" size="20">
@@ -212,7 +213,32 @@ searchInput.addEventListener('keyup', function(event) {
     const q = event.target.value.toLowerCase();
     rows.forEach((row) => {
         row.querySelector("td").textContent.toLowerCase().startsWith(q)
-        ? (row.style.display = "table-row")
+        ? (row.style.display = "table-row") 
         : (row.style.display = "none");
     });
 })
+
+function updateNotes() {
+    var values = [],
+        keys = Object.keys(localStorage);
+
+    for(i = 0; i < keys.length; i++) {
+        values.push(localStorage.getItem(keys[i]));
+    }
+
+    let taskDetailsAreas = document.getElementsByClassName("taskDetails");
+
+    for (i = 0; i < taskDetailsAreas.length; i++) {
+        for (j = 0; j < keys.length; j++) {
+            if(!keys[j].localeCompare(taskDetailsAreas[i].firstElementChild.id)) {
+                taskDetailsAreas[i].firstElementChild.innerHTML = values[j];
+                // let newList = `<ul>
+                //                     <li>${content}</li>
+                //                </ul>`
+
+            }
+        }
+    }
+}
+
+updateNotes();
