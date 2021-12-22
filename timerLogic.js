@@ -78,15 +78,42 @@ start_pause_btn.style.cursor = 'default';
 console.log(time_inputs);
 
 var album_sec = -1;
+
+const set_timer_to_album_length = () => {
+    total_secs = album_sec;
+    time = total_secs;
+    br_time = time*BREAK_PERCENT;
+
+    const [hr, min, sec] = convert_from_secs(album_sec);
+    time_inputs[0].value = hr;
+    time_inputs[1].value = min;
+    time_inputs[2].value = sec;
+
+    set_timer(hr_elem, min_elem, sec_elem, time);
+    set_timer(br_hr, br_min, br_sec, br_time);
+
+
+    if(state != EDIT) {
+        enable_start_pause_button("Start");
+    }
+    else {
+        disable_start_pause_button("Start");
+    }
+
+};
+
 const set_album_length = (album_sec_stored) => {
     console.log('album_sec', album_sec_stored);
     album_sec = album_sec_stored;
+    set_timer_to_album_length();
 };
 
 time_inputs.forEach(elem => {
     // elem.value = 0;
     elem.addEventListener('input', () => {
         total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
+        br_time = total_secs*BREAK_PERCENT;
+        set_timer(br_hr, br_min, br_sec, br_time);
         console.log('total-secs:', total_secs);
     })
 });
@@ -145,6 +172,11 @@ const countdown = () => {
             setProgress(0);
         }, 1000);
         time = 0;
+
+        // if(album_sec > 0 ) {
+        //     set_timer_to_album_length();
+        // }
+        
 
         //notify users of time over, use dialog box to get time progress input
         toast_elem.className = "show";
@@ -279,15 +311,16 @@ stop_btn.addEventListener('click', () => {
 
         disable_start_pause_button("Start");
 
-        if(album_sec > 0){
-            console.log(album_sec);
-            const [hr, min, sec] = convert_from_secs(album_sec);
-            time_inputs[0].value = hr;
-            time_inputs[1].value = min;
-            time_inputs[2].value = sec;
-
-            total_secs = album_sec;
+        if(album_sec > 0) {
+            // total_secs = album_sec;
+            set_timer_to_album_length();
         }
+        else {
+            total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
+            br_time = total_secs*BREAK_PERCENT;
+            set_timer(br_hr, br_min, br_sec, br_time);
+        }
+
 
         main_timer_elem.style.display = "none";
         time_input_elem.style.display = "flex";
@@ -347,6 +380,10 @@ stop_btn.addEventListener('click', () => {
         
         time = 0;
         br_time = 0;
+
+        // if(album_sec > 0 ) {
+        //     set_timer_to_album_length();
+        // }
 
         toast_elem.className = "show";
         toast_elem.textContent = "Focus time over. Good job!";
