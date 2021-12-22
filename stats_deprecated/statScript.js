@@ -1,5 +1,5 @@
 var width = 1000
-var height = 625
+var height = 600
 
 data = Array.from(
     [{taskid: '1', task: 'Task 1', project: 'COMP 3020', duration: '200'},
@@ -16,14 +16,14 @@ data = Array.from(
     {taskid: '12', task: 'Task 12', project: 'COMP 4230', duration: '400'}
 ]);
 
-var svg = d3.select("#container-stats-bubbles")
+var svg = d3.select("#myStatsBubbles")
     .append("svg")
     .attr("width",width)
     .attr("height",height)
 
 
 // const off_h = document.getElementsByClassName("navbar")[0].offsetHeight
-const off_h = 300;
+const off_h = 0;
 
 const bound = (value, min, max) => {
         if (isNaN(value)){return 0;}
@@ -57,7 +57,7 @@ function taskSimulation(data){
 
     
     // create a tooltip
-    var Tooltip = d3.select("#container-stats-bubbles")
+    var Tooltip = d3.select("#myStatsBubbles")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
@@ -143,6 +143,40 @@ function taskSimulation(data){
         .domain(array_range(data,"duration"))
         .range([3,7])
 
+    // ---------------------------//
+    //       LEGEND              //
+    // ---------------------------//
+    // Add one dot in the legend for each name.
+    var dotsize = 20
+    var allgroups = array_column(data_rollup,0)
+    var alldurations = array_column(data_rollup,1)
+
+    svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
+    .data(allgroups)
+    .enter()
+    .append("circle")
+        .attr("cx", (d,i) => 100 - dotsize + i * 150)
+        .attr("cy", function(d,i){ return height - 15}) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("r", (d,i) => sizedot(alldurations[i]))
+        .style("fill", function(d){ return color(d)})
+        .style("stroke", "black")
+        .style("stroke-width", 1)
+        // .on("mouseover", highlightSelection)
+        // .on("mouseleave", unhighlightSelection)
+
+    // Add labels beside legend dots
+    svg.append("g").attr("class","mylabels").selectAll("mylabels")
+    .data(allgroups)
+    .enter()
+    .append("text")
+        .attr("x", (d,i) => 100 + i * 150)
+        .attr("y", function(d,i){ return height - 15}) // 100 is where the first dot appears. 25 is the distance between dots
+        .style("fill", function(d){ return color(d)})
+        .text(function(d){ return d})
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle")
+        // .on("mouseover", highlightSelection)
+        // .on("mouseleave", unhighlightSelection)
 
     // ---------------------------//
     //       LEGEND              //
@@ -183,42 +217,7 @@ function taskSimulation(data){
         .style("fill-opacity", 1)
         .style("display","inline")
         .text(d => d.task);
-
-            // ---------------------------//
-    //       LEGEND              //
-    // ---------------------------//
-    // Add one dot in the legend for each name.
-    var dotsize = 20
-    var allgroups = array_column(data_rollup,0)
-    var alldurations = array_column(data_rollup,1)
-
-    svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
-    .data(allgroups)
-    .enter()
-    .append("circle")
-        .attr("cx", (d,i) => 100 - dotsize + i * 180)
-        .attr("cy", function(d,i){ return height - 20}) // 100 is where the first dot appears. 25 is the distance between dots
-        .attr("r", (d,i) => sizedot(alldurations[i]))
-        .style("fill", function(d){ return color(d)})
-        .style("stroke", "black")
-        .style("stroke-width", 1)
-        // .on("mouseover", highlightSelection)
-        // .on("mouseleave", unhighlightSelection)
-
-    // Add labels beside legend dots
-    svg.append("g").attr("class","mylabels").selectAll("mylabels")
-    .data(allgroups)
-    .enter()
-    .append("text")
-        .attr("x", (d,i) => 100 + i * 180)
-        .attr("y", function(d,i){ return height - 20}) // 100 is where the first dot appears. 25 is the distance between dots
-        .style("fill", function(d){ return color(d)})
-        .text(function(d){ return d})
-        .attr("text-anchor", "left")
-        .style("alignment-baseline", "middle")
-        // .on("mouseover", highlightSelection)
-        // .on("mouseleave", unhighlightSelection)
-
+        
 
     simulation
         .nodes(data)
@@ -242,7 +241,7 @@ var simulation = d3.forceSimulation()
     .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d[1])+3) }).iterations(1)) // Force that avoids circle overlapping
 
 // create a tooltip
-var Tooltip = d3.select("#container-stats-bubbles")
+var Tooltip = d3.select("#myStatsBubbles")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
@@ -408,7 +407,7 @@ function displayTaskList(project){
     data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
     data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-    listcontainer = document.getElementById("container-list")
+    listcontainer = document.getElementById("listcontainer")
 
     var color = d3.scaleOrdinal()
         .domain(array_column(data_rollup,0))
@@ -419,7 +418,7 @@ function displayTaskList(project){
         d = data[i]
         if (project == null | project == "all" | asClassName(d.project) == project){
             span ='<li class = "task-li '+ asClassName(d.project)+'"">'
-                + '<span style="color:'+color(d.project)+ '"><b>' + d.project + '</b></span>'
+                + '<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
                 + "<br><b> " + d.task  + "</b>"
                 + "<br> " + fmt(d.duration) + '</li>'
             html += span
@@ -436,14 +435,14 @@ function displayProjectList(project){
         .domain(array_column(data_rollup,0))
         .range(d3.schemeSet1);
 
-    listcontainer = document.getElementById("container-list")
+    listcontainer = document.getElementById("listcontainer")
 
     html = ""
     for (const i in data_rollup){
         d = data_rollup[i]
         if (project == null | project == "all" | asClassName(d[0])  === project){
             span ='<li class = "project-li '+ asClassName(d[0])+'"">'
-                + '<span style="color:'+color(d[0])+ '"><b>' + d[0] + '</b></span>'
+                + '<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
                 + "<br><b> " + d.length  + " Tasks" + "</b>"
                 + "<br> " + fmt(d[1]) + '</li>'
             html += span
@@ -468,7 +467,7 @@ function createProjectFilterButtons(){
         .domain(array_column(data_rollup,0))
         .range(d3.schemeSet1);
 
-    btnContainer = document.getElementById("list-filters")
+    btnContainer = document.getElementById("myFilterContainer")
     html = ""
     for (const i in allgroups){
         d = allgroups[i]
@@ -505,8 +504,8 @@ function projectFilter(c){
 }
 
 function btnSelection(c){
-    var btns = document.getElementById("container-buttons").getElementsByClassName("btn");
-    selectedBtn = document.getElementById("container-buttons").getElementsByClassName(c)[0];
+    var btns = document.getElementById("myBtnContainer").getElementsByClassName("btn");
+    selectedBtn = document.getElementById("myBtnContainer").getElementsByClassName(c)[0];
     for (var i = 0; i < btns.length; i++) {
         if (btns[i].className.indexOf("active") > -1)
             btns[i].className = btns[i].className.replace(" active","")
@@ -514,7 +513,7 @@ function btnSelection(c){
     selectedBtn.className += " active"
     filterSelection(c)
 
-    var clicked = document.getElementById("list-filters").getElementsByClassName("clicked")[0];
+    var clicked = document.getElementById("myFilterContainer").getElementsByClassName("clicked")[0];
     if (clicked != null){
         var currentFilter = clicked.className.split(" ")[2];
         projectFilter(currentFilter);
@@ -524,8 +523,8 @@ function btnSelection(c){
 function projectFilterSelection(c){
     c = asClassName(c)
     projectFilter(c)
-    var btns = document.getElementById("list-filters").getElementsByClassName("filter-btn");
-    selectedBtn = document.getElementById("list-filters").getElementsByClassName(c)[0];
+    var btns = document.getElementById("myFilterContainer").getElementsByClassName("filter-btn");
+    selectedBtn = document.getElementById("myFilterContainer").getElementsByClassName(c)[0];
     for (var i = 0; i < btns.length; i++) {
         if (btns[i].className.indexOf("clicked") > -1)
             btns[i].className = btns[i].className.replace(" clicked","")

@@ -10,384 +10,124 @@
     <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <!--Our own scripts-->
-    <!-- <link rel="stylesheet" href="css/stat_styles.css"> -->
+    <link rel="stylesheet" href="css/stat_styles.css">
     <title>Grid</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
-        body{
-            margin: 0px; 
-            height: 100%;
-            background-color: rgb(221, 221, 221);
-            font-family: 'Montserrat', sans-serif;
-  /* font-weight: bold; */
-        }
-
-        .body-container{
-            height: 100%;
-            display: grid;
-            grid-template-columns: auto 500px 500px 500px auto;
-            grid-template-rows: 100px 50px 200px 200px 200px 200px;
-            grid-template-areas: 
-                    "m1 l n r m2"
-                    "ml a0 a0 a0 mr"
-                    "ml a1 a1 a2 mr"
-                    "ml a1 a1 a4 mr"
-                    "ml a1 a1 a4 mr"
-                    "ml a1 a1 a4 mr";
-        }
-
-        .navbar {
-            background-color: rgb(185, 185, 185);
-        }
-
-        #navbar-left {
-            grid-area: l;
-        }
-
-        #navbar-center{
-            grid-area: n;
-            height: 100%;
-            display: grid;
-            grid-template-columns: repeat(5,1fr);
-            grid-template-rows: 2fr 4fr 1.5fr;
-            grid-template-areas: 
-                    "tn tn tn tn tn"
-                    "i i i i i"
-                    "a a a a a";
-        }
-
-        .navitemlist{
-            /* background: rgb(212, 221, 83); */
-            display: flex;
-            position: relative;
-            justify-content: space-around;
-            align-items: center;
-            height: 100%;
-
-            grid-area: i;
-        }
-
-        .activebar{
-            display: flex;
-            grid-area: a;
-            justify-content: space-around;
-
-        }
-
-        .activebar .tab-active{
-            background-color: rgb(60, 60, 60);
-            border-radius: 50em;
-            height: 10px;
-            width: 10px;
-            margin-top: 1px;
-        }
-
-        .activebar .tab-inactive{
-            background-color: rgba(255, 255, 255, 0);
-            border-radius: 50em;
-            height: 10px;
-            width: 10px;
-            margin-top: 1px;
-        }
-
-        #app-interface-namespace{
-            /* background-color: rgba(255, 77, 160, 0.274); */
-            grid-area: a0;
-            font-size: 40px;
-            font-weight: bold;
-            padding-bottom: 1em;
-            padding-left: 1em;
-            /* display: flex;
-            justify-content: center; */
-        }
-
-        #app-interface-upperleft{
-            /* background-color: rgba(255, 166, 0, 0.24); */
-            grid-area: a1;
-            padding: 1em;
-        }
-
-        #app-interface-upperright{
-            /* background-color: rgba(0, 128, 0, 0.212); */
-            background-color: #f1f1f1;
-
-            grid-area: a2;
-            /* padding: 1em; */
-
-        }
-
-        #app-interface-lowerleft{
-            /* background-color: rgba(255, 192, 203, 0.233); */
-            grid-area: a3;
-            padding: 3em;
-            font-weight: bold;
-
-        }
-
-        #app-interface-lowerright{
-            /* background-color: rgba(255, 255, 0, 0.322); */
-            grid-area: a4;
-            overflow-y: auto;
-            padding-left: 3em;
-            padding-right: 3em;
-            padding-top: 2em;
-            font-weight: bold;
-
-        }
-
-        .logoimg{
-            display: block;
-            position: relative;
-            top: -95%;
-            left: -10%; 
-        }
-
-
-        li .active .iconhover {
-            opacity: 1;
-        } 
-
-        li {
-            list-style-type: none;
-        }
-
-        ul{
-            padding-inline-start: 0px;
-            margin-block-start: 0px;
-            margin-block-end: 0px;
-        }
-
-        .navitemlist li {
-            display: inline-flex;
-            padding: 0em 1.25em 0em 1.25em;
-            text-align: center;  
-            border-right: 0.05em solid rgba(0, 0, 0, 0.1);
-        }
-
-        .navitemlist li:last-child {
-            border-right: none;
-        }
-
-        .navitem {
-            text-decoration: none;
-            display: flex; 
-            padding: 0 0.1em;
-        }
-
-        #myBtnContainer{
-            display: grid;
-            grid-template-columns: 1fr 2fr 2fr 1fr;
-            grid-template-rows:  2fr auto 50px;
-            grid-template-areas: "flt0 flt flt flt"
-                                "flt0 clr clr clr"
-                                "tbtn tbtn ptn ptn";
-        }
-
-        #task-btn{
-            border: none;
-            outline: none;
-            /* padding: 12px 16px; */
-            /* background-color: #f1f1f1; */
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-            grid-area: tbtn;
-        }
-
-        #project-btn{
-            border: none;
-            outline: none;
-            /* padding: 12px 16px; */
-            /* background-color: #f1f1f1; */
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-            grid-area: ptn;
-        }
-
-        #myFilterContainer{
-            border: none;
-            outline: none;
-            padding: 12px;
-            background-color: #f1f1f1;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-            grid-area: flt;
-            display: grid;
-            justify-content: space-between;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr) );
-            grid-template-rows: 1fr 1fr;
-            align-items: flex-end;
-        }
-
-        #filter-header{
-            grid-area: flt0;
-            background-color: #f1f1f1;
-            padding: 24px 16px;
-        }
-
-        #clear-filter{
-            grid-area: clr;
-            border-radius: 50px;
-            background-color: #ffffff;
-            margin: 0px 13px 0px 13px;
-
-            /* margin-left: 1em;
-            margin-right: 1em; */
-
-        }
-        #clear-filter:hover{
-            background-color: rgb(255, 95, 67);
-            color: rgb(73, 3, 3);
-        }
-
-        .filter-btn{
-            border: none;
-            outline: none;
-            margin: 3px 1px 3px 1px;
-
-
-            padding: 10px 10px;
-            background-color: #f1f1f1;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-            /* font-size: 9px; */
-
-        }
-
-
-        /* STYLE */
-
-        .show {
-            display: block;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .unhighlight {
-            opacity: 0.05;
-        }
-
-        .highlight {
-            opacity: 1;
-        }
-
-        /* .div.myBtnContainer {
-            align-items: center; 
-        } */
-
-        .container {
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-
-
-        .btn:hover ,.filter-btn:hover{
-            background-color: #ddd;
-        }
-
-        .btn.active {
-            background-color: #666;
-            color: white;
-        }
-
-        .node:hover{
-        /* stroke-width: 7px !important; */
-            filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
-            opacity: 1 !important;
-            cursor: pointer;
-        }
-
-        div.tooltip{
-            position: absolute;
-            text-align: center;
-            padding: 5px;
-            font: 12px sans-serif;		
-            background-color: white;
-            border: 1px #b7b7b7 solid;	
-            pointer-events: none;	
-            width: 100px;
-        }
-
     </style>
 </head>
 <body>
-    <div class="body-container" id='body-container'>
-        <div class="navbar margin" id="navbar-margin-left">Navbar Margin Left</div>
+    <div class="container-body" id='container-body'>
+
+        <!-- 1.MARGINS -->
+
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+        <div class="margin" id="margin-left">Margin Left</div>
+        <div class="margin" id="margin-right">Margin Right</div>
+
+        <!-- 2.NAVBAR -->
+
         <div class="navbar" id="navbar-left">
             <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
         </div>
         <div class="navbar" id="navbar-center">
-            <div class="navitem-name">
-            </div>
-            <ul class="navitemlist">
-                <li>
-                    <a href="upcomingTasks.html">
-                        <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
-                    </a>
-                </li>
-                <li>
-                    <a href="statistics.html">
-                        <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
-                        <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
-                    </a>
-                </li>
-                <li>
-                    <a class="active" href="index.html">
-                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
-                    </a>
-                </li>
-                <li>
-                    <a href="music.html">
-                        <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
-                    </a>
-                </li>
-                <li>
-                    <a href="settings.html">
-                        <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
-                    </a>
-                </li>
-            </ul>
-            <div class="activebar">
-                <div class = "tab-inactive"> </div>
-                <div class = "tab-active"> </div>
-                <div class = "tab-inactive"> </div>
-                <div class = "tab-inactive"> </div>
-                <div class = "tab-inactive"> </div>
+            <div class="app-container" id="container-main-navbar">
+                <div class="navitem-name">
+                </div>
+                <ul class="navitemlist">
+                    <li>
+                        <a href="upcomingTasks.html">
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="statistics.html">
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active" href="index.html">
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="activebar">
+                    <div class = "tab-inactive"> </div>
+                    <div class = "tab-active"> </div>
+                    <div class = "tab-inactive"> </div>
+                    <div class = "tab-inactive"> </div>
+                    <div class = "tab-inactive"> </div>
+                </div>
             </div>
         </div>
         <div class="navbar" id="navbar-right">Navbar Right</div>
-        <div class="navbar margin" id="navbar-margin-right">Navbar Margin Right</div>
-        <div class="margin" id="margin-left">Margin Left</div>
-        <div class="margin" id="margin-right">Margin Right</div>
-        <div id="app-interface-namespace">Statistics
-        </div>
-        <div id="app-interface-upperleft">
-            <div id="myStatsBubbles"></div>
-        </div>
-        <div id="app-interface-upperright">
-            <div id="myBtnContainer">
-                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
-                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
-                <div id="myFilterContainer"></div>
-                <div id="filter-header">Filter</div>
-                <button class="clear project filter-btn" id=clear-filter onclick="projectFilterSelection('all')">Clear Filter</button>
+
+        <!-- 3.MAIN APP -->
+        <!-- A1 -->
+
+        <div class="app-div" id="app-a1">
+            <div class="app-container" id="container-pagename">
+                Statistics
             </div>
         </div>
-        <!-- <div id="app-interface-lowerleft">App Interface LowerLeft</div> -->
-        <div id="app-interface-lowerright">
-            <div>List</div>
-            <div id="listcontainer"></div>
+
+        <!-- A2 -->
+
+        <div class="app-div" id="app-a2">
+            <div class="app-container" id="container-summary">
+                <div id="header-weeks-summary">Week's Summary</div>
+                <div id="stats-summary">You have completed 12 focus sessions, across 5 projects for a total of 1h 31m in the past week. Keep up the good work!</div>
+            </div>
         </div>
 
+        <!-- A3 -->
+
+        <div class="app-div" id="app-a3">
+            <div class="app-container" id="container-stats-bubbles">
+            </div>  
+        </div>
+
+        <!-- A4 -->
+
+        <div class="app-div" id="app-a4">
+            <div class="app-container" id="container-filters">
+                <div id="list-filters"></div>
+                <div id="header-filters">Filters</div>
+                <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button>
+            </div>
+        </div>
+
+        <!-- A5 -->
+
+        <div class="app-div" id="app-a5">
+            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
+                <div id="header-details">Details</div>
+                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
+                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
+            </div>
+            <div id="container-border"></div>
+        </div>
+
+        <!-- A6 -->
+
+        <div class="app-div" id="app-a6">
+            <div class="app-container" id="container-list">
+            </div>
+        </div>
     </div>
-    <script src="statScript.js"></script>
+
+    <script src="statScript.js"></script> <!-- Important to put this last-->
 
 </body>
 </html>
