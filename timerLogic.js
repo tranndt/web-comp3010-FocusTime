@@ -47,6 +47,7 @@ var total_secs = null; // input from screen
 var time = 0; //in seconds, time left
 var br_time = 0;//break time left
 var task_done_input = -1; // amount of task done in percentage.
+var time_focused = -1; // amount of time user focused on work(seconds)
 
 let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
@@ -171,12 +172,10 @@ const countdown = () => {
         setTimeout(() => {
             setProgress(0);
         }, 1000);
-        time = 0;
 
-        // if(album_sec > 0 ) {
-        //     set_timer_to_album_length();
-        // }
-        
+        time_focused = total_secs - time;
+
+        time = 0;
 
         //notify users of time over, use dialog box to get time progress input
         toast_elem.className = "show";
@@ -238,6 +237,7 @@ dbox_btn.addEventListener('click', () => {
     if (typeof(Storage) !== "undefined") {
         // Store to for sessionStorage
         sessionStorage.setItem("task_done", task_done_input);
+        sessionStorage.setItem("time_focused", time_focused);
       } else {
         // Sorry! No Web Storage support..
       }
@@ -377,6 +377,8 @@ stop_btn.addEventListener('click', () => {
         clearInterval(intervalID);
         clearInterval(br_intervalID);
         setProgress(0);
+
+        time_focused =total_secs - time;
         
         time = 0;
         br_time = 0;
