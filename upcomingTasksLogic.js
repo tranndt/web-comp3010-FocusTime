@@ -12,6 +12,8 @@ var projectCount = 5;
 var taskCount = 13;
 var taskDetailsCount = 13; 
 
+var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'none'];
+
 addAccordionItemEvent(accordionItemsList);
 
 function addAccordionItemEvent(accordionItemHeaders) {
@@ -43,13 +45,27 @@ function addAccordionItemEvent(accordionItemHeaders) {
 }
 
 function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
-    let newTaskName = document.getElementById(taskNameID).value;
-    let progress = document.getElementById(taskProgressID).value;
-    let date = document.getElementById(taskDateID).value;
     let table = document.getElementById(tableID);
-    let newRow = [];
+    let newTaskName = "", progress = "", date = "", newRow = [];
+    let fromThisPage = taskDateID.localeCompare("N/A");
+    
+    
+    if (fromThisPage) {
+        newTaskName = document.getElementById(taskNameID).value;
+        progress = document.getElementById(taskProgressID).value;
+        date = document.getElementById(taskDateID).value;
+    }
+
+    else {
+        progress = taskProgressID;
+        newTaskName = taskNameID;
+        date = taskDateID;
+    }
 
     if (newTaskName.localeCompare("") && progress >= 0 && progress <= 100) {
+        taskDetailsCount++;
+        let taskDetailsID = "task-"+taskDetailsCount;
+        
         if (progress == 0) {
             progress = '--';
         }
@@ -62,7 +78,9 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
             progress += '% Complete';
         }
 
-        date = formatDate(date);
+        if (fromThisPage) {
+            date = formatDate(date);
+        }
 
         let newRows = `
                     <tr class="accordion-item-header taskHeader">
@@ -71,7 +89,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
                         <td class="date">${date}</td>
                     </tr>
                     <tr class="accordion-item-body taskDetails">
-                        <td colspan="3" style="width:100%" class="accordion-item-body-content">
+                        <td colspan="3" style="width:100%" class="accordion-item-body-content" id="${newTaskName}">
                         <p>Task Notes<p>
                         </td>
                     </tr>`;
@@ -84,7 +102,9 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
         newRow.push(newTaskHeader);
         addAccordionItemEvent(newRow);
 
-        sortByDate(table);
+        if (fromThisPage) {
+            sortByDate(table);
+        }
     }
 
     else {
@@ -92,10 +112,18 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
     }
 }
 
-function createNewProject() {
-    let newProjDiv = document.getElementById("newProject");
-    let newProjectName = prompt("What is the new project?");
+function createNewProject(name) {
+    let newProjDiv = document.getElementById("misc");
     let headers = [];
+    let newProjectName = "";
+
+    if (!name.localeCompare('')) {
+        newProjectName = prompt("What is the new project?");
+    }
+
+    else {
+        newProjectName = name;
+    }
 
     if (newProjectName.localeCompare("") && newProjectName != null) {
         tableCount++;
@@ -232,13 +260,49 @@ function updateNotes() {
         for (j = 0; j < keys.length; j++) {
             if(!keys[j].localeCompare(taskDetailsAreas[i].firstElementChild.id)) {
                 taskDetailsAreas[i].firstElementChild.innerHTML = values[j];
-                // let newList = `<ul>
-                //                     <li>${content}</li>
-                //                </ul>`
+            }
+        }
+    }
+}
 
+function searchProject(project) {
+    let index = -1;
+    let notFound = true;
+
+    for (i = 0; i < existingProjs.length && notFound; i++) {
+        notFound = existingProjs[i].localeCompare(project);
+
+        if (!notFound) {
+            index = i;
+        }
+    }
+
+    return index;
+}
+
+function updatePage() {
+    let newItems = JSON.parse(localStorage.getItem('newOptions') || "[]");
+
+    for (j = 0; j < newItems.length; j++) {
+        let newItem = newItems[j];
+        let projName = newItem.project;
+        let taskName = newItem.task;
+        let update = newItem.update;
+
+        if (update == "project") {
+            createNewProject(projName);
+            existingProjs.push(projName);
+        }
+
+        else {
+            let projIndex = searchProject(projName);
+            if (projIndex > -1) {
+                let table = "table"+(projIndex + 1);
+                createNewTask(table, taskName, "N/A", 0);
             }
         }
     }
 }
 
 updateNotes();
+updatePage();

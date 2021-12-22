@@ -25,7 +25,6 @@ const handleInput = (event) => {
     }
 
 	let currTask = document.getElementById("task-selector").value;
-	let currProj = document.getElementById("project-selector").value;
 
 	if (currTask.localeCompare("choose-a-task")) {
 		localStorage.setItem(`${currTask}`, target.value);
