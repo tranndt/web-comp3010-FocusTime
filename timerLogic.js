@@ -233,15 +233,22 @@ const br_countdown = () => {
 };
 
 dbox_btn.addEventListener('click', () => {
-    task_done_input = Number(task_amount.value);
-    if (typeof(Storage) !== "undefined") {
-        // Store to for sessionStorage
-        sessionStorage.setItem("task_done", task_done_input);
-        sessionStorage.setItem("time_focused", time_focused);
-      } else {
-        // Sorry! No Web Storage support..
-      }
-    dbox_elem.style.display = "none";
+
+    if(isNaN(task_amount.value) || task_amount.value < 1 || task_amount.value > 100 || (!Number.isInteger(Number(task_amount.value)))){
+        alert("Input has to be a whole number between 1 - 100. Try again.");
+    }
+    else {
+        task_done_input = Number(task_amount.value);
+        if (typeof(Storage) !== "undefined") {
+            // Store to for sessionStorage
+            sessionStorage.setItem("task_done", task_done_input);
+            sessionStorage.setItem("time_focused", time_focused);
+        } else {
+            // Sorry! No Web Storage support..
+        }
+        dbox_elem.style.display = "none";
+    }
+    
 });
 
 start_pause_btn.addEventListener('click', () => {
