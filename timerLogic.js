@@ -75,9 +75,6 @@ start_pause_btn.style.backgroundColor = disabled_background;
 start_pause_btn.style.color = disabled_text;
 start_pause_btn.style.cursor = 'default';
 
-
-console.log(time_inputs);
-
 var album_sec = -1;
 
 const isValidInteger = (input_val, min_val, max_val) => {
@@ -258,6 +255,8 @@ dbox_btn.addEventListener('click', () => {
         alert("Input has to be a whole number between 1 - 100. Try again.");
     }
     else {
+        clear_timer(br_hr, br_min, br_sec);
+        br_time = 0;
         task_done_input = Number(task_amount.value);
         if (typeof(Storage) !== "undefined") {
             // Store to for sessionStorage
@@ -339,7 +338,6 @@ stop_btn.addEventListener('click', () => {
         disable_start_pause_button("Start");
 
         if(album_sec > 0) {
-            // total_secs = album_sec;
             set_timer_to_album_length();
         }
         else {
@@ -409,10 +407,6 @@ stop_btn.addEventListener('click', () => {
         
         time = 0;
         br_time = 0;
-
-        // if(album_sec > 0 ) {
-        //     set_timer_to_album_length();
-        // }
 
         toast_elem.className = "show";
         toast_elem.textContent = "Focus time over. Good job!";
