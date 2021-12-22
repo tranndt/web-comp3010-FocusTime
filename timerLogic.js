@@ -78,8 +78,9 @@ start_pause_btn.style.cursor = 'default';
 console.log(time_inputs);
 
 var album_sec = -1;
-const set_album_length = (album_sec) => {
-    console.log('album_sec', album_sec);
+const set_album_length = (album_sec_stored) => {
+    console.log('album_sec', album_sec_stored);
+    album_sec = album_sec_stored;
 };
 
 time_inputs.forEach(elem => {
@@ -277,6 +278,16 @@ stop_btn.addEventListener('click', () => {
         stop_btn.textContent = "Done";
 
         disable_start_pause_button("Start");
+
+        if(album_sec > 0){
+            console.log(album_sec);
+            const [hr, min, sec] = convert_from_secs(album_sec);
+            time_inputs[0].value = hr;
+            time_inputs[1].value = min;
+            time_inputs[2].value = sec;
+
+            total_secs = album_sec;
+        }
 
         main_timer_elem.style.display = "none";
         time_input_elem.style.display = "flex";
