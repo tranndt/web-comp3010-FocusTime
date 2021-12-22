@@ -32,6 +32,8 @@ const handleInput = (event) => {
 	}
 }
 
+var newOptions = JSON.parse(localStorage.getItem("newOptions") || "[]");
+
 function createNewOption(selectorID, type) {
 	var selectBox = document.getElementById(selectorID);
     var selectedValue = selectBox.value;
@@ -43,8 +45,22 @@ function createNewOption(selectorID, type) {
 		if (newOptionValue !== null) {
 			if (newOptionValue.localeCompare("")) {
 				newOption = new Option(newOptionValue, newOptionValue);
-				selectBox.add(newOption, selectBox.options.length - 1);
+				selectBox.add(newOption, selectBox.options.length);
 				selectBox.value = newOption.value;
+
+				if (type == "task") {
+					let project = document.getElementById("project-selector").value;
+
+					newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
+				}
+
+				else {
+					let task = document.getElementById("task-selector").value;
+
+					newOptions.push({project : `${newOptionValue}`, task : `${task}`, update : 'project'});
+				}
+
+				localStorage.setItem("newOptions", JSON.stringify(newOptions));
 			}
 		
 			else {
@@ -57,6 +73,28 @@ function createNewOption(selectorID, type) {
 		}
     }
 }
+
+function updateSelector() {
+	let newOptionsList = JSON.parse(localStorage.getItem("newOptions") || "[]");
+
+	for (i = 0; i < newOptionsList.length; i++) {
+		if (newOptionsList[i].update == "task") {
+			let taskBox = document.getElementById("task-selector");
+	
+			let newOption = new Option(newOptionsList[i].task, newOptionsList[i].task);
+			taskBox.add(newOption, taskBox.options.length);
+		}
+	
+		else {
+			let projectBox = document.getElementById("project-selector");
+	
+			let newOption = new Option(newOptionsList[i].project, newOptionsList[i].project);
+			projectBox.add(newOption, projectBox.options.length);
+		}
+	}
+}
+
+updateSelector();
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
