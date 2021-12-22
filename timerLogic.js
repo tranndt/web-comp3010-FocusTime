@@ -80,6 +80,10 @@ console.log(time_inputs);
 
 var album_sec = -1;
 
+const isValidInteger = (input_val, min_val, max_val) => {
+    return Number.isInteger(Number(input_val)) && Number(input_val) >= min_val && Number(input_val) <= max_val;
+};
+
 const set_timer_to_album_length = () => {
     total_secs = album_sec;
     time = total_secs;
@@ -110,12 +114,28 @@ const set_album_length = (album_sec_stored) => {
 };
 
 time_inputs.forEach(elem => {
-    // elem.value = 0;
     elem.addEventListener('input', () => {
+
+        if(!isValidInteger(time_inputs[0].value, 1, 24) && time_inputs[0].value != "" && Number(time_inputs[0].value) != 0) {
+            alert("Invalid hour input. Hour should be a whole number between 0 and 24");
+            time_inputs[0].value = "";
+        }
+
+        if(!isValidInteger(time_inputs[1].value, 1, 60) && time_inputs[1].value != "" && Number(time_inputs[1].value) != 0) {
+            alert("Invalid minute input. Minute should be a whole number between 0 and 60");
+            time_inputs[1].value = "";
+        }
+
+        if(!isValidInteger(time_inputs[2].value, 1, 60) && time_inputs[2].value != "" && Number(time_inputs[2].value) != 0) {
+            alert("Invalid second input. Second should be a whole number between 0 and 60");
+            time_inputs[2].value = "";
+        }
+
         total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
         br_time = total_secs*BREAK_PERCENT;
         set_timer(br_hr, br_min, br_sec, br_time);
         console.log('total-secs:', total_secs);
+        
     })
 });
 
@@ -234,7 +254,7 @@ const br_countdown = () => {
 
 dbox_btn.addEventListener('click', () => {
 
-    if(isNaN(task_amount.value) || task_amount.value < 1 || task_amount.value > 100 || (!Number.isInteger(Number(task_amount.value)))){
+    if(!isValidInteger(task_amount.value, 1, 100)){
         alert("Input has to be a whole number between 1 - 100. Try again.");
     }
     else {
