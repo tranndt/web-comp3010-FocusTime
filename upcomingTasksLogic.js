@@ -288,7 +288,21 @@ function updateNotes() {
     for (i = 0; i < taskDetailsAreas.length; i++) {
         for (j = 0; j < keys.length; j++) {
             if(!keys[j].localeCompare(taskDetailsAreas[i].firstElementChild.id)) {
-                taskDetailsAreas[i].firstElementChild.innerHTML = values[j];
+                let notes = values[j];
+
+                let listItems = notes.split(/\ ?\u2022\ ?/);
+
+                let heading = listItems[0];
+
+                listItems = listItems.slice(1);
+
+                let newNotes = `${heading}
+                    <ul>
+                        ${listItems.map(c => `<li>${c}</li>`).join('\n')}
+                    </ul>
+                `;
+
+                taskDetailsAreas[i].firstElementChild.innerHTML = newNotes;
             }
         }
     }
