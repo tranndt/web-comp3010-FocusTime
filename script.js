@@ -33,6 +33,7 @@ const handleInput = (event) => {
 
 var newOptions = JSON.parse(localStorage.getItem("newOptions") || "[]");
 var taskDetailsCount = 13;
+var projectCount = 6;
 
 function createNewOption(selectorID, type) {
 	var selectBox = document.getElementById(selectorID);
@@ -53,7 +54,8 @@ function createNewOption(selectorID, type) {
 				}
 
 				else {
-					newOption = new Option(newOptionValue, newOptionValue);
+					projectCount++;
+					newOption = new Option(newOptionValue, "project-"+projectCount);
 					let task = document.getElementById("task-selector").value;
 
 					newOptions.push({project : `${newOptionValue}`, task : `${task}`, update : 'project'});
@@ -82,28 +84,30 @@ function createNewOption(selectorID, type) {
     }
 }
 
-function updateSelector() {
-	let newOptionsList = JSON.parse(localStorage.getItem("newOptions") || "[]");
-
-	for (i = 0; i < newOptionsList.length; i++) {
-		if (newOptionsList[i].update == "task") {
-			taskDetailsCount++;
-			let taskBox = document.getElementById("task-selector");
-	
-			let newOption = new Option(newOptionsList[i].task, "task-"+taskDetailsCount);
-			taskBox.add(newOption, taskBox.options.length);
-		}
-	
-		else {
-			let projectBox = document.getElementById("project-selector");
-	
-			let newOption = new Option(newOptionsList[i].project, newOptionsList[i].project);
-			projectBox.add(newOption, projectBox.options.length);
+function updateSelector(newOptionsList) {
+	if(newOptionsList != null) {
+		for (i = 0; i < newOptionsList.length; i++) {
+			if (newOptionsList[i].update == "task") {
+				taskDetailsCount++;
+				let taskBox = document.getElementById("task-selector");
+		
+				let newOption = new Option(newOptionsList[i].task, "task-"+taskDetailsCount);
+				taskBox.add(newOption, taskBox.options.length);
+			}
+		
+			else {
+				projectCount++;
+				let projectBox = document.getElementById("project-selector");
+		
+				let newOption = new Option(newOptionsList[i].project, "project-"+projectCount);
+				projectBox.add(newOption, projectBox.options.length);
+			}
 		}
 	}
 }
 
-updateSelector();
+updateSelector(JSON.parse(localStorage.getItem('newOptions') || "[]"));
+updateSelector(JSON.parse(localStorage.getItem('newOptionsUT') || "[]"));
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;

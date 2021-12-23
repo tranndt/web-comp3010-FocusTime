@@ -9,11 +9,13 @@ const tableHeader = `<thead>
                     </thead>`;
 const toast_elem = document.getElementById("toast");
 var tableCount = 6;
-var projectCount = 5;
+var projectCount = 6;
 var taskCount = 13;
 var taskDetailsCount = 13; 
 
-var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'none'];
+// var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'none'];
+var existingProjs = ['COMP 3020', 'COMP 3040', 'COMP 2140', 'COMP 4710', 'COMP 4230', 'none'];
+var newOptionsUT = JSON.parse(localStorage.getItem("newOptionsUT") || "[]");
 
 addAccordionItemEvent(accordionItemsList);
 
@@ -45,11 +47,11 @@ function addAccordionItemEvent(accordionItemHeaders) {
     });
 }
 
-function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
+function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectID) {
     let table = document.getElementById(tableID);
     let newTaskName = "", progress = "", date = "", newRow = [];
     let fromThisPage = taskDateID.localeCompare("N/A");
-    
+    let projectName = document.getElementById(projectID).textContent.trim();
     
     if (fromThisPage) {
         newTaskName = document.getElementById(taskNameID).value;
@@ -111,6 +113,9 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
             toast_elem.textContent = "New task "+ " '" + newTaskName + "' created.";
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+
+            newOptionsUT.push({project : `${projectName}`, task : `${newTaskName}`, update : 'task'});
+            localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
         }
     }
 
@@ -136,10 +141,12 @@ function createNewProject(name) {
 
     if (newProjectName.localeCompare("") && newProjectName != null) {
         tableCount++;
+        projectCount++;
         let newTableID = "table"+tableCount;
         let newTaskNameID = "taskName"+tableCount;
         let newTaskDateID = "taskDate"+tableCount;
         let newTaskProgressID = "taskProgress"+tableCount;
+        let newProjID = "project-"+projectCount;
         let newDiv = document.createElement("div");
 
         let newTaskRows = `<tr class="newItem-container accordion-item-header">
@@ -159,12 +166,12 @@ function createNewProject(name) {
                         <label for="taskProgress">Progress:</label>
                         <input type="number" class="taskProgress" id="${newTaskProgressID}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                         </div>
-                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}', '${newTaskProgressID}')">Done</button>
+                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}', '${newTaskProgressID}', '${newProjID}')">Done</button>
                     </td>
                     </tr>`;
 
         let newProjectItem = `<div class="accordion-item">
-                <div class="accordion-item-header">
+                <div class="accordion-item-header" id=${newProjID}>
                     ${newProjectName}
                 </div>
                 <div class="accordion-item-body" id="table2Parent">
@@ -187,11 +194,16 @@ function createNewProject(name) {
         addAccordionItemEvent(headers);
 
         if (fromThisPage) {
+            existingProjs.push(newProjID);
+
             //notify users
             toast_elem.className = "show";
             toast_elem.textContent = "New project "+ " '" + newProjectName + "' created.";
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+
+            newOptionsUT.push({project : `${newProjectName}`, task : "", update : 'project'});
+            localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
         }
     }
 
@@ -282,6 +294,31 @@ function updateNotes() {
     }
 }
 
+function update(newItems) {
+	if(newItems != null) {
+		for (j = 0; j < newItems.length; j++) {
+            let newItem = newItems[j];
+            let projName = newItem.project;
+            let taskName = newItem.task;
+            let update = newItem.update;
+
+            if (update == "project") {
+                createNewProject(projName);
+                existingProjs.push(projName);
+            }
+
+            else {
+                let projIndex = searchProject(projName);
+                if (projIndex > -1) {
+                    let table = "table"+(projIndex + 1);
+                    let project = "project-"+(projIndex + 1);
+                    createNewTask(table, taskName, "N/A", 0, project);
+                }
+            }
+        }
+	}
+}
+
 function searchProject(project) {
     let index = -1;
     let notFound = true;
@@ -299,26 +336,10 @@ function searchProject(project) {
 
 function updatePage() {
     let newItems = JSON.parse(localStorage.getItem('newOptions') || "[]");
+    let newItemsUT = JSON.parse(localStorage.getItem('newOptionsUT') || "[]");
 
-    for (j = 0; j < newItems.length; j++) {
-        let newItem = newItems[j];
-        let projName = newItem.project;
-        let taskName = newItem.task;
-        let update = newItem.update;
-
-        if (update == "project") {
-            createNewProject(projName);
-            existingProjs.push(projName);
-        }
-
-        else {
-            let projIndex = searchProject(projName);
-            if (projIndex > -1) {
-                let table = "table"+(projIndex + 1);
-                createNewTask(table, taskName, "N/A", 0);
-            }
-        }
-    }
+    update(newItems);
+    update(newItemsUT);
 }
 
 updatePage();
