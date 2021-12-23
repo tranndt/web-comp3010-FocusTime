@@ -1,0 +1,366 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+
+:root {
+    --navbar-bg-color:rgb(185, 185, 185);
+    --transparent-bg-color:rgba(189, 189, 189, 0.664);
+    --white-bg-color:rgba(255, 255, 255, 0.76);
+    --item-border-color-grey: rgba(0, 0, 0, 0.1);
+}
+  
+
+/* ---------------------------------- */
+/* ---------- 0.BODY LAYOUT --------- */
+/* ---------------------------------- */
+
+body{
+    margin: 0px; 
+    height: 100%;
+    background-color: rgb(221, 221, 221);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container-body{
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 500px 500px 500px auto;
+    grid-template-rows: 100px 70px 60px 700px;
+    grid-template-areas: 
+            "M1 N1 N2 N3 M2"
+            "M3 A0 A0 A0 M4"
+            "M3 A1 A1 A3 M4"
+            "M3 A2 A2 A4 M4"
+            /* "M3 A1 A1 A4 M4" */
+
+}
+
+/* ---------------------------------- */
+/* --------- 1.MARGIN LAYOUT -------- */
+/* ---------------------------------- */
+
+#margin-navbar-left{ grid-area: M1;}
+#margin-navbar-right{ grid-area: M2;}
+#margin-left{ grid-area: M3;}
+#margin-right{ grid-area: M4;}
+/* .margin{font-size: 0;} Comment out to remove the texts */
+
+/* ---------------------------------- */
+/* ------- 1.1.MISCELLANEOUS --------- */
+/* ---------------------------------- */
+/* Scroll bar for list/windows */
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+  }
+
+*::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.021);
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+background-color: rgb(139, 139, 139);
+border-radius: 50px;
+}
+
+
+
+/* ---------------------------------- */
+/* -------- 2.NAVBAR LAYOUT --------- */
+/* ---------------------------------- */
+
+.navbar {
+    background-color: rgb(185, 185, 185);
+}
+
+/* NAVBAR LEFT - LOGO */
+
+#navbar-left {
+    grid-area: N1;
+}
+
+.logoimg{
+    display: block;
+    position: relative;
+    top: -95%;
+    left: -10%; 
+}
+
+/* NAVBAR CENTER - N2- NAV-ITEMS */
+
+#navbar-center{
+    grid-area: N2;
+}
+
+#container-main-navbar{
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas: 
+            "NC2"
+            "NC3";
+    padding-top:25px;
+}
+
+/* .navitem-name{
+    grid-area: NC1;
+    height: 10px;
+} */
+
+.navitemlist{
+    grid-area: NC2;
+    /* background: rgb(212, 221, 83); */
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.activebar{
+    grid-area: NC3;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+ul{
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.navitemlist li {
+    display: inline-flex;
+    padding: 0em 1.25em 0em 1em;
+    text-align: center;  
+    border-right: 0.05em solid rgba(0, 0, 0, 0.1);
+}
+
+.navitemlist li:last-child {
+    border-right: none;
+}
+
+.navitem {
+    text-decoration: none;
+    display: flex; 
+    padding: 0 0.1em;
+}
+
+.activebar .tab-active{
+    background-color: rgb(60, 60, 60);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+.activebar .tab-inactive{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+/* NAVBAR RIGHT  */
+#navbar-right{
+    grid-area: N3;
+    font-size: 0;
+}
+
+/* ---------------------- */
+
+li {
+    list-style-type: none;
+}
+
+li:not(.navitemlist li):not(:last-child){
+    border-bottom: 1px #ccc solid;
+}
+
+li:not(.navitemlist li){
+    padding: 10px
+}
+
+/* ---------------------------------- */
+/* ---------- 3. APP LAYOUT --------- */
+/* ---------------------------------- */
+
+.app-div{
+    padding: 5px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.app-container:not(.navbar .app-container){
+    height:100%;
+    /* border: 1px dashed black; */
+}
+
+.header {
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
+}
+
+/* ---------- A0 ---------- */
+
+#app-a0{
+    /* background-color: rgba(182, 75, 185, 0.781); */
+    grid-area: A0;
+    font-size: 40px;
+}
+
+/* ---------- A1 ---------- */
+
+#app-a1{
+    grid-area: A1;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+
+}
+
+#container-a1{
+    /* font-size: 25px;
+    padding-top: 10px; */
+    display: grid;
+    grid-template-areas: "AP SB";
+    grid-template-columns: 1fr 1fr;
+}
+
+#button-add-project{
+    grid-area: AP;
+    align-self: center;
+}
+
+.container-search{
+    grid-area: SB;
+    margin-left:auto;
+    align-self: center;
+}
+
+#searchID{
+    border-color: var(--item-border-color-grey);
+    border-radius: 50px;
+    width: 400px;
+    height:30px;
+    text-indent: 15px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+
+/* ---------- A2 ---------- */
+
+#app-a2{
+    grid-area: A2;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    overflow-y:auto;
+}
+#container-a2{
+    align-items: stretch;
+}
+
+#table1{
+    border:rgb(60, 60, 60) solid 1px;
+    border-radius: 20px;
+    /* align-items: stretch; */
+    align-content: center;
+}
+
+.content-table{
+    display: flex;
+    width: 100%;
+    align-content: center;
+}
+
+tbody{
+    display: block;
+    width: 100%;
+    align-content: center;
+}
+tr{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.td-task, .td-progress, .td-date{
+    padding: 15px;
+
+}
+
+.td-task{
+    width: 40%;
+}
+
+.td-progress{
+    width: 20%;
+    text-align: center;
+}
+
+.td-date{
+    width: 40%;
+    text-align: center;
+
+}
+
+/*  */
+.accordion-item{
+    padding: 10px;
+}
+
+.accordion-item-header{
+    padding-bottom: 10px;
+}
+
+/*  */
+
+#header-completed{
+    padding-top:25px;
+}
+
+/* ---------- A3 ---------- */
+
+#app-a3{
+    grid-area: A3;
+    background-color: var(--white-bg-color);
+
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    /* border-radius: 10px; */
+
+}
+
+#container-a3{
+    font-size: 25px;
+}
+
+/* ---------- A4 ---------- */
+
+#app-a4{
+    grid-area: A4;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    overflow-y:auto;
+}
+
+#table-details td:nth-child(2){
+    text-align: right;
+}
+
+#text-notes {
+    text-align: justify;
+    padding: 5px;
+}
+
+
+

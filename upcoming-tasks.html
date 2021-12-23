@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
+    <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <title>Grid Template</title>
+    <!--Our styles scripts-->
+    <link rel="stylesheet" href="css/styles-progress.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container-body" id='container-body'>
+
+        <!-- 1.MARGINS -->
+
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+        <div class="margin" id="margin-left">Margin Left</div>
+        <div class="margin" id="margin-right">Margin Right</div>
+
+        <!-- 2.NAVBAR -->
+
+        <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
+
+        <div class="navbar" id="navbar-left">
+            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+        </div>
+        <div class="navbar" id="navbar-center">
+            <div class="app-container" id="container-main-navbar">
+                <div class="navitem-name">
+                </div>
+
+                <ul class="navitemlist">
+                    <li>
+                        <a href="upcomingTasks.html">
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="statistics.html">
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active" href="index.html">
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="activebar">
+                    <div class = "tab-active" id="tab-indicator-upcoming"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-stats"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-timer"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-music"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-settings"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar" id="navbar-right">Navbar Right</div>
+
+        <!-- 3.MAIN APP -->
+
+        <!-- A0 -->
+
+        <div class="app-div" id="app-a0">
+            <div class="app-container" id="container-a0">
+                My Progress
+            </div>
+        </div>
+
+        <!-- A1 -->
+
+        <div class="app-div" id="app-a1">
+            <div class="app-container" id="container-a1"> 
+                <div class="header" id ="header-summary">Overview</div>
+                <div class="container-search">
+                    <table class="search-box">
+                        <td>
+                          <input id="searchID" class="search" name="search" type="text" placeholder="Search for a Task" autocomplete="off">
+                        </td>
+                        <!-- <td>
+                          <i class="material-icons">search</i>
+                        </td> -->
+                    </table>
+                </div>
+            </div>            
+        </div>
+
+        <!-- A2 -->
+
+        <div class="app-div" id="app-a2">
+            <div class="app-container" id="container-a2">
+                <div id="container-inprogress">
+                    <div class="header" id ="header-inprogress">In Progress</div>
+                    <div id="list-inprogress"></div>
+                </div>
+                <div id="container-inprogress">
+                    <div class="header" id = "header-completed">Completed</div>
+                    <div id="list-completed"></div>
+                </div>                              
+            </div>
+
+        </div>
+
+        <!-- A3 -->
+
+        <div class="app-div" id="app-a3">
+            <div class="app-container" id="container-a3">
+                <div class="header" id ="header-details">Details</div>
+            </div>  
+        </div>
+
+        <!-- A4 -->
+
+        <div class="app-div" id="app-a4">
+            <div class="app-container" id="container-a4">
+                <div id="text-details">
+                    <table class="content-table" id="table-details">
+                        <tbody id="table-details-body">
+                        </tbody>
+                    </table>
+                    <div id="text-notes">Click on a Task to see further details!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more app-div below if necessary -->
+</body>
+
+<script src="upcoming-tasks-logic-2.js"></script>
+
+</html>
