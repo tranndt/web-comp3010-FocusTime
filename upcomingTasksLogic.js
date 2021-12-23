@@ -89,7 +89,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
                         <td class="date">${date}</td>
                     </tr>
                     <tr class="accordion-item-body taskDetails">
-                        <td colspan="3" style="width:100%" class="accordion-item-body-content" id="${newTaskName}">
+                        <td colspan="3" style="width:100%" class="accordion-item-body-content" id="${taskDetailsID}">
                         <p>Task Notes<p>
                         </td>
                     </tr>`;
@@ -304,5 +304,5 @@ function updatePage() {
     }
 }
 
-updateNotes();
 updatePage();
+updateNotes();

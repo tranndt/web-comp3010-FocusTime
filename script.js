@@ -32,6 +32,7 @@ const handleInput = (event) => {
 }
 
 var newOptions = JSON.parse(localStorage.getItem("newOptions") || "[]");
+var taskDetailsCount = 13;
 
 function createNewOption(selectorID, type) {
 	var selectBox = document.getElementById(selectorID);
@@ -39,27 +40,35 @@ function createNewOption(selectorID, type) {
     var newOption;
 
 	if (!selectedValue.localeCompare("create-"+type)) {
-        var newOptionValue = window.prompt("What is the new "+type+"?");
+		var newOptionValue = prompt("What is the new "+type+"?");
 
 		if (newOptionValue !== null) {
 			if (newOptionValue.localeCompare("")) {
-				newOption = new Option(newOptionValue, newOptionValue);
-				selectBox.add(newOption, selectBox.options.length);
-				selectBox.value = newOption.value;
-
 				if (type == "task") {
+					taskDetailsCount++;
+					newOption = new Option(newOptionValue, "task-"+taskDetailsCount);
 					let project = document.getElementById("project-selector").value;
 
 					newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
 				}
 
 				else {
+					newOption = new Option(newOptionValue, newOptionValue);
 					let task = document.getElementById("task-selector").value;
 
 					newOptions.push({project : `${newOptionValue}`, task : `${task}`, update : 'project'});
 				}
 
+				selectBox.add(newOption, selectBox.options.length);
+				selectBox.value = newOption.value;
+
 				localStorage.setItem("newOptions", JSON.stringify(newOptions));
+
+				//notify users
+				toast_elem.className = "show";
+				toast_elem.textContent = "New "+ type + " '" + newOptionValue + "' created.";
+		
+				setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 			}
 		
 			else {
@@ -78,9 +87,10 @@ function updateSelector() {
 
 	for (i = 0; i < newOptionsList.length; i++) {
 		if (newOptionsList[i].update == "task") {
+			taskDetailsCount++;
 			let taskBox = document.getElementById("task-selector");
 	
-			let newOption = new Option(newOptionsList[i].task, newOptionsList[i].task);
+			let newOption = new Option(newOptionsList[i].task, "task-"+taskDetailsCount);
 			taskBox.add(newOption, taskBox.options.length);
 		}
 	
