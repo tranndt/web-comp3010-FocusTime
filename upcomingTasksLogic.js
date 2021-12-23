@@ -7,6 +7,7 @@ const tableHeader = `<thead>
                         <th>Due Date</th>
                         </tr>
                     </thead>`;
+const toast_elem = document.getElementById("toast");
 var tableCount = 6;
 var projectCount = 5;
 var taskCount = 13;
@@ -104,6 +105,12 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID) {
 
         if (fromThisPage) {
             sortByDate(table);
+
+            //notify users
+            toast_elem.className = "show";
+            toast_elem.textContent = "New task "+ " '" + newTaskName + "' created.";
+
+            setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
         }
     }
 
@@ -116,6 +123,7 @@ function createNewProject(name) {
     let newProjDiv = document.getElementById("misc");
     let headers = [];
     let newProjectName = "";
+    let fromThisPage = true;
 
     if (!name.localeCompare('')) {
         newProjectName = prompt("What is the new project?");
@@ -123,6 +131,7 @@ function createNewProject(name) {
 
     else {
         newProjectName = name;
+        fromThisPage = false;
     }
 
     if (newProjectName.localeCompare("") && newProjectName != null) {
@@ -176,6 +185,14 @@ function createNewProject(name) {
         headers.push(accordionItemHeader);
         headers.push(newTaskHeader);
         addAccordionItemEvent(headers);
+
+        if (fromThisPage) {
+            //notify users
+            toast_elem.className = "show";
+            toast_elem.textContent = "New project "+ " '" + newProjectName + "' created.";
+
+            setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+        }
     }
 
     else {
