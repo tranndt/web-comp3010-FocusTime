@@ -9,6 +9,7 @@ const convert_to_secs = (input_hr, input_min, input_sec) => {
 };
 
 const convert_from_secs = (input_sec) => {
+    input_sec =  Number(input_sec);
     const sec = input_sec % 60;
     const minFromSec = Math.floor(input_sec / 60);
     const min = minFromSec % 60;
@@ -20,6 +21,7 @@ const convert_from_secs = (input_sec) => {
 
 const toast_elem = document.getElementById("toast");
 const dbox_elem = document.getElementById("dialogBox");
+const dbox_msg = document.getElementById("dbox-msg");
 const task_amount = document.querySelector('#dbox-input');
 const dbox_btn = document.querySelector('#confirm-btn');
 const hr_elem = document.querySelector('#hr');
@@ -44,6 +46,8 @@ var total_secs = null; // input from screen
 
 var time = 0; //in seconds, time left
 var br_time = 0;//break time left
+var task_done_input = -1; // amount of task done in percentage.
+var time_focused = -1; // amount of time user focused on work(seconds)
 
 let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
@@ -71,19 +75,64 @@ start_pause_btn.style.backgroundColor = disabled_background;
 start_pause_btn.style.color = disabled_text;
 start_pause_btn.style.cursor = 'default';
 
-
-console.log(time_inputs);
-
 var album_sec = -1;
-const set_album_length = (album_sec) => {
-    console.log('album_sec', album_sec);
+
+const isValidInteger = (input_val, min_val, max_val) => {
+    return Number.isInteger(Number(input_val)) && Number(input_val) >= min_val && Number(input_val) <= max_val;
+};
+
+const set_timer_to_album_length = () => {
+    total_secs = album_sec;
+    time = total_secs;
+    br_time = time*BREAK_PERCENT;
+
+    const [hr, min, sec] = convert_from_secs(album_sec);
+    time_inputs[0].value = hr;
+    time_inputs[1].value = min;
+    time_inputs[2].value = sec;
+
+    set_timer(hr_elem, min_elem, sec_elem, time);
+    set_timer(br_hr, br_min, br_sec, br_time);
+
+
+    if(state != EDIT) {
+        enable_start_pause_button("Start");
+    }
+    else {
+        disable_start_pause_button("Start");
+    }
+
+};
+
+const set_album_length = (album_sec_stored) => {
+    console.log('album_sec', album_sec_stored);
+    album_sec = album_sec_stored;
+    set_timer_to_album_length();
 };
 
 time_inputs.forEach(elem => {
-    // elem.value = 0;
     elem.addEventListener('input', () => {
+
+        if(!isValidInteger(time_inputs[0].value, 1, 24) && time_inputs[0].value != "" && Number(time_inputs[0].value) != 0) {
+            alert("Invalid hour input. Hour should be a whole number between 0 and 24");
+            time_inputs[0].value = "";
+        }
+
+        if(!isValidInteger(time_inputs[1].value, 1, 60) && time_inputs[1].value != "" && Number(time_inputs[1].value) != 0) {
+            alert("Invalid minute input. Minute should be a whole number between 0 and 60");
+            time_inputs[1].value = "";
+        }
+
+        if(!isValidInteger(time_inputs[2].value, 1, 60) && time_inputs[2].value != "" && Number(time_inputs[2].value) != 0) {
+            alert("Invalid second input. Second should be a whole number between 0 and 60");
+            time_inputs[2].value = "";
+        }
+
         total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
+        br_time = total_secs*BREAK_PERCENT;
+        set_timer(br_hr, br_min, br_sec, br_time);
         console.log('total-secs:', total_secs);
+        
     })
 });
 
@@ -140,6 +189,9 @@ const countdown = () => {
         setTimeout(() => {
             setProgress(0);
         }, 1000);
+
+        time_focused = total_secs - time;
+
         time = 0;
 
         //notify users of time over, use dialog box to get time progress input
@@ -149,6 +201,7 @@ const countdown = () => {
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
         dbox_elem.style.display = "block";
+        dbox_msg.textContent = "Focus time over! Type in your progress as percentage.";
     }
     else {
         set_timer(hr_elem, min_elem, sec_elem, time);
@@ -197,7 +250,24 @@ const br_countdown = () => {
 };
 
 dbox_btn.addEventListener('click', () => {
-    dbox_elem.style.display = "none";
+
+    if(!isValidInteger(task_amount.value, 1, 100)){
+        alert("Input has to be a whole number between 1 - 100. Try again.");
+    }
+    else {
+        clear_timer(br_hr, br_min, br_sec);
+        br_time = 0;
+        task_done_input = Number(task_amount.value);
+        if (typeof(Storage) !== "undefined") {
+            // Store to for sessionStorage
+            sessionStorage.setItem("task_done", task_done_input);
+            sessionStorage.setItem("time_focused", time_focused);
+        } else {
+            // Sorry! No Web Storage support..
+        }
+        dbox_elem.style.display = "none";
+    }
+    
 });
 
 start_pause_btn.addEventListener('click', () => {
@@ -214,6 +284,8 @@ start_pause_btn.addEventListener('click', () => {
         //set timer in running state -> pause,stop btn
         start_pause_btn.textContent = "Pause";
         start_pause_btn.style.color =  enabled_text;
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 1000);
 
         stop_btn.textContent = "Stop";
 
@@ -264,6 +336,16 @@ stop_btn.addEventListener('click', () => {
         stop_btn.textContent = "Done";
 
         disable_start_pause_button("Start");
+
+        if(album_sec > 0) {
+            set_timer_to_album_length();
+        }
+        else {
+            total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
+            br_time = total_secs*BREAK_PERCENT;
+            set_timer(br_hr, br_min, br_sec, br_time);
+        }
+
 
         main_timer_elem.style.display = "none";
         time_input_elem.style.display = "flex";
@@ -320,11 +402,19 @@ stop_btn.addEventListener('click', () => {
         clearInterval(intervalID);
         clearInterval(br_intervalID);
         setProgress(0);
+
+        time_focused =total_secs - time;
         
         time = 0;
         br_time = 0;
 
+        toast_elem.className = "show";
+        toast_elem.textContent = "Focus time over. Good job!";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
+
         dbox_elem.style.display = "block";
+        dbox_msg.textContent = "Focus time over! Type in your progress as percentage.";
     }
 
 });

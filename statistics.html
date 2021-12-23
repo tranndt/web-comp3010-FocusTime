@@ -4,701 +4,132 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css"></link>
-
-    <!-- Load d3.js -->
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <!-- Color palette -->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <!-- Array -->
-    <script src = "https://d3js.org/d3-array.v3.min.js"></script>
+    <!-- Import Scripts-->
+    <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
+    <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <title>Focus Time - Statistics</title>
+    <!--Our own scripts-->
+    <link rel="stylesheet" href="css/stat_styles.css">
+    <title>Grid</title>
+    <style>
+    </style>
 </head>
-<style>
-    .show {
-        display: block;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .unhighlight {
-        opacity: 0.05;
-    }
-
-    .highlight {
-        opacity: 1;
-    }
-
-    .div.myBtnContainer {
-        align-items: center; 
-    }
-
-    .container {
-        margin-top: 20px;
-        overflow: hidden;
-    }
-
-    .btn, .filter-btn{
-        border: none;
-        outline: none;
-        padding: 12px 16px;
-        background-color: #f1f1f1;
-        border-radius: 50px;
-        cursor: pointer;
-        }
-
-    .btn:hover ,.filter-btn:hover{
-        background-color: #ddd;
-    }
-
-    .btn.active {
-        background-color: #666;
-        color: white;
-    }
-
-    .node:hover{
-    /* stroke-width: 7px !important; */
-        filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
-        opacity: 1 !important;
-        cursor: pointer;
-    }
-
-    div.tooltip{
-        position: absolute;
-        text-align: center;
-        padding: 5px;
-        font: 12px sans-serif;		
-        background-color: white;
-        border: 1px #b7b7b7 solid;	
-        pointer-events: none;	
-        width: 100px;
-    }
-
-
-</style>
 <body>
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <div class="container">
-            <nav>
+    <div class="container-body" id='container-body'>
+
+        <!-- 1.MARGINS -->
+
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+        <div class="margin" id="margin-left">Margin Left</div>
+        <div class="margin" id="margin-right">Margin Right</div>
+
+        <!-- 2.NAVBAR -->
+
+
+        <div class="navbar" id="navbar-left">
+            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+        </div>
+        <div class="navbar" id="navbar-center">
+            <div class="app-container" id="container-main-navbar">
+                <div class="navitem-name">
+                </div>
+
                 <ul class="navitemlist">
-                    <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:80%"> </div>
                     <li>
                         <a href="upcomingTasks.html">
                             <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
-                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
-                                    style="padding-left: 41%;"></div>
-                            <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
                         </a>
                     </li>
                     <li>
-                        <a class="active" href="statistics.html">
+                        <a href="statistics.html">
                             <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
-                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
-                                    style="padding-left: 41%;"></div>
-                            <div class="navitem" data-text="Statistics">Statistics</div>
+                            <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
                         </a>
                     </li>
                     <li>
-                        <a href="index.html">
+                        <a class="active" href="index.html">
                             <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
-                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
-                                    style="padding-left: 41%;"></div>
-                            <div class="navitem" data-text="Timer Page">Homepage</div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
                             <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
-                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
-                                    style="padding-left: 41%;"></div>
-                            <div class="navitem" data-text="Music">Music</div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
                             <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
-                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
-                                    style="padding-left: 41%;"></div>
-                            <div class="navitem" data-text="Settings">Settings</div>
                         </a>
                     </li>
                 </ul>
-            </nav>
+                <div class="activebar">
+                    <div class = "tab-inactive"> </div>
+                    <div class = "tab-active"> </div>
+                    <div class = "tab-inactive"> </div>
+                    <div class = "tab-inactive"> </div>
+                    <div class = "tab-inactive"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar" id="navbar-right">Navbar Right</div>
+
+        <!-- 3.MAIN APP -->
+        <!-- A1 -->
+
+        <div class="app-div" id="app-a1">
+            <div class="app-container" id="container-pagename">
+                Statistics
+            </div>
+        </div>
+
+        <!-- A2 -->
+
+        <div class="app-div" id="app-a2">
+            <div class="app-container" id="container-summary">
+                <div id="header-weeks-summary">Week's Summary</div>
+                <div id="stats-summary">You have completed 12 focus sessions, across 5 projects for a total of 1h 31m in the past week. Keep up the good work!</div>
+            </div>
+        </div>
+
+        <!-- A3 -->
+
+        <div class="app-div" id="app-a3">
+            <div class="app-container" id="container-stats-bubbles">
+            </div>  
+        </div>
+
+        <!-- A4 -->
+
+        <div class="app-div" id="app-a4">
+            <div class="app-container" id="container-filters">
+                <div id="list-filters"></div>
+                <div id="header-filters">Filters</div>
+                <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button>
+            </div>
+        </div>
+
+        <!-- A5 -->
+
+        <div class="app-div" id="app-a5">
+            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
+                <div id="header-details">Details</div>
+                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
+                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
+            </div>
+            <div id="container-border"></div>
+        </div>
+
+        <!-- A6 -->
+
+        <div class="app-div" id="app-a6">
+            <div class="app-container" id="container-list">
+            </div>
         </div>
     </div>
-    <div id="myStatsBubbles"></div>
-    <div id="myBtnContainer">
-        <button class="tasks btn active" onclick="btnSelection('tasks')">Tasks</button>
-        <button class="projects btn" onclick="btnSelection('projects')">Projects</button>
-    </div>
-    <div id="myFilterContainer">
-    </div>
-    <div id="listcontainer">
-    </div>
+
+    <script src="statScript.js"></script> <!-- Important to put this last-->
+
 </body>
-<!-- Task scripts-->
-<script>
-    var width = 1000
-    var height = 700
-
-    const off_h = document.getElementsByClassName("navbar")[0].offsetHeight
-    const bound = (value, min, max) => {
-            if (isNaN(value)){return 0;}
-            if (value < min) {return min;}
-            if (value > max) {return max;}
-            return value;
-    }
-    const array_column = (array, column) => {
-            const result = [];
-            array.forEach(e => {
-                result.push(e[column]);
-            });
-            return result;
-        };
-
-    const array_range = (array, attr) => {
-        const result = [];
-        var min = Math.min.apply(null, array.map(item => item[attr])),
-            max = Math.max.apply(null, array.map(item => item[attr]));
-        result.push(min);
-        result.push(max);
-        return result;
-    };
-
-    var svg = d3.select("#myStatsBubbles")
-        .append("svg")
-        .attr("width",width)
-        .attr("height",height)
-
-    // Tasks Container View  
-    d3.csv("stats_deprecated/data2.csv", function(data) {
-        // console.log(data)
-
-        var simulation = d3.forceSimulation()
-            .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
-            .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
-
-            
-        // create a tooltip
-        var Tooltip = d3.select("#myStatsBubbles")
-            .append("div")
-            .style("opacity", 0)
-            .attr("class", "tooltip")
-            .style("background-color", "white")
-            .style("border", "solid")
-            .style("border-width", "2px")
-            .style("border-radius", "5px")
-            .style("padding", "5px")
-
-        // Three function that change the tooltip when user hover / move / leave a cell
-        var mouseover = function(d) {
-            Tooltip
-            .style("opacity", 1)
-        }
-        var mousemove = function(d) {
-            Tooltip
-            .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
-                + "<br><b>" + d.task  + "</b>"
-                + "<br>" + fmt(d.duration))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
-        }
-        var mouseleave = function(d) {
-            Tooltip
-            .style("opacity", 0)
-        }
-
-        function dragstarted(d) {
-            if (!d3.event.active) simulation.alphaTarget(.03).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-        function dragged(d) {
-            d.fx = d3.event.x;
-            d.fy = d3.event.y;
-            Tooltip
-            .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
-                + "<br><b>" + d.task  + "</b>"
-                + "<br>" + fmt(d.duration))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
-        }
-
-        function dragended(d) {
-            if (!d3.event.active) simulation.alphaTarget(.03);
-            d.fx = null;
-            d.fy = null;
-        }
-
-
-        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
-
-        a_ = 0.3
-        b_ = 1- a_
-        var centroid_x = d3.scaleOrdinal()
-            .domain(array_column(data_rollup,0))
-            .range([a_*width,b_*width,a_*width,b_*width]);
-
-        var centroid_y = d3.scaleOrdinal()
-            .domain(array_column(data_rollup,0))
-            .range([a_*height,a_*height,b_*height,b_*height]);
-
-        function starting_x (d) {
-            offset_dir = Math.random() < 0.5 ? 1 : -1;
-            return centroid_x(d.project) + offset_dir*size(d.duration)
-        }
-        function starting_y (d) {
-            offset_dir = Math.random() < 0.5 ? 1 : -1;
-            return centroid_y(d.project) + offset_dir*size(d.duration)
-        }
-
-        var color = d3.scaleOrdinal()
-            .domain(array_column(data_rollup,0))
-            .range(d3.schemeSet1);
-
-        var size = d3.scaleLinear()
-            .domain(array_range(data,"duration"))
-            .range([30,80])
-
-        var sizedot = d3.scaleLinear()
-            .domain(array_range(data,"duration"))
-            .range([3,8])
-
-        // ---------------------------//
-        //       LEGEND              //
-        // ---------------------------//
-        // Add one dot in the legend for each name.
-        var dotsize = 20
-        var allgroups = array_column(data_rollup,0)
-        var alldurations = array_column(data_rollup,1)
-
-        svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
-        .data(allgroups)
-        .enter()
-        .append("circle")
-            .attr("cx", (d,i) => 100 - dotsize + i * 150)
-            .attr("cy", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
-            .attr("r", (d,i) => sizedot(alldurations[i]))
-            .style("fill", function(d){ return color(d)})
-            .style("stroke", "black")
-            .style("stroke-width", 1)
-            // .on("mouseover", highlightSelection)
-            // .on("mouseleave", unhighlightSelection)
-
-        // Add labels beside legend dots
-        svg.append("g").attr("class","mylabels").selectAll("mylabels")
-        .data(allgroups)
-        .enter()
-        .append("text")
-            .attr("x", (d,i) => 100 + i * 150)
-            .attr("y", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
-            .style("fill", function(d){ return color(d)})
-            .text(function(d){ return d})
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
-            // .on("mouseover", highlightSelection)
-            // .on("mouseleave", unhighlightSelection)
-
-        // ---------------------------//
-        //       LEGEND              //
-        // ---------------------------//
-
-        var node = svg.append("g")
-            .attr("class","statscontainer tasks show")
-            .selectAll("circle")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("class", d => "task node " + d.project)
-            .attr("r", function(d){return size(d.duration)})
-            .attr("cx", function(d){return starting_x(d) })
-            .attr("cy", function(d){return starting_y(d) })
-            .style("fill", function(d){return color(d.project)})
-            .style("fill-opacity", 1)
-            .attr("stroke", "black")
-            .style("stroke-width", 2)
-                .on("mouseover", mouseover) // What to do when hovered
-                .on("mousemove", mousemove)
-                .on("mouseleave", mouseleave)
-            .call(d3.drag() // call specific function when circle is dragged
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended));
-            
-        node.append("text")
-            // .data(data)
-            // .attr("x", 0)
-            // .attr("y", 0)
-            .attr("class","label")
-            .attr("r", 0)
-            .attr("dy", ".35em")
-            .style("font", "10px sans-serif")
-            .attr("pointer-events", "none")
-            .attr("text-anchor", "middle")
-            .style("fill-opacity", 1)
-            .style("display","inline")
-            .text(d => d.task);
-            
-
-        simulation
-            .nodes(data)
-            .on("tick", function(d){
-                node
-                    .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
-                    .attr("cy", d => bound(d.y, 50, height - 150)) // d.y
-                });
-    })
-</script> 
-
-<!-- Project scripts-->
-<script>
-    // Projects Container View  
-    d3.csv("stats_deprecated/data2.csv", function(data) {
-        data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-        data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
-
-        // console.log(data_rollup)
-
-        var simulation = d3.forceSimulation()
-            .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
-            .force("charge", d3.forceManyBody().strength(1000)) // Nodes are attracted one each other of value is > 0
-            .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d[1])+3) }).iterations(1)) // Force that avoids circle overlapping
-
-        // create a tooltip
-        var Tooltip = d3.select("#myStatsBubbles")
-            .append("div")
-            .style("opacity", 0)
-            .attr("class", "tooltip")
-            .style("background-color", "white")
-            .style("border", "solid")
-            .style("border-width", "2px")
-            .style("border-radius", "5px")
-            .style("padding", "5px")
-
-        // Three function that change the tooltip when user hover / move / leave a cell
-        var mouseover = function(d) {
-            Tooltip
-            .style("opacity", 1)
-        }
-        var mousemove = function(d) {
-            Tooltip
-            .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
-                + "<br><b>" + d.length  + " Tasks" + "</b>"
-                + "<br>" + fmt(d[1]))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
-        }
-        var mouseleave = function(d) {
-            Tooltip
-            .style("opacity", 0)
-        }
-
-        function dragstarted(d) {
-            if (!d3.event.active) simulation.alphaTarget(.03).restart();
-            d.fx = d.x;
-            d.fy = d.y;
-        }
-
-        function dragged(d) {
-            d.fx = d3.event.x;
-            d.fy = d3.event.y;
-            Tooltip
-            .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
-                + "<br><b>" + d.length  + " Tasks" + "</b>"
-                + "<br>" + fmt(d[1]))
-            .style("left", (d3.mouse(this)[0]+10) + "px")
-            .style("top", (d3.mouse(this)[1]+off_h) + "px")
-        }
-
-        function dragended(d) {
-            if (!d3.event.active) simulation.alphaTarget(.03);
-            d.fx = null;
-            d.fy = null;
-        }
-
-        const array_column = (array, column) => {
-            const result = [];
-            array.forEach(e => {
-                result.push(e[column]);
-            });
-            return result;
-        };
-
-        const array_range = (array, attr) => {
-            const result = [];
-            var min = Math.min.apply(null, array.map(item => item[attr])),
-                max = Math.max.apply(null, array.map(item => item[attr]));
-            result.push(min);
-            result.push(max);
-            return result;
-        };
-
-        var size = d3.scaleLinear()
-            .domain(array_range(data_rollup,1))
-            .range([50,100])
-
-        var color = d3.scaleOrdinal()
-            .domain(array_column(data_rollup,0))
-            .range(d3.schemeSet1);
-
-        var node = svg.append("g")
-            .attr("class","statscontainer projects hidden")
-            .selectAll("circle")
-            .data(data_rollup)
-            .enter()
-            .append("circle")
-            .attr("class", d => "project node " + d[0])
-            .attr("r", function(d){return size(d[1])})
-            .attr("cx", function(d){return Math.random()*d[1]})
-            .attr("cy", function(d){return Math.random()*d[1]})
-            .style("fill", function(d){return color(d[0])})
-            .style("fill-opacity", 1)
-            .attr("stroke", "black")
-            .style("stroke-width", 2)
-                .on("mouseover", mouseover) // What to do when hovered
-                .on("mousemove", mousemove)
-                .on("mouseleave", mouseleave)
-            .call(d3.drag() // call specific function when circle is dragged
-                .on("start", dragstarted)
-                .on("drag", dragged)
-                .on("end", dragended));
-
-
-        simulation
-            .nodes(data_rollup)
-            .on("tick", function(d){
-                node
-                .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
-                .attr("cy", d => bound(d.y, 50, height - 150)) // d.y
-            });
-
-    });
-
-    function fmt (seconds) {
-        const format = val => `0${Math.floor(val)}`.slice(-2)
-        const hours = Math.floor(seconds / 3600)
-        const minutes = Math.floor((seconds % 3600) / 60)
-        const odd_secs = seconds % 60
-        if (hours <= 0){ hh = ''} else {hh = hours+'h '}
-        if (minutes <= 0){ mm = ''} else {mm = minutes+'m '}
-        ss = odd_secs + 's'
-        return hh+mm+ss
-    }
-
-
-</script>
-<!-- Filter buttons scripts-->
-<script>
-
-    createProjectFilterButtons()
-    clearProjectFilter()
-
-    function filterSelection(c) {
-        c = asClassName(c)
-        var x, i;
-        x = document.getElementsByClassName("statscontainer");
-        if (c == "all") c = "";
-        else if (c === "tasks") displayTaskList()
-        else if (c === "projects") displayProjectList()
-        for (i = 0; i < x.length; i++) {
-            w3RemoveClass(x[i], "show");
-            w3RemoveClass(x[i], "hidden");
-            if (x[i].className.baseVal.indexOf(c) > -1) w3AddClass(x[i], "show");
-            else w3AddClass(x[i], "hidden")
-        }
-    }
-
-    function highlightSelection(c) {
-        var x, i;
-        x = document.getElementsByClassName("node");
-        if (c == "all") c = "";
-        for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "highlight");
-        w3RemoveClass(x[i], "unhighlight");
-        if (x[i].className.baseVal.indexOf(asProjectName(c)) > -1){
-            w3AddClass(x[i], "highlight");
-        }
-        else w3AddClass(x[i], "unhighlight")
-        }
-    }
-
-    function unhighlightSelection(c) {
-        highlightSelection("all")
-    }
-    
-    function w3AddClass(element, name) {
-        var i, arr1, arr2;
-        arr1 = element.className.baseVal.split(" ");
-        arr2 = name.split(" ");
-        for (i = 0; i < arr2.length; i++) {
-            if (arr1.indexOf(arr2[i]) == -1) {element.className.baseVal += " " + arr2[i];}
-        }
-    }
-  
-    function w3RemoveClass(element, name) {
-        var i, arr1, arr2;
-        arr1 = element.className.baseVal.split(" ");
-        arr2 = name.split(" ");
-        for (i = 0; i < arr2.length; i++) {
-            while (arr1.indexOf(arr2[i]) > -1) {
-                arr1.splice(arr1.indexOf(arr2[i]), 1);     
-            }
-        }
-        element.className.baseVal = arr1.join(" ");
-    }
-    
-
-    function displayTaskList(project){
-        d3.csv("stats_deprecated/data2.csv",data => {
-            data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-            data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
-
-            listcontainer = document.getElementById("listcontainer")
-
-            var color = d3.scaleOrdinal()
-                .domain(array_column(data_rollup,0))
-                .range(d3.schemeSet1);
-
-            html = ""
-            for (const i in data.slice(0,data.length)){
-                d = data[i]
-                if (project == null | project == "all" | asClassName(d.project) == project){
-                    span ='<li class = "task-li '+ asClassName(d.project)+'"">'
-                        + '<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
-                        + "<br><b>" + d.task  + "</b>"
-                        + "<br>" + fmt(d.duration) + '</li>'
-                    html += span
-                }
-            }
-            listcontainer.innerHTML = html
-        })
-    }
-
-    function displayProjectList(project){
-        d3.csv("stats_deprecated/data2.csv",data => {
-            data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-            data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
-
-            var color = d3.scaleOrdinal()
-                .domain(array_column(data_rollup,0))
-                .range(d3.schemeSet1);
-
-            listcontainer = document.getElementById("listcontainer")
-
-            html = ""
-            for (const i in data_rollup){
-                d = data_rollup[i]
-                if (project == null | project == "all" | asClassName(d[0])  === project){
-                    span ='<li class = "project-li '+ asClassName(d[0])+'"">'
-                        + '<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
-                        + "<br><b>" + d.length  + " Tasks" + "</b>"
-                        + "<br>" + fmt(d[1]) + '</li>'
-                    html += span
-                }
-            }
-            listcontainer.innerHTML = html
-        })
-    }
-
-    function addCssRule(rule, css) {
-        css = JSON.stringify(css).replace(/"/g, "").replace(/,/g, ";");
-        $("<style>").prop("type", "text/css").html(rule + css).appendTo("head");
-    }
-
-    function createProjectFilterButtons(){
-        d3.csv("stats_deprecated/data2.csv",data => {
-            data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration),d => d.project)
-            data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
-
-            var allgroups = array_column(data_rollup,0)
-            var alldurations = array_column(data_rollup,1)
-
-            var color = d3.scaleOrdinal()
-                .domain(array_column(data_rollup,0))
-                .range(d3.schemeSet1);
-
-            btnContainer = document.getElementById("myFilterContainer")
-            html = '<button class="clear project filter-btn" onclick="projectFilterSelection(\'all\')">Clear Filter</button>'
-            for (const i in allgroups){
-                d = allgroups[i]
-                span = '<button class="project filter-btn '+ asClassName(d) +'" onclick="projectFilterSelection(\''+ d +'\')">' + d +'</button>'
-                html += span
-                addCssRule(".filter-btn."+asClassName(d), {
-                    'background-color': "white",
-                    'color': color(d)
-                });
-                addCssRule(".filter-btn."+asClassName(d)+".clicked", {
-                    'background-color': color(d),
-                    'color': "white"
-                });
-                addCssRule(".filter-btn."+asClassName(d)+":hover", {
-                    'background-color': color(d),
-                    'color': "white"
-                });
-            }
-            btnContainer.innerHTML += html
-
-        });
-    }   
-
-    function clearProjectFilter(){
-        taskButtonActive = document.getElementsByClassName("btn active")[0].className.indexOf("task") > -1
-        if (taskButtonActive) displayTaskList() 
-        else  displayProjectList()
-    }
-
-    function projectFilter(c){
-        c = asClassName(c)
-        highlightSelection(c)
-        taskButtonActive = document.getElementsByClassName("btn active")[0].className.indexOf("task") > -1
-        if (taskButtonActive) displayTaskList(c) 
-        else  displayProjectList(c)
-    }
-
-    function btnSelection(c){
-        var btns = document.getElementById("myBtnContainer").getElementsByClassName("btn");
-        selectedBtn = document.getElementById("myBtnContainer").getElementsByClassName(c)[0];
-        for (var i = 0; i < btns.length; i++) {
-            if (btns[i].className.indexOf("active") > -1)
-                btns[i].className = btns[i].className.replace(" active","")
-        }
-        selectedBtn.className += " active"
-        filterSelection(c)
-
-        var clicked = document.getElementById("myFilterContainer").getElementsByClassName("clicked")[0];
-        if (clicked != null){
-            var currentFilter = clicked.className.split(" ")[2];
-            projectFilter(currentFilter);
-        }
-    }
-
-    function projectFilterSelection(c){
-        c = asClassName(c)
-        projectFilter(c)
-        var btns = document.getElementById("myFilterContainer").getElementsByClassName("filter-btn");
-        selectedBtn = document.getElementById("myFilterContainer").getElementsByClassName(c)[0];
-        for (var i = 0; i < btns.length; i++) {
-            if (btns[i].className.indexOf("clicked") > -1)
-                btns[i].className = btns[i].className.replace(" clicked","")
-        }
-        if (c!= "all" & c != null)
-            selectedBtn.className += " clicked"
-    }
-
-    function asClassName(c){
-        return c.replace(" ","-")
-    }
-
-    function asProjectName(c){
-        return c.replace("-"," ")
-    }
-
-</script>
 </html>

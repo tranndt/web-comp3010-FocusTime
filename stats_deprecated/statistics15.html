@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Scripts-->
+    <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
+    <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!--Our own scripts-->
+    <link rel="stylesheet" href="css/stat_styles.css">
+    <title>Grid</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div class="body-container" id='body-container'>
+        <div class="navbar margin" id="navbar-margin-left">Navbar Margin Left</div>
+        <div class="navbar" id="navbar-left">
+            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+        </div>
+        <div class="navbar" id="navbar-center">
+            <div class="navitem-name">
+            </div>
+            <ul class="navitemlist">
+                <li>
+                    <a href="upcomingTasks.html">
+                        <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="statistics.html">
+                        <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        <!-- <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div> -->
+                    </a>
+                </li>
+                <li>
+                    <a class="active" href="index.html">
+                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="music.html">
+                        <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                    </a>
+                </li>
+            </ul>
+            <div class="activebar">
+                <div class = "tab-inactive"> </div>
+                <div class = "tab-active"> </div>
+                <div class = "tab-inactive"> </div>
+                <div class = "tab-inactive"> </div>
+                <div class = "tab-inactive"> </div>
+            </div>
+        </div>
+        <div class="navbar" id="navbar-right">Navbar Right</div>
+        <div class="navbar margin" id="navbar-margin-right">Navbar Margin Right</div>
+        <div class="margin" id="margin-left">Margin Left</div>
+        <div class="margin" id="margin-right">Margin Right</div>
+        <div id="app-interface-namespace">Statistics
+        </div>
+        <div id="app-interface-upperleft">
+            <div id="myStatsBubbles"></div>
+        </div>
+        <div id="app-interface-upperright">
+            <div id="myFilterComponent">
+                <div id="myFilterContainer"></div>
+                <div id="filter-header">Filters</div>
+                <button class="clear project filter-btn" id=clear-filter onclick="projectFilterSelection('all')">Clear</button>
+            </div>
+        </div>
+        <div id="app-interface-upperright2">
+            <div id="summary-details-headers">
+                <div id="summary-header">You have completed 12 focus sessions, across 5 projects for a total of 1h 31m within the past week. Keep up the good work!</div>
+                <div id="details-header">Details</div>
+            </div>
+        </div>
+        <div id="app-interface-lowerleft">
+            <div id="myBtnContainer">
+                <div id="view-header">View as</div>
+                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
+                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
+            </div>
+        </div>
+        <div id="app-interface-lowerright">
+            <div id="listcontainer"></div>
+        </div>
+
+    </div>
+    <script src="statScript.js"></script>
+
+</body>
+</html>

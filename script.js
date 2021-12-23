@@ -222,6 +222,7 @@ let remainingPathColor = COLOR_CODES.info.color;
 //     .getElementById("base-timer-path-remaining")
 //     .setAttribute("stroke-dasharray", circleDasharray);
 // }
+
 // http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial 
 function audioApp(album_title){
 	var audio = new Audio();
