@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 
 :root {
-    --navbar-bg-color:rgb(185, 185, 185);
+    --navbar-bg-color:rgba(179, 179, 179, 0.808);
     --transparent-bg-color:rgba(189, 189, 189, 0.664);
-    --white-bg-color:rgba(255, 255, 255, 0.76);
+    --white-bg-color:rgba(255, 255, 255, 0.95);
     --item-border-color-grey: rgba(0, 0, 0, 0.1);
+
 }
   
 
@@ -16,15 +17,21 @@
 body{
     margin: 0px; 
     height: 100%;
-    background-color: rgb(221, 221, 221);
     font-family: 'Montserrat', sans-serif;
+
+    background-image: url("../assets/imgs/img6.jpg");
+    /* background-color: var(--transparent-bg-color); */
+    background-size: cover;
+    opacity: 0.95;
 }
+
+
 
 .container-body{
     height: 100%;
     display: grid;
     grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 70px 60px 700px;
+    grid-template-rows: 100px 70px 60px 600px;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
@@ -73,7 +80,7 @@ border-radius: 50px;
 /* ---------------------------------- */
 
 .navbar {
-    background-color: rgb(185, 185, 185);
+    background-color: var(--navbar-bg-color);
 }
 
 /* NAVBAR LEFT - LOGO */
@@ -211,6 +218,8 @@ li:not(.navitemlist li){
     /* background-color: rgba(182, 75, 185, 0.781); */
     grid-area: A0;
     font-size: 40px;
+    color: var(--white-bg-color);
+    text-shadow: black 0px 0px 3px;
 }
 
 /* ---------- A1 ---------- */
@@ -267,16 +276,11 @@ li:not(.navitemlist li){
     align-items: stretch;
 }
 
-#table1{
-    border:rgb(60, 60, 60) solid 1px;
-    border-radius: 20px;
-    /* align-items: stretch; */
-    align-content: center;
-}
-
-.content-table{
+.project-item-table-content{
+    border:rgb(60, 60, 60) dashed 1px;
     display: flex;
     width: 100%;
+    align-content: center;
     align-content: center;
 }
 
@@ -285,39 +289,49 @@ tbody{
     width: 100%;
     align-content: center;
 }
-tr{
+
+.project-item-table-content tbody tr{
     display: flex;
     justify-content: space-between;
     align-content: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: rgb(207, 207, 207) solid 0.1px;
 }
 
-.td-task, .td-progress, .td-date{
-    padding: 15px;
-
+.project-item-table-content tbody tr th{
+    color: rgb(153, 153, 153);    
 }
 
-.td-task{
+/* .td-task, .td-progress, .td-date{
+    padding-bottom: 10px;
+} */
+
+.td-task, .th-task{
     width: 40%;
+    text-align: left;
+    padding-left: 20px;
 }
 
-.td-progress{
+.td-progress, .th-progress{
     width: 20%;
     text-align: center;
 }
 
-.td-date{
+.td-date, .th-date{
     width: 40%;
     text-align: center;
-
 }
 
 /*  */
-.accordion-item{
+.project-item{
     padding: 10px;
 }
 
-.accordion-item-header{
-    padding-bottom: 10px;
+.accordion{
+    /* padding-bottom: 10px; */
+    padding:10px;
+    border: black solid 1px;
 }
 
 /*  */

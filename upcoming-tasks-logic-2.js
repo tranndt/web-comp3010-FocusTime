@@ -107,7 +107,7 @@ function load_completed_items(completed){
         for (j in data){
             d=data[j]
             if (d.project == project & ((d.progress < 100 & !completed) | (d.progress == 100 & completed))){
-                span = `<tr class="accordion-item-header taskHeader" id="taskid-${d.taskid}" onclick="display_task('${d.taskid}')">
+                span = `<tr class="task-item-header" id="taskid-${d.taskid}" onclick="display_task('${d.taskid}')">
                             <td class="td-task">${d.task}</td>
                             <td class="td-progress">${d.progress}</td>
                             <td class="date td-date">${d.date}</td>
@@ -117,16 +117,21 @@ function load_completed_items(completed){
         }
         if (html_i != ''){
             html_j += 
-            `<div class="accordion-item">
-                <div class="accordion-item-header active">${project}</div>
-                <div class="accordion-item-body" id="table1Parent" style="max-height: 250px;">
-                    <div class="accordion-item-body-content">
-                    <table class="content-table" id="table1">
+            `<div class="project-item">
+                <div class="accordion project-item-header active">${project}
+
+                </div>
+                <div class="project-item-table ${asClassName(project)}" style="max-height: 250px;">
+                    <table class="project-item-table-content">
                         <tbody>
+                            <tr class="th-row">
+                                <th class="th-task">Task</th>
+                                <th class="th-progress">Progress</th>
+                                <th class="th-date">Due Date</th>
+                            </tr>
                             ${html_i}
                         </tbody>
                     </table>
-                    </div>
                 </div>
             </div>`
         }
@@ -166,18 +171,49 @@ function display_task(taskid){
 
 }
 
-const searchInput = document.getElementById('searchID');
+function display_task(taskid){
+    var html='';
+    for (j in data){
+        d=data[j]
+        // console.log(taskid, d.taskid, d.taskid == taskid)
+        if (d.taskid == taskid){
+            date_str = (d.progress < 100) ? "Due Date" : "Date Completed"
+            html = 
+            `<tr><td>Task</td><td>${d.task}</td></tr>
+            <tr><td>Project</td><td>${d.project}</td></tr>
+            <tr><td>Focus Time</td><td>${fmt(d.duration)}</td></tr>
+            <tr><td>Break Time</td><td>${fmt(d.breaks)}</td></tr>
+            <tr><td>Progress</td><td>${d.progress}%</td></tr>
+            <tr><td>${date_str}</td><td>${d.date}</td></tr>
+            <tr><td>Notes:</td><td></td></tr>`
+            note = d.note;
+            break;
+        }
+    }
+    table = document.getElementById("table-details-body");
+    table.innerHTML = html;
+    notes = document.getElementById("text-notes");
+    notes.innerHTML = note;
 
-searchInput.addEventListener('keyup', function(event) {
-    let rows = document.querySelectorAll(".content-table > tbody > tr");
+}
 
-    const q = event.target.value.toLowerCase();
-    rows.forEach((row) => {
-        row.querySelector("td").textContent.toLowerCase().includes(q)
-        ? (row.style.display = "flex")
-        : (row.style.display = "none");
-    });
-})
+function load_search_listener(){
+    const searchInput = document.getElementById('searchID');
+    searchInput.addEventListener('keyup', function(event) {
+        let rows = document.querySelectorAll(".content-table > tbody > tr");
+    
+        const q = event.target.value.toLowerCase();
+        rows.forEach((row) => {
+            row.querySelector("td").textContent.toLowerCase().includes(q)
+            ? (row.style.display = "flex")
+            : (row.style.display = "none");
+        });
+    })
+
+}
+
+
 
 load_completed_items(false)
 load_completed_items(true)
+load_search_listener()
