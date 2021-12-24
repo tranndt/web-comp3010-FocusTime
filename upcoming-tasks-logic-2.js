@@ -1,4 +1,4 @@
-data = Array.from(
+DATA = Array.from(
     [{taskid: '1', task: 'Task 1', project: 'COMP 3020', duration: '200', breaks: 0, progress: 100, date: '2021-11-26', note:'Lorem ipsum dolor sit amet, consectetuar adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'},
     {taskid: '2', task: 'Task 2', project: 'COMP 3020', duration: '250',breaks: 10, progress: 100, date: '2021-11-29', note:'Integer venenatis orci et massa feugiat vehicula. Integer ullamcorper non libero vel semper. Nam eu tempor purus. Suspendisse potenti. Vivamus eget erat ex. '},
     {taskid: '3', task: 'Task 3', project: 'COMP 3020', duration: '300',breaks: 23, progress: 80, date: '2022-02-25',note:'Cras sit amet ultrices felis, ut faucibus lorem. Integer non dictum leo, at aliquam arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'},
@@ -13,6 +13,64 @@ data = Array.from(
     {taskid: '12', task: 'Task 12', project: 'COMP 4230', duration: '400',breaks: 100, progress: 100, date: '2021-11-23', note:'Sed faucibus neque eget condimentum finibus. Proin rutrum, velit vitae laoreet ultrices, orci velit dictum arcu, non iaculis mi magna sed mi. Donec quis quam id turpis pulvinar dignissim laoreet eget erat. Sed porta quam urna, at faucibus sem mattis in. Fusce commodo nisi at velit porttitor, in vehicula purus feugiat.'}
 ]);
 
+const get_col = (array, column) => {
+    const result = [];
+    array.forEach(e => {
+        result.push(e[column]);
+    });
+    return result;
+};
+
+const get_range = (array, attr) => {
+    const result = [];
+    var min = Math.min.apply(null, array.map(item => item[attr])),
+        max = Math.max.apply(null, array.map(item => item[attr]));
+    result.push(min);
+    result.push(max);
+    return result;
+};
+
+function hyphenated(c){
+    return c.replace(" ","-")
+}
+
+function unhyphenated(c){
+    return c.replace("-"," ")
+}
+
+//  Reduced the data by number of tasks and total duration per project
+function reduced(DATA){
+    rollup = d3.rollup(DATA, v => v.length, d => d.project, d => d.duration)
+    dict = {}
+    Array.from(rollup).forEach(k => {
+        var proj = k[0]; var dur = k[1];
+        dict[proj] = {num_tasks: 0, duration: 0}
+        Array.from(dur).forEach(d => {
+            dict[proj].num_tasks += 1;
+            dict[proj].duration += d[0]*d[1];
+        })
+    })
+    dict2 = Object.entries(dict)
+    dict2 = dict2.sort((a,b) => d3.descending(a[1].duration,b[1].duration))
+    return dict2;
+}
+
+var REDUCED_DATA = reduced(DATA)
+var PROJECT_LABELS = get_col(REDUCED_DATA,0)
+var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet1);
+// var NUM_TASKS = {}; REDUCED_DATA.forEach(d => NUM_TASKS[d[0]] = d[1].num_tasks)
+function NUM_TASKS(project,completed){
+    num_tasks = 0;
+    DATA.forEach(d => {
+        if (d.project == project & 
+            (completed == null | (d.progress < 100 & !completed) | (d.progress == 100 & completed))){
+            num_tasks += 1;
+        }
+    })
+    return num_tasks;
+}
+
+
 function fmt (seconds) {
     const format = val => `0${Math.floor(val)}`.slice(-2)
     const hours = Math.floor(seconds / 3600)
@@ -24,83 +82,20 @@ function fmt (seconds) {
     return hh+mm+ss
 }
 
-const array_column = (array, column) => {
-    const result = [];
-    array.forEach(e => {
-        result.push(e[column]);
-    });
-    return result;
-};
 
-const array_range = (array, attr) => {
-const result = [];
-var min = Math.min.apply(null, array.map(item => item[attr])),
-    max = Math.max.apply(null, array.map(item => item[attr]));
-result.push(min);
-result.push(max);
-return result;
-};
+// function rolledup(DATA){
+//     var data_rollup = d3.flatRollup(DATA,v => d3.sum(v, d => d.duration), d => d.project)
+//     return data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
+// }
 
-function hyphenated(c){
-    return c.replace(" ","-")
-}
-
-function unhyphenated(c){
-    return c.replace("-"," ")
-}
-
-function rolledup(data){
-    var data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
-    return data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
-}
-
-var color = d3.scaleOrdinal().domain(array_column(rolledup(data),0)).range(d3.schemeSet1);
 
 function addCssRule(rule, css) {
     css = JSON.stringify(css).replace(/"/g, "").replace(/,/g, ";");
     $("<style>").prop("type", "text/css").html(rule + css).appendTo("head");
 }
 
-
-// function load_all_items(){
-//     all_projects = array_column(rolledup(data),0);
-//     var html_j = '';
-//     for(i in all_projects){
-//         project = all_projects[i];
-//         var html_i = '';
-//         for (j in data){
-//             d=data[j]
-//             if (d.project == project){
-//                 span = `<tr class="accordion-item-header taskHeader">
-//                             <td class="td-task">${d.task}</td>
-//                             <td class="td-progress">${d.progress}</td>
-//                             <td class="date td-date">${d.date}</td>
-//                         </tr>`
-//                 html_i += span;
-//             }
-//         }
-//         html_j += 
-//         `<div class="accordion-item">
-//             <div class="accordion-item-header active">${project}</div>
-//             <div class="accordion-item-body" id="table1Parent" style="max-height: 250px;">
-//                 <div class="accordion-item-body-content">
-//                 <table class="content-table" id="table1">
-//                     <tbody>
-//                         ${html_i}
-//                     </tbody>
-//                 </table>
-//                 </div>
-//             </div>
-//         </div>`
-//     }
-//     listcontainer = document.getElementById("header-inprogress")
-//     listcontainer.innerHTML = html_j;
-//     // console.log(html_j);
-// }
-
 function load_projects_css(){
-    all_projects = array_column(rolledup(data),0);
-    all_projects.forEach( d=> {
+    PROJECT_LABELS.forEach( d=> {
         addCssRule(`.button-${hyphenated(d)}`, {
             'background-color': color(d),
             'color': "white"
@@ -114,13 +109,10 @@ function load_projects_css(){
 }
 
 function load_completed_items(completed){
-    all_projects = array_column(rolledup(data),0);
-    var html_j = '';
-    for(i in all_projects){
-        project = all_projects[i];
+    var html = '';
+    PROJECT_LABELS.forEach(project => {
         var html_i = '';
-        for (j in data){
-            d=data[j]
+        DATA.forEach(d => {
             if (d.project == project & ((d.progress < 100 & !completed) | (d.progress == 100 & completed))){
                 span = `<tr class="task-item" id="taskid-${d.taskid}" onclick="task_clicked('${d.taskid}')">
                             <td class="td-task">${d.task}</td>
@@ -129,13 +121,14 @@ function load_completed_items(completed){
                         </tr>`
                 html_i += span;
             }
-        }
+        })
         if (html_i != ''){
-            html_j += 
+            date_str = completed ? "Date Completed" : "Due Date";
+            html += 
             `<div class="project-item">
                 <div class="accordion project-item-header button-${hyphenated(project)}">
                     <div class="project-item-header-ele project-name">${project}</div>
-                    <div class="project-item-header-ele-num-tasks">30</div>
+                    <div class="project-item-header-ele-num-tasks">${NUM_TASKS(project,completed)}</div>
                 </div>
                 <div class="project-item-add-tasks button-${hyphenated(project)}">+</div>
                 <div class="project-item-table ${hyphenated(project)}" style="max-height: 250px;">
@@ -144,7 +137,7 @@ function load_completed_items(completed){
                             <tr class="th-row">
                                 <th class="th-task">Task</th>
                                 <th class="th-progress">Progress (%)</th>
-                                <th class="th-date">Due Date</th>
+                                <th class="th-date">${date_str}</th>
                             </tr>
                             ${html_i}
                         </tbody>
@@ -152,17 +145,19 @@ function load_completed_items(completed){
                 </div>
             </div>`
         }
-    }
+    })
+    // console.log(html)
+
     list_id = completed ? "list-completed" : "list-inprogress"
     table = document.getElementById(list_id)
-    table.innerHTML = html_j;
+    table.innerHTML = html;
 }
 
 function task_clicked(taskid){
     // Highlight current task-item
     all_tasks = Array.from(document.getElementsByClassName("task-item"));
-    all_tasks.forEach(ele => {
-        ele.className = ele.className.replace(" clicked","")
+    all_tasks.forEach(task_item => {
+        task_item.className = task_item.className.replace(" clicked","")
     });
     curr_task = document.getElementById(`taskid-${taskid}`);
     curr_task.className += " clicked"
@@ -175,8 +170,8 @@ function task_clicked(taskid){
 
 function display_task(taskid){
     var html='';
-    for (j in data){
-        d=data[j]
+    for (j in DATA){
+        d=DATA[j]
         // console.log(taskid, d.taskid, d.taskid == taskid)
         if (d.taskid == taskid){
             date_str = (d.progress < 100) ? "Due Date" : "Date Completed"
@@ -197,32 +192,6 @@ function display_task(taskid){
     notes = document.getElementById("text-notes");
     notes.innerHTML = note;
 }
-
-// function display_task(taskid){
-//     var html='';
-//     for (j in data){
-//         d=data[j]
-//         // console.log(taskid, d.taskid, d.taskid == taskid)
-//         if (d.taskid == taskid){
-//             date_str = (d.progress < 100) ? "Due Date" : "Date Completed"
-//             html = 
-//             `<tr><td>Task</td><td>${d.task}</td></tr>
-//             <tr><td>Project</td><td>${d.project}</td></tr>
-//             <tr><td>Focus Time</td><td>${fmt(d.duration)}</td></tr>
-//             <tr><td>Break Time</td><td>${fmt(d.breaks)}</td></tr>
-//             <tr><td>Progress</td><td>${d.progress}%</td></tr>
-//             <tr><td>${date_str}</td><td>${d.date}</td></tr>
-//             <tr><td>Notes:</td><td></td></tr>`
-//             note = d.note;
-//             break;
-//         }
-//     }
-//     table = document.getElementById("table-details-body");
-//     table.innerHTML = html;
-//     notes = document.getElementById("text-notes");
-//     notes.innerHTML = note;
-
-// }
 
 function load_search_listener(){
     const searchInput = document.getElementById('searchID');
