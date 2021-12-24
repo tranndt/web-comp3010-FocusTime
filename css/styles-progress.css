@@ -80,8 +80,13 @@ border-radius: 50px;
 /* ---------------------------------- */
 
 .navbar {
-    background-color: var(--navbar-bg-color);
+    background-color: rgba(49, 49, 49, 0.171);
 }
+
+.margin{
+    font-size: 0;
+}
+
 
 /* NAVBAR LEFT - LOGO */
 
@@ -270,7 +275,7 @@ li:not(.navitemlist li){
     background-color: var(--white-bg-color);
     border-bottom-right-radius: 15px ;
     border-bottom-left-radius: 15px ;
-    overflow-y:auto;
+    overflow-y:scroll;
 
 }
 #container-a2{
