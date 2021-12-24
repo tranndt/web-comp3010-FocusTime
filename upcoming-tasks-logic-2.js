@@ -3,7 +3,7 @@ DATA = Array.from(
     {taskid: '2', task: 'Task 2', project: 'COMP 3020', duration: '250',breaks: 10, progress: 100, date: '2021-11-29', note:'Integer venenatis orci et massa feugiat vehicula. Integer ullamcorper non libero vel semper. Nam eu tempor purus. Suspendisse potenti. Vivamus eget erat ex. '},
     {taskid: '3', task: 'Task 3', project: 'COMP 3020', duration: '300',breaks: 23, progress: 80, date: '2022-02-25',note:'Cras sit amet ultrices felis, ut faucibus lorem. Integer non dictum leo, at aliquam arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'},
     {taskid: '4', task: 'Task 4', project: 'COMP 3040', duration: '245',breaks: 60, progress: 100, date: '2021-11-21', note:'Praesent sagittis venenatis arcu ut semper. Cras finibus lorem tempus, varius lectus ac, tristique lacus. Cras aliquam facilisis felis quis euismod.'},
-    {taskid: '5', task: 'Task 5', project: 'COMP 3040', duration: '200',breaks: 25, progress: 90, date: '2022-01-06', note:'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce nec luctus diam. Morbi nec tempus est, vitae aliquet nibh.'},
+    {taskid: '5', task: 'Task 5 - COMP 3020', project: 'COMP 3040', duration: '200',breaks: 25, progress: 90, date: '2022-01-06', note:'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce nec luctus diam. Morbi nec tempus est, vitae aliquet nibh.'},
     {taskid: '6', task: 'Task 6', project: 'COMP 3040', duration: '500',breaks: 41, progress: 100, date: '2021-11-24', note:'Ut blandit in leo in pellentesque. Suspendisse nec enim sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla sem tortor, molestie ornare finibus vitae, viverra sed dui.'},
     {taskid: '7', task: 'Task 7', project: 'COMP 2140', duration: '710',breaks: 75, progress: 50, date: '2022-01-24', note:'Quisque quis vehicula odio. Praesent eu massa eu mauris rhoncus porta. Fusce interdum suscipit purus, vitae euismod sapien blandit sit amet.'},
     {taskid: '8', task: 'Task 8', project: 'COMP 2140', duration: '400',breaks: 100, progress: 75, date: '2022-02-03', note:'Praesent placerat congue nisl, sit amet congue ante pulvinar ut. Nullam dictum, lorem non rutrum euismod, ante dui pharetra nunc, et molestie nunc turpis a massa.'},
@@ -124,13 +124,15 @@ function load_completed_items(completed){
         })
         if (html_i != ''){
             date_str = completed ? "Date Completed" : "Due Date";
+            // add_task_button = completed ? '<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>' : ''
+
             html += 
             `<div class="project-item">
                 <div class="accordion project-item-header button-${hyphenated(project)}">
                     <div class="project-item-header-ele project-name">${project}</div>
                     <div class="project-item-header-ele-num-tasks">${NUM_TASKS(project,completed)}</div>
                 </div>
-                <div class="project-item-add-tasks button-${hyphenated(project)}">+</div>
+                ${!completed ? `<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>`:``}
                 <div class="project-item-table ${hyphenated(project)}" style="max-height: 250px;">
                     <table class="project-item-table-content">
                         <tbody>
@@ -196,15 +198,48 @@ function display_task(taskid){
 function load_search_listener(){
     const searchInput = document.getElementById('searchID');
     searchInput.addEventListener('keyup', function(event) {
-        let rows = document.querySelectorAll(".project-item-table-content > tbody > .task-item");
         const q = event.target.value.toLowerCase();
-        rows.forEach((row) => {
-            row.querySelector("td").textContent.toLowerCase().includes(q)
-            ? (row.style.display = "flex")
-            : (row.style.display = "none");
-        });
+        display_search_result(q);
+        console.log(q)
+
     })
 
+}
+// If Query includes Project name -> All Tasks will be shown 
+// If a Tasks 
+function display_search_result(q){
+    let projects = document.querySelectorAll(".project-item");
+    console.log(projects)
+    projects.forEach(project_item => {
+        if (project_item.querySelector(".project-item-header-ele.project-name").textContent.toLowerCase().includes(q.toLowerCase())){
+            project_item.style.display = "grid";
+            let rows = project_item.querySelectorAll(".task-item");
+            rows.forEach((row) => {row.style.display = "flex"})
+            console.log("case1",q,project_item)
+        }
+        else {
+            str = ''; Array.from(project_item.querySelectorAll(".task-item")).forEach(d => str += d.querySelector("td").textContent + " ")
+            console.log(str,q)
+            if (str.toLowerCase().includes(q.toLowerCase())){
+                let rows = project_item.querySelectorAll(".task-item");
+                    rows.forEach((row) => {
+                        console.log(row.querySelector("td").textContent,row.querySelector("td").textContent.toLowerCase().includes(q.toLowerCase()),row.style.display)
+                    if (row.querySelector("td").textContent.toLowerCase().includes(q.toLowerCase())){
+                        project_item.style.display = "grid";
+                        row.style.display = "flex"
+                    }
+                    else row.style.display = "none";
+                })
+                console.log("case2a",q,project_item)
+
+            }
+            else {
+                project_item.style.display = "none"
+                console.log("case2b",q,project_item)
+
+            };
+        }
+    });
 }
 
 
@@ -212,3 +247,5 @@ load_projects_css();
 load_completed_items(false)
 load_completed_items(true)
 load_search_listener()
+
+// display_search_result("12")

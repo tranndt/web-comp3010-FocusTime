@@ -297,6 +297,8 @@ li:not(.navitemlist li){
     display:grid;
     grid-template-areas: "PH AT"
                          "PT PT";
+    grid-template-columns: 1fr 1fr;
+
 }
 
 .project-item-header{
