@@ -41,11 +41,11 @@ result.push(max);
 return result;
 };
 
-function asClassName(c){
+function hyphenated(c){
     return c.replace(" ","-")
 }
 
-function asProjectName(c){
+function unhyphenated(c){
     return c.replace("-"," ")
 }
 
@@ -62,40 +62,55 @@ function addCssRule(rule, css) {
 }
 
 
-function load_all_items(){
+// function load_all_items(){
+//     all_projects = array_column(rolledup(data),0);
+//     var html_j = '';
+//     for(i in all_projects){
+//         project = all_projects[i];
+//         var html_i = '';
+//         for (j in data){
+//             d=data[j]
+//             if (d.project == project){
+//                 span = `<tr class="accordion-item-header taskHeader">
+//                             <td class="td-task">${d.task}</td>
+//                             <td class="td-progress">${d.progress}</td>
+//                             <td class="date td-date">${d.date}</td>
+//                         </tr>`
+//                 html_i += span;
+//             }
+//         }
+//         html_j += 
+//         `<div class="accordion-item">
+//             <div class="accordion-item-header active">${project}</div>
+//             <div class="accordion-item-body" id="table1Parent" style="max-height: 250px;">
+//                 <div class="accordion-item-body-content">
+//                 <table class="content-table" id="table1">
+//                     <tbody>
+//                         ${html_i}
+//                     </tbody>
+//                 </table>
+//                 </div>
+//             </div>
+//         </div>`
+//     }
+//     listcontainer = document.getElementById("header-inprogress")
+//     listcontainer.innerHTML = html_j;
+//     // console.log(html_j);
+// }
+
+function load_projects_css(){
     all_projects = array_column(rolledup(data),0);
-    var html_j = '';
-    for(i in all_projects){
-        project = all_projects[i];
-        var html_i = '';
-        for (j in data){
-            d=data[j]
-            if (d.project == project){
-                span = `<tr class="accordion-item-header taskHeader">
-                            <td class="td-task">${d.task}</td>
-                            <td class="td-progress">${d.progress}</td>
-                            <td class="date td-date">${d.date}</td>
-                        </tr>`
-                html_i += span;
-            }
-        }
-        html_j += 
-        `<div class="accordion-item">
-            <div class="accordion-item-header active">${project}</div>
-            <div class="accordion-item-body" id="table1Parent" style="max-height: 250px;">
-                <div class="accordion-item-body-content">
-                <table class="content-table" id="table1">
-                    <tbody>
-                        ${html_i}
-                    </tbody>
-                </table>
-                </div>
-            </div>
-        </div>`
-    }
-    listcontainer = document.getElementById("header-inprogress")
-    listcontainer.innerHTML = html_j;
-    // console.log(html_j);
+    all_projects.forEach( d=> {
+        addCssRule(`.button-${hyphenated(d)}`, {
+            'background-color': color(d),
+            'color': "white"
+        });
+        addCssRule(`.button-${hyphenated(d)}:hover`, {
+            'background-color': color(d),
+            'color': "white"
+        });
+    })
+
 }
 
 function load_completed_items(completed){
@@ -107,7 +122,7 @@ function load_completed_items(completed){
         for (j in data){
             d=data[j]
             if (d.project == project & ((d.progress < 100 & !completed) | (d.progress == 100 & completed))){
-                span = `<tr class="task-item-header" id="taskid-${d.taskid}" onclick="display_task('${d.taskid}')">
+                span = `<tr class="task-item" id="taskid-${d.taskid}" onclick="task_clicked('${d.taskid}')">
                             <td class="td-task">${d.task}</td>
                             <td class="td-progress">${d.progress}</td>
                             <td class="date td-date">${d.date}</td>
@@ -118,15 +133,17 @@ function load_completed_items(completed){
         if (html_i != ''){
             html_j += 
             `<div class="project-item">
-                <div class="accordion project-item-header active">${project}
-
+                <div class="accordion project-item-header button-${hyphenated(project)}">
+                    <div class="project-item-header-ele project-name">${project}</div>
+                    <div class="project-item-header-ele-num-tasks">30</div>
                 </div>
-                <div class="project-item-table ${asClassName(project)}" style="max-height: 250px;">
+                <div class="project-item-add-tasks button-${hyphenated(project)}">+</div>
+                <div class="project-item-table ${hyphenated(project)}" style="max-height: 250px;">
                     <table class="project-item-table-content">
                         <tbody>
                             <tr class="th-row">
                                 <th class="th-task">Task</th>
-                                <th class="th-progress">Progress</th>
+                                <th class="th-progress">Progress (%)</th>
                                 <th class="th-date">Due Date</th>
                             </tr>
                             ${html_i}
@@ -141,8 +158,19 @@ function load_completed_items(completed){
     table.innerHTML = html_j;
 }
 
-function clicked(){
-    console.log('clicked');
+function task_clicked(taskid){
+    // Highlight current task-item
+    all_tasks = Array.from(document.getElementsByClassName("task-item"));
+    all_tasks.forEach(ele => {
+        ele.className = ele.className.replace(" clicked","")
+    });
+    curr_task = document.getElementById(`taskid-${taskid}`);
+    curr_task.className += " clicked"
+    console.log(curr_task.className)
+
+
+    // Display its information on Details column
+    display_task(taskid)
 }
 
 function display_task(taskid){
@@ -168,40 +196,38 @@ function display_task(taskid){
     table.innerHTML = html;
     notes = document.getElementById("text-notes");
     notes.innerHTML = note;
-
 }
 
-function display_task(taskid){
-    var html='';
-    for (j in data){
-        d=data[j]
-        // console.log(taskid, d.taskid, d.taskid == taskid)
-        if (d.taskid == taskid){
-            date_str = (d.progress < 100) ? "Due Date" : "Date Completed"
-            html = 
-            `<tr><td>Task</td><td>${d.task}</td></tr>
-            <tr><td>Project</td><td>${d.project}</td></tr>
-            <tr><td>Focus Time</td><td>${fmt(d.duration)}</td></tr>
-            <tr><td>Break Time</td><td>${fmt(d.breaks)}</td></tr>
-            <tr><td>Progress</td><td>${d.progress}%</td></tr>
-            <tr><td>${date_str}</td><td>${d.date}</td></tr>
-            <tr><td>Notes:</td><td></td></tr>`
-            note = d.note;
-            break;
-        }
-    }
-    table = document.getElementById("table-details-body");
-    table.innerHTML = html;
-    notes = document.getElementById("text-notes");
-    notes.innerHTML = note;
+// function display_task(taskid){
+//     var html='';
+//     for (j in data){
+//         d=data[j]
+//         // console.log(taskid, d.taskid, d.taskid == taskid)
+//         if (d.taskid == taskid){
+//             date_str = (d.progress < 100) ? "Due Date" : "Date Completed"
+//             html = 
+//             `<tr><td>Task</td><td>${d.task}</td></tr>
+//             <tr><td>Project</td><td>${d.project}</td></tr>
+//             <tr><td>Focus Time</td><td>${fmt(d.duration)}</td></tr>
+//             <tr><td>Break Time</td><td>${fmt(d.breaks)}</td></tr>
+//             <tr><td>Progress</td><td>${d.progress}%</td></tr>
+//             <tr><td>${date_str}</td><td>${d.date}</td></tr>
+//             <tr><td>Notes:</td><td></td></tr>`
+//             note = d.note;
+//             break;
+//         }
+//     }
+//     table = document.getElementById("table-details-body");
+//     table.innerHTML = html;
+//     notes = document.getElementById("text-notes");
+//     notes.innerHTML = note;
 
-}
+// }
 
 function load_search_listener(){
     const searchInput = document.getElementById('searchID');
     searchInput.addEventListener('keyup', function(event) {
-        let rows = document.querySelectorAll(".content-table > tbody > tr");
-    
+        let rows = document.querySelectorAll(".project-item-table-content > tbody > .task-item");
         const q = event.target.value.toLowerCase();
         rows.forEach((row) => {
             row.querySelector("td").textContent.toLowerCase().includes(q)
@@ -213,7 +239,7 @@ function load_search_listener(){
 }
 
 
-
+load_projects_css();
 load_completed_items(false)
 load_completed_items(true)
 load_search_listener()
