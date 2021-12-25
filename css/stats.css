@@ -1,4 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    --navbar-bg-color:rgba(49, 49, 49, 0.171);
+    --transparent-bg-color:rgba(189, 189, 189, 0.664);
+    --white-bg-color:rgba(255, 255, 255, 0.95);
+    --item-border-color-grey: rgba(0, 0, 0, 0.1);
+    --border-between-ele: rgb(218, 218, 218) solid 0.5px;
+    --greyed-out-text:rgba(128, 128, 128, 0.8);
+    --secondary-header-font-size: 18px;
+}
+  
+
 /* ---------------------------------- */
 /* ---------- 0.BODY LAYOUT --------- */
 /* ---------------------------------- */
@@ -6,21 +18,26 @@
 body{
     margin: 0px; 
     height: 100%;
-    background-color: rgb(221, 221, 221);
     font-family: 'Montserrat', sans-serif;
+
+    background-image: url("../assets/imgs/img6.jpg");
+    /* background-color: var(--transparent-bg-color); */
+    background-size: cover;
+    opacity: 0.95;
 }
 
 .container-body{
     height: 100%;
     display: grid;
     grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 50px 120px 60px 600px;
+    grid-template-rows: 100px 70px 60px 100px 60px 440px;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
-            "M3 A1 A1 A1 M4"
-            "M3 A2 A2 A4 M4"
-            "M3 A3 A3 A5 M4"
-            "M3 A3 A3 A6 M4"
+            "M3 A0 A0 A0 M4"
+            "M3 A1 A4 A6 M4"
+            "M3 A7 A7 A3 M4"
+            "M3 A2 A2 A8 M4"
+            "M3 A2 A2 A5 M4"
 }
 
 /* ---------------------------------- */
@@ -31,16 +48,37 @@ body{
 #margin-navbar-right{ grid-area: M2;}
 #margin-left{ grid-area: M3;}
 #margin-right{ grid-area: M4;}
-.margin{
-    font-size: 0;
+.margin{font-size: 0;} /* Comment out to remove the texts */
+
+/* ---------------------------------- */
+/* ------- 1.1.MISCELLANEOUS --------- */
+/* ---------------------------------- */
+/* Scroll bar for list/windows */
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+  }
+
+*::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.021);
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+
 }
+
+*::-webkit-scrollbar-thumb {
+background-color: rgb(139, 139, 139);
+border-radius: 50px;
+}
+
 
 /* ---------------------------------- */
 /* -------- 2.NAVBAR LAYOUT --------- */
 /* ---------------------------------- */
 
 .navbar {
-    background-color: rgb(185, 185, 185);
+    background-color: var(--navbar-bg-color);
 }
 
 /* NAVBAR LEFT - LOGO */
@@ -137,41 +175,82 @@ ul{
     font-size: 0;
 }
 
+/* ---------------------- */
+
+li .active .iconhover {
+    opacity: 1;
+} 
+
+li {
+    list-style-type: none;
+}
+
+li:not(.navitemlist li):not(:last-child){
+    border-bottom: 1px #ccc solid;
+}
+
+li:not(.navitemlist li){
+    padding: 10px
+}
+
 /* ---------------------------------- */
 /* ---------- 3. APP LAYOUT --------- */
 /* ---------------------------------- */
 
 .app-div{
     padding: 5px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+#app-a1{
+    margin-right: 0px;
+}
+
+#app-a4{
+    margin-left: 0px;
+}
+
+.header {
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
+}
+
+/* ---------- A0 ---------- */
+
+#app-a0{
+    grid-area: A0;
+    font-size: 40px;
+    color: var(--white-bg-color);
+    text-shadow: black 0px 0px 3px;
 }
 
 /* ---------- A1 ---------- */
 
 #app-a1{
-    /* background-color: rgba(255, 77, 160, 0.274); */
     grid-area: A1;
-    font-size: 50px;
-    font-weight: bold;
+    background-color: var(--white-bg-color);
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
 }
 
-/* ---------- A2 ---------- */
 
-#app-a2{
-    grid-area: A2;
-    /* background-color: rgba(255, 166, 0, 0.24); */
-    /* padding: 1em; */
+/* ---------- A7 ---------- */
+
+#app-a7{
+    grid-area: A7;
+    background-color: var(--white-bg-color);
 }
-
 
 #stats-summary{
     padding-left: 35px ; 
     padding-right: 35px ; 
     padding-top: 5px;
-    /* font-style: italic; */
-    color: rgb(95, 0, 95);
+    color: rgba(95, 0, 95, 0.842);
 }
 
-#header-weeks-summary{
+/* #header-weeks-summary{
     height:30px;
     font-size: 25px;
     justify-self: left;
@@ -179,23 +258,67 @@ ul{
     padding-top: 15px;
     padding-bottom: 5px;
     padding-left: 20px ;
+} */
+
+/* ---------- A2 ---------- */
+
+#app-a2{
+    grid-area: A2;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    overflow: none;
+
+}
+
+/* ---------- A6 ---------- */
+
+#app-a6{
+    grid-area: A6;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    align-items: center;
+}
+
+#container-a6{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "HF1 BC1";
+}
+
+#header-filters{
+    grid-area: HF1;
+}
+
+#button-clear-filter{
+    grid-area: BC1;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: rgb(235, 96, 92);
+    padding: 10px 25px;
+    justify-self: right;
+    margin-top: 2px;
+    margin-right: 10px;
+    font-size: var(--secondary-header-font-size);
+}
+
+#button-clear-filter:hover{
+    background-color: rgb(255, 95, 67);
+    color: rgb(252, 252, 252);
 }
 
 /* ---------- A3 ---------- */
 
 #app-a3{
     grid-area: A3;
-    background-color: rgba(247, 247, 247, 0.884);
-    border-radius: 10px;
-    /* padding: 1em; */
-
-}
-
-/* ---------- A4 ---------- */
-
-#app-a4{
-    grid-area: A4;
-    /* background-color: rgba(45, 131, 245, 0.212); */
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    margin-bottom: 10px;
+    overflow-y:auto;
 }
 
 
@@ -203,10 +326,10 @@ ul{
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-template-rows:  1fr 1fr;
-    grid-template-areas: "HF F1"
-                         "BC F1";
-    padding-top: 10px;
-    gap: 5px 1px;
+    grid-template-areas: "F1 F1"
+                         "F1 F1";
+    padding: 3px;
+    gap: 5px 0px;
 }
 
 #list-filters{
@@ -220,53 +343,60 @@ ul{
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr) );
     grid-template-rows: 1fr 1fr;
     gap: 5px 1px;
+    /* border-left: rgb(218, 218, 218) solid 0.1px; */
     /* align-items: flex-start; */
 }
 
-#header-filters{
+/* #header-filters{
     grid-area: HF;
-    /* padding: 10px 25px; */
     align-self: center;
     justify-self: center;
     font-size: 25px;
-}
-
-#button-clear-filter{
-    grid-area: BC;
-    border-radius: 50px;
-    background-color: #ffffff;
-    color: rgb(235, 96, 92);
-    padding: 10px 25px;
-    justify-self: center;
+} */
 
 
-}
-#button-clear-filter:hover{
-    background-color: rgb(255, 95, 67);
-    color: rgb(73, 3, 3);
-}
 
 .filter-btn{
     border: none;
     outline: none;
-    /* margin: 3px 1px 3px 1px; */
     align-self: center;
-    /* justify-self: center; */
-    padding: 10px 10px;
-    background-color: #f1f1f1;
+    padding: 8px 8px;
+    background-color: #ffffff;
     border-radius: 50px;
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
+    box-shadow: 0px 0px 2px rgba(53, 53, 53, 0.329);
+
     /* font-size: 9px; */
 
 }
 
-/* ---------- A5 ---------- */
+/* ---------- A8 ---------- */
 
-#app-a5{
-    grid-area: A5;
-    /* background-color: rgba(230, 148, 255, 0.233); */
+#app-a8{
+    grid-area: A8;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+}
+
+/* ---------- A4 ---------- */
+
+#app-a4{
+    grid-area: A4;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    font-size: var(--secondary-header-font-size);
+}
+
+#text-details{
+    align-self: center;
+    justify-self: right;
+    padding-right: 10px;
+    color: var(--greyed-out-text);
 }
 
 #container-buttons{
@@ -277,7 +407,6 @@ ul{
     /* justify-self: center;
     align-self: center; */
     gap: 0px 2px;
-
     padding:5px;
 }
 
@@ -318,10 +447,13 @@ ul{
 .btn {
     background-color: #ffffff;
     color: black;
+    box-shadow: 0px 0px 2px rgba(31, 31, 31, 0.4);
+    font-size: var(--secondary-header-font-size);
+
 }
 
 .btn.active {
-    background-color: rgb(85, 85, 85);
+    background-color: #984ea3;
     color: white;
 }
 
@@ -335,60 +467,25 @@ ul{
 } */
 
 
-/* ---------- A6 ---------- */
 
-#app-a6{
-    grid-area: A6;
-    background-color: rgba(247, 247, 247, 0.884);
-    border-radius: 10px;
-    font-weight: bold;
+
+#app-a5{
+    grid-area: A5;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
     overflow-x: hidden;
     overflow-y: scroll;
-    margin-right:8px;
-    margin-left: 17px;
 }
 
-
-/* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-    width: 10px;
-  }
-
-*::-webkit-scrollbar-track {
-background: rgba(255, 255, 255, 0.021);
-border-top-right-radius: 10px;
-border-bottom-right-radius: 10px;
-
-}
-
-*::-webkit-scrollbar-thumb {
-background-color: rgb(139, 139, 139);
-border-radius: 50px;
-}
 
 #container-list{
-    margin-right:5px;
+    margin-right:10px;
     margin-left: 10px;
 
 }
 
-/* ---------------------- */
-
-li .active .iconhover {
-    opacity: 1;
-} 
-
-li {
-    list-style-type: none;
-}
-
-li:not(.navitemlist li):not(:last-child){
-    border-bottom: 1px #ccc solid;
-}
-
-li:not(.navitemlist li){
-    padding: 10px
-}
 
 /* ---------------------------------- */
 /* ----- 4.STATS-BUBBLES STYLES ----- */

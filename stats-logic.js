@@ -1,19 +1,19 @@
 var width = 1000
-var height = 625
+var height = 500
 
 data = Array.from(
-    [{taskid: '1', task: 'Task 1', project: 'COMP 3020', duration: '200'},
-    {taskid: '2', task: 'Task 2', project: 'COMP 3020', duration: '250'},
-    {taskid: '3', task: 'Task 3', project: 'COMP 3020', duration: '300'},
-    {taskid: '4', task: 'Task 4', project: 'COMP 3040', duration: '245'},
-    {taskid: '5', task: 'Task 5', project: 'COMP 3040', duration: '200'},
-    {taskid: '6', task: 'Task 6', project: 'COMP 3040', duration: '500'},
-    {taskid: '7', task: 'Task 7', project: 'COMP 2140', duration: '710'},
-    {taskid: '8', task: 'Task 8', project: 'COMP 2140', duration: '400'},
-    {taskid: '9', task: 'Task 9', project: 'COMP 2140', duration: '300'},
-    {taskid: '10', task: 'Task 10', project: 'COMP 4710', duration: '400'},
-    {taskid: '11', task: 'Task 11', project: 'COMP 4710', duration: '200'},
-    {taskid: '12', task: 'Task 12', project: 'COMP 4230', duration: '400'}
+    [{taskid: '1', task: 'Self study', project: 'COMP 3020', duration: '200', breaks: 0, progress: 100, date: '2021-11-26', note:'Lorem ipsum dolor sit amet, consectetuar adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'},
+    {taskid: '2', task: 'Quiz Prep', project: 'COMP 3020', duration: '250',breaks: 10, progress: 100, date: '2021-11-29', note:'Integer venenatis orci et massa feugiat vehicula. Integer ullamcorper non libero vel semper. Nam eu tempor purus. Suspendisse potenti. Vivamus eget erat ex. '},
+    {taskid: '3', task: 'Assignment 2', project: 'COMP 3020', duration: '300',breaks: 23, progress: 80, date: '2022-02-25',note:'Cras sit amet ultrices felis, ut faucibus lorem. Integer non dictum leo, at aliquam arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'},
+    {taskid: '4', task: 'Term Test 1 Prep', project: 'COMP 3040', duration: '245',breaks: 60, progress: 100, date: '2021-11-21', note:'Praesent sagittis venenatis arcu ut semper. Cras finibus lorem tempus, varius lectus ac, tristique lacus. Cras aliquam facilisis felis quis euismod.'},
+    {taskid: '5', task: 'Assignment 3', project: 'COMP 3040', duration: '200',breaks: 25, progress: 90, date: '2022-01-06', note:'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce nec luctus diam. Morbi nec tempus est, vitae aliquet nibh.'},
+    {taskid: '6', task: 'Term Test 1 Review', project: 'COMP 3040', duration: '500',breaks: 41, progress: 100, date: '2021-11-24', note:'Ut blandit in leo in pellentesque. Suspendisse nec enim sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla sem tortor, molestie ornare finibus vitae, viverra sed dui.'},
+    {taskid: '7', task: 'Group Work Prep', project: 'COMP 2140', duration: '710',breaks: 75, progress: 50, date: '2022-01-24', note:'Quisque quis vehicula odio. Praesent eu massa eu mauris rhoncus porta. Fusce interdum suscipit purus, vitae euismod sapien blandit sit amet.'},
+    {taskid: '8', task: 'Fix Code Bugs', project: 'COMP 2140', duration: '400',breaks: 100, progress: 75, date: '2022-02-03', note:'Praesent placerat congue nisl, sit amet congue ante pulvinar ut. Nullam dictum, lorem non rutrum euismod, ante dui pharetra nunc, et molestie nunc turpis a massa.'},
+    {taskid: '9', task: 'Assignment 2', project: 'COMP 2140', duration: '300',breaks: 12, progress: 40, date: '2022-01-29', note:'In interdum purus quis urna egestas dignissim. Suspendisse potenti. Maecenas non sapien fringilla, lobortis diam vitae, rhoncus ipsum.'},
+    {taskid: '10', task: 'Quiz 12', project: 'COMP 4710', duration: '400',breaks: 0, progress: 100, date: '2021-11-13', note:'Nam eu nisi laoreet, sodales eros et, posuere orci. Nam vehicula rutrum ligula ac blandit. Curabitur scelerisque ullamcorper mauris, nec rutrum ligula. Ut hendrerit commodo est, ac consequat nisl finibus vel. Vestibulum tincidunt est odio, non tempus odio vulputate eu. Pellentesque id lectus id ex tempor laoreet. Nulla aliquet mauris vitae risus accumsan, eget venenatis magna gravida. Vestibulum consequat pellentesque elit, at dictum arcu viverra tincidunt. Etiam rutrum, mi sed pretium lacinia, lorem elit gravida dolor, sit amet commodo orci turpis in risus. Nunc consectetur magna metus, ullamcorper lobortis lectus consectetur eget. Nullam in mauris sed diam faucibus tempor in non lorem.'},
+    {taskid: '11', task: 'Group Work Prep', project: 'COMP 4710', duration: '200',breaks: 0, progress: 60, date: '2022-01-06', note:'Nam sed tincidunt odio. Sed nulla orci, semper ut mattis vel, luctus a eros. Nullam aliquam, massa commodo scelerisque aliquam, odio eros mattis libero, ut malesuada ipsum dolor in risus. Duis sagittis ipsum sem, finibus laoreet magna dapibus scelerisque. Sed a ipsum nec lectus congue tincidunt. Proin imperdiet tempor lectus ac faucibus. '},
+    {taskid: '12', task: 'Proofread submission', project: 'COMP 4230', duration: '400',breaks: 100, progress: 100, date: '2021-11-23', note:'Sed faucibus neque eget condimentum finibus. Proin rutrum, velit vitae laoreet ultrices, orci velit dictum arcu, non iaculis mi magna sed mi. Donec quis quam id turpis pulvinar dignissim laoreet eget erat. Sed porta quam urna, at faucibus sem mattis in. Fusce commodo nisi at velit porttitor, in vehicula purus feugiat.'}
 ]);
 
 var svg = d3.select("#container-stats-bubbles")
@@ -51,7 +51,7 @@ const array_range = (array, attr) => {
 
 function taskSimulation(data){
     var simulation = d3.forceSimulation()
-    .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
+    .force("center", d3.forceCenter().x(width/2).y(height/2.5)) // Attraction to the center of the svg area
     .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
     .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
 
@@ -137,7 +137,7 @@ function taskSimulation(data){
 
     var size = d3.scaleLinear()
         .domain(array_range(data,"duration"))
-        .range([30,80])
+        .range([25,60])
 
     var sizedot = d3.scaleLinear()
         .domain(array_range(data,"duration"))
@@ -161,7 +161,7 @@ function taskSimulation(data){
         .style("fill", function(d){return color(d.project)})
         .style("fill-opacity", 1)
         .attr("stroke", "black")
-        .style("stroke-width", 2)
+        .style("stroke-width", 1)
             .on("mouseover", mouseover) // What to do when hovered
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
@@ -184,40 +184,40 @@ function taskSimulation(data){
         .style("display","inline")
         .text(d => d.task);
 
-            // ---------------------------//
-    //       LEGEND              //
-    // ---------------------------//
-    // Add one dot in the legend for each name.
-    var dotsize = 20
-    var allgroups = array_column(data_rollup,0)
-    var alldurations = array_column(data_rollup,1)
+        // ---------------------------//
+        //       LEGEND              //
+        // ---------------------------//
+        // Add one dot in the legend for each name.
+        var dotsize = 20
+        var allgroups = array_column(data_rollup,0)
+        var alldurations = array_column(data_rollup,1)
 
-    svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
-    .data(allgroups)
-    .enter()
-    .append("circle")
-        .attr("cx", (d,i) => 100 - dotsize + i * 180)
-        .attr("cy", function(d,i){ return height - 20}) // 100 is where the first dot appears. 25 is the distance between dots
-        .attr("r", (d,i) => sizedot(alldurations[i]))
-        .style("fill", function(d){ return color(d)})
-        .style("stroke", "black")
-        .style("stroke-width", 1)
-        // .on("mouseover", highlightSelection)
-        // .on("mouseleave", unhighlightSelection)
+        svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
+        .data(allgroups)
+        .enter()
+        .append("circle")
+            .attr("cx", (d,i) => 100 - dotsize + i * 180)
+            .attr("cy", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("r", (d,i) => sizedot(alldurations[i]))
+            .style("fill", function(d){ return color(d)})
+            .style("stroke", "black")
+            .style("stroke-width", 1)
+            // .on("mouseover", highlightSelection)
+            // .on("mouseleave", unhighlightSelection)
 
-    // Add labels beside legend dots
-    svg.append("g").attr("class","mylabels").selectAll("mylabels")
-    .data(allgroups)
-    .enter()
-    .append("text")
-        .attr("x", (d,i) => 100 + i * 180)
-        .attr("y", function(d,i){ return height - 20}) // 100 is where the first dot appears. 25 is the distance between dots
-        .style("fill", function(d){ return color(d)})
-        .text(function(d){ return d})
-        .attr("text-anchor", "left")
-        .style("alignment-baseline", "middle")
-        // .on("mouseover", highlightSelection)
-        // .on("mouseleave", unhighlightSelection)
+        // Add labels beside legend dots
+        svg.append("g").attr("class","mylabels").selectAll("mylabels")
+        .data(allgroups)
+        .enter()
+        .append("text")
+            .attr("x", (d,i) => 100 + i * 180)
+            .attr("y", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
+            .style("fill", function(d){ return color(d)})
+            .text(function(d){ return d})
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+            // .on("mouseover", highlightSelection)
+            // .on("mouseleave", unhighlightSelection)
 
 
     simulation
@@ -237,7 +237,7 @@ data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 // console.log(data_rollup)
 
 var simulation = d3.forceSimulation()
-    .force("center", d3.forceCenter().x(width/2).y(height/2)) // Attraction to the center of the svg area
+    .force("center", d3.forceCenter().x(width/2).y(height/2.5)) // Attraction to the center of the svg area
     .force("charge", d3.forceManyBody().strength(1000)) // Nodes are attracted one each other of value is > 0
     .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d[1])+3) }).iterations(1)) // Force that avoids circle overlapping
 
@@ -296,7 +296,7 @@ function dragended(d) {
 
 var size = d3.scaleLinear()
     .domain(array_range(data_rollup,1))
-    .range([50,100])
+    .range([30,80])
 
 var color = d3.scaleOrdinal()
     .domain(array_column(data_rollup,0))
@@ -315,7 +315,7 @@ var node = svg.append("g")
     .style("fill", function(d){return color(d[0])})
     .style("fill-opacity", 1)
     .attr("stroke", "black")
-    .style("stroke-width", 2)
+    .style("stroke-width", 1)
         .on("mouseover", mouseover) // What to do when hovered
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)

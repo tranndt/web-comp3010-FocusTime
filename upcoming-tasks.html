@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Import Scripts-->
     <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
     <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <title>Grid Template</title>
+    <title>My Progress</title>
     <!--Our styles scripts-->
     <link rel="stylesheet" href="css/styles-progress.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 
     </style>
@@ -22,8 +24,8 @@
 
         <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
         <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
-        <div class="margin" id="margin-left">Margin Left</div>
-        <div class="margin" id="margin-right">Margin Right</div>
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
 
         <!-- 2.NAVBAR -->
 
@@ -39,7 +41,7 @@
 
                 <ul class="navitemlist">
                     <li>
-                        <a href="upcomingTasks.html">
+                        <a href="upcoming-tasks.html">
                             <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
                         </a>
                     </li>
@@ -89,16 +91,12 @@
 
         <div class="app-div" id="app-a1">
             <div class="app-container" id="container-a1"> 
-                <div class="header" id ="header-summary">Overview</div>
+                <div class="header" id="header-summary">Overview</div>
                 <div class="container-search">
-                    <table class="search-box">
-                        <td>
-                          <input id="searchID" class="search" name="search" type="text" placeholder="Search for a Task" autocomplete="off">
-                        </td>
-                        <!-- <td>
-                          <i class="material-icons">search</i>
-                        </td> -->
-                    </table>
+                    <div class="search-box">
+                        <i class="fa fa-search"></i>
+                        <input id="searchID" class="search" name="search" type="text" placeholder="Search for a Task or Project..." autocomplete="off">
+                    </div>
                 </div>
             </div>            
         </div>
@@ -107,16 +105,16 @@
 
         <div class="app-div" id="app-a2">
             <div class="app-container" id="container-a2">
+                <div id="button-add-project">Add New Project</div>
                 <div id="container-inprogress">
                     <div class="header" id ="header-inprogress">In Progress</div>
                     <div id="list-inprogress"></div>
                 </div>
-                <div id="container-inprogress">
+                <div id="container-completed">
                     <div class="header" id = "header-completed">Completed</div>
                     <div id="list-completed"></div>
                 </div>                              
             </div>
-
         </div>
 
         <!-- A3 -->
@@ -141,7 +139,6 @@
             </div>
         </div>
 
-        <!-- Add more app-div below if necessary -->
 </body>
 
 <script src="upcoming-tasks-logic-2.js"></script>
