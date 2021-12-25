@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
-
 :root {
-    --navbar-bg-color:rgba(179, 179, 179, 0.808);
+    --navbar-bg-color:rgba(49, 49, 49, 0.171);
     --transparent-bg-color:rgba(189, 189, 189, 0.664);
     --white-bg-color:rgba(255, 255, 255, 0.95);
     --item-border-color-grey: rgba(0, 0, 0, 0.1);
-
+    --border-between-ele: rgb(218, 218, 218) solid 0.5px;
+    --greyed-out-text:rgba(190, 190, 190, 0.8);
+    --secondary-header-font-size: 18px;
 }
   
 
@@ -25,8 +26,6 @@ body{
     opacity: 0.95;
 }
 
-
-
 .container-body{
     height: 100%;
     display: grid;
@@ -37,8 +36,6 @@ body{
             "M3 A0 A0 A0 M4"
             "M3 A1 A1 A3 M4"
             "M3 A2 A2 A4 M4"
-            /* "M3 A1 A1 A4 M4" */
-
 }
 
 /* ---------------------------------- */
@@ -49,7 +46,7 @@ body{
 #margin-navbar-right{ grid-area: M2;}
 #margin-left{ grid-area: M3;}
 #margin-right{ grid-area: M4;}
-/* .margin{font-size: 0;} Comment out to remove the texts */
+.margin{font-size: 0;} /* Comment out to remove the texts */
 
 /* ---------------------------------- */
 /* ------- 1.1.MISCELLANEOUS --------- */
@@ -74,19 +71,13 @@ border-radius: 50px;
 }
 
 
-
 /* ---------------------------------- */
 /* -------- 2.NAVBAR LAYOUT --------- */
 /* ---------------------------------- */
 
 .navbar {
-    background-color: rgba(49, 49, 49, 0.171);
+    background-color: var(--navbar-bg-color);
 }
-
-.margin{
-    font-size: 0;
-}
-
 
 /* NAVBAR LEFT - LOGO */
 
@@ -145,7 +136,7 @@ ul{
 
 .navitemlist li {
     display: inline-flex;
-    padding: 0em 1.25em 0em 1em;
+    padding: 0em 1.25em 0em 1.25em;
     text-align: center;  
     border-right: 0.05em solid rgba(0, 0, 0, 0.1);
 }
@@ -206,10 +197,10 @@ li:not(.navitemlist li){
     margin-right: 7px;
 }
 
-.app-container:not(.navbar .app-container){
+/* .app-container:not(.navbar .app-container){
     height:100%;
-    /* border: 1px dashed black; */
-}
+    border: 1px dashed black;
+} */
 
 .header {
     font-size: 25px;
@@ -220,7 +211,6 @@ li:not(.navitemlist li){
 /* ---------- A0 ---------- */
 
 #app-a0{
-    /* background-color: rgba(182, 75, 185, 0.781); */
     grid-area: A0;
     font-size: 40px;
     color: var(--white-bg-color);
@@ -235,7 +225,6 @@ li:not(.navitemlist li){
     border-top-right-radius: 15px ;
     border-top-left-radius: 15px ;
     border-bottom: rgb(218, 218, 218) solid 0.5px;
-
 }
 
 #container-a1{
@@ -246,26 +235,31 @@ li:not(.navitemlist li){
     grid-template-columns: 1fr 1fr;
 }
 
-#button-add-project{
+/* #button-add-project{
     grid-area: AP;
     align-self: center;
-}
+} */
 
 .container-search{
     grid-area: SB;
     margin-left:auto;
     align-self: center;
+    padding:5px;
 }
 
 #searchID{
+    /* background-image: url("../assets/searchbar.png"); */
     border-color: var(--item-border-color-grey);
     border-radius: 50px;
     width: 400px;
     height:30px;
-    text-indent: 15px;
+    text-indent: 10px;
     font-family: 'Montserrat', sans-serif;
-
+    padding-left:10px;   
+    font-size: var(--secondary-header-font-size);
+    
 }
+
 
 
 /* ---------- A2 ---------- */
@@ -285,6 +279,19 @@ li:not(.navitemlist li){
 #header-completed{
     padding-top:25px;
 }
+
+
+#button-add-project{
+    display: block;
+    width: 20%;
+    margin-left:auto;
+    align-self: center;
+    justify-self: center; 
+    border-radius: 15px;
+    border:rgb(60, 60, 60) solid 1px;
+    padding: 10px 10px;
+}
+
 
 
 
@@ -386,7 +393,8 @@ li:not(.navitemlist li){
 
 
 .project-item-table-content{
-    border:rgb(60, 60, 60) dashed 1px;
+    border:var(--transparent-bg-color) solid 1px;
+    box-shadow: rgb(172, 171, 171) 0px 0px 1px;
     border-radius: 15px;
     display: flex;
     width: 100%;

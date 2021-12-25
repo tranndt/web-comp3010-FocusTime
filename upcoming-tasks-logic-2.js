@@ -253,6 +253,27 @@ function display_search_result(q){
     });
 }
 
+function add_new_task(table_id, task_name_item, task_date_item){
+    let task_name = document.getElementById(task_name_item).value;
+    let task_date = document.getElementById(task_date_item).value;
+    let task_id = get_next_id()
+    let table = document.getElementById(table_id);
+    let newRows = ` <tr class="task-item" id="taskid-${task_id}" onclick="task_clicked('${taskid}')">
+                        <td class="td-task">${task_name}</td>
+                        <td class="td-progress">0</td>
+                        <td class="date td-date">${task_date}</td>
+                    </tr>`;
+
+    let lastRow = table.rows[table.rows.length-2];
+    lastRow.insertAdjacentHTML('beforebegin', newRows);
+    
+    let taskHeaders = table.getElementsByClassName("taskHeader").length;
+    let newTaskHeader = table.getElementsByClassName("taskHeader")[taskHeaders - 1];
+    newRow.push(newTaskHeader);
+    addAccordionItemEvent(newRow);
+
+}
+
 
 load_projects_css();
 load_completed_items(false)
