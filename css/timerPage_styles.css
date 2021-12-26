@@ -1,0 +1,586 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    --navbar-bg-color:rgba(49, 49, 49, 0.171);
+    --transparent-bg-color:rgba(189, 189, 189, 0.664);
+    --white-bg-color:rgba(255, 255, 255, 0.95);
+    --item-border-color-grey: rgba(0, 0, 0, 0.1);
+    --border-between-ele: rgb(218, 218, 218) solid 0.5px;
+    --greyed-out-text:rgba(128, 128, 128, 0.8);
+    --secondary-header-font-size: 18px;
+}
+  
+
+/* ---------------------------------- */
+/* ---------- 0.BODY LAYOUT --------- */
+/* ---------------------------------- */
+
+body{
+    margin: 0px; 
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+
+    background-image: url("../assets/imgs/img6.jpg");
+    /* background-color: var(--transparent-bg-color); */
+    background-size: cover;
+    opacity: 0.95;
+}
+
+.container-body{
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 400px 600px 500px auto;
+    grid-template-rows: 100px 70px 60px 100px 60px 440px;
+    grid-template-areas: 
+            "M1 N1 N2 N3 M2"
+            "M3 A0 A0 A0 M4"
+            "M3 A1 A4 A6 M4"
+            "M3 A2 A2 A3 M4"
+            "M3 A2 A2 A8 M4"
+            "M3 A2 A2 A5 M4"
+}
+
+/* ---------------------------------- */
+/* --------- 1.MARGIN LAYOUT -------- */
+/* ---------------------------------- */
+
+#margin-navbar-left{ grid-area: M1;}
+#margin-navbar-right{ grid-area: M2;}
+#margin-left{ grid-area: M3;}
+#margin-right{ grid-area: M4;}
+.margin{font-size: 0;} /* Comment out to remove the texts */
+
+/* ---------------------------------- */
+/* ------- 1.1.MISCELLANEOUS --------- */
+/* ---------------------------------- */
+/* Scroll bar for list/windows */
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+  }
+
+*::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.021);
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+background-color: rgb(139, 139, 139);
+border-radius: 50px;
+}
+
+
+/* ---------------------------------- */
+/* -------- 2.NAVBAR LAYOUT --------- */
+/* ---------------------------------- */
+
+.navbar {
+    background-color: var(--navbar-bg-color);
+}
+
+/* NAVBAR LEFT - LOGO */
+
+#navbar-left {
+    grid-area: N1;
+}
+
+.logoimg{
+    display: block;
+    position: relative;
+    top: -95%;
+    left: -10%; 
+}
+
+/* NAVBAR CENTER - N2- NAV-ITEMS */
+
+#navbar-center{
+    grid-area: N2;
+}
+
+#container-main-navbar{
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas: 
+            "NC2"
+            "NC3";
+    padding-top:25px;
+}
+
+/* .navitem-name{
+    grid-area: NC1;
+    height: 10px;
+} */
+
+.navitemlist{
+    grid-area: NC2;
+    /* background: rgb(212, 221, 83); */
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.activebar{
+    grid-area: NC3;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+ul{
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.navitemlist li {
+    display: inline-flex;
+    padding: 0em 1.25em 0em 1.25em;
+    text-align: center;  
+    border-right: 0.05em solid rgba(0, 0, 0, 0.1);
+}
+
+.navitemlist li:last-child {
+    border-right: none;
+}
+
+.navitem {
+    text-decoration: none;
+    display: flex; 
+    padding: 0 0.1em;
+}
+
+.activebar .tab-active{
+    background-color: rgb(60, 60, 60);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+.activebar .tab-inactive{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+/* NAVBAR RIGHT  */
+#navbar-right{
+    grid-area: N3;
+    font-size: 0;
+}
+
+/* ---------------------- */
+
+li .active .iconhover {
+    opacity: 1;
+} 
+
+li {
+    list-style-type: none;
+}
+
+li:not(.navitemlist li):not(:last-child){
+    border-bottom: 1px #ccc solid;
+}
+
+li:not(.navitemlist li){
+    padding: 10px
+}
+
+/* ---------------------------------- */
+/* ---------- 3. APP LAYOUT --------- */
+/* ---------------------------------- */
+
+.app-div{
+    padding: 5px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+#app-a1{
+    margin-right: 0px;
+}
+
+#app-a4{
+    margin-left: 0px;
+}
+
+.header {
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
+}
+
+/* ---------- A0 ---------- */
+
+#app-a0{
+    grid-area: A0;
+    font-size: 40px;
+    color: var(--white-bg-color);
+    text-shadow: black 0px 0px 3px;
+}
+
+/* ---------- A1 ---------- */
+
+#app-a1{
+    grid-area: A1;
+    background-color: var(--white-bg-color);
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    border-right: none;
+
+}
+
+
+/* ---------- A7 ---------- */
+
+#app-a7{
+    grid-area: A7;
+    background-color: var(--white-bg-color);
+}
+
+#stats-summary{
+    padding-left: 35px ; 
+    padding-right: 35px ; 
+    padding-top: 5px;
+    color: rgba(95, 0, 95, 0.842);
+}
+
+/* #header-weeks-summary{
+    height:30px;
+    font-size: 25px;
+    justify-self: left;
+    align-self: center;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 20px ;
+} */
+
+/* ---------- A2 ---------- */
+
+#app-a2{
+    grid-area: A2;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    overflow: none;
+
+}
+
+/* ---------- A6 ---------- */
+
+#app-a6{
+    grid-area: A6;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    align-items: center;
+}
+
+#container-a6{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "HF1 BC1";
+}
+
+#header-filters{
+    grid-area: HF1;
+}
+
+#button-clear-filter{
+    grid-area: BC1;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: rgb(235, 96, 92);
+    padding: 10px 25px;
+    justify-self: right;
+    margin-top: 2px;
+    margin-right: 10px;
+    font-size: var(--secondary-header-font-size);
+}
+
+#button-clear-filter:hover{
+    background-color: rgb(255, 95, 67);
+    color: rgb(252, 252, 252);
+}
+
+/* ---------- A3 ---------- */
+
+#app-a3{
+    grid-area: A3;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    margin-bottom: 10px;
+    overflow-y:auto;
+}
+
+
+#container-filters{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows:  1fr 1fr;
+    grid-template-areas: "F1 F1"
+                         "F1 F1";
+    padding: 3px;
+    gap: 5px 0px;
+}
+
+#list-filters{
+    grid-area: F1;
+
+    /* cursor: pointer; */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr) );
+    grid-template-rows: 1fr 1fr;
+    gap: 5px 1px;
+    /* border-left: rgb(218, 218, 218) solid 0.1px; */
+    /* align-items: flex-start; */
+}
+
+/* #header-filters{
+    grid-area: HF;
+    align-self: center;
+    justify-self: center;
+    font-size: 25px;
+} */
+
+
+
+.filter-btn{
+    border: none;
+    outline: none;
+    align-self: center;
+    padding: 8px 8px;
+    background-color: #ffffff;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    box-shadow: 0px 0px 2px rgba(53, 53, 53, 0.329);
+
+    /* font-size: 9px; */
+
+}
+
+/* ---------- A8 ---------- */
+
+#app-a8{
+    grid-area: A8;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+}
+
+/* ---------- A4 ---------- */
+
+#app-a4{
+    grid-area: A4;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    border-left: none;
+
+    font-size: var(--secondary-header-font-size);
+}
+
+#text-details{
+    align-self: center;
+    justify-self: right;
+    padding-right: 10px;
+    color: var(--greyed-out-text);
+}
+
+#container-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr;
+    grid-template-rows:  1fr;
+    grid-template-areas: "HD BT BP";
+    /* justify-self: center;
+    align-self: center; */
+    gap: 0px 2px;
+    padding:5px;
+}
+
+#header-details{
+    grid-area: HD;
+    justify-self: center;
+    align-self: center;
+    font-size: 25px;
+}
+
+#task-btn{
+    grid-area: BT;
+    border: none;
+    outline: none;
+    padding: 10px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+#project-btn{
+    grid-area: BP;
+
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.btn:hover ,.filter-btn:hover{
+    background-color: #ddd;
+}
+
+.btn {
+    background-color: #ffffff;
+    color: black;
+    box-shadow: 0px 0px 2px rgba(31, 31, 31, 0.4);
+    font-size: var(--secondary-header-font-size);
+
+}
+
+.btn.active {
+    background-color: #984ea3;
+    color: white;
+}
+
+/* #container-border{
+    margin-top: 10px;
+    margin-left:10px;
+    border-radius: 10px;
+    border: solid;
+    border-width: 2.5px;
+    height: 651px;
+} */
+
+.task-proj-selector{
+    display:flex;
+    justify-content: space-evenly;
+    /* position: absolute;
+    padding:0.5vh 1.5vw;
+    border-radius: 1em;
+    list-style-type:none; */
+    
+}
+
+.project-div, .task-div{
+    display:flex;
+    justify-content: space-evenly;  
+}
+
+
+
+.select {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    background: none;
+    padding: 10px 10px;
+    font-size: var(--secondary-header-font-size);
+    color: var(--text-color);
+    margin: 0.5em 0 8px 0;
+    font-weight: normal;
+    /* max-width: 11em; */
+
+    /* replacing default arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url(/assets/dropdownArrow.svg);
+    background-position: right 8px top 50%;
+    background-repeat: no-repeat;
+    background-size: 8px;
+    padding-right: 28px;
+}
+
+.select:focus, .select:hover {
+    outline: none;
+    border: 1px solid #bbbbbb;
+}
+
+.select option {
+    font-weight: normal;
+    background: #ffffffff;
+}
+
+
+#app-a5{
+    grid-area: A5;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+
+#container-list{
+    margin-right:10px;
+    margin-left: 10px;
+
+}
+
+
+/* ---------------------------------- */
+/* ----- 4.STATS-BUBBLES STYLES ----- */
+/* ---------------------------------- */
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.unhighlight {
+    opacity: 0.05;
+}
+
+.highlight {
+    opacity: 1;
+}
+
+.container {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+
+
+
+.node:hover{
+/* stroke-width: 7px !important; */
+    filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
+    opacity: 1 !important;
+    cursor: pointer;
+}
+
+div.tooltip{
+    position: absolute;
+    text-align: center;
+    padding: 5px;
+    font: 12px sans-serif;		
+    background-color: white;
+    border: 1px #b7b7b7 solid;	
+    pointer-events: none;	
+    width: 100px;
+}
