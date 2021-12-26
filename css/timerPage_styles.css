@@ -29,7 +29,7 @@ body{
 .container-body{
     height: 100%;
     display: grid;
-    grid-template-columns: auto 400px 600px 500px auto;
+    grid-template-columns: auto 500px 500px 500px auto;
     grid-template-rows: 100px 70px 60px 100px 60px 440px;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
@@ -204,11 +204,11 @@ li:not(.navitemlist li){
 }
 
 #app-a1{
-    margin-right: 0px;
+    margin-right: 100px;
 }
 
 #app-a4{
-    margin-left: 0px;
+    margin-left: -101px;
 }
 
 .header {
