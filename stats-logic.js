@@ -21,7 +21,6 @@ var svg = d3.select("#container-stats-bubbles")
     .attr("width",width)
     .attr("height",height)
 
-
 // const off_h = document.getElementsByClassName("navbar")[0].offsetHeight
 const off_h = 300;
 
@@ -492,8 +491,11 @@ function createProjectFilterButtons(){
 
 function clearProjectFilter(){
     taskButtonActive = document.getElementsByClassName("btn active")[0].className.indexOf("task") > -1
+
     if (taskButtonActive) displayTaskList() 
     else  displayProjectList()
+
+
 }
 
 function projectFilter(c){
@@ -502,6 +504,8 @@ function projectFilter(c){
     taskButtonActive = document.getElementsByClassName("btn active")[0].className.indexOf("task") > -1
     if (taskButtonActive) displayTaskList(c) 
     else  displayProjectList(c)
+
+
 }
 
 function btnSelection(c){
@@ -530,8 +534,21 @@ function projectFilterSelection(c){
         if (btns[i].className.indexOf("clicked") > -1)
             btns[i].className = btns[i].className.replace(" clicked","")
     }
-    if (c!= "all" & c != null)
+    if (c!= "all" & c != null){
         selectedBtn.className += " clicked"
+        filter_status = document.querySelector("#text-filter-on");
+        // filter_status.style.display = "block";
+        filter_status.textContent = "On";
+        filter_status.style.backgroundColor = "green";
+    }
+    else{
+        filter_status = document.querySelector("#text-filter-on");
+        // filter_status.style.display = "none";
+        filter_status.textContent = "Off";
+        filter_status.style.backgroundColor = "red";
+
+    }
+
 }
 
 function asClassName(c){
