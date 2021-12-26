@@ -8,6 +8,10 @@
     --border-between-ele: rgb(218, 218, 218) solid 0.5px;
     --greyed-out-text:rgba(190, 190, 190, 0.8);
     --secondary-header-font-size: 18px;
+    --header-font-size: 25px;
+    --box-shadow:0px 0px 2px rgba(31, 31, 31, 0.4);
+    --text-shadow:black 0px 0px 3px;
+    --accent-color:#984ea3;
 }
   
 
@@ -30,7 +34,7 @@ body{
     height: 100%;
     display: grid;
     grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 70px 60px 50px 500px 50px;
+    grid-template-rows: 100px 70px 60px 60px 460px 80px;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
@@ -261,6 +265,53 @@ li:not(.navitemlist li){
     align-items: stretch;
 }
 
+.container-list{
+    border: black dashed 1px;
+    min-height: 100px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 20px 0px;
+    padding: 15px;
+}
+
+.album-item{
+    /* border: 1px black dashed; */
+    width: 175px;
+    height: 175px;
+    display:block;
+    justify-self: center;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+    /* background-color: black; */
+}
+
+.album-item:hover{
+    opacity: 0.9;
+}
+/* ------- BUTTONS ------- */
+
+.button{
+    background-color: #ffffff;
+    color: black;
+    border-radius: 25px;
+    padding: 10px 10px;
+    cursor: pointer;
+    border-color: var(--item-border-color-grey);
+    font-size: var(--secondary-header-font-size);
+    font-family: "Montserrat", sans-serif;
+}
+
+.button:hover{
+    background-color: #ddd;
+}
+
+.button.active {
+    background-color: #984ea3;
+    color: white;
+    text-shadow: var(--box-shadow);
+}
+
 /* ---------- A3 ---------- */
 
 #app-a3{
@@ -288,8 +339,8 @@ li:not(.navitemlist li){
 #container-a3b{
     font-size: var(--secondary-header-font-size);
     display: flex;
-    /* justify-content: space-between; */
-    justify-content: right;}
+    justify-content: left;
+}
 
 /* ---------- A4 ---------- */
 
@@ -297,7 +348,47 @@ li:not(.navitemlist li){
     grid-area: A4;
     background-color: var(--white-bg-color);
     overflow-y:scroll;
+    /* border: 1px black dashed; */
+
 }
+
+#container-a4{
+    display: flex;
+    justify-self: center;
+    align-self: center;
+}
+
+#container-album-summary{
+    width: 100%;
+    /* border: 1px black dashed; */
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#album-cover{
+    /* padding: 5px; */
+    /* border: 1px black dashed; */
+    border-radius: 25px;
+    opacity:0;
+    width: 300px;
+    height: 300px;
+    display:block;
+    justify-self: center;
+    box-shadow: var(--text-shadow);
+}
+
+#album-details{
+    padding: 10px;
+    /* border: 1px black dashed; */
+    text-align: center;
+    font-size: var(--secondary-header-font-size);
+}
+
+#album-name{
+    font-size: var(--header-font-size);
+}
+
 
 /* ---------- A4 ---------- */
 
@@ -310,9 +401,31 @@ li:not(.navitemlist li){
 }
 
 #container-a5{
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 5px;
+    margin-bottom: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+
 }
+
+
+#button-add-to-queue, #button-start-timer{
+    border-radius: 50px;
+    padding: 5px;
+
+}
+#button-add-to-queue{
+    background-color: white;
+    color: var(--accent-color);
+}
+
+#button-start-timer{
+    background-color: var(--accent-color);
+    color: white;
+}
+
 
 
 

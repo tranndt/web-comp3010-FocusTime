@@ -91,8 +91,7 @@
 
         <div class="app-div" id="app-a1">
             <div class="app-container" id="container-a1"> 
-                <div class="header" id="header-overview">Overview</div>
-
+                <div class="header" id="header-overview">Explore</div>
             </div>            
         </div>
 
@@ -100,8 +99,6 @@
 
         <div class="app-div" id="app-a1b">
             <div class="app-container" id="container-a1b"> 
-                <button class="button tab" id='button-browse' onclick="">Browse</button>
-                <button class="button tab" id='button-song-queue' onclick="">Song Queue</button>
             </div>            
         </div>
 
@@ -111,19 +108,21 @@
             <div class="app-container" id="container-a2">
                 <div id="container-genres">
                     <div class="header" id ="header-genres">Genres</div>
-                    <div id="list-inprogress"></div>
+                    <div class="container-list" id="list-genres"></div>
                 </div>
                 <div id="container-todays-pick">
                     <div class="header" id ="header-todays-pick">Today's Pick</div>
-                    <div id="list-todays-pick"></div>
+                    <div class="container-list" id="list-todays-pick">
+                        
+                    </div>
                 </div>
                 <div id="container-whats-popular">
                     <div class="header" id ="header-whats-popular">What's Popular</div>
-                    <div id="list-whats-popular"></div>
+                    <div class="container-list" id="list-whats-popular" name="What's Popular"></div>
                 </div>
                 <div id="container-release-radar">
                     <div class="header" id ="header-release-radar">Release Radar</div>
-                    <div id="list-release-radar"></div>
+                    <div class="container-list" id="list-release-radar" name="Release Radar"></div>
                 </div>
             </div>
         </div>
@@ -133,7 +132,7 @@
         <div class="app-div" id="app-a3">
             <div class="app-container" id="container-a3">
                 <div class="header" id ="header-details">Details</div>
-                <button class="clear details" id=button-clear onclick="">Clear</button>
+                <button class="button" id=button-clear onclick="cancel_album_details()">Cancel</button>
             </div>  
         </div>
 
@@ -141,8 +140,8 @@
 
         <div class="app-div" id="app-a3b">
             <div class="app-container" id="container-a3b">
-                <div id="text-details-2">Viewing as</div>
-                <button class="button" id='button-summary' onclick="">Summary</button>
+                <!-- <div id="text-details-2">Viewing as</div> -->
+                <button class="button active" id='button-summary' onclick="">Summary</button>
                 <button class="button" id='button-playlist' onclick="">Playlist</button>
             </div>  
         </div>
@@ -152,7 +151,7 @@
         <div class="app-div" id="app-a4">
             <div class="app-container" id="container-a4">
                 <div id="container-album-summary">
-                    <div id="album-cover"></div>
+                    <img id="album-cover">
                     <div id="album-details">
                         <div id="album-name"></div>
                         <div id="album-artist"></div>
@@ -176,6 +175,6 @@
 
 </body>
 
-<!-- <script src="upcoming-tasks-logic-2.js"></script> -->
+<script src="music-logic.js"></script>
 
 </html>
