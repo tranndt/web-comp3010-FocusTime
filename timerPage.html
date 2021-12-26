@@ -18,6 +18,19 @@
 
 </head>
 <body>
+    <!-- Toast and Dialog box -->
+    <div id="toast">Some text some message..</div>
+    <div id="dialogBox">
+        <div class="dbox-header">
+            <button id="cancel-btn">X</button>
+        </div>
+        <div id="dbox-msg">Some text</div>
+        <input id="dbox-input" type="text">
+        <div class = "dbox-buttons">
+            <button id="confirm-btn">Save Progress</button>
+            <button id="skip-btn">Skip saving</button>
+        </div>
+    </div>
     <div class="container-body" id='container-body'>
 
         <!-- 1.MARGINS -->
@@ -82,7 +95,7 @@
 
         <div class="app-div" id="app-a0">
             <div class="app-container" id="container-a0">
-                My Focus Session
+                Current Focus Session
             </div>
         </div>
 
@@ -106,15 +119,47 @@
         <!-- A2 - (Box 1 - body) -->
 
         <div class="app-div" id="app-a2">                
-            <div class="app-container" id="container-stats-bubbles">
-            </div>  
+            <div class="base-timer">
+                <svg class="base-timer__svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                  <g class="base-timer__circle">
+                    <circle class="base-timer__path-elapsed" cx="50%" cy="50%" r="25" />
+                    <circle class="base-timer__path-remaining" cx="50%" cy="50%" r="25" />
+                    <line class="base-timer__init-line" x1="50" y1="4" x2="50" y2="6"/>
+                  </g>
+                </svg>
+                <div class="timer-details">
+                    <div class="session-time">
+                        <div class="input-time" id = "input-time">
+                            <input class="time-inputs" id="hr-input" type="text" placeholder="hr">:
+                            <input class="time-inputs" id="min-input" type="text" placeholder="min">:
+                            <input class="time-inputs" id="sec-input" type="text" placeholder="sec"> 
+                        </div>
+                        <div class = "timer-set" id="timer-set">
+                            <span id="hr">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+                        </div> 
+                    </div>
+                    <div class="break-time">
+                        <span>Break:</span>
+                        <span id="br-hr">00</span>:<span id="br-min">00</span>:<span id="br-sec">00</span> 
+                    </div>
+                    <div class="timer-controls">
+                        <button class="timer-button" id="start-pause">
+                            Start
+                        </button>
+                        <button  class="timer-button" id="stop">
+                            Set
+                        </button>
+                    </div>
+                </div>
+              </div>
+              <script src="timerLogic.js"></script> 
         </div>
 
         <!-- A6 - (Box2 - header)-->
 
         <div class="app-div" id="app-a6">
             <div class="app-container" id="container-a6">
-                <div class="header" id="header-filters">Filters</div>
+                <div class="header" id="header-filters">Song Queue</div>
                 <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button>
             </div>
         </div>
@@ -159,7 +204,7 @@
 
         <div class="app-div" id="app-a8">
             <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
-                <div id="header-details">Details</div>
+                <div id="header-details">Notes</div>
             </div>
         </div>
 
