@@ -266,7 +266,7 @@ li:not(.navitemlist li){
 }
 
 .container-list{
-    border: black dashed 1px;
+    /* border: black dashed 1px; */
     min-height: 100px;
     display: grid;
     grid-template-columns: repeat(4,1fr);
@@ -274,7 +274,16 @@ li:not(.navitemlist li){
     padding: 15px;
 }
 
-.album-item{
+#list-genres{
+    min-height: 100px;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 20px 0px;
+    padding: 15px;
+}
+
+
+.album-item, .genre-item{
     /* border: 1px black dashed; */
     width: 175px;
     height: 175px;
@@ -284,6 +293,11 @@ li:not(.navitemlist li){
     cursor: pointer;
     box-shadow: var(--box-shadow);
     /* background-color: black; */
+}
+
+.genre-item{
+    width: 100px;
+    height: 100px;
 }
 
 .album-item:hover{
@@ -307,7 +321,7 @@ li:not(.navitemlist li){
 }
 
 .button.active {
-    background-color: #984ea3;
+    background-color: #666;
     color: white;
     text-shadow: var(--box-shadow);
 }
@@ -327,6 +341,7 @@ li:not(.navitemlist li){
     font-size: 25px;
     display: flex;
     justify-content: space-between;
+    padding-left:0px
 }
 
 /* ---------- A3B ---------- */
@@ -338,9 +353,13 @@ li:not(.navitemlist li){
 
 #container-a3b{
     font-size: var(--secondary-header-font-size);
-    display: flex;
-    justify-content: left;
+    display: grid;
+    grid-template-columns: 150px 150px;
+    justify-content: center;
+
+    /* margin-left: 10px; */
 }
+
 
 /* ---------- A4 ---------- */
 
@@ -356,6 +375,7 @@ li:not(.navitemlist li){
     display: flex;
     justify-self: center;
     align-self: center;
+    padding-top: 10px;
 }
 
 #container-album-summary{

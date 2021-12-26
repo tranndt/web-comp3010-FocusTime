@@ -13,6 +13,18 @@ DATA = Array.from(
 TOPICS = ["Today's Pick","What's Popular", "Release Radar"]
 LISTS = ['list-todays-pick',"list-whats-popular","list-release-radar"]
 
+GENRES = Array.from(
+    [
+        {genre_name: "Indie", src:"assets/music/filters/filter_indie.png"},
+        {genre_name: "Classical", src:"assets/music/filters/filter_classical.png"},
+        {genre_name: "Rap", src:"assets/music/filters/filter_rap.png"},
+        {genre_name: "rnb", src:"assets/music/filters/filter_rnb.png"},
+        {genre_name: "Pop", src:"assets/music/filters/filter_pop.png"},
+        {genre_name: "Lofi", src:"assets/music/filters/filter_lofi.png"},
+        {genre_name: "Rainy Days", src:"assets/music/filters/filter_rainyday.png"},
+        {genre_name: "Short Albums", src:"assets/music/filters/filter_30mins.png"},
+    ]);
+
 function load_albums(){
     TOPICS.forEach(topic => {
         var html_i = '';
@@ -25,6 +37,16 @@ function load_albums(){
         var list_container = document.querySelector(`#${LISTS[TOPICS.indexOf(topic)]}`)
         list_container.innerHTML = html_i
     })
+}
+
+function load_genres(){
+    var html_i = '';
+    GENRES.forEach(d => {
+        span = `<img class="genre-item" id="genre-${d.genre_name}" src="${d.src}" onclick="">`
+        html_i += span;
+    })
+    var list_container = document.querySelector(`#list-genres`)
+    list_container.innerHTML = html_i
 }
 
 function display_album_details(album_name){
@@ -47,9 +69,11 @@ function display_album_details(album_name){
     album_cover.style.opacity = 1;
     album_cover.src = src
     containera3b = document.querySelector("#container-a3b");
-    containera3b.style.display = "flex";
+    containera3b.style.display = "grid";
     containera5 = document.querySelector("#container-a5");
     containera5.style.display = "grid";
+    button_clear = document.querySelector("#button-clear");
+    button_clear.style.display = "block";
 }
 
 function cancel_album_details(){
@@ -68,9 +92,13 @@ function cancel_album_details(){
     containera3b.style.display = "none";
     containera5 = document.querySelector("#container-a5");
     containera5.style.display = "none";
+    button_clear = document.querySelector("#button-clear");
+    button_clear.style.display = "none";
 }
 
-load_albums()    
+load_genres()
+load_albums()
+cancel_album_details()
 
 
 
