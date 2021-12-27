@@ -210,6 +210,13 @@ li:not(.navitemlist li){
     padding-left: 10px;
 }
 
+.header-list {
+    font-size: 25px;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left: 10px;
+}
+
 /* ---------- A0 ---------- */
 
 #app-a0{
@@ -259,15 +266,50 @@ li:not(.navitemlist li){
     border-bottom-right-radius: 15px ;
     border-bottom-left-radius: 15px ;
     overflow-y:scroll;
+    overflow-x: hidden;
 
 }
 #container-a2{
     align-items: stretch;
+    padding-bottom: 25px;
+}
+
+#container-explore-main{
+    display: grid;
+
+}
+#container_explore_topic{
+    display: none;
+}
+
+.container-explore-component{
+    display: grid;
+    grid-template-areas: "HL1 HB1"
+                        "CL1 CL1";
+    grid-template-columns: auto 100px;
+}
+
+.header-list{
+    grid-area: HL1;
+    margin-left: 15px;
+}
+.header-button{
+    grid-area: HB1;
+    align-self: center;
+    font-size: var(--secondary-header-font-size);
+    color: #666;
+    text-decoration: underline;
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.container-list{
+    grid-area: CL1;
 }
 
 .container-list{
     /* border: black dashed 1px; */
-    min-height: 100px;
+    min-height: 50px;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 20px 0px;
@@ -341,7 +383,6 @@ li:not(.navitemlist li){
     font-size: 25px;
     display: flex;
     justify-content: space-between;
-    padding-left:0px
 }
 
 /* ---------- A3B ---------- */
@@ -356,6 +397,10 @@ li:not(.navitemlist li){
     display: grid;
     grid-template-columns: 150px 150px;
     justify-content: center;
+    padding-right:10px;
+    padding-top:10px;
+
+
 
     /* margin-left: 10px; */
 }
