@@ -158,18 +158,21 @@
         <!-- A6 - (Box2 - header)-->
 
         <div class="app-div" id="app-a6">
-            <div class="app-container" id="container-a6">
-                <div class="header" id="header-filters">Song Queue</div>
-                <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button>
-            </div>
+            <div id="songTitle" class="songView-header">No album selected</div>
         </div>
 
         <!-- A3 (box 2 - list)-->
 
         <div class="app-div" id="app-a3">
-            <div class="app-container" id="container-filters">
+            <!-- <div class="app-container" id="container-filters">
                 <div id="list-filters"></div>
-                <!-- <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button> -->
+            </div> -->
+            <div class="songView">
+                <div class="songList">
+                    <div id="trackbox"></div>
+                </div>
+                <button class="mutebutton" id="mutebutton"></button>
+                <input id="volumeslider" type="range" min="0" max="100" value="15" step="1">
             </div>
         </div>
 
