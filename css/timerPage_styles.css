@@ -387,11 +387,10 @@ transform: scaleX(-1);
 
 /*  Song View styles*/
 
-.songView-header {
+.songView-header, .notes-header{
     font-size: 25px;
     padding-top:10px;
     padding-left: 10px;
-    /* A6 style */
 }
 
 .songView {
@@ -481,7 +480,9 @@ input[type='range']::-webkit-slider-thumb {
 	cursor:pointer;
 }
 
-/* .songView {
+/* 
+styles from the original/old page
+.songView {
     position: relative;
     height:40vh; width:25vw;
     margin: 0 0 0 1.875em;
@@ -816,6 +817,12 @@ input[type='range']::-webkit-slider-thumb {
     background: #ffffffff;
 }
 
+/*
+------------------------------------------------------------------
+GRID - A5 (box3 body)
+Notes body 
+-----------------------------------------------------------------
+*/
 
 #app-a5{
     grid-area: A5;
@@ -825,6 +832,22 @@ input[type='range']::-webkit-slider-thumb {
     border-bottom: rgb(218, 218, 218) solid 0.5px;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.notesView {
+    position: relative;
+    height:95%;
+    width:99.89%;
+    background-color:grey;
+    color:black;
+    border: none; 
+}
+
+.notes{
+    position:absolute;
+    height:100%; 
+    width:100%;
+    font-size: 1.25em;
 }
 
 
