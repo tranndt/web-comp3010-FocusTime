@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Import Scripts-->
-    <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
-    <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <!--Our styles scripts-->
     <link rel="stylesheet" href="css/timerPage_styles.css">
     <title>Focus Time</title>
@@ -158,18 +153,18 @@
         <!-- A6 - (Box2 - header)-->
 
         <div class="app-div" id="app-a6">
-            <div class="app-container" id="container-a6">
-                <div class="header" id="header-filters">Song Queue</div>
-                <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button>
-            </div>
+            <div id="songTitle" class="songView-header">No album selected</div>
         </div>
 
         <!-- A3 (box 2 - list)-->
 
         <div class="app-div" id="app-a3">
-            <div class="app-container" id="container-filters">
-                <div id="list-filters"></div>
-                <!-- <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button> -->
+            <div class="songView">
+                <div class="songList">
+                    <div id="trackbox"></div>
+                </div>
+                <button class="mutebutton" id="mutebutton"></button>
+                <input id="volumeslider" type="range" min="0" max="100" value="15" step="1">
             </div>
         </div>
 
@@ -200,24 +195,34 @@
             <div id="container-border"></div>
         </div>
 
-        <!-- A8 box-3 header-->
+        <!-- A8 box-3 header (notes header)-->
 
         <div class="app-div" id="app-a8">
-            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
-                <div id="header-details">Notes</div>
-            </div>
+            <div class="notes-header">Notes</div>
         </div>
 
-
-        <!-- A5 box-3 list-->
+        <!-- A5 box-3 list (notes)-->
 
         <div class="app-div" id="app-a5">
-            <div class="app-container" id="container-list">
+            <div class="notesView">
+                <textarea class="notes" onkeyup="handleInput(event)">• </textarea>
             </div>
         </div>
     </div>
 
-    <script src="stats-logic.js"></script> <!-- Important to put this last-->
-
 </body>
+<script>
+    var album_title = document.getElementById("songTitle");
+    if (sessionStorage.getItem("album_title") === null) {
+        album_title.innerHTML = "Album: Choose an Album";
+    }
+    else {
+        album_title.innerHTML = "Album: " + sessionStorage.getItem("album_title");
+        window.addEventListener("load", function(){audioApp(sessionStorage.getItem("album_title"))}, false);
+        window.addEventListener("load", function(){set_album_length(sessionStorage.getItem("album_length"))}, false);
+    }
+    
+    
+</script>
+
 </html>

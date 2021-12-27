@@ -30,7 +30,7 @@ body{
     height: 100%;
     display: grid;
     grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 70px 60px 100px 60px 440px;
+    grid-template-rows: 100px 70px 60px 270px 60px 270px;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
@@ -385,32 +385,228 @@ transform: scaleX(-1);
     align-items: center;
 }
 
-#container-a6{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "HF1 BC1";
+/*  Song View styles*/
+
+.songView-header, .notes-header{
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
 }
 
-#header-filters{
-    grid-area: HF1;
+.songView {
+    position: relative;
+    height:100%;
+    width:100%;
 }
 
-#button-clear-filter{
-    grid-area: BC1;
-    border-radius: 50px;
-    background-color: #ffffff;
-    color: rgb(235, 96, 92);
-    padding: 10px 25px;
-    justify-self: right;
-    margin-top: 2px;
-    margin-right: 10px;
-    font-size: var(--secondary-header-font-size);
+.songList {
+    background:#d6d5da;
+    height:80%; 
+    width:100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
 }
 
-#button-clear-filter:hover{
-    background-color: rgb(255, 95, 67);
-    color: rgb(252, 252, 252);
+.trackname{ 
+    float:left; 
+    color:#000; 
+    margin:12px 0px 0px 14px; 
+    font-size:1vw; 
+    font-weight:bold; 
 }
+
+.trackbar { 
+    background:#DDD; 
+    height:60px; 
+    width:100%; 
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+    vertical-align: middle;
+}
+
+.trackbar:nth-child(even) { background:#EEE; }
+
+.playbutton{ 
+    opacity:.8; 
+    display:block; 
+    float:left; 
+    width:25px; 
+    height:25px; 
+    margin:14px 0px 0px 14px; 
+    background:url(/assets/playButton.svg) no-repeat; 
+    border:none; 
+    cursor:pointer; 
+    outline:none; 
+}
+
+.playbutton:hover{ opacity:1; }
+
+.mutebutton{ 
+    background:url(/assets/volume.svg) no-repeat;
+    height: 15%;
+    width:8%;
+    cursor:pointer;
+    border:none;
+    position: absolute;
+    top: 85%;
+    left:1%;
+    outline: none;
+    opacity: .5;
+}
+
+.mutebutton:hover{ opacity:2; }
+
+#volumeslider { 
+    width: 88%;
+ }
+
+input[type='range'] {
+	-webkit-appearance: none !important;
+	float:left;
+    position: absolute;
+    bottom: 7%;
+    left: 9%; 
+	padding:0px;
+	background: #000;
+	height:1%;
+	border-bottom:#333 1px solid;
+}
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+	background: radial-gradient(#FFF, #333);
+	height:17px;
+	width:17px;
+	border-radius:100%;
+	cursor:pointer;
+}
+
+/* 
+styles from the original/old page
+.songView {
+    position: relative;
+    height:40vh; width:25vw;
+    margin: 0 0 0 1.875em;
+    color:black;
+    padding-top: 0.1vh;
+    padding-left: 20px;
+    border: none; 
+    background-color:grey;
+    border-radius: 1em;
+}
+
+.songView-header {
+    margin-bottom:1vh;
+    font-size: 3vh;
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
+}
+
+.songList {
+    background:#a3a3a3;
+    position:absolute;
+    height:24vh; width:23vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+}
+
+.notesView {
+    position: relative;
+    height:40vh; width:25vw; 
+    margin: 1.6em 0 0 1.875em;
+    color:black;
+    padding-left: 20px; 
+    padding-top: 0.1vh;
+    border: none; 
+    background-color:grey;
+    border-radius: 1em;
+}
+
+.notesView h2 {
+    margin-bottom:1vh;
+    font-size: 3vh;
+}
+
+.notes{
+    position:absolute;
+    height:28vh; width:23vw;
+    font-size: 1.25em;
+} */
+
+  
+/* http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial */
+/* .trackbar { 
+    background:#DDD; 
+    height:60px; 
+    width:23vw; 
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+    vertical-align: middle;
+}
+
+.trackbar:nth-child(even) { background:#EEE; }
+
+.playbutton{ 
+    opacity:.8; 
+    display:block; 
+    float:left; 
+    width:25px; 
+    height:25px; 
+    margin:14px 0px 0px 14px; 
+    background:url(/assets/playButton.svg) no-repeat; 
+    border:none; 
+    cursor:pointer; 
+    outline:none; 
+}
+
+.playbutton:hover{ opacity:1; }
+
+.mutebutton{ 
+    opacity:.8; 
+    display:block;
+    position: absolute;
+    bottom: 10px;
+    left: 20px; 
+    float:left; 
+    width:35px; 
+    height:30px; 
+    background:url(/assets/volume.svg) no-repeat; 
+    border:none; 
+    cursor:pointer; 
+    outline:none; 
+}
+
+.mutebutton:hover{ opacity:1; }
+
+.trackname{ 
+    float:left; 
+    color:#000; 
+    margin:12px 0px 0px 14px; 
+    font-size:1vw; 
+    font-weight:bold; 
+}
+
+.volumeslider { width: 70px }
+
+input[type='range'] {
+	-webkit-appearance: none !important;
+	float:left;
+    position: absolute;
+    bottom: 15px;
+    left: 60px; 
+	padding:0px;
+	background: #000;
+	height:13px;
+	border-bottom:#333 1px solid;
+}
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+	background: radial-gradient(#FFF, #333);
+	height:11px;
+	width:11px;
+	border-radius:100%;
+	cursor:pointer;
+} */
 
 /* ---------- A3 ---------- */
 
@@ -621,6 +817,12 @@ transform: scaleX(-1);
     background: #ffffffff;
 }
 
+/*
+------------------------------------------------------------------
+GRID - A5 (box3 body)
+Notes body 
+-----------------------------------------------------------------
+*/
 
 #app-a5{
     grid-area: A5;
@@ -630,6 +832,22 @@ transform: scaleX(-1);
     border-bottom: rgb(218, 218, 218) solid 0.5px;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.notesView {
+    position: relative;
+    height:95%;
+    width:99.89%;
+    background-color:grey;
+    color:black;
+    border: none; 
+}
+
+.notes{
+    position:absolute;
+    height:100%; 
+    width:100%;
+    font-size: 1.25em;
 }
 
 
@@ -715,14 +933,14 @@ The toast - position it at the bottom and in the middle of the screen */
 #dialogBox {
     position: fixed;
     top: 40%;
-    left:34%;
+    left:48%;
     transform: translate(-50%);
     max-width: 30%;
     height: auto;
     padding: 0.5em;
     color: black;
     border: 1px solid #5f6063;
-    background-color: rgb(252, 252, 253);
+    background-color: rgb(222, 222, 228);
     z-index: 1;
     display: none;
     margin:0;
@@ -745,7 +963,7 @@ The toast - position it at the bottom and in the middle of the screen */
 
 .dbox-buttons {
   display: flex;
-  /* justify-content:space-between; */
+  justify-content:right;
 }
 
 #confirm-btn {
