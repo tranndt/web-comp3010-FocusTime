@@ -18,6 +18,17 @@
 
 <body>
     <div id="toast">Some text some message..</div>
+    <div id="dialogBox">
+        <div class="dbox-header">
+            <button id="cancel-btn">X</button>
+        </div>
+        <div id="dbox-msg">Some text</div>
+        <input id="dbox-input" type="text">
+        <div class = "dbox-buttons">
+            <button id="confirm-btn">Confirm</button>
+            <button id="skip-btn">Cancel</button>
+        </div>
+    </div>
 
     <div class="container-body" id='container-body'>
 
@@ -94,7 +105,8 @@
             <div class="app-container" id="container-a1"> 
                 <div class="header" id ="header-summary">Overview</div>
 
-                <button id="button-add-project" onclick="createNewProject('')">
+                <!-- <button id="button-add-project" onclick="createNewProject('')"> -->
+                <button id="button-add-project">
                     +New Project
                 </button>
 

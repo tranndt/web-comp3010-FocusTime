@@ -356,5 +356,43 @@ function updatePage() {
     update(newItemsUT);
 }
 
+const UT_dbox_elem = document.getElementById("dialogBox");
+const UT_dbox_msg = document.getElementById("dbox-msg");
+const UT_new_item = document.getElementById("dbox-input");
+const UT_dbox_btn_done = document.getElementById("confirm-btn");
+const UT_dbox_btn_cancel = document.getElementById("cancel-btn");
+const UT_dbox_btn_skip = document.getElementById("skip-btn");
+const UT_newProject_btn = document.getElementById("button-add-project");
+var newProject = "";
+
+UT_newProject_btn.addEventListener('click', () => {
+	UT_dbox_msg.textContent = "What is the new project?";
+	UT_dbox_elem.style.display = "block";
+});
+
+UT_dbox_btn_skip.addEventListener('click', () => {
+	UT_dbox_elem.style.display = "none";
+	newProject = "";
+});
+
+UT_dbox_btn_cancel.addEventListener('click', () => {
+	UT_dbox_elem.style.display = "none";
+	newProject = "";
+});
+
+UT_dbox_btn_done.addEventListener('click', () => {
+    newProject = UT_new_item.value;
+
+    if(newProject == "") {
+        alert("New task/project name should not be empty. Please try again.");
+    }
+
+    else {
+        UT_dbox_elem.style.display = "none";
+        createNewProject(newProject);
+        newProject = "";
+    }
+});
+
 updatePage();
 updateNotes();
