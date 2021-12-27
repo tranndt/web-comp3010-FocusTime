@@ -23,7 +23,9 @@ const toast_elem = document.getElementById("toast");
 const dbox_elem = document.getElementById("dialogBox");
 const dbox_msg = document.getElementById("dbox-msg");
 const task_amount = document.querySelector('#dbox-input');
-const dbox_btn = document.querySelector('#confirm-btn');
+const dbox_btn_done = document.querySelector('#confirm-btn');
+const dbox_btn_cancel = document.querySelector('#cancel-btn');
+const dbox_btn_skip = document.querySelector('#skip-btn');
 const hr_elem = document.querySelector('#hr');
 const min_elem = document.querySelector('#min');
 const sec_elem= document.querySelector('#sec');
@@ -249,14 +251,29 @@ const br_countdown = () => {
     br_time--;
 };
 
-dbox_btn.addEventListener('click', () => {
+dbox_btn_done.addEventListener('click', () => {
 
     if(!isValidInteger(task_amount.value, 1, 100)){
         alert("Input has to be a whole number between 1 - 100. Try again.");
     }
     else {
+        time_focused =total_secs - time;
+
+        stop_btn.textContent = "Set"; //allow to edit 
+        disable_start_pause_button("Start");
+
+        //clear timer
+        clear_timer(hr_elem, min_elem, sec_elem);
         clear_timer(br_hr, br_min, br_sec);
+        time = 0;
         br_time = 0;
+        state = STOPPED;
+        setProgress(0);
+
+        toast_elem.className = "show";
+        toast_elem.textContent = "Focus time over. Good job! Your progress is saved.";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000); 
         task_done_input = Number(task_amount.value);
         if (typeof(Storage) !== "undefined") {
             // Store to for sessionStorage
@@ -268,6 +285,36 @@ dbox_btn.addEventListener('click', () => {
         dbox_elem.style.display = "none";
     }
     
+});
+
+dbox_btn_skip.addEventListener('click', () => {
+    time_focused =total_secs - time;
+
+    stop_btn.textContent = "Set"; //allow to edit 
+    disable_start_pause_button("Start");
+
+    //clear timer
+    clear_timer(hr_elem, min_elem, sec_elem);
+    clear_timer(br_hr, br_min, br_sec);
+    time = 0;
+    br_time = 0;
+    state = STOPPED;
+    setProgress(0);
+
+    toast_elem.className = "show";
+    toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
+
+    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
+    dbox_elem.style.display = "none";
+
+});
+
+dbox_btn_cancel.addEventListener('click', () => {
+    // resume timer
+    state = RUNNING;
+    countdown();//start main countdown again
+    intervalID = setInterval(countdown, 1000);
+    dbox_elem.style.display = "none";    
 });
 
 start_pause_btn.addEventListener('click', () => {
@@ -386,32 +433,14 @@ stop_btn.addEventListener('click', () => {
     }
     else {
         //stop timer
-        state = STOPPED;
-        stop_btn.textContent = "Set"; //allow to edit 
+        state = PAUSED; //set to stop when user confirms
 
-        disable_start_pause_button("Start");
-
-        console.log('AFTER stop timer');
-
-        //stop decrementing timer
-        clear_timer(hr_elem, min_elem, sec_elem);
-
-        //reset break timer
-        clear_timer(br_hr, br_min, br_sec);
+        console.log('AFTER pause(for stop confirmation) timer');
 
         clearInterval(intervalID);
         clearInterval(br_intervalID);
-        setProgress(0);
 
         time_focused =total_secs - time;
-        
-        time = 0;
-        br_time = 0;
-
-        toast_elem.className = "show";
-        toast_elem.textContent = "Focus time over. Good job!";
-
-        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
 
         dbox_elem.style.display = "block";
         dbox_msg.textContent = "Focus time over! Type in your progress as percentage.";

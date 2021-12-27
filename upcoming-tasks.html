@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Import Scripts-->
+        <!-- Import Scripts-->
     <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
     <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <title>My Progress</title>
     <!--Our styles scripts-->
-    <link rel="stylesheet" href="css/stats.css">
-    <title>Statistics</title>
+    <link rel="stylesheet" href="css/styles-progress.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+
     </style>
 </head>
 <body>
@@ -22,11 +24,12 @@
 
         <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
         <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
-        <div class="margin" id="margin-left">Margin Left</div>
-        <div class="margin" id="margin-right">Margin Right</div>
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
 
         <!-- 2.NAVBAR -->
 
+        <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
 
         <div class="navbar" id="navbar-left">
             <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
@@ -64,8 +67,8 @@
                     </li>
                 </ul>
                 <div class="activebar">
-                    <div class = "tab-inactive" id="tab-indicator-upcoming"> </div>
-                    <div class = "tab-active" id="tab-indicator-stats"> </div>
+                    <div class = "tab-active" id="tab-indicator-upcoming"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-stats"> </div>
                     <div class = "tab-inactive" id="tab-indicator-timer"> </div>
                     <div class = "tab-inactive" id="tab-indicator-music"> </div>
                     <div class = "tab-inactive" id="tab-indicator-settings"> </div>
@@ -80,81 +83,64 @@
 
         <div class="app-div" id="app-a0">
             <div class="app-container" id="container-a0">
-                My Statistics
+                My Progress
             </div>
         </div>
-
 
         <!-- A1 -->
 
         <div class="app-div" id="app-a1">
-            <div class="app-container" id="container-summary">
-                <div class="header" id="header-summary">Week's Summary</div>
-            </div>
-        </div>
-
-        <!-- A7 -->
-
-        <div class="app-div" id="app-a7">                
-            <div id="stats-summary">
-                You have completed 12 focus sessions, across 5 projects for a total of 1h 31m in the past week. Keep up the good work!
-            </div>
+            <div class="app-container" id="container-a1"> 
+                <div class="header" id="header-summary">Overview</div>
+                <div class="container-search">
+                    <div class="search-box">
+                        <i class="fa fa-search"></i>
+                        <input id="searchID" class="search" name="search" type="text" placeholder="Search for a Task or Project..." autocomplete="off">
+                    </div>
+                </div>
+            </div>            
         </div>
 
         <!-- A2 -->
 
-        <div class="app-div" id="app-a2">                
-            <div class="app-container" id="container-stats-bubbles">
-            </div>  
-        </div>
-
-        <!-- A6 -->
-
-        <div class="app-div" id="app-a6">
-            <div class="app-container" id="container-a6">
-                <div class="header" id="header-filters">Filters</div>
-                <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button>
+        <div class="app-div" id="app-a2">
+            <div class="app-container" id="container-a2">
+                <div id="button-add-project">Add New Project</div>
+                <div id="container-inprogress">
+                    <div class="header" id ="header-inprogress">In Progress</div>
+                    <div id="list-inprogress"></div>
+                </div>
+                <div id="container-completed">
+                    <div class="header" id = "header-completed">Completed</div>
+                    <div id="list-completed"></div>
+                </div>                              
             </div>
         </div>
 
         <!-- A3 -->
 
         <div class="app-div" id="app-a3">
-            <div class="app-container" id="container-filters">
-                <div id="list-filters"></div>
-                <!-- <button class="clear project filter-btn" id=button-clear-filter onclick="projectFilterSelection('all')">Clear</button> -->
-            </div>
+            <div class="app-container" id="container-a3">
+                <div class="header" id ="header-details">Details</div>
+            </div>  
         </div>
 
         <!-- A4 -->
 
         <div class="app-div" id="app-a4">
-            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
-                <div id="text-details">Viewing as</div>
-                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
-                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
-            </div>
-            <div id="container-border"></div>
-        </div>
-
-        <!-- A8 -->
-
-        <div class="app-div" id="app-a8">
-            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
-                <div id="header-details">Details</div>
+            <div class="app-container" id="container-a4">
+                <div id="text-details">
+                    <table class="content-table" id="table-details">
+                        <tbody id="table-details-body">
+                        </tbody>
+                    </table>
+                    <div id="text-notes">Click on a Task to see further details!</div>
+                </div>
             </div>
         </div>
-
-
-        <!-- A5 -->
-
-        <div class="app-div" id="app-a5">
-            <div class="app-container" id="container-list">
-            </div>
-        </div>
-    </div>
-
-    <script src="stats-logic.js"></script> <!-- Important to put this last-->
 
 </body>
+
+<script src="upcoming-tasks-logic-2.js"></script>
+
 </html>

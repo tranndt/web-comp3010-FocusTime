@@ -45,15 +45,50 @@ The toast - position it at the bottom and in the middle of the screen */
     background-color: rgb(252, 252, 253);
     z-index: 1;
     display: none;
+    margin:0;
+    padding:0;
+}
+
+.dbox-header {
+  background-color: rgb(54, 54, 185);
+  display: flex;
+  justify-content: right;
 }
 
 #dbox-input {
-    margin:1vh 0vh 1vh 0vh;
+    margin:3%;
+    max-width: 30%;
+}
+ #dbox-msg {
+  margin:3%;
+ }
+
+.dbox-buttons {
+  display: flex;
+  /* justify-content:space-between; */
 }
 
 #confirm-btn {
   background-color: rgb(190, 194, 202);
-  padding: 0.5vh;
+  margin: 3%;
+  padding: 1%;
+  cursor: pointer;
+}
+
+#skip-btn {
+  background-color: rgb(190, 194, 202);
+  padding: 1%;
+  margin: 3%;
+  cursor: pointer;
+}
+
+#cancel-btn {
+  background-color: rgb(196, 3, 35);
+  padding: 1%;
+  cursor: pointer;
+  /* position:relative;
+  left: 90%; */
+  color: white;
 }
 
 .navbar {
