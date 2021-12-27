@@ -437,10 +437,34 @@ transform: scaleX(-1);
     top: 85%;
     left:1%;
     outline: none;
-    opacity: .8;
+    opacity: .5;
 }
 
-.mutebutton:hover{ opacity:1; }
+.mutebutton:hover{ opacity:2; }
+
+#volumeslider { 
+    width: 85%;
+ }
+
+input[type='range'] {
+	-webkit-appearance: none !important;
+	float:left;
+    position: absolute;
+    bottom: 7%;
+    left: 9%; 
+	padding:0px;
+	background: #000;
+	height:1%;
+	border-bottom:#333 1px solid;
+}
+input[type='range']::-webkit-slider-thumb {
+	-webkit-appearance: none !important;
+	background: radial-gradient(#FFF, #333);
+	height:17px;
+	width:17px;
+	border-radius:100%;
+	cursor:pointer;
+}
 
 /* .songView {
     position: relative;
