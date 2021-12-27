@@ -715,14 +715,14 @@ The toast - position it at the bottom and in the middle of the screen */
 #dialogBox {
     position: fixed;
     top: 40%;
-    left:34%;
+    left:48%;
     transform: translate(-50%);
     max-width: 30%;
     height: auto;
     padding: 0.5em;
     color: black;
     border: 1px solid #5f6063;
-    background-color: rgb(252, 252, 253);
+    background-color: rgb(222, 222, 228);
     z-index: 1;
     display: none;
     margin:0;
@@ -745,7 +745,7 @@ The toast - position it at the bottom and in the middle of the screen */
 
 .dbox-buttons {
   display: flex;
-  /* justify-content:space-between; */
+  justify-content:right;
 }
 
 #confirm-btn {
