@@ -1,3 +1,10 @@
+function hyphenated(c){
+    return c.replaceAll(" ","-")
+}
+
+function unhyphenated(c){
+    return c.replaceAll("-"," ")
+}
 
 GENRES = Array.from(
     [
@@ -71,14 +78,14 @@ ALBUMS = Array.from(
     {album_name: 'Rainy Day Album 7', artist:"Various Artists", year:2019, num_tracks: 20, length: '56:18', topic:"Rainy Day", src:"assets/music/albums/album_doris.png"},
     {album_name: 'Rainy Day Album 8', artist:"Various Artists", year:2020, num_tracks: 15, length: '45:20', topic:"Rainy Day", src:"assets/music/albums/album_deadroses.png"},
 
-    {album_name: 'Short Album 1', artist:"Various Artists", year:2019, num_tracks: 17, length: '30:08', topic:"Short", src:"assets/music/albums/album_analogue.jpg"},
-    {album_name: 'Short Album 2', artist:"Various Artists", year:2015, num_tracks: 15, length: '31:12', topic:"Short", src:"assets/music/albums/album_taketime.png"},
+    {album_name: 'Short Album 1', artist:"Various Artists", year:2019, num_tracks: 11, length: '30:08', topic:"Short", src:"assets/music/albums/album_analogue.jpg"},
+    {album_name: 'Short Album 2', artist:"Various Artists", year:2015, num_tracks: 10, length: '31:12', topic:"Short", src:"assets/music/albums/album_taketime.png"},
     {album_name: 'Short Album 3', artist:"Various Artists", year:2017, num_tracks: 10, length: '30:48', topic:"Short", src:"assets/music/albums/album_ktse.jpg"},
-    {album_name: 'Short Album 4', artist:"Various Artists", year:2017, num_tracks: 21, length: '55:10', topic:"Short", src:"assets/music/albums/album_luvtheworld.png"},
-    {album_name: 'Short Album 5', artist:"Various Artists", year:2016, num_tracks: 17, length: '35:08', topic:"Short", src:"assets/music/albums/album_analogue.jpg"},
-    {album_name: 'Short Album 6', artist:"Various Artists", year:2017, num_tracks: 15, length: '31:42', topic:"Short", src:"assets/music/albums/album_taketime.png"},
-    {album_name: 'Short Album 7', artist:"Various Artists", year:2018, num_tracks: 10, length: '30:41', topic:"Short", src:"assets/music/albums/album_ktse.jpg"},
-    {album_name: 'Short Album 8', artist:"Various Artists", year:2020, num_tracks: 21, length: '43:12', topic:"Short", src:"assets/music/albums/album_luvtheworld.png"},
+    {album_name: 'Short Album 4', artist:"Various Artists", year:2017, num_tracks: 12, length: '32:10', topic:"Short", src:"assets/music/albums/album_luvtheworld.png"},
+    {album_name: 'Short Album 5', artist:"Various Artists", year:2016, num_tracks: 9, length: '35:08', topic:"Short", src:"assets/music/albums/album_mononomoto.jpg"},
+    {album_name: 'Short Album 6', artist:"Various Artists", year:2017, num_tracks: 15, length: '31:42', topic:"Short", src:"assets/music/albums/album_apoliono.png"},
+    {album_name: 'Short Album 7', artist:"Various Artists", year:2018, num_tracks: 10, length: '30:41', topic:"Short", src:"assets/music/albums/album_mustard.png"},
+    {album_name: 'Short Album 8', artist:"Various Artists", year:2020, num_tracks: 11, length: '33:12', topic:"Short", src:"assets/music/albums/album_arizonababy.png"},
 ])    
 
 TOPICS = ["Today's Pick","What's Popular", "Release Radar"]
@@ -89,8 +96,16 @@ function load_albums(){
         var html_i = '';
         ALBUMS.forEach(d => {
             if (d.topic == topic){
-                span = `<img class="album-item" id="album-${d.album_name}" src="${d.src}" onclick="display_album_details('${d.album_name}')">`
-                html_i += span;
+                span = `<div class="album-item" id="album-item-${hyphenated(d.album_name)}" onclick="album_item_onclick(\`${d.album_name}\`)">
+                <img class="album-item-img" id="album-item-img-${hyphenated(d.album_name)}" src="${d.src}">
+                <div class="album-item-descr" id="album-item-descr-${hyphenated(d.album_name)}">
+                    <div class="album-item-descr-album-name">${d.album_name}</div>
+                    <div class="album-item-descr-album-artist">${d.artist}</div>
+                    <div class="album-item-descr-album-num_tracks">${d.num_tracks} Songs</div>
+                    <div class="album-item-descr-album-playlist-length">${d.length}</div>
+                </div>
+            </div>`
+            html_i += span;
             }
         })
         var list_container = document.querySelector(`#${LISTS[TOPICS.indexOf(topic)]}`)
@@ -101,7 +116,13 @@ function load_albums(){
 function load_genres(){
     var html_i = '';
     GENRES.forEach(d => {
-        span = `<img class="genre-item" id="genre-${d.genre_name}" src="${d.src}" onclick="show_albums_by_topic('${d.genre_name}')">`
+        // span = `<img class="genre-item" id="genre-${d.genre_name}" src="${d.src}" onclick="show_albums_by_topic(\`${d.genre_name}\`)">`
+
+        span = `<div class="genre-item" id="genre-${hyphenated(d.genre_name)}" onclick="show_albums_by_topic(\`${d.genre_name}\`)">
+        <img class="genre-item-img" id="genre-item-img-${hyphenated(d.genre_name)}" src="${d.src}">
+        <div class="genre-item-descr" id="genre-item-descr-${hyphenated(d.genre_name)}"></div>
+        </div>
+        `
         html_i += span;
     })
     var list_container = document.querySelector(`#list-genres`)
@@ -112,8 +133,15 @@ function show_albums_by_topic(topic){
     var html_i = '';
     ALBUMS.forEach(d => {
         if (d.topic == topic){
-            span = `
-                    <img class="album-item" id="album-${d.album_name}" src="${d.src}" onclick="display_album_details(\`${d.album_name}\`)">
+            span = `<div class="album-item-2" id="album-item-2-${hyphenated(d.album_name)}" onclick="album_item_onclick_2(\`${d.album_name}\`)">
+                        <img class="album-item-img-2" id="album-item-img-2-${hyphenated(d.album_name)}" src="${d.src}">
+                        <div class="album-item-descr-2" id="album-item-descr-2-${hyphenated(d.album_name)}">
+                            <div class="album-item-descr-2-album-name">${d.album_name}</div>
+                            <div class="album-item-descr-2-album-artist">${d.artist}</div>
+                            <div class="album-item-descr-2-album-num_tracks">${d.num_tracks} Songs</div>
+                            <div class="album-item-descr-2-album-playlist-length">${d.length}</div>
+                        </div>
+                    </div>
                     `
             html_i += span;
         }
@@ -133,11 +161,35 @@ function show_albums_by_topic(topic){
     // sessionStorage.scroll_pos = container_a2.scrollHeight
 }
 
+function album_item_onclick(album_name){
+    display_album_details(album_name)
+    var all_album_items_descr = document.querySelectorAll(`.album-item-descr`);
+    Array.from(all_album_items_descr).forEach(album_item_descr=>{
+        album_item_descr.className = album_item_descr.className.replace(" selected","")
+    })
+
+    var album_item = document.querySelector(`#album-item-${hyphenated(album_name)}`);
+    album_item_descr = album_item.querySelector(`.album-item-descr`)
+    album_item_descr.className += " selected"
+}
+
+function album_item_onclick_2(album_name){
+    display_album_details(album_name)
+    var all_album_items_descr = document.querySelectorAll(`.album-item-descr-2`);
+    Array.from(all_album_items_descr).forEach(album_item_descr=>{
+        album_item_descr.className = album_item_descr.className.replace(" selected","")
+    })
+
+    var album_item = document.querySelector(`#album-item-2-${hyphenated(album_name)}`);
+    album_item_descr = album_item.querySelector(`.album-item-descr-2`)
+    album_item_descr.className += " selected"
+}
+
 function display_album_details(album_name){
     var html='';
     for (j in ALBUMS){
         d=ALBUMS[j]
-        if (d.album_name == album_name){
+        if (unhyphenated(d.album_name) == unhyphenated(album_name)){
             html = 
                 `<div id="album-name">${d.album_name}</div>
                 <div id="album-artist">${d.artist}</div>
@@ -167,6 +219,11 @@ function dismiss_album_details(){
     <div id="album-num_tracks"></div>
     <div id="album-playlist-length"></div>`
     src = "";
+    var all_album_items_descr = document.querySelectorAll(`.album-item-descr, .album-item-descr-2`);
+    Array.from(all_album_items_descr).forEach(album_item_descr=>{
+        album_item_descr.className = album_item_descr.className.replace(" selected","")
+    })
+
     album_details = document.querySelector("#album-details");
     album_details.innerHTML = html;
     album_cover = document.querySelector("#album-cover");
