@@ -22,6 +22,18 @@
             <button id="skip-btn">Skip saving</button>
         </div>
     </div>
+
+    <div id="dialogBox-2">
+        <div class="dbox-header">
+            <button id="cancel-btn-2">X</button>
+        </div>
+        <div id="dbox-msg-2">Some text</div>
+        <input id="dbox-input-2" type="text">
+        <div class = "dbox-buttons">
+            <button id="confirm-btn-2">Done</button>
+            <button id="skip-btn-2">Cancel</button>
+        </div>
+    </div>
     <!-- Navigation Bar -->
     <div class="navbar">
         <div class="container">
@@ -116,8 +128,8 @@
             <div class="task-proj-selector">
                 <ul>
                     <li> Task:
-                        <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')">
-                        <!-- <select class="select" name="" id="task-selector"  onchange="createNewOption('task')"> -->
+                        <!-- <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')"> -->
+                        <select class="select" name="" id="task-selector">
                             <option disabled selected value="choose-a-task">Choose a task</option>
                             <option value="create-task">+ Create new task</option>
                             <option value="task-1">Task 1</option>
@@ -136,7 +148,8 @@
                         </select>
                     </li>
                     <li> Project:
-                        <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'project')">
+                        <!-- <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'project')"> -->
+                        <select class="select" name="" id="project-selector">
                             <option value="create-project">+ Create new project</option>
                             <option value="none" selected>None</option>
                             <option value="project-1">COMP 3020</option>
