@@ -305,15 +305,12 @@ li:not(.navitemlist li){
 
 .container-list{
     grid-area: CL1;
-}
-
-.container-list{
-    /* border: black dashed 1px; */
     min-height: 50px;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     gap: 20px 0px;
     padding: 15px;
+    padding-bottom: 25px;
 }
 
 #list-genres{
@@ -325,8 +322,7 @@ li:not(.navitemlist li){
 }
 
 
-.album-item, .genre-item{
-    /* border: 1px black dashed; */
+.album-item{
     width: 175px;
     height: 175px;
     display:block;
@@ -334,12 +330,16 @@ li:not(.navitemlist li){
     border-radius: 15px;
     cursor: pointer;
     box-shadow: var(--box-shadow);
-    /* background-color: black; */
 }
 
 .genre-item{
     width: 100px;
     height: 100px;
+    display:block;
+    justify-self: center;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
 }
 
 .album-item:hover{
@@ -398,11 +398,8 @@ li:not(.navitemlist li){
     grid-template-columns: 150px 150px;
     justify-content: center;
     padding-right:10px;
-    padding-top:10px;
-
-
-
-    /* margin-left: 10px; */
+    padding-top:5px;
+    /* padding-top:10px; */
 }
 
 
@@ -420,7 +417,7 @@ li:not(.navitemlist li){
     display: flex;
     justify-self: center;
     align-self: center;
-    padding-top: 10px;
+    /* padding-top: 10px; */
 }
 
 #container-album-summary{

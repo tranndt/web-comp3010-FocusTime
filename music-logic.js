@@ -112,7 +112,9 @@ function show_albums_by_topic(topic){
     var html_i = '';
     ALBUMS.forEach(d => {
         if (d.topic == topic){
-            span = `<img class="album-item" id="album-${d.album_name}" src="${d.src}" onclick="display_album_details(\`${d.album_name}\`)">`
+            span = `
+                    <img class="album-item" id="album-${d.album_name}" src="${d.src}" onclick="display_album_details(\`${d.album_name}\`)">
+                    `
             html_i += span;
         }
     })

@@ -4,664 +4,187 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusTime</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Import Scripts-->
+    <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
+    <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <title>My Music</title>
+    <!--Our styles scripts-->
+    <link rel="stylesheet" href="css/music-2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+    </style>
 </head>
 <body>
+    <div class="container-body" id='container-body'>
 
-<!-- Navigation Bar -->
-<div class="navbar">
-    <div class="container">
-        <nav>
-            <ul class="navitemlist">
-                <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:80%"> </div>
-                <li>
-                    <a href="upcomingTasks.html">
-                        <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
-                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
-                        <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="statistics.html">
-                        <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
-                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
-                        <div class="navitem" data-text="Statistics">Statistics</div> 
-                    </a>
-                </li>
-                <li>
-                    <a href="index.html">
-                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
-                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
-                        <div class="navitem" data-text="Timer Page">Homepage</div>
-                    </a>
-                </li>
-                <li>
-                    <a class="active" href="music.html">
-                        <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
-                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
-                        <div class="navitem" data-text="Music">Music</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="settings.html">
-                        <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
-                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
-                        <div class="navitem" data-text="Settings">Settings</div>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
+        <!-- 1.MARGINS -->
 
-<!-- Headers -->
-<div class="h_today"><img src="assets/music/header_today.png" alt="htoday" style="width:70%"> </div>
-<div class="h_filter"><img src="assets/music/header_filters.png" alt="hfilter" style="width:70%"> </div>
-<div class="h_radar"><img src="assets/music/header_release.png" alt="hrelease" style="width:95%"> </div>
-<div class="h_popular"><img src="assets/music/header_popular.png" alt="hpopular" style="width:90%"> </div>
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
 
-<!-- Today's Picks -->
-<div class = "today">
-    <form action="index.html">
-        <!-- Today's Picks Album 1: Blonde -->
-        <div class="t1">
-            <div class="container">
-                <img src="assets/music/albums/album_blonde.jpeg" alt="t1" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_blonde.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT1();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT1()">
-                </div>
-        
-            </div>
+        <!-- 2.NAVBAR -->
+
+        <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
+
+        <div class="navbar" id="navbar-left">
+            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
         </div>
+        <div class="navbar" id="navbar-center">
+            <div class="app-container" id="container-main-navbar">
+                <div class="navitem-name">
+                </div>
 
-        <!-- Today's Picks Album 2: Flower Boy -->
-        <div class="t2">
-            <div class="container">
-                <img src="assets/music/albums/album_flowerboy.png" alt="t2" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_flowerboy.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT2();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT2()">
+                <ul class="navitemlist">
+                    <li>
+                        <a href="upcoming-tasks.html">
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="statistics.html">
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active" href="index.html">
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="activebar">
+                    <div class = "tab-inactive" id="tab-indicator-upcoming"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-stats"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-timer"> </div>
+                    <div class = "tab-active" id="tab-indicator-music"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-settings"> </div>
                 </div>
             </div>
         </div>
+        <div class="navbar" id="navbar-right">Navbar Right</div>
 
-        <!-- Today's Picks Album 3: Ctrl -->
-        <div class="t3">
-            <div class="container">
-                <img src="assets/music/albums/album_ctrl.png" alt="t3" class="image" style="width:90%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_ctrl.png" alt="albumoverlay" style="width:136%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT3();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT3()">
-                </div>
+        <!-- 3.MAIN APP -->
+
+        <!-- A0 -->
+
+        <div class="app-div" id="app-a0">
+            <div class="app-container" id="container-a0">
+                My Music
             </div>
         </div>
 
-        <!-- Today's Picks Album 4: Kids See Ghosts -->
-        <div class="t4">
-            <div class="container">
-                <img src="assets/music/albums/album_ksg.png" alt="t4" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_ksg.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT4();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT4()">
-                </div>
-            </div>
+        <!-- A1 -->
+
+        <div class="app-div" id="app-a1">
+            <div class="app-container" id="container-a1"> 
+                <div class="header" id="header-overview">Explore</div>
+            </div>            
         </div>
 
-        <!-- Today's Picks Album 5: Coloring Book -->
-        <div class="t5">
-            <div class="container">
-                <img src="assets/music/albums/album_coloringbook.png" alt="t5" class="image" style="width:90%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_coloringbook.png" alt="albumoverlay" style="width:136%">
+        <!-- A1B -->
+
+        <div class="app-div" id="app-a1b">
+            <div class="app-container" id="container-a1b"> 
+            </div>            
+        </div>
+
+        <!-- A2 -->
+
+        <div class="app-div" id="app-a2">
+            <div class="app-container" id="container-a2">
+                <div id="container-explore-main">
+                    <div class = "container-explore-component" id="container-genres">
+                        <div class="header-list" id ="header-genres">Genres</div>
+                        <div class="container-list" id="list-genres"></div>
+                    </div>
+                    <div class="container-explore-component" id="container-todays-pick">
+                        <div class="header-list" id ="header-todays-pick">Today's Pick</div>
+                        <div class="header-button" id ="header-button-todays-pick" onclick="show_albums_by_topic(`Today's Pick`)">See All</div>
+                        <div class="container-list" id="list-todays-pick">
+                            
+                        </div>
+                    </div>
+                    <div class="container-explore-component" id="container-whats-popular">
+                        <div class="header-list" id ="header-whats-popular">What's Popular</div>
+                        <div class="header-button" id ="header-button-whats-popular" onclick="show_albums_by_topic(`What's Popular`)">See All</div>
+                        <div class="container-list" id="list-whats-popular" name="What's Popular"></div>
+                    </div>
+                    <div class="container-explore-component" id="container-release-radar">
+                        <div class="header-list" id ="header-release-radar">Release Radar</div>
+                        <div class="header-button" id ="header-button-release-radar" onclick="show_albums_by_topic(`Release Radar`)">See All</div>
+                        <div class="container-list" id="list-release-radar" name="Release Radar"></div>
+                    </div>
                 </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT5();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT5()">
+                <div class="container-explore-component" id="container-explore-topic">
+                    <div class="header-list" id="header-topic"></div>
+                    <div class="header-button" id ="header-button-topic" onclick="show_main_music_page()">Back</div>
+                    <div class="container-list" id="list-topic"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Today's Picks Album 6: Freudian -->
-        <div class="t6">
-            <div class="container">
-                <img src="assets/music/albums/album_freudian.jpg" alt="t6" class="image" style="width:90%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_freudian.png" alt="albumoverlay" style="width:136%">
+        <!-- A3 -->
+
+        <div class="app-div" id="app-a3">
+            <div class="app-container" id="container-a3">
+                <div class="header" id ="header-details">Details</div>
+                <button class="button" id=button-clear onclick="dismiss_album_details()">Dismiss</button>
+            </div>  
+        </div>
+
+        <!-- A3B -->
+
+        <div class="app-div" id="app-a3b">
+            <div class="app-container" id="container-a3b">
+                <!-- <div id="text-details-2">Viewing as</div> -->
+                <button class="button active" id='button-summary' onclick="">Summary</button>
+                <button class="button" id='button-playlist' onclick="">Playlist</button>
+            </div>  
+        </div>
+
+        <!-- A4 -->
+
+        <div class="app-div" id="app-a4">
+            <div class="app-container" id="container-a4">
+                <div id="container-album-summary">
+                    <img id="album-cover">
+                    <div id="album-details">
+                        <div id="album-name"></div>
+                        <div id="album-artist"></div>
+                        <div id="album-num_tracks"></div>
+                        <div id="album-playlist-length"></div>
+                    </div>
                 </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT6();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT6()">
+                <div id="container-album-playlist">
                 </div>
             </div>
         </div>
 
-        <!-- Today's Picks Album 7: American Teen -->
-        <div class="t7">
-            <div class="container">
-                <img src="assets/music/albums/album_americanteen.png" alt="t7" class="image" style="width:90%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_americanteen.png" alt="albumoverlay" style="width:136%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT7();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT7()">
-                </div>
-            </div>
-        </div>   
+        <!-- A3B -->
 
-        <!-- Today's Picks Album 8: Happier Than Ever -->
-        <div class="t8">
-            <div class="container">
-                <img src="assets/music/albums/album_happierthanever.png" alt="t8" class="image" style="width:90%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_happierthanever.png" alt="albumoverlay" style="width:136%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playT8();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsT8()">
-                </div>
-            </div>
+        <div class="app-div" id="app-a5">
+            <div class="app-container" id="container-a5">
+                <button class="button" id='button-add-to-queue' onclick="">Add to Song Queue</button>
+                <button class="button" id='button-start-timer' onclick="">Start Timer using Playlist</button>
+            </div>  
         </div>
-    </form>
-</div>
-
-<!-- Filters -->
-<div class="filters">
-
-    <!-- Filter 1: Indie -->
-    <a href="music-indie.html">
-        <div class="f1">
-            <div class="container">
-                <img src="assets/music/filters/filter_indie.png" alt="f1" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-    <!-- Filter 2: Classical -->
-    <a href="music-classical.html">
-        <div class="f2">
-            <div class="container">
-                <img src="assets/music/filters/filter_classical.png" alt="f2" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-    <!-- Filter 3: Rap -->
-    <a href="music-rap.html">
-        <div class="f3">
-            <div class="container">
-                <img src="assets/music/filters/filter_rap.png" alt="f3" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-    <!-- Filter 4: R&B -->
-    <a href="music-rnb.html">
-        <div class="f4">
-            <div class="container">
-                <img src="assets/music/filters/filter_rnb.png" alt="f4" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-    <!-- Filter 5: Pop -->
-    <a href="music-pop.html">
-        <div class="f5">
-            <div class="container">
-                <img src="assets/music/filters/filter_pop.png" alt="f5" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-    <!-- Filter 6: Lofi -->
-    <a href="music-lofi.html">
-        <div class="f6">
-            <div class="container">
-                <img src="assets/music/filters/filter_lofi.png" alt="f6" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-    <!-- Filter 7: Rainy Day -->
-    <a href="music-rainy.html">
-        <div class="f7">
-            <div class="container">
-                <img src="assets/music/filters/filter_rainyday.png" alt="f7" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-    <!-- Filter 8: Under 30 Mins -->
-    <a href="music-30mins.html">
-        <div class="f8">
-            <div class="container">
-                <img src="assets/music/filters/filter_30mins.png" alt="f8" class="image" style="width:40%">
-            </div>
-        </div>
-    </a>
-
-</div>
-
-<!-- Release Radar -->
-<div class="radar">
-    <form action="index.html">
-        <!-- Release Radar Album 1: Silk Sonic -->
-        <div class="r1">
-            <div class="container">
-                <img src="assets/music/albums/album_silksonic.png" alt="r1" class="image" style="width:90%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_silksonic.png" alt="albumoverlay" style="width:136%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playR1();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsR1()">
-                </div>
-            </div>
-        </div>
-
-        <!-- Release Radar Album 2: Punk -->
-        <div class="r2">
-            <div class="container">
-                <img src="assets/music/albums/album_punk.jpeg" alt="r2" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_punk.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playR2();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsR2()">
-                </div>
-            </div>
-        </div>
-
-        <!-- Release Radar Album 3: Faces -->
-        <div class="r3">
-            <div class="container">
-                <img src="assets/music/albums/album_faces.jpg" alt="r3" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_faces.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playR3();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsR3()">
-                </div>
-            </div>
-        </div>
-
-        <!-- Release Radar Album 4: The Melodic Blue -->
-        <div class="r4">
-            <div class="container">
-                <img src="assets/music/albums/album_melodicblue.jpeg" alt="r4" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_melodicblue.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playR4();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsR4()">
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-
-<!-- What's Popular -->
-<div class="today">
-    <form action="index.html">
-        <!-- What's Popular Album 1: Certified Lover Boy -->
-        <div class="p1">
-            <div class="container">
-                <img src="assets/music/albums/album_clb.png" alt="p1" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_clb.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playP1();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsP1()">
-                </div>
-
-            </div>
-        </div>
-
-        <!-- What's Popular Album 2: Evermore -->
-        <div class="p2">
-            <div class="container">
-                <img src="assets/music/albums/album_evermore.png" alt="p2" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_evermore.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playP2();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsP2()">
-                </div>
-        
-            </div>
-        </div>
-
-        <!-- What's Popular Album 3: Sour -->
-        <div class="p3">
-            <div class="container">
-                <img src="assets/music/albums/album_sour.png" alt="p3" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_sour.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playP3();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsP3()">
-                </div>
-        
-            </div>
-        </div>
-
-        <!-- What's Popular Album 4: After Hours -->
-        <div class="p4">
-            <div class="container">
-                <img src="assets/music/albums/album_afterhours.png" alt="p4" class="image" style="width:85%">
-                <div class="albumoverlay">
-                    <img src="assets/music/overlays/overlay_afterhours.png" alt="albumoverlay" style="width:130%">
-                </div>
-                <div class="play">
-                    <img src="assets/play.png" alt="play" style="width:72px" onclick="playP4();">
-                </div>
-                <div class="details">
-                    <img src="assets/details.png" alt="details" style="width:72px" onclick="detailsP4()">
-                </div>
-        
-            </div>
-        </div>
-    </form>
-</div>
-
-<!-- Album Detail Overlay -->
-<div id="overlay" onclick="detailsClose()">
-    <div class="details_overlay">
-            <img src="#" id = "detailoverlay" alt="details"> 
-    </div> 
-</div>
-
-<script>
-
-    // Detail Overlays: Today's Picks
-    function detailsT1() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_blonde.png";
-    }
-
-    function detailsT2() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_flowerboy.png";
-    }    
-
-    function detailsT3() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_ctrl.png";
-    }
-
-    function detailsT4() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_ksg.png";
-    }
-    
-    function detailsT5() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_coloringbook.png";
-    }
-    
-    function detailsT6() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_freudian.png";
-    }
-    
-    function detailsT7() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_americanteen.png";
-    }
-    
-    function detailsT8() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_happierthanever.png";
-    }
-
-    function playT1() {
-        sessionStorage.setItem("album_title", "Blonde");
-        sessionStorage.setItem("album_length", 3608);
-        alert("'Blonde' is now in song queue."); 
-    }
-
-    function playT2() {
-        sessionStorage.setItem("album_title", "Flower Boy");
-        sessionStorage.setItem("album_length", 2820);
-        alert("'Flower Boy' is now in song queue.");  
-    }
-
-    function playT3() {
-        sessionStorage.setItem("album_title", "Ctrl");
-        sessionStorage.setItem("album_length", 2940);
-        alert("'Ctrl' is now in song queue.");  
-    }
-
-    function playT4() {
-        sessionStorage.setItem("album_title", "Kids See Ghosts");
-        sessionStorage.setItem("album_length", 1440);
-        alert("'Kids See Ghosts' is now in song queue.");  
-    }
-
-    function playT5() {
-        sessionStorage.setItem("album_title", "Coloring Book");
-        sessionStorage.setItem("album_length", 3420);
-        alert("'Coloring Book' is now in song queue.");  
-    }
-
-    function playT6() {
-        sessionStorage.setItem("album_title", "Freudian");
-        sessionStorage.setItem("album_length", 2700);
-        alert("'Freudian' is now in song queue.");  
-    }
-
-    function playT7() {
-        sessionStorage.setItem("album_title", "American Teen");
-        sessionStorage.setItem("album_length", 3300);
-        alert("'American Teen' is now in song queue.");  
-    }
-
-    function playT8() {
-        sessionStorage.setItem("album_title", "Happier Than Ever");
-        sessionStorage.setItem("album_length", 3360);
-        alert("'Happier Than Ever' is now in song queue.");  
-    }
-
-    // Detail Overlays: Release Radar
-    function detailsR1() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_silksonic.png";
-    }
-
-    function detailsR2() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_punk.png";
-    }
-    
-    function detailsR3() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_faces.png";
-    }
-    
-    function detailsR4() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_melodicblue.png";
-    }    
-
-    function playR1() {
-        sessionStorage.setItem("album_title", "An Evening With Silk Sonic");
-        sessionStorage.setItem("album_length", 1860);
-        alert("'An Evening With Silk Sonic' is now in song queue."); 
-    }
-
-    function playR2() {
-        sessionStorage.setItem("album_title", "Punk");
-        sessionStorage.setItem("album_length", 3780);
-        alert("'Punk' is now in song queue.");  
-    }
-
-    function playR3() {
-        sessionStorage.setItem("album_title", "Faces");
-        sessionStorage.setItem("album_length", 5460);
-        alert("'Faces' is now in song queue.");  
-    }
-
-    function playR4() {
-        sessionStorage.setItem("album_title", "The Melodic Blue");
-        sessionStorage.setItem("album_length", 3240);
-        alert("'The Melodic Blue' is now in song queue.");  
-    }
-
-    // Detail Overlays: What's Popular
-    function detailsP1() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_clb.png";
-    }
-    
-    function detailsP2() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_evermore.png";
-    }
-
-    function detailsP3() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_sour.png";
-    }
-
-    function detailsP4() {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("detailoverlay").src = "assets/music/details/details_afterhours.png";
-    }
-
-    function playP1() {
-        sessionStorage.setItem("album_title", "Certified Lover Boy");
-        sessionStorage.setItem("album_length", 5160);
-        alert("'Certified Lover Boy' is now in song queue."); 
-    }
-
-    function playP2() {
-        sessionStorage.setItem("album_title", "evermore");
-        sessionStorage.setItem("album_length", 3600);
-        alert("'evermore' is now in song queue.");  
-    }
-
-    function playP3() {
-        sessionStorage.setItem("album_title", "Sour");
-        sessionStorage.setItem("album_length", 2100);
-        alert("'Sour' is now in song queue.");  
-    }
-
-    function playP4() {
-        sessionStorage.setItem("album_title", "After Hours");
-        sessionStorage.setItem("album_length", 3360);
-        alert("'After Hours' is now in song queue.");  
-    }
-
-    // Close Overlay
-    function detailsClose() {
-        document.getElementById("overlay").style.display = "none";
-    }
-
-    function chBackcolor(color) {
-        var header = document.getElementsByClassName('navbar')[0];       
-        var nav = document.getElementsByClassName('navitemlist')[0];
-
-        // Light
-        if (color == 1){
-            document.body.style.background = "#DEDEDE";}
-            header.setAttribute("style", "background-color:#BABABA;");  
-            nav.setAttribute("style", "background-color:#DBD163;");    
-            localStorage.theme = 1;    
-
-        // Dark
-        if (color == 2) {
-            document.body.style.background = "#696969";
-            header.setAttribute("style", "background-color:#5C5C5C;");
-            nav.setAttribute("style", "background-color:#898989;");
-            localStorage.theme = 2;
-        }    
-
-        // Ocean
-        if (color == 3) {
-            document.body.style.background = "#9EBEDB";
-            header.setAttribute("style", "background-color:#8AA6C0;");
-            nav.setAttribute("style", "background-color:#C5D478;");
-            localStorage.theme = 3;
-        }     
-        
-        // Forest
-        if (color == 4) {
-            document.body.style.background = "#A0D665";
-            header.setAttribute("style", "background-color:#8CBB58;");
-            nav.setAttribute("style", "background-color:#CADDB5;");
-            localStorage.theme = 4;
-        }        
-
-        // Sunset    
-        if (color == 5) {
-            document.body.style.background = "#F4BE7F";
-            header.setAttribute("style", "background-color:#F1A954;");
-            nav.setAttribute("style", "background-color:#F1D554;");
-            localStorage.theme = 5;
-        }                                   
-    }
-
-    function setTheme() {
-         if (localStorage.theme) {
-            chBackcolor(localStorage.theme);
-        } else {
-            localStorage.theme = 1;
-        }
-    }
-
-    window.onload = setTheme();
-</script>
 
 </body>
+
+<script src="music-logic.js"></script>
+
 </html>
