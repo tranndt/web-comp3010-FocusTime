@@ -1,0 +1,590 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+:root {
+    --navbar-bg-color:rgba(49, 49, 49, 0.171);
+    --transparent-bg-color:rgba(189, 189, 189, 0.664);
+    --white-bg-color:rgba(255, 255, 255, 0.95);
+    --item-border-color-grey: rgba(0, 0, 0, 0.1);
+    --border-between-ele: rgb(218, 218, 218) solid 0.5px;
+    --greyed-out-text:rgba(190, 190, 190, 0.8);
+    --secondary-header-font-size: 18px;
+}
+  
+
+/* ---------------------------------- */
+/* ---------- 0.BODY LAYOUT --------- */
+/* ---------------------------------- */
+
+body{
+    margin: 0px; 
+    height: 100%;
+    background-color: rgb(221, 221, 221);
+    font-family: 'Montserrat', sans-serif;
+
+    background-image: url("../assets/imgs/img6.jpg");
+    /* background-color: var(--transparent-bg-color); */
+    background-size: cover;
+    opacity: 0.95;
+}
+
+.container-body{
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 500px 500px 500px auto;
+    grid-template-rows: 100px 70px 60px 700px;
+    grid-template-areas: 
+            "M1 N1 N2 N3 M2"
+            "M3 A0 A0 A0 M4"
+            "M3 A1 A1 A1 M4"
+            "M3 A2 A2 A2 M4"
+            /* "M3 A1 A1 A4 M4" */
+
+}
+
+/* ---------------------------------- */
+/* --------- 1.MARGIN LAYOUT -------- */
+/* ---------------------------------- */
+
+#margin-navbar-left{ grid-area: M1;}
+#margin-navbar-right{ grid-area: M2;}
+#margin-left{ grid-area: M3;}
+#margin-right{ grid-area: M4;}
+/* .margin{font-size: 0;} Comment out to remove the texts */
+
+/* ---------------------------------- */
+/* ------- 1.1.MISCELLANEOUS --------- */
+/* ---------------------------------- */
+/* Scroll bar for list/windows */
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+  }
+
+*::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.021);
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+background-color: rgb(139, 139, 139);
+border-radius: 50px;
+}
+
+
+
+/* ---------------------------------- */
+/* -------- 2.NAVBAR LAYOUT --------- */
+/* ---------------------------------- */
+
+.navbar {
+    background-color: var(--navbar-bg-color);
+}
+
+/* NAVBAR LEFT - LOGO */
+
+#navbar-left {
+    grid-area: N1;
+}
+
+.logoimg{
+    display: block;
+    position: relative;
+    top: -95%;
+    left: -10%; 
+}
+
+/* NAVBAR CENTER - N2- NAV-ITEMS */
+
+#navbar-center{
+    grid-area: N2;
+}
+
+#container-main-navbar{
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas: 
+            "NC2"
+            "NC3";
+    padding-top:25px;
+}
+
+/* .navitem-name{
+    grid-area: NC1;
+    height: 10px;
+} */
+
+.navitemlist{
+    grid-area: NC2;
+    /* background: rgb(212, 221, 83); */
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.activebar{
+    grid-area: NC3;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+ul{
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.navitemlist li {
+    display: inline-flex;
+    padding: 0em 1.25em 0em 1em;
+    text-align: center;  
+    border-right: 0.05em solid rgba(0, 0, 0, 0.1);
+}
+
+.navitemlist li:last-child {
+    border-right: none;
+}
+
+.navitem {
+    text-decoration: none;
+    display: flex; 
+    padding: 0 0.1em;
+}
+
+.activebar .tab-active{
+    background-color: rgb(60, 60, 60);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+.activebar .tab-inactive{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+/* NAVBAR RIGHT  */
+#navbar-right{
+    grid-area: N3;
+    font-size: 0;
+}
+
+/* ---------------------- */
+
+li {
+    list-style-type: none;
+}
+
+li:not(.navitemlist li):not(:last-child){
+    border-bottom: 1px #ccc solid;
+}
+
+li:not(.navitemlist li){
+    padding: 10px
+}
+
+/* ---------------------------------- */
+/* ---------- 3. APP LAYOUT --------- */
+/* ---------------------------------- */
+
+.app-div{
+    padding: 5px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.app-container:not(.navbar .app-container){
+    height:100%;
+    /* border: 1px dashed black; */
+}
+
+.header {
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
+}
+
+/* ---------- A0 ---------- */
+
+#app-a0{
+    /* background-color: rgba(182, 75, 185, 0.781); */
+    grid-area: A0;
+    font-size: 40px;
+    color: var(--white-bg-color);
+    text-shadow: black 0px 0px 3px;
+}
+
+/* ---------- A1 ---------- */
+
+#app-a1{
+    grid-area: A1;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+
+}
+
+#container-a1{
+    /* font-size: 25px;
+    padding-top: 10px; */
+    display: grid;
+    grid-template-areas: "HS1 HS2 HS3 AP SB";
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#button-add-project{
+    grid-area: AP;
+    align-self: center;
+    width: fit-content;
+    margin: 0 0.5rem 0 0;
+    float: right;
+    border-radius: 0.5rem;
+    text-align: left;
+    box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    min-height: 2rem;
+    font-size: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.container-search{
+    grid-area: SB;
+    margin-left:auto;
+    align-self: center;
+    padding:5px;
+}
+
+#searchID{
+    /* background-image: url("../assets/searchbar.png"); */
+    border-color: var(--item-border-color-grey);
+    border-radius: 50px;
+    width: 400px;
+    height:30px;
+    text-indent: 10px;
+    font-family: 'Montserrat', sans-serif;
+    padding-left:10px;   
+    font-size: var(--secondary-header-font-size);
+
+}
+
+
+/* ---------- A2 ---------- */
+
+#app-a2{
+    grid-area: A2;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    overflow-y:auto;
+}
+#container-a2{
+    align-items: stretch;
+}
+
+.content-table {
+    /* display: flex; */
+    table-layout: fixed;
+    width: 100%;
+    align-content: center;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* tbody {
+    margin: 10px;
+    display: block;
+    width: 100%;
+    align-content: center;
+} */
+
+.content-table tr {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-content: center; */
+    width: 100%;
+    column-span: 3;
+}
+
+.td-task, .td-progress, .td-date{
+    padding: 15px;
+}
+
+.td-task{
+    width: 40%;
+}
+
+.td-progress{
+    width: 20%;
+    text-align: center;
+}
+
+.td-date{
+    width: 40%;
+    text-align: center;
+}
+
+.content-table thead tr {
+    background-color: rgb(212, 221, 83);
+    color: black;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    font-weight: normal; 
+    padding: 10px;
+}
+
+.content-table tbody tr {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even), .content-table tbody tr:last-of-type  {
+    background-color: white;
+}
+
+/*  */
+.accordion-item{
+    padding: 10px;
+    margin: 20px;
+    border:rgb(60, 60, 60) solid 1px;
+    border-radius: 20px;
+    /* align-items: stretch; */
+    align-content: center;
+}
+
+.accordion-item-header{
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.accordion-item-body-content {
+    width: 100%;
+    border-bottom: 2px solid rgb(212, 221, 83);
+}
+
+.accordion-item-body {
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    transition: max-height 0.2s ease-out;
+}
+
+.accordion {
+    width: 90%;
+    margin: auto;
+}
+
+div.accordion-item-header {
+    padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+    min-height: 1rem;
+    font-weight: bold; 
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+  
+tr.accordion-item-header {
+  cursor: pointer;
+  width: 100%;
+}
+
+.accordion-item-header:hover {
+    background: lightgray;
+    cursor: pointer;
+}
+  
+div.accordion-item-header::after {
+    content: ' \02C5'; /* a V sign */
+    font-size: 1.5rem;
+    position: absolute;
+    right: 1rem;
+    transition: transform 0.4s;
+}
+
+div.accordion-item-header.active::after {
+    transform: rotate(180deg);
+}
+
+.taskDetails, .newItem-container-details {
+    width: 100%;
+    display: none;
+    font-weight: normal;
+}
+
+.doneButton {
+    border-radius: 50px;
+    padding: 0.75rem;
+    margin-left: 15px;
+    width: 100px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    float: clear;
+}
+
+.taskName, .taskDate, .taskProgress {
+    border: none;
+    width: 100%;
+    /* height: 100%; */
+    height: 1.5rem;
+    position: relative;
+    background-color: inherit;
+    border-bottom: 1px solid black;
+    font-weight: normal;
+}
+
+.taskProgress-container {
+    width: 30%;
+    float: left;
+}
+
+#newProj {
+    float: right;
+    background-color: var(--primary-color);
+    width: fit-content;
+    margin: 0 0 0 2rem;
+    border-radius: 0.5rem;
+    text-align: left;
+    box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    min-height: 2rem;
+    font-size: inherit;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .search-container {
+      float: right;
+      margin: 0 0 1.3rem 0;
+      /* position: fixed; */
+      height: 35px;
+      border: 2px solid black;
+      background-color: white;
+      border-radius: 50px;
+      padding: 0.25rem 2rem 0.25rem 1.5rem;
+      min-height: 2rem;
+      font-size: inherit;
+      font-weight: bold;
+      width: fit-content;
+  }
+    
+    .search-box {
+      width: 100px;
+      height: 100%;
+      vertical-align: middle;
+      /* background-color: white; */
+      padding: 0px;
+      margin: -3px 0 0 0 ;
+    } 
+    
+    .search {
+      border: none;
+      height: 100%;
+      width: 100%;
+      padding: auto;
+      border-radius: 50px;
+      font-size: 15px;
+      background-color: white;
+    }
+    
+    .material-icons {
+      font-size: 25;
+    }
+    
+    .search:focus, .taskName:focus, .taskDate:focus, .taskProgress:focus {
+      outline: none;
+    }
+    
+  .newItem-container-details input::placeholder, .search-container input::placeholder {
+      font-weight: normal;
+      font-size: 0.9rem;
+  }
+  
+  .taskDetails ul li, .taskDetails p {
+    font-weight: normal;
+    list-style-type: disc;
+  }
+  
+  .taskDetails ul {
+    padding: 1px 0 0 20px;
+  }
+
+
+/*  */
+
+#header-completed{
+    padding-top:25px;
+}
+
+/* Code for the toast messages adapted from - https://www.w3schools.com/howto/howto_js_snackbar.asp 
+The toast - position it at the bottom and in the middle of the screen */
+#toast {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: rgba(51, 51, 51, 0.897); /* Black background color */
+    color: #fff; /* White text color */
+    border-radius: 0.3em; /* Rounded borders */
+    padding: 1.5vh; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 9%; /* right align the toast */
+    bottom: 2vh; /* 2vh from the bottom */
+}
+
+/* Show the toast when clicking on a button (class added with JavaScript) */
+#toast.show {
+    visibility: visible; /* Show the snackbar */
+}
+
+/* ---------- A3 ---------- */
+
+#app-a3{
+    grid-area: A3;
+    background-color: var(--white-bg-color);
+
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    /* border-radius: 10px; */
+
+}
+
+#container-a3{
+    font-size: 25px;
+}
+
+/* ---------- A4 ---------- */
+
+#app-a4{
+    grid-area: A4;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    overflow-y:auto;
+}
+
+#table-details td:nth-child(2){
+    text-align: right;
+}
+
+#text-notes {
+    text-align: justify;
+    padding: 5px;
+}
+
+
+
