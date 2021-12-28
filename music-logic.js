@@ -307,7 +307,7 @@ function load_scroll_listener_details(){
     app_a4 = document.querySelector("#app-a4")
     container_album_summary = document.querySelector("#container-album-summary");
     app_a4.addEventListener("scroll",function(event){
-        if (this.scrollTop > container_album_summary.offsetHeight){
+        if (this.scrollTop >= container_album_summary.offsetHeight - 5){
             change_active_status(button_id=`#button-playlist`,parent=`#app-a3b`)
         } else change_active_status(button_id=`#button-summary`,parent=`#app-a3b`)
     })
@@ -318,7 +318,6 @@ function load_scroll_listener_explore(){
     // container_album_summary = document.querySelector("#container-album-summary");
     app_a2.addEventListener("scroll",function(event){
         sessionStorage.app_a2_scrollY = this.scrollTop;
-        console.log(sessionStorage.app_a2_scrollY)
     })
 }
 
@@ -394,7 +393,7 @@ function album_item_onclick_2(album_name){
 function on_playlist_button_clicked(){   // Scroll To Playlist section  
     app_a4 = document.querySelector("#app-a4");
     container_album_summary = document.querySelector("#container-album-summary");
-    app_a4.scrollTo(0,container_album_summary.offsetHeight)
+    app_a4.scrollTo(0,container_album_summary.offsetHeight + 15)
 }
 
 function on_summary_button_clicked(){     // Scroll To Summary section
