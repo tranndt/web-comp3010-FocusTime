@@ -948,17 +948,34 @@ The toast - position it at the bottom and in the middle of the screen */
     padding:0;
 }
 
+#dialogBox-2 {
+    position: fixed;
+    top: 40%;
+    left:48%;
+    transform: translate(-50%);
+    min-width: 30%;
+    height: auto;
+    padding: 0.5em;
+    color: black;
+    border: 1px solid #5f6063;
+    background-color: rgb(222, 222, 228);
+    z-index: 1;
+    display: none;
+    margin:0;
+    padding:0;
+}
+
 .dbox-header {
   background-color: rgb(54, 54, 185);
   display: flex;
   justify-content: right;
 }
 
-#dbox-input {
+#dbox-input, #dbox-input-2 {
     margin:3%;
     max-width: 30%;
 }
- #dbox-msg {
+ #dbox-msg, #dbox-msg-2 {
   margin:3%;
  }
 
@@ -967,21 +984,21 @@ The toast - position it at the bottom and in the middle of the screen */
   justify-content:right;
 }
 
-#confirm-btn {
+#confirm-btn, #confirm-btn-2 {
   background-color: rgb(190, 194, 202);
   margin: 3%;
   padding: 1%;
   cursor: pointer;
 }
 
-#skip-btn {
+#skip-btn, #skip-btn-2 {
   background-color: rgb(190, 194, 202);
   padding: 1%;
   margin: 3%;
   cursor: pointer;
 }
 
-#cancel-btn {
+#cancel-btn, #cancel-btn-2 {
   background-color: rgb(196, 3, 35);
   padding: 1%;
   cursor: pointer;
