@@ -385,8 +385,6 @@ li:not(.navitemlist li){
     font-size: 14px;
 }
 
-
-
 .genre-item{
     width: 100px;
     height: 100px;
@@ -642,12 +640,12 @@ li:not(.navitemlist li){
     color: var(--accent-color);
 }
 
-#button-start-timer{
+#button-set-timer{
     background-color: var(--accent-color);
     color: white;
 }
 
-#button-start-timer:hover{
+#button-set-timer:hover{
     background-color: var(--accent-color-transparent);
     color: white;
 }
