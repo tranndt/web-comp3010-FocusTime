@@ -35,8 +35,8 @@ body{
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
-            "M3 A1 A1 A1 M4"
-            "M3 A2 A2 A2 M4"
+            "M3 A1 A1 A3 M4"
+            "M3 A2 A2 A4 M4"
             /* "M3 A1 A1 A4 M4" */
 
 }
@@ -377,7 +377,7 @@ li:not(.navitemlist li){
 
 .accordion-item-body {
     margin: 0;
-    max-height: 250px;
+    max-height: 0;
     overflow-y: auto;
     transition: max-height 0.2s ease-out;
 }
@@ -402,7 +402,7 @@ tr.accordion-item-header {
   width: 100%;
 }
 
-.accordion-item-header:hover {
+.accordion-item-header:hover,  .taskHeader:hover {
     background: lightgray;
     cursor: pointer;
 }

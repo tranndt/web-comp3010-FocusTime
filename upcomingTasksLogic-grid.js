@@ -13,9 +13,32 @@ var projectCount = 6;
 var taskCount = 13;
 var taskDetailsCount = 13; 
 
-// var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'none'];
-var existingProjs = ['COMP 3020', 'COMP 3040', 'COMP 2140', 'COMP 4710', 'COMP 4230', 'none'];
+var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'none'];
+// var existingProjs = ['COMP 3020', 'COMP 3040', 'COMP 2140', 'COMP 4710', 'COMP 4230', 'none'];
 var newOptionsUT = JSON.parse(localStorage.getItem("newOptionsUT") || "[]");
+
+var taskHeaders = document.getElementsByClassName("taskHeader");
+var taskDetails_target = document.getElementById("text-notes");
+
+
+for (var i = 0; i < taskHeaders.length; i++) {
+    addTaskDetailsEvent(taskHeaders[i]);
+}
+
+function addTaskDetailsEvent(taskHeader) {
+    //taskHeaders.forEach(taskHeader=> {
+    taskHeader.addEventListener("click", event => {
+        taskHeader.classList.toggle("active");
+        const taskDetailBody = taskHeader.nextElementSibling;
+
+        if(taskHeader.classList.contains("active")) {
+            //if (taskDetailBody.tagName.localeCompare("TR")) {
+                taskDetails_target.innerHTML = taskDetailBody.innerHTML;
+            //}
+        }
+    });
+    //});
+}
 
 addAccordionItemEvent(accordionItemsList);
 
@@ -51,7 +74,8 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
     let table = document.getElementById(tableID);
     let newTaskName = "", progress = "", date = "", newRow = [];
     let fromThisPage = taskDateID.localeCompare("N/A");
-    let projectName = document.getElementById(projectID).textContent.trim();
+    //let projectName = document.getElementById(projectID);
+    //let projectName = document.getElementById(projectID).textContent.trim();
     
     if (fromThisPage) {
         newTaskName = document.getElementById(taskNameID).value;
@@ -86,7 +110,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         }
 
         let newRows = `
-                    <tr class="accordion-item-header taskHeader">
+                    <tr class="taskHeader">
                         <td>${newTaskName}</td>
                         <td>${progress}</td>
                         <td class="date">${date}</td>
@@ -102,8 +126,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         
         let taskHeaders = table.getElementsByClassName("taskHeader").length;
         let newTaskHeader = table.getElementsByClassName("taskHeader")[taskHeaders - 1];
-        newRow.push(newTaskHeader);
-        addAccordionItemEvent(newRow);
+        addTaskDetailsEvent(newTaskHeader);
 
         if (fromThisPage) {
             sortByDate(table);
@@ -114,7 +137,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
-            newOptionsUT.push({project : `${projectName}`, task : `${newTaskName}`, update : 'task'});
+            newOptionsUT.push({project : `${projectID}`, task : `${newTaskName}`, update : 'task'});
             localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
         }
     }
@@ -124,20 +147,20 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
     }
 }
 
-function createNewProject(name) {
+function createNewProject(name, fromThisPage) {
     let newProjDiv = document.getElementById("misc");
     let headers = [];
-    let newProjectName = "";
-    let fromThisPage = true;
+    let newProjectName = name;
+    //let fromThisPage = true;
 
-    if (!name.localeCompare('')) {
-        newProjectName = prompt("What is the new project?");
-    }
+    // if (!name.localeCompare('')) {
+    //     newProjectName = prompt("What is the new project?");
+    // }
 
-    else {
-        newProjectName = name;
-        fromThisPage = false;
-    }
+    // else {
+    //     newProjectName = name;
+    //     fromThisPage = false;
+    // }
 
     if (newProjectName.localeCompare("") && newProjectName != null) {
         tableCount++;
@@ -223,7 +246,9 @@ function sortByDate(table) {
     for (var index = 0; index < rows.length; index++) {
         node = rows[index].querySelector(".date");
         val = node.innerText;
-        values.push({value : val, row: rows[index]});
+        //if(val != "N/A") {
+            values.push({value : val, row: rows[index]});
+        //}
     }
 
     lastRow = table.querySelector(".newItem-container");
@@ -244,12 +269,33 @@ function sortByDate(table) {
 }
 
 function sortDateVal(a, b) {
-    var dateA = new Date(a.value).toISOString(),
+    var result = 0;
+
+    var dateA,
+        dateB,
+        dateAvalue,
+        dateBvalue;
+
+    if (a == "N/A") {
+        result = 1;
+
+        if (b == "N/A") { result = 0;}
+    }
+
+    else if (b == "N/A") {
+        result = -1;
+
+        if (a == "N/A") { result = 0;}
+    }
+
+    else {
+        dateA = new Date(a.value).toISOString(),
         dateB = new Date(b.value).toISOString(),
         dateAvalue = Date.parse(dateA),
         dateBvalue = Date.parse(dateB);
+    }
 
-    return dateAvalue - dateBvalue;
+    return result;
 }
 
 function formatDate(date) {
@@ -317,7 +363,7 @@ function update(newItems) {
             let update = newItem.update;
 
             if (update == "project") {
-                createNewProject(projName);
+                createNewProject(projName, false);
                 existingProjs.push(projName);
             }
 
@@ -352,8 +398,8 @@ function updatePage() {
     let newItems = JSON.parse(localStorage.getItem('newOptions') || "[]");
     let newItemsUT = JSON.parse(localStorage.getItem('newOptionsUT') || "[]");
 
-    update(newItems);
     update(newItemsUT);
+    update(newItems);
 }
 
 const UT_dbox_elem = document.getElementById("dialogBox");
@@ -389,7 +435,7 @@ UT_dbox_btn_done.addEventListener('click', () => {
 
     else {
         UT_dbox_elem.style.display = "none";
-        createNewProject(newProject);
+        createNewProject(newProject, true);
         newProject = "";
     }
 });
