@@ -7,7 +7,7 @@
     <title>FocusTime</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 </head>
 <body>
     <div id="toast">Some text some message..</div>
@@ -20,6 +20,18 @@
         <div class = "dbox-buttons">
             <button id="confirm-btn">Save Progress</button>
             <button id="skip-btn">Skip saving</button>
+        </div>
+    </div>
+
+    <div id="dialogBox-2">
+        <div class="dbox-header">
+            <button id="cancel-btn-2">X</button>
+        </div>
+        <div id="dbox-msg-2">Some text</div>
+        <input id="dbox-input-2" type="text">
+        <div class = "dbox-buttons">
+            <button id="confirm-btn-2">Done</button>
+            <button id="skip-btn-2">Cancel</button>
         </div>
     </div>
     <!-- Navigation Bar -->
@@ -116,19 +128,35 @@
             <div class="task-proj-selector">
                 <ul>
                     <li> Task:
-                        <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')">
-                            <option disabled selected>Choose a task</option>
+                        <!-- <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')"> -->
+                        <select class="select" name="" id="task-selector">
+                            <option disabled selected value="choose-a-task">Choose a task</option>
+                            <option value="create-task">+ Create new task</option>
                             <option value="task-1">Task 1</option>
                             <option value="task-2">Task 2</option>
-                            <option value="create-task">+ Create new task</option>
+                            <option value="task-3">Task 3</option>
+                            <option value="task-4">Task 4</option>
+                            <option value="task-5">Task 5</option>
+                            <option value="task-6">Task 6</option>
+                            <option value="task-7">Task 7</option>
+                            <option value="task-8">Task 8</option>
+                            <option value="task-9">Task 9</option>
+                            <option value="task-10">Task 10</option>
+                            <option value="task-11">Task 11</option>
+                            <option value="task-12">Task 12</option>
+                            <option value="task-13">Task 13</option>
                         </select>
                     </li>
                     <li> Project:
-                        <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'proj')">
-                            <option disabled selected>Choose a project</option>
-                            <option value="project-1">Project 1</option>
-                            <option value="project-2">Project 2</option>
-                            <option value="create-proj">+ Create new project</option>
+                        <!-- <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'project')"> -->
+                        <select class="select" name="" id="project-selector">
+                            <option value="create-project">+ Create new project</option>
+                            <option value="project-6" selected>None</option>
+                            <option value="project-1">COMP 3020</option>
+                            <option value="project-2">COMP 3040</option>
+                            <option value="project-3">COMP 2140</option>
+                            <option value="project-4">COMP 4710</option>
+                            <option value="project-5">COMP 4230</option>
                         </select>
                     </li>
                 </ul>    
@@ -150,6 +178,8 @@
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 
 </body>
 
