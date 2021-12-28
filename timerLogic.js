@@ -62,11 +62,11 @@ const EDIT = 3;
 const READY = 4;
 
 //button colors
-const disabled_background = 'rgb(238, 225, 218)';
+const disabled_background = '#E7C8F9';
 const disabled_text = "rgb(158, 150, 147)";
-const enabled_text = "rgb(54, 38, 30)";
-const main_btn_color = 'rgb(238, 185, 161)';
-const click_color = 'rgb(173, 72, 35)';
+const enabled_text = "rgb(69, 6, 83)";
+const main_btn_color = '#BA83DA';
+const click_color = '#4B2C6F';
 
 //initial state
 let state = STOPPED;
@@ -203,7 +203,9 @@ const countdown = () => {
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
         dbox_elem.style.display = "block";
-        dbox_msg.textContent = "Focus time over! Type in your progress as percentage.";
+        dbox_msg.textContent = "Focus time over! \nType in a value between 1 - 100 to save your progress as percentage.";
+        // To disable:    
+        // document.getElementById('container-body').style.pointerEvents = 'none';
     }
     else {
         set_timer(hr_elem, min_elem, sec_elem, time);
@@ -283,6 +285,8 @@ dbox_btn_done.addEventListener('click', () => {
             // Sorry! No Web Storage support..
         }
         dbox_elem.style.display = "none";
+        // To re-enable:
+        // document.getElementById('container-body').style.pointerEvents = 'auto'; 
     }
     
 });
@@ -306,6 +310,8 @@ dbox_btn_skip.addEventListener('click', () => {
 
     setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
     dbox_elem.style.display = "none";
+    // To re-enable:
+    // document.getElementById('container-body').style.pointerEvents = 'auto'; 
 
 });
 
@@ -314,7 +320,9 @@ dbox_btn_cancel.addEventListener('click', () => {
     state = RUNNING;
     countdown();//start main countdown again
     intervalID = setInterval(countdown, 1000);
-    dbox_elem.style.display = "none";    
+    dbox_elem.style.display = "none";  
+    // To re-enable:
+    // document.getElementById('container-body').style.pointerEvents = 'auto';   
 });
 
 start_pause_btn.addEventListener('click', () => {
@@ -443,7 +451,16 @@ stop_btn.addEventListener('click', () => {
         time_focused =total_secs - time;
 
         dbox_elem.style.display = "block";
-        dbox_msg.textContent = "Focus time over! Type in your progress as percentage.";
+        dbox_msg.textContent = "Focus time over! \nType in a value between 1 - 100 to save your progress as percentage.";
+        
+        // To disable everything other than the pop-up:    
+        // document.getElementById('container-body').style.pointerEvents = 'none';
+        
+        // Use '' if you want to allow CSS rules to set the value
     }
 
 });
+
+// $('*:not(#search)').click(function(e){
+//     e.preventDefault();
+//   });

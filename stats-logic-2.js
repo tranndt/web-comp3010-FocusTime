@@ -1,7 +1,6 @@
-var width = 1000
-var height = 500
+// Our Local DATA
 
-data = Array.from(
+DATA = Array.from(
     [{taskid: '1', task: 'Self study', project: 'COMP 3020', duration: '200', breaks: 0, progress: 100, date: '2021-11-26', note:'Lorem ipsum dolor sit amet, consectetuar adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'},
     {taskid: '2', task: 'Quiz Prep', project: 'COMP 3020', duration: '250',breaks: 10, progress: 100, date: '2021-11-29', note:'Integer venenatis orci et massa feugiat vehicula. Integer ullamcorper non libero vel semper. Nam eu tempor purus. Suspendisse potenti. Vivamus eget erat ex. '},
     {taskid: '3', task: 'Assignment 2', project: 'COMP 3020', duration: '300',breaks: 23, progress: 80, date: '2022-02-25',note:'Cras sit amet ultrices felis, ut faucibus lorem. Integer non dictum leo, at aliquam arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'},
@@ -16,29 +15,63 @@ data = Array.from(
     {taskid: '12', task: 'Proofread submission', project: 'COMP 4230', duration: '400',breaks: 100, progress: 100, date: '2021-11-23', note:'Sed faucibus neque eget condimentum finibus. Proin rutrum, velit vitae laoreet ultrices, orci velit dictum arcu, non iaculis mi magna sed mi. Donec quis quam id turpis pulvinar dignissim laoreet eget erat. Sed porta quam urna, at faucibus sem mattis in. Fusce commodo nisi at velit porttitor, in vehicula purus feugiat.'}
 ]);
 
-var svg = d3.select("#container-stats-bubbles")
-    .append("svg")
-    .attr("width",width)
-    .attr("height",height)
+/*-----------------------------*/
+/* Getting elements dimensions */
+/*-----------------------------*/
+// Margin dimensions
+margin_dim = {}
+Array.from(document.querySelectorAll(".margin")).forEach(margin => {
+    margin_dim[margin.id] = [margin.offsetWidth, margin.offsetHeight]
+})
 
-// const off_h = document.getElementsByClassName("navbar")[0].offsetHeight
-const off_h = 300;
+// Navbar dimensions
+navbar_dim = {}
+Array.from(document.querySelectorAll(".navbar")).forEach(navbar => {
+    navbar_dim[navbar.id] = [navbar.offsetWidth, navbar.offsetHeight]
+})
+console.log(navbar_dim)
+
+// App Divs dimensions
+app_div_dim = {}
+Array.from(document.querySelectorAll(".app-div")).forEach(app_div => {
+    app_div_dim[app_div.id] = [app_div.offsetWidth, app_div.offsetHeight]
+})
+
+/*-----------------------------*/
+/* Simulation functions -------
+/*-----------------------------*/
+
+/**
+ * Helper functions
+ */
+
+function fmt (seconds) {
+    const format = val => `0${Math.floor(val)}`.slice(-2)
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const odd_secs = seconds % 60
+    if (hours <= 0){ hh = ''} else {hh = hours+'h '}
+    if (minutes <= 0){ mm = ''} else {mm = minutes+'m '}
+    ss = odd_secs + 's'
+    return hh+mm+ss
+}
+
 
 const bound = (value, min, max) => {
-        if (isNaN(value)){return 0;}
-        if (value < min) {return min;}
-        if (value > max) {return max;}
-        return value;
+    if (isNaN(value)){return 0;}
+    if (value < min) {return min;}
+    if (value > max) {return max;}
+    return value;
 }
-const array_column = (array, column) => {
-        const result = [];
-        array.forEach(e => {
-            result.push(e[column]);
-        });
-        return result;
-    };
+const get_col = (array, column) => {
+    const result = [];
+    array.forEach(e => {
+        result.push(e[column]);
+    });
+    return result;
+};
 
-const array_range = (array, attr) => {
+const get_range = (array, attr) => {
     const result = [];
     var min = Math.min.apply(null, array.map(item => item[attr])),
         max = Math.max.apply(null, array.map(item => item[attr]));
@@ -46,25 +79,77 @@ const array_range = (array, attr) => {
     result.push(max);
     return result;
 };
+
+function hyphenated(c){
+    return c.replace(" ","-")
+}
+
+function unhyphenated(c){
+    return c.replace("-"," ")
+}
+
+//  Reduced the data by number of tasks and total duration per project
+function reduced(DATA){
+    rollup = d3.rollup(DATA, v => v.length, d => d.project, d => d.duration)
+    dict = {}
+    Array.from(rollup).forEach(k => {
+        var proj = k[0]; var dur = k[1];
+        dict[proj] = {num_tasks: 0, duration: 0}
+        Array.from(dur).forEach(d => {
+            dict[proj].num_tasks += 1;
+            dict[proj].duration += d[0]*d[1];
+        })
+    })
+    dict2 = Object.entries(dict)
+    dict2 = dict2.sort((a,b) => d3.descending(a[1].duration,b[1].duration))
+    return dict2;
+}
+
+var REDUCED_DATA = reduced(DATA)
+var PROJECT_LABELS = get_col(REDUCED_DATA,0)
+var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet1);
+// var NUM_TASKS = {}; REDUCED_DATA.forEach(d => NUM_TASKS[d[0]] = d[1].num_tasks)
+function NUM_TASKS(project,completed){
+    num_tasks = 0;
+    DATA.forEach(d => {
+        if (d.project == project & 
+            (completed == null | (d.progress < 100 & !completed) | (d.progress == 100 & completed))){
+            num_tasks += 1;
+        }
+    })
+    return num_tasks;
+}
+
+/**
+ * Simulation functions
+ */
+curr_appdiv = document.querySelector("#container-stats-bubbles").parentElement.id
+var width = app_div_dim[curr_appdiv][0];
+var height = app_div_dim[curr_appdiv][1];
+const off_w = margin_dim['margin-left'][0];
+const off_h = navbar_dim['navbar-left'][1]+app_div_dim['app-a0'][1]+app_div_dim['app-a1'][1] + app_div_dim['app-a7'][1]
+ 
+var svg = d3.select("#container-stats-bubbles").append("svg").attr("width",width).attr("height",height)
+
 // Tasks Container View  
 
-function taskSimulation(data){
+function taskSimulation(DATA){
     var simulation = d3.forceSimulation()
-    .force("center", d3.forceCenter().x(width/2).y(height/2.5)) // Attraction to the center of the svg area
-    .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
-    .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
-
+        .force("center", d3.forceCenter().x(width/2).y(height/2.5)) // Attraction to the center of the svg area
+        .force("charge", d3.forceManyBody().strength(250)) // Nodes are attracted one each other of value is > 0
+        .force("collide", d3.forceCollide().strength(.5).radius(function(d){ return (size(d.duration)+3) }).iterations(1)) // Force that avoids circle overlapping
     
     // create a tooltip
     var Tooltip = d3.select("#container-stats-bubbles")
         .append("div")
         .style("opacity", 0)
-        .attr("class", "tooltip")
+        .attr( "class", "tooltip")
         .style("background-color", "white")
         .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
+        .style("border-width", "1px")
+        .style("border-radius", "10px")
         .style("padding", "5px")
+        .style("font-family","Montserrat")
 
     // Three function that change the tooltip when user hover / move / leave a cell
     var mouseover = function(d) {
@@ -73,10 +158,10 @@ function taskSimulation(data){
     }
     var mousemove = function(d) {
         Tooltip
-        .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+        .html('<span style="color:'+color(d.project)+ '"><b>' + d.project + '</b></span>'
             + "<br><b>" + d.task  + "</b>"
             + "<br>" + fmt(d.duration))
-        .style("left", (d3.mouse(this)[0]+10) + "px")
+        .style("left", (d3.mouse(this)[0]+off_w+10) + "px")
         .style("top", (d3.mouse(this)[1]+off_h) + "px")
     }
     var mouseleave = function(d) {
@@ -94,10 +179,10 @@ function taskSimulation(data){
         d.fx = d3.event.x;
         d.fy = d3.event.y;
         Tooltip
-        .html('<span style="color:'+color(d.project)+ '"><u><b>' + d.project + '</b></u></span>'
+        .html('<span style="color:'+color(d.project)+ '"><b>' + d.project + '</b></span>'
             + "<br><b>" + d.task  + "</b>"
             + "<br>" + fmt(d.duration))
-        .style("left", (d3.mouse(this)[0]+10) + "px")
+        .style("left", (d3.mouse(this)[0]+off_w+10) + "px")
         .style("top", (d3.mouse(this)[1]+off_h) + "px")
     }
 
@@ -108,55 +193,28 @@ function taskSimulation(data){
     }
 
 
-    data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+    data_rollup = d3.flatRollup(DATA,v => d3.sum(v, d => d.duration), d => d.project)
     data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-    a_ = 0.3
-    b_ = 1- a_
-    var centroid_x = d3.scaleOrdinal()
-        .domain(array_column(data_rollup,0))
-        .range([a_*width,b_*width,a_*width,b_*width]);
-
-    var centroid_y = d3.scaleOrdinal()
-        .domain(array_column(data_rollup,0))
-        .range([a_*height,a_*height,b_*height,b_*height]);
-
-    function starting_x (d) {
-        offset_dir = Math.random() < 0.5 ? 1 : -1;
-        return centroid_x(d.project) + offset_dir*size(d.duration)
-    }
-    function starting_y (d) {
-        offset_dir = Math.random() < 0.5 ? 1 : -1;
-        return centroid_y(d.project) + offset_dir*size(d.duration)
-    }
-
-    var color = d3.scaleOrdinal()
-        .domain(array_column(data_rollup,0))
-        .range(d3.schemeSet1);
-
     var size = d3.scaleLinear()
-        .domain(array_range(data,"duration"))
-        .range([25,60])
+        .domain(get_range(DATA,"duration"))
+        .range([25,55])
 
     var sizedot = d3.scaleLinear()
-        .domain(array_range(data,"duration"))
+        .domain(get_range(DATA,"duration"))
         .range([3,7])
 
-
-    // ---------------------------//
-    //       LEGEND              //
-    // ---------------------------//
 
     var node = svg.append("g")
         .attr("class","statscontainer tasks show")
         .selectAll("circle")
-        .data(data)
+        .data(DATA)
         .enter()
         .append("circle")
         .attr("class", d => "task node " + d.project)
         .attr("r", function(d){return size(d.duration)})
-        .attr("cx", function(d){return starting_x(d) })
-        .attr("cy", function(d){return starting_y(d) })
+        .attr("cx", 0)
+        .attr("cy", 0)
         .style("fill", function(d){return color(d.project)})
         .style("fill-opacity", 1)
         .attr("stroke", "black")
@@ -169,18 +227,22 @@ function taskSimulation(data){
             .on("drag", dragged)
             .on("end", dragended));
         
-    node.append("text")
+    node.append("text").attr("class","label")
         // .data(data)
         // .attr("x", 0)
         // .attr("y", 0)
-        .attr("class","label")
-        .attr("r", 0)
-        .attr("dy", ".35em")
-        .style("font", "10px sans-serif")
+        // .attr("class","label")
+        // .attr("r", 0)
+        // .attr("dy", ".35em")
+        .attr("x", 600)
+        .attr("y", 600)
         .attr("pointer-events", "none")
         .attr("text-anchor", "middle")
+        .style("font", "10px sans-serif")
+        .style("color", "black")
+        .style("z-index",1000)
         .style("fill-opacity", 1)
-        .style("display","inline")
+        .style("display","block")
         .text(d => d.task);
 
         // ---------------------------//
@@ -188,8 +250,8 @@ function taskSimulation(data){
         // ---------------------------//
         // Add one dot in the legend for each name.
         var dotsize = 20
-        var allgroups = array_column(data_rollup,0)
-        var alldurations = array_column(data_rollup,1)
+        var allgroups = get_col(data_rollup,0)
+        var alldurations = get_col(data_rollup,1)
 
         svg.append("g").attr("class","myrect").selectAll("myrect") // selectAll
         .data(allgroups)
@@ -220,7 +282,7 @@ function taskSimulation(data){
 
 
     simulation
-        .nodes(data)
+        .nodes(DATA)
         .on("tick", function(d){
             node
                 .attr("cx", d => bound(d.x, 100, width - 100)) // d.x
@@ -228,9 +290,9 @@ function taskSimulation(data){
             });
 }
 
-function projectSimulation(data){
+function projectSimulation(DATA){
 // Projects Container View  
-data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+data_rollup = d3.flatRollup(DATA,v => d3.sum(v, d => d.duration), d => d.project)
 data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
 // console.log(data_rollup)
@@ -294,11 +356,11 @@ function dragended(d) {
 
 
 var size = d3.scaleLinear()
-    .domain(array_range(data_rollup,1))
+    .domain(get_range(data_rollup,1))
     .range([30,80])
 
 var color = d3.scaleOrdinal()
-    .domain(array_column(data_rollup,0))
+    .domain(get_col(data_rollup,0))
     .range(d3.schemeSet1);
 
 var node = svg.append("g")
@@ -333,23 +395,14 @@ simulation
     });
 }
 
-function fmt (seconds) {
-    const format = val => `0${Math.floor(val)}`.slice(-2)
-    const hours = Math.floor(seconds / 3600)
-    const minutes = Math.floor((seconds % 3600) / 60)
-    const odd_secs = seconds % 60
-    if (hours <= 0){ hh = ''} else {hh = hours+'h '}
-    if (minutes <= 0){ mm = ''} else {mm = minutes+'m '}
-    ss = odd_secs + 's'
-    return hh+mm+ss
-}
+
 
 /*-------------------------*/
 /* Creating Filter Buttons */
 /*-------------------------*/
 
 function filterSelection(c) {
-    c = asClassName(c)
+    c = hyphenated(c)
     var x, i;
     x = document.getElementsByClassName("statscontainer");
     if (c == "all") c = "";
@@ -370,7 +423,7 @@ function highlightSelection(c) {
     for (i = 0; i < x.length; i++) {
     w3RemoveClass(x[i], "highlight");
     w3RemoveClass(x[i], "unhighlight");
-    if (x[i].className.baseVal.indexOf(asProjectName(c)) > -1){
+    if (x[i].className.baseVal.indexOf(unhyphenated(c)) > -1){
         w3AddClass(x[i], "highlight");
     }
     else w3AddClass(x[i], "unhighlight")
@@ -404,20 +457,20 @@ function w3RemoveClass(element, name) {
 
 
 function displayTaskList(project){
-    data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+    data_rollup = d3.flatRollup(DATA,v => d3.sum(v, d => d.duration), d => d.project)
     data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
     listcontainer = document.getElementById("container-list")
 
     var color = d3.scaleOrdinal()
-        .domain(array_column(data_rollup,0))
+        .domain(get_col(data_rollup,0))
         .range(d3.schemeSet1);
 
     html = ""
-    for (const i in data.slice(0,data.length)){
-        d = data[i]
-        if (project == null | project == "all" | asClassName(d.project) == project){
-            span ='<li class = "task-li '+ asClassName(d.project)+'"">'
+    for (const i in DATA.slice(0,DATA.length)){
+        d = DATA[i]
+        if (project == null | project == "all" | hyphenated(d.project) == project){
+            span ='<li class = "task-li '+ hyphenated(d.project)+'"">'
                 + '<span style="color:'+color(d.project)+ '"><b>' + d.project + '</b></span>'
                 + "<br><b> " + d.task  + "</b>"
                 + "<br> " + fmt(d.duration) + '</li>'
@@ -428,11 +481,11 @@ function displayTaskList(project){
 }
 
 function displayProjectList(project){
-    data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration), d => d.project)
+    data_rollup = d3.flatRollup(DATA,v => d3.sum(v, d => d.duration), d => d.project)
     data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
     var color = d3.scaleOrdinal()
-        .domain(array_column(data_rollup,0))
+        .domain(get_col(data_rollup,0))
         .range(d3.schemeSet1);
 
     listcontainer = document.getElementById("container-list")
@@ -440,8 +493,8 @@ function displayProjectList(project){
     html = ""
     for (const i in data_rollup){
         d = data_rollup[i]
-        if (project == null | project == "all" | asClassName(d[0])  === project){
-            span ='<li class = "project-li '+ asClassName(d[0])+'"">'
+        if (project == null | project == "all" | hyphenated(d[0])  === project){
+            span ='<li class = "project-li '+ hyphenated(d[0])+'"">'
                 + '<span style="color:'+color(d[0])+ '"><b>' + d[0] + '</b></span>'
                 + "<br><b> " + d.length  + " Tasks" + "</b>"
                 + "<br> " + fmt(d[1]) + '</li>'
@@ -457,31 +510,31 @@ function addCssRule(rule, css) {
 }
 
 function createProjectFilterButtons(){
-    data_rollup = d3.flatRollup(data,v => d3.sum(v, d => d.duration),d => d.project)
+    data_rollup = d3.flatRollup(DATA,v => d3.sum(v, d => d.duration),d => d.project)
     data_rollup = data_rollup.slice().sort((a, b) => d3.descending(a[1], b[1]))
 
-    var allgroups = array_column(data_rollup,0)
-    var alldurations = array_column(data_rollup,1)
+    var allgroups = get_col(data_rollup,0)
+    var alldurations = get_col(data_rollup,1)
 
     var color = d3.scaleOrdinal()
-        .domain(array_column(data_rollup,0))
+        .domain(get_col(data_rollup,0))
         .range(d3.schemeSet1);
 
     btnContainer = document.getElementById("list-filters")
     html = ""
     for (const i in allgroups){
         d = allgroups[i]
-        span = '<button class="project filter-btn '+ asClassName(d) +'" onclick="projectFilterSelection(\''+ d +'\')">' + d +'</button>'
+        span = '<button class="project filter-btn '+ hyphenated(d) +'" onclick="projectFilterSelection(\''+ d +'\')">' + d +'</button>'
         html += span
-        addCssRule(".filter-btn."+asClassName(d), {
+        addCssRule(".filter-btn."+hyphenated(d), {
             'background-color': "white",
             'color': color(d)
         });
-        addCssRule(".filter-btn."+asClassName(d)+".clicked", {
+        addCssRule(".filter-btn."+hyphenated(d)+".clicked", {
             'background-color': color(d),
             'color': "white"
         });
-        addCssRule(".filter-btn."+asClassName(d)+":hover", {
+        addCssRule(".filter-btn."+hyphenated(d)+":hover", {
             'background-color': color(d),
             'color': "white"
         });
@@ -499,7 +552,7 @@ function clearProjectFilter(){
 }
 
 function projectFilter(c){
-    c = asClassName(c)
+    c = hyphenated(c)
     highlightSelection(c)
     taskButtonActive = document.getElementsByClassName("btn active")[0].className.indexOf("task") > -1
     if (taskButtonActive) displayTaskList(c) 
@@ -526,7 +579,7 @@ function btnSelection(c){
 }
 
 function projectFilterSelection(c){
-    c = asClassName(c)
+    c = hyphenated(c)
     projectFilter(c)
     var btns = document.getElementById("list-filters").getElementsByClassName("filter-btn");
     selectedBtn = document.getElementById("list-filters").getElementsByClassName(c)[0];
@@ -551,13 +604,6 @@ function projectFilterSelection(c){
 
 }
 
-function asClassName(c){
-    return c.replace(" ","-")
-}
-
-function asProjectName(c){
-    return c.replace("-"," ")
-}
 
 /*------------------------*/
 /* Running the simulation */
@@ -565,6 +611,6 @@ function asProjectName(c){
 
 createProjectFilterButtons()
 clearProjectFilter()
-taskSimulation(data);
-projectSimulation(data)
+taskSimulation(DATA);
+projectSimulation(DATA)
 

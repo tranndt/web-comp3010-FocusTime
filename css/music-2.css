@@ -1,0 +1,658 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    --navbar-bg-color:rgba(49, 49, 49, 0.171);
+    --transparent-bg-color:rgba(189, 189, 189, 0.664);
+    --white-bg-color:rgba(255, 255, 255, 0.95);
+    --item-border-color-grey: rgba(0, 0, 0, 0.1);
+    --border-between-ele: rgb(218, 218, 218) solid 0.5px;
+    --greyed-out-text:rgba(190, 190, 190, 0.8);
+    --secondary-header-font-size: 18px;
+    --header-font-size: 25px;
+    --box-shadow:0px 0px 2px rgba(31, 31, 31, 0.4);
+    --text-shadow:black 0px 0px 3px;
+    --accent-color:#984ea3;
+    --accent-color-transparent:#64356d;
+
+}
+  
+
+/* ---------------------------------- */
+/* ---------- 0.BODY LAYOUT --------- */
+/* ---------------------------------- */
+
+body{
+    margin: 0px; 
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+
+    background-image: url("../assets/imgs/img6.jpg");
+    /* background-color: var(--transparent-bg-color); */
+    background-size: cover;
+    opacity: 0.95;
+}
+
+.container-body{
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 500px 500px 500px auto;
+    grid-template-rows: 100px 70px 60px 60px 460px 80px;
+    grid-template-areas: 
+            "M1 N1 N2 N3 M2"
+            "M3 A0 A0 A0 M4"
+            "M3 A1 A1B A3 M4"
+            "M3 A2 A2 A3B M4"
+            "M3 A2 A2 A4 M4"
+            "M3 A2 A2 A5 M4"
+
+}
+
+/* ---------------------------------- */
+/* --------- 1.MARGIN LAYOUT -------- */
+/* ---------------------------------- */
+
+#margin-navbar-left{ grid-area: M1;}
+#margin-navbar-right{ grid-area: M2;}
+#margin-left{ grid-area: M3;}
+#margin-right{ grid-area: M4;}
+.margin{font-size: 0;} /* Comment out to remove the texts */
+
+/* ---------------------------------- */
+/* ------- 1.1.MISCELLANEOUS --------- */
+/* ---------------------------------- */
+/* Scroll bar for list/windows */
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+  }
+
+*::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.021);
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+background-color: rgb(139, 139, 139);
+border-radius: 50px;
+}
+
+
+/* ---------------------------------- */
+/* -------- 2.NAVBAR LAYOUT --------- */
+/* ---------------------------------- */
+
+.navbar {
+    background-color: var(--navbar-bg-color);
+}
+
+/* NAVBAR LEFT - LOGO */
+
+#navbar-left {
+    grid-area: N1;
+}
+
+.logoimg{
+    display: block;
+    position: relative;
+    top: -95%;
+    left: -10%; 
+}
+
+/* NAVBAR CENTER - N2- NAV-ITEMS */
+
+#navbar-center{
+    grid-area: N2;
+}
+
+#container-main-navbar{
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas: 
+            "NC2"
+            "NC3";
+    padding-top:25px;
+}
+
+/* .navitem-name{
+    grid-area: NC1;
+    height: 10px;
+} */
+
+.navitemlist{
+    grid-area: NC2;
+    /* background: rgb(212, 221, 83); */
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.activebar{
+    grid-area: NC3;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+ul{
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.navitemlist li {
+    display: inline-flex;
+    padding: 0em 1.25em 0em 1.25em;
+    text-align: center;  
+    border-right: 0.05em solid rgba(0, 0, 0, 0.1);
+}
+
+.navitemlist li:last-child {
+    border-right: none;
+}
+
+.navitem {
+    text-decoration: none;
+    display: flex; 
+    padding: 0 0.1em;
+}
+
+.activebar .tab-active{
+    background-color: rgb(60, 60, 60);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+.activebar .tab-inactive{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50em;
+    height: 10px;
+    width: 10px;
+    margin-top: 1px;
+}
+
+/* NAVBAR RIGHT  */
+#navbar-right{
+    grid-area: N3;
+    font-size: 0;
+}
+
+/* ---------------------- */
+
+li {
+    list-style-type: none;
+}
+
+li:not(.navitemlist li):not(:last-child){
+    border-bottom: 1px #ccc solid;
+}
+
+li:not(.navitemlist li){
+    padding: 10px
+}
+
+/* ---------------------------------- */
+/* ---------- 3. APP LAYOUT --------- */
+/* ---------------------------------- */
+
+.app-div{
+    padding: 5px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.header {
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
+}
+
+.header-list {
+    font-size: 25px;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left: 10px;
+}
+
+/* ---------- A0 ---------- */
+
+#app-a0{
+    grid-area: A0;
+    font-size: 40px;
+    color: var(--white-bg-color);
+    text-shadow: black 0px 0px 3px;
+}
+
+/* ---------- A1 ---------- */
+
+#app-a1{
+    grid-area: A1;
+    background-color: var(--white-bg-color);
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    margin-right: 0px;
+
+}
+
+#container-a1{
+    display: grid;
+    grid-template-areas: "AP SB";
+    grid-template-columns: 1fr 1fr;
+}
+
+#app-a1b{
+    grid-area: A1B;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    margin-left: 0px;
+}
+
+#container-a1b{
+    justify-self: right;
+    display: grid;
+    grid-template-areas: "AP SB";
+    grid-template-columns: 1fr 1fr;
+}
+
+/* ---------- A2 ---------- */
+
+#app-a2{
+    grid-area: A2;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+    overflow-y:scroll;
+    overflow-x: hidden;
+
+}
+#container-a2{
+    align-items: stretch;
+    padding-bottom: 25px;
+}
+
+#container-explore-main{
+    display: grid;
+
+}
+#container_explore_topic{
+    display: none;
+}
+
+.container-explore-component{
+    display: grid;
+    grid-template-areas: "HL1 HB1"
+                        "CL1 CL1";
+    grid-template-columns: auto 100px;
+}
+
+.header-list{
+    grid-area: HL1;
+    margin-left: 15px;
+}
+.header-button{
+    grid-area: HB1;
+    align-self: center;
+    font-size: var(--secondary-header-font-size);
+    color: #666;
+    text-decoration: underline;
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.container-list{
+    grid-area: CL1;
+    min-height: 50px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px 0px;
+    padding: 15px;
+    padding-bottom: 25px;
+}
+
+#list-genres{
+    min-height: 100px;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    gap: 20px 0px;
+    padding: 15px;
+}
+
+
+.album-item, .album-item-2{
+    width: 175px;
+    height: 175px;
+    display:grid;
+    justify-self: center;
+    grid-template-areas: "AI";
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+.album-item-img, .album-item-img-2{
+    grid-area: AI;
+    width: inherit;
+    height: inherit;
+    display:block;
+    justify-self: center;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+.album-item-descr, .album-item-descr-2{
+    grid-area: AI;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    top: -100px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    opacity: 0;
+    box-shadow: black 0px 0px 4px;
+    overflow: hidden;
+}
+
+.album-item-descr:hover, .album-item-descr-2:hover{
+    opacity: 0.8;
+}
+
+.album-item-descr.selected, .album-item-descr-2.selected{
+    opacity: 0.8;
+}
+
+.album-item-descr-album-name, .album-item-descr-2-album-name{
+    padding:5px;
+    padding-top: 25px;
+    font-size: var(--secondary-header-font-size);
+}
+
+.album-item-descr-album-artist,.album-item-descr-2-album-artist{
+    font-size: 14px;
+}
+.album-item-descr-album-num_tracks,.album-item-descr-2-album-num_tracks{
+    padding-top: 25px;
+    font-size: 14px;
+}
+.album-item-descr-album-playlist-length, .album-item-descr-2-album-playlist-length{
+    font-size: 14px;
+}
+
+
+
+.genre-item{
+    width: 100px;
+    height: 100px;
+    display:grid;
+    grid-template-areas: "GI";
+    justify-self: center;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+.genre-item-img{
+    grid-area: GI;
+    width: inherit;
+    height: inherit;
+    display:block;
+    justify-self: center;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+.genre-item-descr{
+    grid-area: GI;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    top: -100px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    opacity: 0;
+    box-shadow: black 0px 0px 4px;
+    overflow: hidden;
+}
+
+.genre-item-descr:hover{
+    opacity: 0.8;
+}
+
+
+
+
+
+/* .album-item:hover{
+    opacity: 0.9;
+} */
+/* ------- BUTTONS ------- */
+
+.button{
+    background-color: #ffffff;
+    color: black;
+    border-radius: 25px;
+    padding: 10px 10px;
+    cursor: pointer;
+    border-color: var(--item-border-color-grey);
+    font-size: var(--secondary-header-font-size);
+    font-family: "Montserrat", sans-serif;
+}
+
+.button:hover{
+    background-color: #ddd;
+}
+
+.button.active {
+    background-color: #666;
+    color: white;
+    text-shadow: var(--box-shadow);
+}
+
+/* ---------- A3 ---------- */
+
+#app-a3{
+    grid-area: A3;
+    background-color: var(--white-bg-color);
+
+    border-top-right-radius: 15px ;
+    border-top-left-radius: 15px ;
+    border-bottom: rgb(218, 218, 218) solid 0.5px;
+}
+
+#container-a3{
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#button-dismiss{
+    color: rgb(175, 175, 175);
+}
+
+/* ---------- A3B ---------- */
+
+#app-a3b{
+    grid-area: A3B;
+    background-color: var(--white-bg-color);
+}
+
+#container-a3b{
+    font-size: var(--secondary-header-font-size);
+    display: grid;
+    grid-template-columns: 150px 150px;
+    justify-content: center;
+    padding-right:10px;
+    padding-top:5px;
+    /* padding-top:10px; */
+}
+
+
+/* ---------- A4 ---------- */
+
+#app-a4{
+    grid-area: A4;
+    background-color: var(--white-bg-color);
+    overflow-y:scroll;
+    scroll-behavior: smooth;
+    /* border: 1px black dashed; */
+
+}
+
+#container-a4{
+    display: grid;
+    justify-self: center;
+    align-self: center;
+    padding: 10px;
+}
+
+#container-album-summary{
+    width: 100%;
+    /* border: 1px black dashed; */
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#album-cover{
+    border-radius: 25px;
+    width: 300px;
+    height: 300px;
+    display:block;
+    justify-self: center;
+    box-shadow: var(--text-shadow);
+    cursor: pointer;
+}
+
+#album-cover-img{
+    border-radius: 25px;
+    width: inherit;
+    height: inherit;
+}
+
+#album-details{
+    padding: 10px;
+    /* border: 1px black dashed; */
+    text-align: center;
+    font-size: var(--secondary-header-font-size);
+}
+
+#album-name{
+    font-size: var(--header-font-size);
+}
+#album-num_tracks{
+    padding-top: 15px;
+}
+
+#album-playlist-length{
+    padding-bottom: 15px;
+
+}
+
+/* ----- CONTAINER SONG ITEM ----- */
+.container-song-list{
+    padding-top:0px;
+}
+
+.container-song-item{
+    display: grid;
+    grid-template-areas:    "SIMG SNAME DURTN"
+                            "SIMG ARTST .";
+    grid-template-columns: 80px auto 50px;
+    grid-template-rows: 40px 40px;
+}
+
+.song-item-img{
+    grid-area: SIMG;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.song-item-title{
+    grid-area: SNAME;
+    padding: 15px;
+    padding-bottom: 2px;
+    /* align-self: center; */
+    font-size: var(--secondary-header-font-size);
+    overflow: hidden;
+}
+
+.song-item-artist{
+    grid-area: ARTST;
+    padding: 15px;
+    padding-top: 2px;
+    color:var(--greyed-out-text);
+    font-size: 16px;
+    align-self: center;
+}
+
+.song-item-duration{
+    grid-area: DURTN;
+    padding-top: 15px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+
+    margin-left: auto;
+    font-size: var(--secondary-header-font-size);
+    font-size: 16px;
+}
+
+/* ---------- A5 ---------- */
+
+#app-a5{
+    grid-area: A5;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+
+}
+
+#container-a5{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 5px;
+    margin-bottom: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
+
+#button-add-to-queue, #button-start-timer{
+    border-radius: 50px;
+    padding: 5px;
+
+}
+#button-add-to-queue{
+    background-color: white;
+    color: var(--accent-color);
+}
+
+#button-add-to-queue:hover{
+    background-color: var(--transparent-bg-color);
+    color: var(--accent-color);
+}
+
+#button-start-timer{
+    background-color: var(--accent-color);
+    color: white;
+}
+
+#button-start-timer:hover{
+    background-color: var(--accent-color-transparent);
+    color: white;
+}
+
+
+
+
+
