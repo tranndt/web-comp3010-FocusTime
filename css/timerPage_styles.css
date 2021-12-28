@@ -286,8 +286,8 @@ li:not(.navitemlist li){
 
 /* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
-    stroke-width: 5;
-    stroke: rgba(145, 100, 175, 0.932);
+    stroke-width: 3;
+    stroke: rgba(248, 131, 131, 0.932);
 }
 
 .base-timer__path-remaining {
@@ -295,11 +295,11 @@ li:not(.navitemlist li){
     transform:rotate(-90deg);
     transform-origin:50% 50%;
     stroke: rgba(185, 185, 192, 0.904);
-    stroke-width: 4.9;
+    stroke-width: 2.9;
 }
 
 .base-timer__init-line{
-    stroke: rgb(93, 0, 136);
+    stroke: rgb(136, 0, 0);
     stroke-width: 0.5;
 }
   
@@ -334,13 +334,13 @@ transform: scaleX(-1);
     display:inline-block;
     padding: 1.1vh 0vw 1.1vh 0.2vw;
     line-height:20%;
-    font-size: 2vh;
+    font-size: 100%;
     overflow: visible;
 } 
 
 
 .session-time .timer-set{
-    font-size: 450%;
+    font-size: 400%;
     font-weight: bold;
     color: var(--text-color);
     display: flex;
@@ -349,8 +349,8 @@ transform: scaleX(-1);
 }
 
 .break-time {
-    font-size: 200%;
-    color: #E92C45;
+    font-size: 180%;
+    color: #d31111;
 }
 
 .timer-controls{
@@ -364,10 +364,10 @@ transform: scaleX(-1);
 .timer-button  {
     height: 80%;
     width: 40%;
-    color: rgb(69, 6, 83);
+    color: #a1303f;
     font-size: 150%;
     font-weight : bold;
-    border: solid rgb(102, 53, 158) 1px;
+    border: solid rgb(165, 156, 157) 2px;
     display: grid;
     place-items: center;
     border-radius: 100%;
