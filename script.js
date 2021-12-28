@@ -23,33 +23,184 @@ const handleInput = (event) => {
     if (value[0] !== bullet) {
         target.value = `${bulletWithSpace}${value}`;
     }
+
+	let currTask = document.getElementById("task-selector").value;
+
+	if (currTask.localeCompare("choose-a-task")) {
+		localStorage.setItem(`${currTask}`, target.value);
+	}
 }
 
-function createNewOption(selectorID, type) {
-	var selectBox = document.getElementById(selectorID);
-    var selectedValue = selectBox.value;
-    var newOption;
+var newOptions = JSON.parse(localStorage.getItem("newOptions") || "[]");
+var taskDetailsCount = 13;
+var projectCount = 6;
 
-	if (!selectedValue.localeCompare("create-"+type)) {
-        var newOptionValue = window.prompt("What is the new "+type+"?");
+const PT_dbox_elem = document.getElementById("dialogBox-2");
+const PT_dbox_msg = document.getElementById("dbox-msg-2");
+const PT_new_item = document.getElementById("dbox-input-2");
+const PT_dbox_btn_done = document.getElementById("confirm-btn-2");
+const PT_dbox_btn_cancel = document.getElementById("cancel-btn-2");
+const PT_dbox_btn_skip = document.getElementById("skip-btn-2");
+const task_selectBox = document.getElementById("task-selector");
+const project_selectBox = document.getElementById("project-selector");
+var newItem_type = "";
+var newItem_selectBox;
 
-		if (newOptionValue !== null) {
-			if (newOptionValue.localeCompare("")) {
-				newOption = new Option(newOptionValue, newOptionValue);
-				selectBox.add(newOption, selectBox.options.length - 1);
-				selectBox.value = newOption.value;
+PT_dbox_btn_cancel.addEventListener('click', () => {
+	//newItem_selectBox.value = selectBox.options[0].firstChild.textContent;
+	PT_dbox_elem.style.display = "none";
+	newItem_type = "";
+	newItem_selectBox = null;
+});
+
+PT_dbox_btn_skip.addEventListener('click', () => {
+	//newItem_selectBox.value = selectBox.options[0].firstChild.textContent;
+	PT_dbox_elem.style.display = "none";
+	newItem_type = "";
+	newItem_selectBox = null;
+});
+
+task_selectBox.addEventListener('change', () => {
+	if (task_selectBox.value == "create-task") {
+		newItem_type = "task";
+		newItem_selectBox = task_selectBox;
+		PT_dbox_msg.textContent = "What is the new task?";
+
+		PT_dbox_elem.style.display = "block";
+	}
+});
+
+project_selectBox.addEventListener('change', () => {
+	if (project_selectBox.value == "create-project") {
+		newItem_type = "project";
+		newItem_selectBox = project_selectBox;
+		PT_dbox_msg.textContent = "What is the new project?";
+
+		PT_dbox_elem.style.display = "block";
+	}
+});
+
+PT_dbox_btn_done.addEventListener('click', () => {
+    if(PT_new_item == ""){
+        alert("New task/project name should not be empty. Please try again.");
+		newItem_selectBox.value = selectBox.options[0].firstChild.textContent;
+		newItem_type = "";
+		newItem_selectBox = null;
+    }
+
+    else {   
+        PT_dbox_elem.style.display = "none";
+		createNewOption(newItem_selectBox, newItem_type);
+    }
+});
+
+function createNewOption(selectBox, type) {
+	var newOption;
+	var newOptionValue = PT_new_item.value;
+
+	if (type == "task") {
+		taskDetailsCount++;
+		newOption = new Option(newOptionValue, "task-"+taskDetailsCount);
+		let project = project_selectBox.value;
+
+		//newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
+		newOptions.push({project : `${project.text}`, projectID : `${project}`, task : `${newOptionValue}`, update : 'task'});
+	}
+
+	else {
+		projectCount++;
+		newOption = new Option(newOptionValue, "project-"+projectCount);
+		let task = task_selectBox.value;
+
+		//newOptions.push({project : `${"project-"+projectCount}`, task : `${task}`, update : 'project'});
+		newOptions.push({project : `${newOptionValue}`, projectID : `${"project-"+projectCount}`, task : `${task}`, update : 'project'});
+	}
+
+	selectBox.add(newOption, selectBox.options.length);
+	selectBox.value = newOption.value;
+
+	localStorage.setItem("newOptions", JSON.stringify(newOptions));
+
+	//notify users
+	toast_elem.className = "show";
+	toast_elem.textContent = "New "+ type + " '" + newOptionValue + "' created.";
+
+	setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+}
+
+// function createNewOption(selectorID, type) {
+// 	var selectBox = document.getElementById(selectorID);
+//     var selectedValue = selectBox.value;
+//     var newOption;
+
+// 	if (!selectedValue.localeCompare("create-"+type)) {
+// 		var newOptionValue = prompt("What is the new "+type+"?");
+
+// 		if (newOptionValue !== null) {
+// 			if (newOptionValue.localeCompare("")) {
+// 				if (type == "task") {
+// 					taskDetailsCount++;
+// 					newOption = new Option(newOptionValue, "task-"+taskDetailsCount);
+// 					let project = document.getElementById("project-selector").value;
+
+// 					newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
+// 				}
+
+// 				else {
+// 					projectCount++;
+// 					newOption = new Option(newOptionValue, "project-"+projectCount);
+// 					let task = document.getElementById("task-selector").value;
+
+// 					newOptions.push({project : `${newOptionValue}`, task : `${task}`, update : 'project'});
+// 				}
+
+// 				selectBox.add(newOption, selectBox.options.length);
+// 				selectBox.value = newOption.value;
+
+// 				localStorage.setItem("newOptions", JSON.stringify(newOptions));
+
+// 				//notify users
+// 				toast_elem.className = "show";
+// 				toast_elem.textContent = "New "+ type + " '" + newOptionValue + "' created.";
+		
+// 				setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+// 			}
+		
+// 			else {
+// 				alert(type+" name should not be empty. Please try again.");
+// 			}
+// 		}
+
+// 		else {
+// 			selectBox.value = selectBox.options[0].firstChild.textContent;
+// 		}
+//     }
+// }
+
+function updateSelector(newOptionsList) {
+	if(newOptionsList != null) {
+		for (i = 0; i < newOptionsList.length; i++) {
+			if (newOptionsList[i].update == "task") {
+				taskDetailsCount++;
+				let taskBox = document.getElementById("task-selector");
+		
+				let newOption = new Option(newOptionsList[i].task, "task-"+taskDetailsCount);
+				taskBox.add(newOption, taskBox.options.length);
 			}
 		
 			else {
-				alert(type+" name should not be empty. Please try again.");
+				projectCount++;
+				let projectBox = document.getElementById("project-selector");
+		
+				let newOption = new Option(newOptionsList[i].project, "project-"+projectCount);
+				projectBox.add(newOption, projectBox.options.length);
 			}
 		}
-
-		else {
-			selectBox.value = selectBox.options[0].firstChild.textContent;
-		}
-    }
+	}
 }
+
+updateSelector(JSON.parse(localStorage.getItem('newOptions') || "[]"));
+//updateSelector(JSON.parse(localStorage.getItem('newOptionsUT') || "[]"));
 
 // http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial 
 function audioApp(album_title){

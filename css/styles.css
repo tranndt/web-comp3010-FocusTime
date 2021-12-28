@@ -32,7 +32,7 @@ The toast - position it at the bottom and in the middle of the screen */
     visibility: visible; /* Show the snackbar */
 }
 
-#dialogBox {
+#dialogBox, #dialogBox-2 {
     position: fixed;
     top: 40%;
     left:34%;
@@ -55,11 +55,11 @@ The toast - position it at the bottom and in the middle of the screen */
   justify-content: right;
 }
 
-#dbox-input {
+#dbox-input, #dbox-input-2 {
     margin:3%;
     max-width: 30%;
 }
- #dbox-msg {
+ #dbox-msg, #dbox-msg-2 {
   margin:3%;
  }
 
@@ -68,21 +68,21 @@ The toast - position it at the bottom and in the middle of the screen */
   /* justify-content:space-between; */
 }
 
-#confirm-btn {
+#confirm-btn, #confirm-btn-2 {
   background-color: rgb(190, 194, 202);
   margin: 3%;
   padding: 1%;
   cursor: pointer;
 }
 
-#skip-btn {
+#skip-btn, #skip-btn-2 {
   background-color: rgb(190, 194, 202);
   padding: 1%;
   margin: 3%;
   cursor: pointer;
 }
 
-#cancel-btn {
+#cancel-btn, #cancel-btn-2 {
   background-color: rgb(196, 3, 35);
   padding: 1%;
   cursor: pointer;
@@ -858,13 +858,19 @@ transform: scaleX(-1);
 }
 
 /* upcomingTasks - accordion */
+.header {
+  width: 80%;
+  margin: 5rem auto 0 auto;
+}
+
 #upcoming-tasks-title{
-    margin: 4rem 0 0 5rem;
+    float: left;
 }
 
 .accordion {
     width: 80%;
-    margin: 2rem auto;
+    margin: 0 auto;
+    clear: both;
 }
 
 .accordion-item {
@@ -918,7 +924,7 @@ div.accordion-item-header.active::after {
     border-bottom: 2px solid var(--primary-color);
   }
 
-.taskDetails {
+.taskDetails, .newItem-container-details {
 display: none;
 }
 
@@ -950,17 +956,34 @@ font-weight: normal;
 }
 
 #newProject {
+    float: left;
     background-color: var(--primary-color);
-    width: 100%;
-    margin: 1rem 0;
+    width: fit-content;
+    margin: 0 0 0 2rem;
     border-radius: 0.5rem;
     text-align: left;
     box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
-    padding: 0.25rem 2rem 0.25rem 1.5rem;
-    min-height: 3rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    min-height: 2rem;
     font-size: inherit;
     font-weight: bold;
     cursor: pointer;
+    display: none;
+}
+
+#newProj {
+  float: right;
+  background-color: var(--primary-color);
+  width: fit-content;
+  margin: 0 0 0 2rem;
+  border-radius: 0.5rem;
+  text-align: left;
+  box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  min-height: 2rem;
+  font-size: inherit;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 @media(max-width:767px) {
@@ -970,8 +993,9 @@ font-weight: normal;
 }
 
 .search-container {
-    margin: 1.3rem 0 0 0;
-    position: relative;
+    float: right;
+    margin: 0 0 1.3rem 0;
+    /* position: fixed; */
     height: 35px;
     border: 2px solid black;
     background-color: white;
@@ -980,37 +1004,37 @@ font-weight: normal;
     min-height: 2rem;
     font-size: inherit;
     font-weight: bold;
-    float: left;
+    width: fit-content;
 }
   
-.search-box {
-width: 100%;
-height: 100%;
-vertical-align: middle;
-/* background-color: white; */
-padding: 0px;
-margin: -3px 0 0 0 ;
-} 
-
-.search {
-border: none;
-height: 100%;
-width: 100%;
-padding: auto;
-border-radius: 50px;
-font-size: 15px;
-background-color: white;
-}
-
-.material-icons {
-font-size: 25;
-}
-
-.search:focus, .taskName:focus, .taskDate:focus, .taskProgress:focus {
-outline: none;
-}
+  .search-box {
+    width: 100px;
+    height: 100%;
+    vertical-align: middle;
+    /* background-color: white; */
+    padding: 0px;
+    margin: -3px 0 0 0 ;
+  } 
   
-.taskDetails input::placeholder, .search-container input::placeholder {
+  .search {
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding: auto;
+    border-radius: 50px;
+    font-size: 15px;
+    background-color: white;
+  }
+  
+  .material-icons {
+    font-size: 25;
+  }
+  
+  .search:focus, .taskName:focus, .taskDate:focus, .taskProgress:focus {
+    outline: none;
+  }
+  
+.newItem-container-details input::placeholder, .search-container input::placeholder {
     font-weight: normal;
     font-size: 0.9rem;
 }
