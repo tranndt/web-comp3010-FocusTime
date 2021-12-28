@@ -6,6 +6,45 @@ function unhyphenated(c){
     return c.replaceAll("-"," ")
 }
 
+function fmt2 (seconds) {
+    const format = val => `0${Math.floor(val)}`.slice(-2)
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const odd_secs = seconds % 60
+    if (hours <= 0){ hh = ''}     
+    else if (hours < 10) {hh='0'+hours+':'} 
+    else {hh = hours+':'}
+
+    if (minutes <= 0){ mm = ''}
+    else if (minutes < 10) {mm='0'+minutes+':'} 
+    else {mm = minutes+':'}
+    
+    if (odd_secs < 10) {ss='0'+odd_secs} 
+    else {ss = odd_secs}
+    return hh+mm+ss
+}
+
+
+// Courtesy of https://github.com/coolaj86/knuth-shuffle
+function shuffle(array) {
+    var array_ = [...array]
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array_[currentIndex], array_[randomIndex]] = [
+        array_[randomIndex], array_[currentIndex]];
+    }
+  
+    return array_;
+  }
+
 GENRES = Array.from(
     [
         {genre_name: "Indie", src:"assets/music/filters/filter_indie.png"},
@@ -86,7 +125,47 @@ ALBUMS = Array.from(
     {album_name: 'Short Album 6', artist:"Various Artists", year:2017, num_tracks: 15, length: '31:42', topic:"Short", src:"assets/music/albums/album_apoliono.png"},
     {album_name: 'Short Album 7', artist:"Various Artists", year:2018, num_tracks: 10, length: '30:41', topic:"Short", src:"assets/music/albums/album_mustard.png"},
     {album_name: 'Short Album 8', artist:"Various Artists", year:2020, num_tracks: 11, length: '33:12', topic:"Short", src:"assets/music/albums/album_arizonababy.png"},
-])    
+])   
+
+AUDIOS = [
+    "audio/be_yourself.mp3",
+    "audio/close_to_you.mp3",
+    "audio/facebook_story.mp3",
+    "audio/futura_free.mp3",
+    "audio/godspeed.mp3",
+    "audio/good_guy.mp3",
+    "audio/ivy.mp3",
+    "audio/nights.mp3",
+    "audio/nikes.mp3",
+    "audio/pink+white.mp3",
+    "audio/pretty_sweet.mp3",
+    "audio/seigfried.mp3",
+    "audio/self_control.mp3",
+    "audio/skyline_to.mp3",
+    "audio/solo_reprise.mp3",
+    "audio/solo.mp3",
+    "audio/white_ferrari.mp3",
+]
+
+SONG_TITLES = [
+    "Willow"	,
+    "Champagne Problems"	,
+    "Gold Rush"	,
+    "'Tis the Damn Season"	,
+    "Tolerate It"	,
+    "No Body, No Crime" ,
+    "Happiness"	,
+    "Dorothea"	,
+    "Coney Island" ,
+    "Ivy"	,
+    "Cowboy like Me"	,
+    "Long Story Short"	,
+    "Marjorie"	,
+    "Closure"	,
+    "Evermore (featuring Bon Iver)",
+    "Right Where You Left Me",	
+    "It's Time to Go"	
+]
 
 TOPICS = ["Today's Pick","What's Popular", "Release Radar"]
 LISTS = ['list-todays-pick',"list-whats-popular","list-release-radar"]
@@ -114,23 +193,20 @@ function load_albums(){
 }
 
 function load_genres(){
-    var html_i = '';
+    var html = '';
     GENRES.forEach(d => {
-        // span = `<img class="genre-item" id="genre-${d.genre_name}" src="${d.src}" onclick="show_albums_by_topic(\`${d.genre_name}\`)">`
-
         span = `<div class="genre-item" id="genre-${hyphenated(d.genre_name)}" onclick="show_albums_by_topic(\`${d.genre_name}\`)">
         <img class="genre-item-img" id="genre-item-img-${hyphenated(d.genre_name)}" src="${d.src}">
         <div class="genre-item-descr" id="genre-item-descr-${hyphenated(d.genre_name)}"></div>
         </div>
         `
-        html_i += span;
+        html += span;
     })
-    var list_container = document.querySelector(`#list-genres`)
-    list_container.innerHTML = html_i
+    writeHTML(`#list-genres`,html);
 }
 
 function show_albums_by_topic(topic){
-    var html_i = '';
+    var html = '';
     ALBUMS.forEach(d => {
         if (d.topic == topic){
             span = `<div class="album-item-2" id="album-item-2-${hyphenated(d.album_name)}" onclick="album_item_onclick_2(\`${d.album_name}\`)">
@@ -143,26 +219,22 @@ function show_albums_by_topic(topic){
                         </div>
                     </div>
                     `
-            html_i += span;
+            html += span;
         }
     })
-    var album_header = document.querySelector(`#header-topic`)
-    album_header.innerHTML = topic
-    var list_container = document.querySelector(`#list-topic`)
-    list_container.innerHTML = html_i
+    writeHTML(`#header-topic`,topic);
+    writeHTML(`#list-topic`,html);
 
     var container_explore_topic = document.querySelector("#container-explore-main");
     container_explore_topic.style.display = "none";
     var container_explore_topic = document.querySelector("#container-explore-topic");
     container_explore_topic.style.display = "grid";
 
-    dismiss_album_details();
-    // var container_a2 = document.getElementById("container-a2");
-    // sessionStorage.scroll_pos = container_a2.scrollHeight
+    dismiss_details();
 }
 
 function album_item_onclick(album_name){
-    display_album_details(album_name)
+    display_details(album_name)
     var all_album_items_descr = document.querySelectorAll(`.album-item-descr`);
     Array.from(all_album_items_descr).forEach(album_item_descr=>{
         album_item_descr.className = album_item_descr.className.replace(" selected","")
@@ -174,7 +246,7 @@ function album_item_onclick(album_name){
 }
 
 function album_item_onclick_2(album_name){
-    display_album_details(album_name)
+    display_details(album_name)
     var all_album_items_descr = document.querySelectorAll(`.album-item-descr-2`);
     Array.from(all_album_items_descr).forEach(album_item_descr=>{
         album_item_descr.className = album_item_descr.className.replace(" selected","")
@@ -185,57 +257,159 @@ function album_item_onclick_2(album_name){
     album_item_descr.className += " selected"
 }
 
-function display_album_details(album_name){
-    var html='';
+
+function load_summary(album_name){
+    var d = get_album(album_name);
+    var html=
+            `<div id="album-name">${d.album_name}</div>
+            <div id="album-artist">${d.artist}</div>
+            <div id="album-num_tracks">${d.num_tracks} Songs</div>
+            <div id="album-playlist-length">${d.length}</div>`
+
+    album_cover = document.querySelector("#album-cover-img");
+    album_cover.src = d.src
+    writeHTML(`#album-details`,html)
+}
+
+function display_details(album_name){
+    load_summary(album_name)
+    load_playlist(album_name)
+    showHTMLElement("#container-a3b","grid");
+    showHTMLElement("#container-a4","grid");
+    showHTMLElement("#container-a5","grid");
+    showHTMLElement("#button-dismiss","grid");
+    document.querySelector("#app-a4").scrollTo(0,0)
+}
+
+function dismiss_details(){
+    html = 
+        `<div id="album-name"></div>
+        <div id="album-artist"></div>
+        <div id="album-num_tracks"></div>
+        <div id="album-playlist-length"></div>`
+    
+    writeHTML(`#album-details`,html)
+    document.querySelector("#album-cover-img").src = ""
+
+    hideHTMLElement("#container-a3b");
+    hideHTMLElement("#container-a4");
+    hideHTMLElement("#container-a5");
+    hideHTMLElement("#button-dismiss");
+    change_active_button(null,"html",`.album-item-descr,.album-item-descr-2`,flag=" selected")
+}
+
+function get_album(album_name){
+    let album;
     for (j in ALBUMS){
         d=ALBUMS[j]
         if (unhyphenated(d.album_name) == unhyphenated(album_name)){
-            html = 
-                `<div id="album-name">${d.album_name}</div>
-                <div id="album-artist">${d.artist}</div>
-                <div id="album-num_tracks">${d.num_tracks} Songs</div>
-                <div id="album-playlist-length">${d.length}</div>`
-            src = d.src;
+            album = d
             break;
         }
     }
-    album_details = document.querySelector("#album-details");
-    album_details.innerHTML = html;
-    album_cover = document.querySelector("#album-cover");
-    album_cover.style.opacity = 1;
-    album_cover.src = src
-    containera3b = document.querySelector("#container-a3b");
-    containera3b.style.display = "grid";
-    containera5 = document.querySelector("#container-a5");
-    containera5.style.display = "grid";
-    button_clear = document.querySelector("#button-clear");
-    button_clear.style.display = "grid";
+    return album;
 }
 
-function dismiss_album_details(){
-    html = 
-    `<div id="album-name"></div>
-    <div id="album-artist"></div>
-    <div id="album-num_tracks"></div>
-    <div id="album-playlist-length"></div>`
-    src = "";
-    var all_album_items_descr = document.querySelectorAll(`.album-item-descr, .album-item-descr-2`);
-    Array.from(all_album_items_descr).forEach(album_item_descr=>{
-        album_item_descr.className = album_item_descr.className.replace(" selected","")
+function change_active_button(button_id,parent,button_class,flag){
+    parent = parent == null ? "html" : parent;
+    button_class = button_class == null ? ".button" : button_class;
+    flag = flag == null ? " active" : flag;
+
+    parent_item = document.querySelector(parent);
+    var all_buttons = parent_item.querySelectorAll(button_class);
+    Array.from(all_buttons).forEach(button=>{
+        button.className = button.className.replace(flag,"")
     })
-
-    album_details = document.querySelector("#album-details");
-    album_details.innerHTML = html;
-    album_cover = document.querySelector("#album-cover");
-    album_cover.style.opacity = 0;
-    album_cover.src = src
-    containera3b = document.querySelector("#container-a3b");
-    containera3b.style.display = "none";
-    containera5 = document.querySelector("#container-a5");
-    containera5.style.display = "none";
-    button_clear = document.querySelector("#button-clear");
-    button_clear.style.display = "none";
+    if (button_id){
+        button_active = parent_item.querySelector(button_id)
+        button_active.className += flag
+    }
 }
+
+function writeHTML(element,html){
+    document.querySelector(element).innerHTML = html;
+}
+
+function hideHTMLElement(element){
+    document.querySelector(element).style.display = "none";
+}
+
+function showHTMLElement(element,display){
+    display = display ? display : "grid"
+    document.querySelector(element).style.display = display;
+}
+
+function on_playlist_button_clicked(){
+    // Scroll To Playlist section
+    app_a4 = document.querySelector("#app-a4");
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.scrollTo(0,container_album_summary.offsetHeight)
+}
+
+function on_summary_button_clicked(){
+    // Scroll To Playlist section
+    app_a4 = document.querySelector("#app-a4");
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.scrollTo(0,0)
+}
+
+function load_playlist(album_name){
+    function load_duration(container_song_item){
+        let duration = container_song_item.querySelector(`.song-item-duration`)
+        let audio = container_song_item.querySelector(`.audio-item`)
+        audio.onloadedmetadata = function(event){
+            duration.innerHTML = fmt2(parseInt(this.duration))
+        }
+    }
+
+    var album = get_album(album_name);
+    var song_titles = shuffle(SONG_TITLES)
+    var audios = shuffle(AUDIOS)
+    var html='';
+    for (i =0; i < album.num_tracks & i < song_titles.length; i++){
+        song_title = song_titles[i]
+        src = audios[i]
+        span = `
+            <li>
+                <div class="container-song-item" id="container-song-item-${hyphenated(song_title)}">
+                    <audio class="audio-item" id="audio-item-${i}" preload="metadata" src="${src}" style="display:none"></audio>
+                    <img class="song-item-img" id="song-item-img-${hyphenated(song_title)}" src="${album.src}">
+                    <div class="song-item-title" id="song-item-title-${hyphenated(song_title)}">${song_title}</div>
+                    <div class="song-item-artist">${album.artist}</div>
+                    <div class="song-item-duration" id ="song-item-duration">3:10</div>
+                </div>
+            </li>
+        `
+        html += span
+    }
+    writeHTML("#container-album-playlist",html);
+
+    var container_song_items = document.getElementsByClassName("container-song-item");
+    Array.from(container_song_items).forEach(container_song_item => {
+        load_duration(container_song_item)
+    })
+}
+
+function load_scroll_listener_details(){
+    app_a4 = document.querySelector("#app-a4")
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.addEventListener("scroll",function(event){
+        if (this.scrollTop > container_album_summary.offsetHeight){
+            change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
+        } else change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+    })
+}
+
+function load_scroll_listener_explore(){
+    app_a4 = document.querySelector("#app-a2")
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.addEventListener("scroll",function(event){
+        if (this.scrollTop > container_album_summary.offsetHeight){
+            change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
+        } else change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+    })
+}
+
 
 function show_main_music_page(){
     var container_explore_topic = document.querySelector("#container-explore-main");
@@ -243,13 +417,19 @@ function show_main_music_page(){
     var container_explore_topic = document.querySelector("#container-explore-topic");
     container_explore_topic.style.display = "none";
 
+    load_scroll_listener_details()
+    dismiss_details()
     load_genres()
     load_albums()
-    dismiss_album_details()
 
-    // var container_a2 = document.getElementById("app-a2");
-    // container_a2.scrollTo(0,sessionStorage.scroll_pos)
 }
 
 
+
 show_main_music_page()
+
+/****** DRAFT */
+
+
+
+
