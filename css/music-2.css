@@ -83,7 +83,7 @@ body{
     display: grid;
     /* grid-template-columns: auto 500px 500px 500px auto;
     grid-template-rows: 100px 70px 60px 60px 460px 80px; */
-    grid-template-columns: auto minmax(21%,40vh) minmax(33%,60vh) minmax(27%,50vh) auto;
+    grid-template-columns: auto 21% 33% 27% auto;
     grid-template-rows: 12% 8% 7% 7% 50% 8%;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
