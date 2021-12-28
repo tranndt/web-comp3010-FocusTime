@@ -45,9 +45,6 @@ function shuffle(array) {
     return array_;
   }
 
-
-
-
 GENRES = Array.from(
     [
         {genre_name: "Indie", src:"assets/music/filters/filter_indie.png"},
@@ -128,7 +125,47 @@ ALBUMS = Array.from(
     {album_name: 'Short Album 6', artist:"Various Artists", year:2017, num_tracks: 15, length: '31:42', topic:"Short", src:"assets/music/albums/album_apoliono.png"},
     {album_name: 'Short Album 7', artist:"Various Artists", year:2018, num_tracks: 10, length: '30:41', topic:"Short", src:"assets/music/albums/album_mustard.png"},
     {album_name: 'Short Album 8', artist:"Various Artists", year:2020, num_tracks: 11, length: '33:12', topic:"Short", src:"assets/music/albums/album_arizonababy.png"},
-])    
+])   
+
+AUDIOS = [
+    "audio/be_yourself.mp3",
+    "audio/close_to_you.mp3",
+    "audio/facebook_story.mp3",
+    "audio/futura_free.mp3",
+    "audio/godspeed.mp3",
+    "audio/good_guy.mp3",
+    "audio/ivy.mp3",
+    "audio/nights.mp3",
+    "audio/nikes.mp3",
+    "audio/pink+white.mp3",
+    "audio/pretty_sweet.mp3",
+    "audio/seigfried.mp3",
+    "audio/self_control.mp3",
+    "audio/skyline_to.mp3",
+    "audio/solo_reprise.mp3",
+    "audio/solo.mp3",
+    "audio/white_ferrari.mp3",
+]
+
+SONG_TITLES = [
+    "Willow"	,
+    "Champagne Problems"	,
+    "Gold Rush"	,
+    "'Tis the Damn Season"	,
+    "Tolerate It"	,
+    "No Body, No Crime" ,
+    "Happiness"	,
+    "Dorothea"	,
+    "Coney Island" ,
+    "Ivy"	,
+    "Cowboy like Me"	,
+    "Long Story Short"	,
+    "Marjorie"	,
+    "Closure"	,
+    "Evermore (featuring Bon Iver)",
+    "Right Where You Left Me",	
+    "It's Time to Go"	
+]
 
 TOPICS = ["Today's Pick","What's Popular", "Release Radar"]
 LISTS = ['list-todays-pick',"list-whats-popular","list-release-radar"]
@@ -156,23 +193,20 @@ function load_albums(){
 }
 
 function load_genres(){
-    var html_i = '';
+    var html = '';
     GENRES.forEach(d => {
-        // span = `<img class="genre-item" id="genre-${d.genre_name}" src="${d.src}" onclick="show_albums_by_topic(\`${d.genre_name}\`)">`
-
         span = `<div class="genre-item" id="genre-${hyphenated(d.genre_name)}" onclick="show_albums_by_topic(\`${d.genre_name}\`)">
         <img class="genre-item-img" id="genre-item-img-${hyphenated(d.genre_name)}" src="${d.src}">
         <div class="genre-item-descr" id="genre-item-descr-${hyphenated(d.genre_name)}"></div>
         </div>
         `
-        html_i += span;
+        html += span;
     })
-    var list_container = document.querySelector(`#list-genres`)
-    list_container.innerHTML = html_i
+    writeHTML(`#list-genres`,html);
 }
 
 function show_albums_by_topic(topic){
-    var html_i = '';
+    var html = '';
     ALBUMS.forEach(d => {
         if (d.topic == topic){
             span = `<div class="album-item-2" id="album-item-2-${hyphenated(d.album_name)}" onclick="album_item_onclick_2(\`${d.album_name}\`)">
@@ -185,13 +219,11 @@ function show_albums_by_topic(topic){
                         </div>
                     </div>
                     `
-            html_i += span;
+            html += span;
         }
     })
-    var album_header = document.querySelector(`#header-topic`)
-    album_header.innerHTML = topic
-    var list_container = document.querySelector(`#list-topic`)
-    list_container.innerHTML = html_i
+    writeHTML(`#header-topic`,topic);
+    writeHTML(`#list-topic`,html);
 
     var container_explore_topic = document.querySelector("#container-explore-main");
     container_explore_topic.style.display = "none";
@@ -199,8 +231,6 @@ function show_albums_by_topic(topic){
     container_explore_topic.style.display = "grid";
 
     dismiss_details();
-    // var container_a2 = document.getElementById("container-a2");
-    // sessionStorage.scroll_pos = container_a2.scrollHeight
 }
 
 function album_item_onclick(album_name){
@@ -228,10 +258,8 @@ function album_item_onclick_2(album_name){
 }
 
 
-function display_summary(album_name){
+function load_summary(album_name){
     var d = get_album(album_name);
-
-
     var html=
             `<div id="album-name">${d.album_name}</div>
             <div id="album-artist">${d.artist}</div>
@@ -240,107 +268,35 @@ function display_summary(album_name){
 
     album_cover = document.querySelector("#album-cover-img");
     album_cover.src = d.src
-    album_details = document.querySelector("#album-details");
-    album_details.innerHTML = html;
-
+    writeHTML(`#album-details`,html)
 }
 
 function display_details(album_name){
-    display_summary(album_name)
-    display_playlist(album_name)
-
-    containera3b = document.querySelector("#container-a3b");
-    containera3b.style.display = "grid";
-    containera4 = document.querySelector("#container-a4");
-    containera4.style.display = "grid";
-    containera5 = document.querySelector("#container-a5");
-    containera5.style.display = "grid";
-    button_dismiss = document.querySelector("#button-dismiss");
-    button_dismiss.style.display = "grid";
-
-    change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
-    app_a4 = document.querySelector("#app-a4");
-    app_a4.scrollTo(0,0)
+    load_summary(album_name)
+    load_playlist(album_name)
+    showHTMLElement("#container-a3b","grid");
+    showHTMLElement("#container-a4","grid");
+    showHTMLElement("#container-a5","grid");
+    showHTMLElement("#button-dismiss","grid");
+    document.querySelector("#app-a4").scrollTo(0,0)
 }
 
 function dismiss_details(){
     html = 
-    `<div id="album-name"></div>
-    <div id="album-artist"></div>
-    <div id="album-num_tracks"></div>
-    <div id="album-playlist-length"></div>`
-    src = "";
-    var all_album_items_descr = document.querySelectorAll(`.album-item-descr, .album-item-descr-2`);
-    Array.from(all_album_items_descr).forEach(album_item_descr=>{
-        album_item_descr.className = album_item_descr.className.replace(" selected","")
-    })
+        `<div id="album-name"></div>
+        <div id="album-artist"></div>
+        <div id="album-num_tracks"></div>
+        <div id="album-playlist-length"></div>`
+    
+    writeHTML(`#album-details`,html)
+    document.querySelector("#album-cover-img").src = ""
 
-    album_details = document.querySelector("#album-details");
-    album_details.innerHTML = html;
-    album_cover = document.querySelector("#album-cover-img");
-    album_cover.src = src
-
-    containera3b = document.querySelector("#container-a3b");
-    containera3b.style.display = "none";
-    containera4 = document.querySelector("#container-a4");
-    containera4.style.display = "none";
-    containera5 = document.querySelector("#container-a5");
-    containera5.style.display = "none";
-    button_dismiss = document.querySelector("#button-dismiss");
-    button_dismiss.style.display = "none";
+    hideHTMLElement("#container-a3b");
+    hideHTMLElement("#container-a4");
+    hideHTMLElement("#container-a5");
+    hideHTMLElement("#button-dismiss");
+    change_active_button(null,"html",`.album-item-descr,.album-item-descr-2`,flag=" selected")
 }
-
-AUDIOS = [
-    "audio/be_yourself.mp3",
-    "audio/close_to_you.mp3",
-    "audio/facebook_story.mp3",
-    "audio/futura_free.mp3",
-    "audio/godspeed.mp3",
-    "audio/good_guy.mp3",
-    "audio/ivy.mp3",
-    "audio/nights.mp3",
-    "audio/nikes.mp3",
-    "audio/pink+white.mp3",
-    "audio/pretty_sweet.mp3",
-    "audio/seigfried.mp3",
-    "audio/self_control.mp3",
-    "audio/skyline_to.mp3",
-    "audio/solo_reprise.mp3",
-    "audio/solo.mp3",
-    "audio/white_ferrari.mp3",
-]
-
-  // https://stackoverflow.com/questions/34647536/how-to-get-audio-duration-value-by-a-function
-  function get_duration(src) {
-    // var dur;
-    // var audio = new Audio(src);
-    // console.log(audio.duration)
-    // $(audio).on("loadedmetadata", function(){
-    //     dur = audio.duration;
-    // });
-    // audio.src = src;
-    // return dur;
-}
-
-SONG_TITLES = [
-    "Willow"	,
-    "Champagne Problems"	,
-    "Gold Rush"	,
-    "'Tis the Damn Season"	,
-    "Tolerate It"	,
-    "No Body, No Crime" ,
-    "Happiness"	,
-    "Dorothea"	,
-    "Coney Island" ,
-    "Ivy"	,
-    "Cowboy like Me"	,
-    "Long Story Short"	,
-    "Marjorie"	,
-    "Closure"	,
-    "Evermore (featuring Bon Iver)",
-    "Right Where You Left Me",	
-    "It's Time to Go"	
-]
 
 function get_album(album_name){
     let album;
@@ -364,14 +320,26 @@ function change_active_button(button_id,parent,button_class,flag){
     Array.from(all_buttons).forEach(button=>{
         button.className = button.className.replace(flag,"")
     })
-    button_active = parent_item.querySelector(button_id)
-    button_active.className += flag
+    if (button_id){
+        button_active = parent_item.querySelector(button_id)
+        button_active.className += flag
+    }
 }
 
+function writeHTML(element,html){
+    document.querySelector(element).innerHTML = html;
+}
+
+function hideHTMLElement(element){
+    document.querySelector(element).style.display = "none";
+}
+
+function showHTMLElement(element,display){
+    display = display ? display : "grid"
+    document.querySelector(element).style.display = display;
+}
 
 function on_playlist_button_clicked(){
-    change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
-
     // Scroll To Playlist section
     app_a4 = document.querySelector("#app-a4");
     container_album_summary = document.querySelector("#container-album-summary");
@@ -379,15 +347,13 @@ function on_playlist_button_clicked(){
 }
 
 function on_summary_button_clicked(){
-    change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
-
     // Scroll To Playlist section
     app_a4 = document.querySelector("#app-a4");
     container_album_summary = document.querySelector("#container-album-summary");
     app_a4.scrollTo(0,0)
 }
 
-function display_playlist(album_name){
+function load_playlist(album_name){
     function load_duration(container_song_item){
         let duration = container_song_item.querySelector(`.song-item-duration`)
         let audio = container_song_item.querySelector(`.audio-item`)
@@ -399,9 +365,7 @@ function display_playlist(album_name){
     var album = get_album(album_name);
     var song_titles = shuffle(SONG_TITLES)
     var audios = shuffle(AUDIOS)
-
     var html='';
-
     for (i =0; i < album.num_tracks & i < song_titles.length; i++){
         song_title = song_titles[i]
         src = audios[i]
@@ -417,10 +381,8 @@ function display_playlist(album_name){
             </li>
         `
         html += span
-
     }
-    var container_album_playlist = document.querySelector("#container-album-playlist");
-    container_album_playlist.innerHTML = html;
+    writeHTML("#container-album-playlist",html);
 
     var container_song_items = document.getElementsByClassName("container-song-item");
     Array.from(container_song_items).forEach(container_song_item => {
@@ -428,9 +390,25 @@ function display_playlist(album_name){
     })
 }
 
+function load_scroll_listener_details(){
+    app_a4 = document.querySelector("#app-a4")
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.addEventListener("scroll",function(event){
+        if (this.scrollTop > container_album_summary.offsetHeight){
+            change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
+        } else change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+    })
+}
 
-
-
+function load_scroll_listener_explore(){
+    app_a4 = document.querySelector("#app-a2")
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.addEventListener("scroll",function(event){
+        if (this.scrollTop > container_album_summary.offsetHeight){
+            change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
+        } else change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+    })
+}
 
 
 function show_main_music_page(){
@@ -439,13 +417,14 @@ function show_main_music_page(){
     var container_explore_topic = document.querySelector("#container-explore-topic");
     container_explore_topic.style.display = "none";
 
+    load_scroll_listener_details()
     dismiss_details()
     load_genres()
     load_albums()
 
-    // var container_a2 = document.getElementById("app-a2");
-    // container_a2.scrollTo(0,sessionStorage.scroll_pos)
 }
+
+
 
 show_main_music_page()
 
