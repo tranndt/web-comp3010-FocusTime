@@ -242,16 +242,16 @@
 </body>
 <script>
     var album_title = document.getElementById("songTitle");
-    if (sessionStorage.getItem("album_title") === null) {
+    var album_chosen = sessionStorage.album_chosen;
+    if (album_chosen == null) {
         album_title.innerHTML = "Album: Choose an Album";
     }
     else {
-        album_title.innerHTML = "Album: " + sessionStorage.getItem("album_title");
-        window.addEventListener("load", function(){audioApp(sessionStorage.getItem("album_title"))}, false);
-        window.addEventListener("load", function(){set_album_length(sessionStorage.getItem("album_length"))}, false);
+        album_chosen = JSON.parse(album_chosen);
+        album_title.innerHTML = "Album: " + album_chosen.album_name;
+        window.addEventListener("load", function(){audioApp(album_chosen.album_name)}, false);
+        //window.addEventListener("load", function(){set_album_length(sessionStorage.getItem("album_length"))}, false);
     }
-    
-    
 </script>
 
 </html>
