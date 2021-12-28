@@ -6,6 +6,48 @@ function unhyphenated(c){
     return c.replaceAll("-"," ")
 }
 
+function fmt2 (seconds) {
+    const format = val => `0${Math.floor(val)}`.slice(-2)
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds % 3600) / 60)
+    const odd_secs = seconds % 60
+    if (hours <= 0){ hh = ''}     
+    else if (hours < 10) {hh='0'+hours+':'} 
+    else {hh = hours+':'}
+
+    if (minutes <= 0){ mm = ''}
+    else if (minutes < 10) {mm='0'+minutes+':'} 
+    else {mm = minutes+':'}
+    
+    if (odd_secs < 10) {ss='0'+odd_secs} 
+    else {ss = odd_secs}
+    return hh+mm+ss
+}
+
+
+// Courtesy of https://github.com/coolaj86/knuth-shuffle
+function shuffle(array) {
+    var array_ = [...array]
+    let currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array_[currentIndex], array_[randomIndex]] = [
+        array_[randomIndex], array_[currentIndex]];
+    }
+  
+    return array_;
+  }
+
+
+
+
 GENRES = Array.from(
     [
         {genre_name: "Indie", src:"assets/music/filters/filter_indie.png"},
@@ -156,13 +198,13 @@ function show_albums_by_topic(topic){
     var container_explore_topic = document.querySelector("#container-explore-topic");
     container_explore_topic.style.display = "grid";
 
-    dismiss_album_details();
+    dismiss_details();
     // var container_a2 = document.getElementById("container-a2");
     // sessionStorage.scroll_pos = container_a2.scrollHeight
 }
 
 function album_item_onclick(album_name){
-    display_album_details(album_name)
+    display_details(album_name)
     var all_album_items_descr = document.querySelectorAll(`.album-item-descr`);
     Array.from(all_album_items_descr).forEach(album_item_descr=>{
         album_item_descr.className = album_item_descr.className.replace(" selected","")
@@ -174,7 +216,7 @@ function album_item_onclick(album_name){
 }
 
 function album_item_onclick_2(album_name){
-    display_album_details(album_name)
+    display_details(album_name)
     var all_album_items_descr = document.querySelectorAll(`.album-item-descr-2`);
     Array.from(all_album_items_descr).forEach(album_item_descr=>{
         album_item_descr.className = album_item_descr.className.replace(" selected","")
@@ -185,34 +227,43 @@ function album_item_onclick_2(album_name){
     album_item_descr.className += " selected"
 }
 
-function display_album_details(album_name){
-    var html='';
-    for (j in ALBUMS){
-        d=ALBUMS[j]
-        if (unhyphenated(d.album_name) == unhyphenated(album_name)){
-            html = 
-                `<div id="album-name">${d.album_name}</div>
-                <div id="album-artist">${d.artist}</div>
-                <div id="album-num_tracks">${d.num_tracks} Songs</div>
-                <div id="album-playlist-length">${d.length}</div>`
-            src = d.src;
-            break;
-        }
-    }
+
+function display_summary(album_name){
+    var d = get_album(album_name);
+
+
+    var html=
+            `<div id="album-name">${d.album_name}</div>
+            <div id="album-artist">${d.artist}</div>
+            <div id="album-num_tracks">${d.num_tracks} Songs</div>
+            <div id="album-playlist-length">${d.length}</div>`
+
+    album_cover = document.querySelector("#album-cover-img");
+    album_cover.src = d.src
     album_details = document.querySelector("#album-details");
     album_details.innerHTML = html;
-    album_cover = document.querySelector("#album-cover");
-    album_cover.style.opacity = 1;
-    album_cover.src = src
-    containera3b = document.querySelector("#container-a3b");
-    containera3b.style.display = "grid";
-    containera5 = document.querySelector("#container-a5");
-    containera5.style.display = "grid";
-    button_clear = document.querySelector("#button-clear");
-    button_clear.style.display = "grid";
+
 }
 
-function dismiss_album_details(){
+function display_details(album_name){
+    display_summary(album_name)
+    display_playlist(album_name)
+
+    containera3b = document.querySelector("#container-a3b");
+    containera3b.style.display = "grid";
+    containera4 = document.querySelector("#container-a4");
+    containera4.style.display = "grid";
+    containera5 = document.querySelector("#container-a5");
+    containera5.style.display = "grid";
+    button_dismiss = document.querySelector("#button-dismiss");
+    button_dismiss.style.display = "grid";
+
+    change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+    app_a4 = document.querySelector("#app-a4");
+    app_a4.scrollTo(0,0)
+}
+
+function dismiss_details(){
     html = 
     `<div id="album-name"></div>
     <div id="album-artist"></div>
@@ -226,16 +277,161 @@ function dismiss_album_details(){
 
     album_details = document.querySelector("#album-details");
     album_details.innerHTML = html;
-    album_cover = document.querySelector("#album-cover");
-    album_cover.style.opacity = 0;
+    album_cover = document.querySelector("#album-cover-img");
     album_cover.src = src
+
     containera3b = document.querySelector("#container-a3b");
     containera3b.style.display = "none";
+    containera4 = document.querySelector("#container-a4");
+    containera4.style.display = "none";
     containera5 = document.querySelector("#container-a5");
     containera5.style.display = "none";
-    button_clear = document.querySelector("#button-clear");
-    button_clear.style.display = "none";
+    button_dismiss = document.querySelector("#button-dismiss");
+    button_dismiss.style.display = "none";
 }
+
+AUDIOS = [
+    "audio/be_yourself.mp3",
+    "audio/close_to_you.mp3",
+    "audio/facebook_story.mp3",
+    "audio/futura_free.mp3",
+    "audio/godspeed.mp3",
+    "audio/good_guy.mp3",
+    "audio/ivy.mp3",
+    "audio/nights.mp3",
+    "audio/nikes.mp3",
+    "audio/pink+white.mp3",
+    "audio/pretty_sweet.mp3",
+    "audio/seigfried.mp3",
+    "audio/self_control.mp3",
+    "audio/skyline_to.mp3",
+    "audio/solo_reprise.mp3",
+    "audio/solo.mp3",
+    "audio/white_ferrari.mp3",
+]
+
+  // https://stackoverflow.com/questions/34647536/how-to-get-audio-duration-value-by-a-function
+  function get_duration(src) {
+    // var dur;
+    // var audio = new Audio(src);
+    // console.log(audio.duration)
+    // $(audio).on("loadedmetadata", function(){
+    //     dur = audio.duration;
+    // });
+    // audio.src = src;
+    // return dur;
+}
+
+SONG_TITLES = [
+    "Willow"	,
+    "Champagne Problems"	,
+    "Gold Rush"	,
+    "'Tis the Damn Season"	,
+    "Tolerate It"	,
+    "No Body, No Crime" ,
+    "Happiness"	,
+    "Dorothea"	,
+    "Coney Island" ,
+    "Ivy"	,
+    "Cowboy like Me"	,
+    "Long Story Short"	,
+    "Marjorie"	,
+    "Closure"	,
+    "Evermore (featuring Bon Iver)",
+    "Right Where You Left Me",	
+    "It's Time to Go"	
+]
+
+function get_album(album_name){
+    let album;
+    for (j in ALBUMS){
+        d=ALBUMS[j]
+        if (unhyphenated(d.album_name) == unhyphenated(album_name)){
+            album = d
+            break;
+        }
+    }
+    return album;
+}
+
+function change_active_button(button_id,parent,button_class,flag){
+    parent = parent == null ? "html" : parent;
+    button_class = button_class == null ? ".button" : button_class;
+    flag = flag == null ? " active" : flag;
+
+    parent_item = document.querySelector(parent);
+    var all_buttons = parent_item.querySelectorAll(button_class);
+    Array.from(all_buttons).forEach(button=>{
+        button.className = button.className.replace(flag,"")
+    })
+    button_active = parent_item.querySelector(button_id)
+    button_active.className += flag
+}
+
+
+function on_playlist_button_clicked(){
+    change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
+
+    // Scroll To Playlist section
+    app_a4 = document.querySelector("#app-a4");
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.scrollTo(0,container_album_summary.offsetHeight)
+}
+
+function on_summary_button_clicked(){
+    change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+
+    // Scroll To Playlist section
+    app_a4 = document.querySelector("#app-a4");
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.scrollTo(0,0)
+}
+
+function display_playlist(album_name){
+    function load_duration(container_song_item){
+        let duration = container_song_item.querySelector(`.song-item-duration`)
+        let audio = container_song_item.querySelector(`.audio-item`)
+        audio.onloadedmetadata = function(event){
+            duration.innerHTML = fmt2(parseInt(this.duration))
+        }
+    }
+
+    var album = get_album(album_name);
+    var song_titles = shuffle(SONG_TITLES)
+    var audios = shuffle(AUDIOS)
+
+    var html='';
+
+    for (i =0; i < album.num_tracks & i < song_titles.length; i++){
+        song_title = song_titles[i]
+        src = audios[i]
+        span = `
+            <li>
+                <div class="container-song-item" id="container-song-item-${hyphenated(song_title)}">
+                    <audio class="audio-item" id="audio-item-${i}" preload="metadata" src="${src}" style="display:none"></audio>
+                    <img class="song-item-img" id="song-item-img-${hyphenated(song_title)}" src="${album.src}">
+                    <div class="song-item-title" id="song-item-title-${hyphenated(song_title)}">${song_title}</div>
+                    <div class="song-item-artist">${album.artist}</div>
+                    <div class="song-item-duration" id ="song-item-duration">3:10</div>
+                </div>
+            </li>
+        `
+        html += span
+
+    }
+    var container_album_playlist = document.querySelector("#container-album-playlist");
+    container_album_playlist.innerHTML = html;
+
+    var container_song_items = document.getElementsByClassName("container-song-item");
+    Array.from(container_song_items).forEach(container_song_item => {
+        load_duration(container_song_item)
+    })
+}
+
+
+
+
+
 
 function show_main_music_page(){
     var container_explore_topic = document.querySelector("#container-explore-main");
@@ -243,13 +439,18 @@ function show_main_music_page(){
     var container_explore_topic = document.querySelector("#container-explore-topic");
     container_explore_topic.style.display = "none";
 
+    dismiss_details()
     load_genres()
     load_albums()
-    dismiss_album_details()
 
     // var container_a2 = document.getElementById("app-a2");
     // container_a2.scrollTo(0,sessionStorage.scroll_pos)
 }
 
-
 show_main_music_page()
+
+/****** DRAFT */
+
+
+
+

@@ -378,7 +378,7 @@ li:not(.navitemlist li){
     font-size: 14px;
 }
 .album-item-descr-album-num_tracks,.album-item-descr-2-album-num_tracks{
-    padding-top: 20px;
+    padding-top: 25px;
     font-size: 14px;
 }
 .album-item-descr-album-playlist-length, .album-item-descr-2-album-playlist-length{
@@ -429,6 +429,8 @@ li:not(.navitemlist li){
 
 
 
+
+
 /* .album-item:hover{
     opacity: 0.9;
 } */
@@ -472,6 +474,10 @@ li:not(.navitemlist li){
     justify-content: space-between;
 }
 
+#button-dismiss{
+    color: rgb(175, 175, 175);
+}
+
 /* ---------- A3B ---------- */
 
 #app-a3b{
@@ -496,15 +502,16 @@ li:not(.navitemlist li){
     grid-area: A4;
     background-color: var(--white-bg-color);
     overflow-y:scroll;
+    scroll-behavior: smooth;
     /* border: 1px black dashed; */
 
 }
 
 #container-a4{
-    display: flex;
+    display: grid;
     justify-self: center;
     align-self: center;
-    /* padding-top: 10px; */
+    padding: 10px;
 }
 
 #container-album-summary{
@@ -516,15 +523,19 @@ li:not(.navitemlist li){
 }
 
 #album-cover{
-    /* padding: 5px; */
-    /* border: 1px black dashed; */
     border-radius: 25px;
-    opacity:0;
     width: 300px;
     height: 300px;
     display:block;
     justify-self: center;
     box-shadow: var(--text-shadow);
+    cursor: pointer;
+}
+
+#album-cover-img{
+    border-radius: 25px;
+    width: inherit;
+    height: inherit;
 }
 
 #album-details{
@@ -537,9 +548,65 @@ li:not(.navitemlist li){
 #album-name{
     font-size: var(--header-font-size);
 }
+#album-num_tracks{
+    padding-top: 15px;
+}
 
+#album-playlist-length{
+    padding-bottom: 15px;
 
-/* ---------- A4 ---------- */
+}
+
+/* ----- CONTAINER SONG ITEM ----- */
+.container-song-list{
+    padding-top:0px;
+}
+
+.container-song-item{
+    display: grid;
+    grid-template-areas:    "SIMG SNAME DURTN"
+                            "SIMG ARTST .";
+    grid-template-columns: 80px auto 50px;
+    grid-template-rows: 40px 40px;
+}
+
+.song-item-img{
+    grid-area: SIMG;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.song-item-title{
+    grid-area: SNAME;
+    padding: 15px;
+    padding-bottom: 2px;
+    /* align-self: center; */
+    font-size: var(--secondary-header-font-size);
+    overflow: hidden;
+}
+
+.song-item-artist{
+    grid-area: ARTST;
+    padding: 15px;
+    padding-top: 2px;
+    color:var(--greyed-out-text);
+    font-size: 16px;
+    align-self: center;
+}
+
+.song-item-duration{
+    grid-area: DURTN;
+    padding-top: 15px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+
+    margin-left: auto;
+    font-size: var(--secondary-header-font-size);
+    font-size: 16px;
+}
+
+/* ---------- A5 ---------- */
 
 #app-a5{
     grid-area: A5;
