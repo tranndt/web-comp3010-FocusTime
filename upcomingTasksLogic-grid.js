@@ -13,9 +13,10 @@ var projectCount = 6;
 var taskCount = 13;
 var taskDetailsCount = 13; 
 
-var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'none'];
+var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'project-6'];
 // var existingProjs = ['COMP 3020', 'COMP 3040', 'COMP 2140', 'COMP 4710', 'COMP 4230', 'none'];
-var newOptionsUT = JSON.parse(localStorage.getItem("newOptionsUT") || "[]");
+//var newOptionsUT = JSON.parse(localStorage.getItem("newOptionsUT") || "[]");
+var newOptionsUT = JSON.parse(localStorage.getItem("newOptions") || "[]");
 
 var taskHeaders = document.getElementsByClassName("taskHeader");
 var taskDetails_target = document.getElementById("text-notes");
@@ -75,7 +76,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
     let newTaskName = "", progress = "", date = "", newRow = [];
     let fromThisPage = taskDateID.localeCompare("N/A");
     //let projectName = document.getElementById(projectID);
-    //let projectName = document.getElementById(projectID).textContent.trim();
+    let projectName = document.getElementById(projectID).textContent.trim();
     
     if (fromThisPage) {
         newTaskName = document.getElementById(taskNameID).value;
@@ -137,8 +138,9 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
-            newOptionsUT.push({project : `${projectID}`, task : `${newTaskName}`, update : 'task'});
-            localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
+            newOptionsUT.push({project : `${projectName}`, projectID : `${projectID}`, task : `${newTaskName}`, update : 'task'});
+            //localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
+            localStorage.setItem("newOptions", JSON.stringify(newOptionsUT));
         }
     }
 
@@ -225,8 +227,9 @@ function createNewProject(name, fromThisPage) {
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
-            newOptionsUT.push({project : `${newProjectName}`, task : "", update : 'project'});
-            localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
+            newOptionsUT.push({project : `${newProjectName}`, projectID : `${newProjID}`, task : "", update : 'project'});
+            //localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
+            localStorage.setItem("newOptions", JSON.stringify(newOptionsUT));
         }
     }
 
@@ -359,16 +362,17 @@ function update(newItems) {
 		for (j = 0; j < newItems.length; j++) {
             let newItem = newItems[j];
             let projName = newItem.project;
+            let projID = newItem.projectID;
             let taskName = newItem.task;
             let update = newItem.update;
 
             if (update == "project") {
                 createNewProject(projName, false);
-                existingProjs.push(projName);
+                existingProjs.push(projID);
             }
 
             else {
-                let projIndex = searchProject(projName);
+                let projIndex = searchProject(projID);
                 if (projIndex > -1) {
                     let table = "table"+(projIndex + 1);
                     let project = "project-"+(projIndex + 1);
@@ -395,11 +399,12 @@ function searchProject(project) {
 }
 
 function updatePage() {
-    let newItems = JSON.parse(localStorage.getItem('newOptions') || "[]");
-    let newItemsUT = JSON.parse(localStorage.getItem('newOptionsUT') || "[]");
+    //let newItems = JSON.parse(localStorage.getItem('newOptions') || "[]");
+    //let newItemsUT = JSON.parse(localStorage.getItem('newOptionsUT') || "[]");
 
-    update(newItemsUT);
-    update(newItems);
+    //update(newItemsUT);
+    //update(newItems);
+    update(newOptionsUT);
 }
 
 const UT_dbox_elem = document.getElementById("dialogBox");

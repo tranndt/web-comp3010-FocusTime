@@ -103,7 +103,8 @@ function createNewOption(selectBox, type) {
 		newOption = new Option(newOptionValue, "task-"+taskDetailsCount);
 		let project = project_selectBox.value;
 
-		newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
+		//newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
+		newOptions.push({project : `${project.text}`, projectID : `${project}`, task : `${newOptionValue}`, update : 'task'});
 	}
 
 	else {
@@ -111,7 +112,8 @@ function createNewOption(selectBox, type) {
 		newOption = new Option(newOptionValue, "project-"+projectCount);
 		let task = task_selectBox.value;
 
-		newOptions.push({project : `${newOptionValue}`, task : `${task}`, update : 'project'});
+		//newOptions.push({project : `${"project-"+projectCount}`, task : `${task}`, update : 'project'});
+		newOptions.push({project : `${newOptionValue}`, projectID : `${"project-"+projectCount}`, task : `${task}`, update : 'project'});
 	}
 
 	selectBox.add(newOption, selectBox.options.length);
@@ -198,7 +200,7 @@ function updateSelector(newOptionsList) {
 }
 
 updateSelector(JSON.parse(localStorage.getItem('newOptions') || "[]"));
-updateSelector(JSON.parse(localStorage.getItem('newOptionsUT') || "[]"));
+//updateSelector(JSON.parse(localStorage.getItem('newOptionsUT') || "[]"));
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
