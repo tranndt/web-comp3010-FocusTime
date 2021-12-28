@@ -298,7 +298,7 @@ Timer
 
 /* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
-    stroke-width: 3;
+    stroke-width: 3.5%;
     stroke: rgba(248, 131, 131, 0.932);
 }
 
@@ -307,12 +307,12 @@ Timer
     transform:rotate(-90deg);
     transform-origin:50% 50%;
     stroke: rgba(185, 185, 192, 0.904);
-    stroke-width: 2.9;
+    stroke-width: 3.4%;
 }
 
 .base-timer__init-line{
     stroke: rgb(136, 0, 0);
-    stroke-width: 0.5;
+    stroke-width: 0.5%;
 }
   
 .base-timer__svg {
