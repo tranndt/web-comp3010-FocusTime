@@ -9,7 +9,7 @@
     <title>Focus Time</title>
     <style>
     </style>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 
 </head>
 <body>
@@ -26,6 +26,17 @@
             <button id="skip-btn">Skip saving</button>
         </div>
     </div>
+    <div id="dialogBox-2">
+        <div class="dbox-header">
+            <button id="cancel-btn-2">X</button>
+        </div>
+        <div id="dbox-msg-2">Some text</div>
+        <input id="dbox-input-2" type="text">
+        <div class = "dbox-buttons">
+            <button id="confirm-btn-2">Done</button>
+            <button id="skip-btn-2">Cancel</button>
+        </div>
+    </div>
     <div class="container-body" id='container-body'>
 
         <!-- 1.MARGINS -->
@@ -39,7 +50,7 @@
 
 
         <div class="navbar" id="navbar-left">
-            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+            <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
         </div>
         <div class="navbar" id="navbar-center">
             <div class="app-container" id="container-main-navbar">
@@ -49,27 +60,27 @@
                 <ul class="navitemlist">
                     <li>
                         <a href="upcoming-tasks.html">
-                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" title="Upcoming Task"></div>
                         </a>
                     </li>
                     <li>
                         <a href="statistics.html">
-                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics"></div>
                         </a>
                     </li>
                     <li>
                         <a class="active" href="index.html">
-                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" ></div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
-                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                            <div class="icon"><img src="assets/music.png" alt="Music" ></div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
-                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                            <div class="icon"><img src="assets/settings.png" alt="Settings"></div>
                         </a>
                     </li>
                 </ul>
@@ -117,9 +128,9 @@
             <div class="base-timer">
                 <svg class="base-timer__svg" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
                   <g class="base-timer__circle">
-                    <circle class="base-timer__path-elapsed" cx="50%" cy="50%" r="25" />
-                    <circle class="base-timer__path-remaining" cx="50%" cy="50%" r="25" />
-                    <line class="base-timer__init-line" x1="50" y1="2.5" x2="50" y2="7.5"/>
+                    <circle class="base-timer__path-elapsed" cx="50%" cy="47%" r="30%" />
+                    <circle class="base-timer__path-remaining" cx="51.8%" cy="50%" r="30%" />
+                    <line class="base-timer__init-line" x1="50%" y1="3%" x2="50%" y2="8.4%"/>
                   </g>
                 </svg>
                 <div class="timer-details">
@@ -174,21 +185,37 @@
             <div class="task-proj-selector"> <!--"container-buttons"-->
                 <div class="project-div">
                     <div id="text-details">Project: </div>
-                    <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'proj')">
-                        <option disabled selected>Choose a project</option>
-                        <option value="project-1">Project 1</option>
-                        <option value="project-2">Project 2</option>
-                        <option value="create-proj">+ Create new project</option>
+                    <!-- <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'project')"> -->
+                    <select class="select" name="" id="project-selector">
+                        <option value="create-project">+ Create new project</option>
+                        <option value="project-6" selected>None</option>
+                        <option value="project-1">COMP 3020</option>
+                        <option value="project-2">COMP 3040</option>
+                        <option value="project-3">COMP 2140</option>
+                        <option value="project-4">COMP 4710</option>
+                        <option value="project-5">COMP 4230</option>
                     </select>
                     
                 </div>
                 <div class="task-div">
                     <div id="text-details">Task: </div>
-                    <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')">
-                        <option disabled selected>Choose a task</option>
+                    <!-- <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')"> -->
+                    <select class="select" name="" id="task-selector">
+                        <option disabled selected value="choose-a-task">Choose a task</option>
+                        <option value="create-task">+ Create new task</option>
                         <option value="task-1">Task 1</option>
                         <option value="task-2">Task 2</option>
-                        <option value="create-task">+ Create new task</option>
+                        <option value="task-3">Task 3</option>
+                        <option value="task-4">Task 4</option>
+                        <option value="task-5">Task 5</option>
+                        <option value="task-6">Task 6</option>
+                        <option value="task-7">Task 7</option>
+                        <option value="task-8">Task 8</option>
+                        <option value="task-9">Task 9</option>
+                        <option value="task-10">Task 10</option>
+                        <option value="task-11">Task 11</option>
+                        <option value="task-12">Task 12</option>
+                        <option value="task-13">Task 13</option>
                     </select>
                 </div>           
             </div>
@@ -209,6 +236,8 @@
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 
 </body>
 <script>
