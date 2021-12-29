@@ -426,6 +426,10 @@ function on_button_add_to_queue_clicked(){
 function on_button_set_playlist_timer_clicked(){
     sessionStorage.album_chosen = sessionStorage.latest_album_viewed
     sessionStorage.flag_set_timer = ALBUM_CHOSEN_WITH_TIMER;
+    //notify users of chosen album
+    toast_elem.className = "show";
+    toast_elem.textContent = "Timer set to '" + JSON.parse(sessionStorage.album_chosen).length + "'. Click 'Set' on Timer Page to Edit.";
+    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 6000);
 }
 
 function show_main_music_page(){
