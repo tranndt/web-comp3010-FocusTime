@@ -30,11 +30,16 @@ function addTaskDetailsEvent(taskHeader) {
     taskHeader.addEventListener("click", event => {
         //taskHeader.classList.toggle("active");
         const taskDetailBody = taskHeader.nextElementSibling;
+        //const taskDetailBody = localStorage.getItem(taskHeader.nextElementSibling.id);
+        var taskNotes = "";
 
         //if(taskHeader.classList.contains("active")) {
             //if (taskDetailBody.tagName.localeCompare("TR")) {
             var project = taskHeader.closest('.accordion-item').firstElementChild.textContent.trim();
-            var taskNotes = taskDetailBody.innerHTML;
+
+            //if (taskDetailBody != null) {
+                taskNotes = taskDetailBody.innerHTML;
+            //}
             var taskBody = `<p>Project:      ${project}</p>
                             <p>Task:         ${taskHeader.firstElementChild.textContent}</p>
                             <p>Status:       ${taskHeader.children[1].textContent}</p>
@@ -151,9 +156,8 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         let newTaskHeader = table.getElementsByClassName("taskHeader")[taskHeaders - 1];
         addTaskDetailsEvent(newTaskHeader);
 
-        sortByDate(table);
-
         if (fromThisPage) {
+            sortByDate(table);
             //notify users
             toast_elem.className = "show";
             toast_elem.textContent = "New task "+ " '" + newTaskName + "' created.";
