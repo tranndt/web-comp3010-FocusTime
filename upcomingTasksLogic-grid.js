@@ -455,16 +455,19 @@ var newProject = "";
 UT_newProject_btn.addEventListener('click', () => {
 	UT_dbox_msg.textContent = "What is the new project?";
 	UT_dbox_elem.style.display = "block";
+    document.getElementById('container-body').style.pointerEvents = 'none';
 });
 
 UT_dbox_btn_skip.addEventListener('click', () => {
 	UT_dbox_elem.style.display = "none";
 	newProject = "";
+    document.getElementById('container-body').style.pointerEvents = 'auto';
 });
 
 UT_dbox_btn_cancel.addEventListener('click', () => {
 	UT_dbox_elem.style.display = "none";
 	newProject = "";
+    document.getElementById('container-body').style.pointerEvents = 'auto';
 });
 
 UT_dbox_btn_done.addEventListener('click', () => {
@@ -479,6 +482,8 @@ UT_dbox_btn_done.addEventListener('click', () => {
         createNewProject(newProject, true);
         newProject = "";
     }
+
+    document.getElementById('container-body').style.pointerEvents = 'auto';
 });
 
 updatePage();
