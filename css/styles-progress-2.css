@@ -6,8 +6,8 @@
     --white-bg-color:rgba(255, 255, 255, 0.95);
     --item-border-color-grey: rgba(0, 0, 0, 0.1);
     --border-between-ele: rgb(218, 218, 218) solid 0.5px;
-    --greyed-out-text:rgba(190, 190, 190, 0.8);
-    --secondary-header-font-size: 18px;
+    --greyed-out-text:rgba(128, 128, 128, 0.8);
+    --secondary-header-font-size: 1.8vh;
 }
   
 
@@ -17,8 +17,8 @@
 
 body{
     margin: 0px; 
-    height: 100%;
-    background-color: rgb(221, 221, 221);
+    height: 100vh;
+
     font-family: 'Montserrat', sans-serif;
 
     background-image: url("../assets/imgs/img6.jpg");
@@ -30,14 +30,16 @@ body{
 .container-body{
     height: 100%;
     display: grid;
-    grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 70px 60px 700px;
+    grid-template-columns: auto 21% 33% 27% auto;
+    grid-template-rows: 12.6% 7.5% 7.5% 27% 7.5% 27%;
     grid-template-areas: 
+            /* "M3 A1 A1 A4 M4" */
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
             "M3 A1 A1 A3 M4"
             "M3 A2 A2 A4 M4"
-            /* "M3 A1 A1 A4 M4" */
+            "M3 A2 A2 A4 M4"
+            "M3 A2 A2 A4 M4"
 
 }
 
@@ -92,8 +94,8 @@ border-radius: 50px;
 .logoimg{
     display: block;
     position: relative;
-    top: -95%;
-    left: -10%; 
+    /* top: -0.5vh; */
+    width:65%;
 }
 
 /* NAVBAR CENTER - N2- NAV-ITEMS */
@@ -104,24 +106,35 @@ border-radius: 50px;
 
 #container-main-navbar{
     display: grid;
-    grid-template-rows: 5fr 1fr;
-    grid-template-areas: 
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-areas:
+            "NC1" 
             "NC2"
             "NC3";
-    padding-top:25px;
+    padding-top:0.5vh;
 }
 
-/* .navitem-name{
+.icon img{
+    width:5vh;
+    height:5vh;
+}
+
+.navitem-name{
     grid-area: NC1;
-    height: 10px;
-} */
+    height: 0.5vh;
+    /* margin: 0; */
+    font-size: 2vh;
+    padding-bottom: 1.9%;
+    text-align: center;
+    visibility: visible;
+}
 
 .navitemlist{
     grid-area: NC2;
     /* background: rgb(212, 221, 83); */
     display: flex;
     position: relative;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -129,7 +142,14 @@ border-radius: 50px;
     grid-area: NC3;
     display: flex;
     justify-content: space-around;
+    margin-top: 0vh;
+    padding: 0vh 0vh 0vh 0vh;
+    justify-content: space-around;
+}
 
+.activebar:last-child {
+    border-right: none;
+    padding: 0vh 0vh 0vh 0vh;
 }
 
 ul{
@@ -140,35 +160,36 @@ ul{
 
 .navitemlist li {
     display: inline-flex;
-    padding: 0em 1.25em 0em 1em;
+    padding: 0vh 3.5vh 0vh 0vh;
     text-align: center;  
-    border-right: 0.05em solid rgba(0, 0, 0, 0.1);
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .navitemlist li:last-child {
     border-right: none;
+    padding: 0vh 0vh 0vh 0vh;
 }
 
-.navitem {
+/* .navitem {
     text-decoration: none;
     display: flex; 
     padding: 0 0.1em;
-}
+} */
 
 .activebar .tab-active{
     background-color: rgb(60, 60, 60);
     border-radius: 50em;
-    height: 10px;
-    width: 10px;
-    margin-top: 1px;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0vh;
 }
 
 .activebar .tab-inactive{
     background-color: rgba(255, 255, 255, 0);
     border-radius: 50em;
-    height: 10px;
-    width: 10px;
-    margin-top: 1px;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0vh;
 }
 
 /* NAVBAR RIGHT  */
@@ -178,6 +199,10 @@ ul{
 }
 
 /* ---------------------- */
+
+li .active .iconhover {
+    opacity: 1;
+} 
 
 li {
     list-style-type: none;
@@ -207,9 +232,9 @@ li:not(.navitemlist li){
 }
 
 .header {
-    font-size: 25px;
-    padding-top:10px;
-    padding-left: 10px;
+    font-size: 2.8vh;
+    padding-top:1.5vh;
+    padding-left: 1vw;
 }
 
 /* ---------- A0 ---------- */
@@ -217,7 +242,7 @@ li:not(.navitemlist li){
 #app-a0{
     /* background-color: rgba(182, 75, 185, 0.781); */
     grid-area: A0;
-    font-size: 40px;
+    font-size: 5vh;
     color: var(--white-bg-color);
     text-shadow: black 0px 0px 3px;
 }
@@ -230,6 +255,7 @@ li:not(.navitemlist li){
     border-top-right-radius: 15px ;
     border-top-left-radius: 15px ;
     border-bottom: rgb(218, 218, 218) solid 0.5px;
+    border-right: none;
 
 }
 
