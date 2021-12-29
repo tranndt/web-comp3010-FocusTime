@@ -253,7 +253,7 @@ const countdown = () => {
         }
 
         // To disable:    
-        // document.getElementById('container-body').style.pointerEvents = 'none';
+        document.getElementById('container-body').style.pointerEvents = 'none';
 
         task_not_selected_warned = false;
     }
@@ -332,7 +332,7 @@ dbox_btn_done.addEventListener('click', () => {
 
         dbox_elem.style.display = "none";
         // To re-enable:
-        // document.getElementById('container-body').style.pointerEvents = 'auto'; 
+        document.getElementById('container-body').style.pointerEvents = 'auto'; 
 
         task_not_selected_warned = false;
     }
@@ -359,7 +359,7 @@ dbox_btn_skip.addEventListener('click', () => {
     setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
     dbox_elem.style.display = "none";
     // To re-enable:
-    // document.getElementById('container-body').style.pointerEvents = 'auto'; 
+    document.getElementById('container-body').style.pointerEvents = 'auto'; 
 
     task_not_selected_warned = false;
 
@@ -372,19 +372,19 @@ dbox_btn_cancel.addEventListener('click', () => {
     intervalID = setInterval(countdown, 1000);
     dbox_elem.style.display = "none";  
     // To re-enable:
-    // document.getElementById('container-body').style.pointerEvents = 'auto';   
+    document.getElementById('container-body').style.pointerEvents = 'auto';   
 });
 
 dbox_warn_cancel.addEventListener('click', () => {
     dbox_warn.style.display = "none"; 
     // To re-enable:
-    // document.getElementById('container-body').style.pointerEvents = 'auto';  
+    document.getElementById('container-body').style.pointerEvents = 'auto';  
 });
 
 dbox_warn_okay.addEventListener('click', () => {
     dbox_warn.style.display = "none";   
     // To re-enable:
-    // document.getElementById('container-body').style.pointerEvents = 'auto';
+    document.getElementById('container-body').style.pointerEvents = 'auto';
 });
 
 dbox_noTask_cancel.addEventListener('click', () => {
@@ -394,7 +394,7 @@ dbox_noTask_cancel.addEventListener('click', () => {
     intervalID = setInterval(countdown, 1000);
     dbox_noTask.style.display = "none";  
     // To re-enable:
-    // document.getElementById('container-body').style.pointerEvents = 'auto';  
+    document.getElementById('container-body').style.pointerEvents = 'auto';  
 });
 
 dbox_noTask_okay.addEventListener('click', () => {
@@ -417,7 +417,7 @@ dbox_noTask_okay.addEventListener('click', () => {
     setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
     dbox_noTask.style.display = "none";
     // To re-enable:
-    // document.getElementById('container-body').style.pointerEvents = 'auto'; 
+    document.getElementById('container-body').style.pointerEvents = 'auto'; 
 
     task_not_selected_warned = false;   
 });
@@ -440,6 +440,8 @@ start_pause_btn.addEventListener('click', () => {
             task_not_selected_warned = true;
             dbox_warn_msg.textContent = task_warning_message;
             dbox_warn.style.display = "block";
+            // To disable:    
+            document.getElementById('container-body').style.pointerEvents = 'none';
         }
         else {    
             //set timer in running state -> pause,stop btn
@@ -573,7 +575,7 @@ stop_btn.addEventListener('click', () => {
         }
         
         // To disable everything other than the pop-up:    
-        // document.getElementById('container-body').style.pointerEvents = 'none';
+        document.getElementById('container-body').style.pointerEvents = 'none';
         
         // Use '' if you want to allow CSS rules to set the value
     }
