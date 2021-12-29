@@ -94,6 +94,7 @@ stop_btn.style.backgroundColor = main_btn_color;
 start_pause_btn.style.backgroundColor = disabled_background;
 start_pause_btn.style.color = disabled_text;
 start_pause_btn.style.cursor = 'default';
+setProgress(100);
 
 var album_sec = -1;
 
@@ -223,9 +224,9 @@ const countdown = () => {
         clearInterval(intervalID);
         clearInterval(br_intervalID);
         setProgress(100);
-        setTimeout(() => {
-            setProgress(0);
-        }, 1000);
+        // setTimeout(() => {
+        //     setProgress(0);
+        // }, 1000);
 
         time_focused = total_secs - time;
 
@@ -319,7 +320,7 @@ dbox_btn_done.addEventListener('click', () => {
         time = 0;
         br_time = 0;
         state = STOPPED;
-        setProgress(0);
+        setProgress(100);
 
         toast_elem.className = "show";
         toast_elem.textContent = "Focus time over. Good job! Your progress is saved.";
@@ -350,7 +351,7 @@ dbox_btn_skip.addEventListener('click', () => {
     time = 0;
     br_time = 0;
     state = STOPPED;
-    setProgress(0);
+    setProgress(100);
 
     toast_elem.className = "show";
     toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
@@ -408,7 +409,7 @@ dbox_noTask_okay.addEventListener('click', () => {
     time = 0;
     br_time = 0;
     state = STOPPED;
-    setProgress(0);
+    setProgress(100);
 
     toast_elem.className = "show";
     toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
@@ -516,6 +517,8 @@ stop_btn.addEventListener('click', () => {
         //if done:  state
         console.log('State: READY');
         state = READY;
+        setProgress(0);
+
         stop_btn.textContent = "Set"; //allow to edit after input
 
         main_timer_elem.style.display = "flex";
