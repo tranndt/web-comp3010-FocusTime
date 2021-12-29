@@ -78,39 +78,54 @@ function addAccordionItemEvent(accordionItemHeaders) {
     });
 }
 
-function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectID) {
+function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectID, fromThisPage) {
     let table = document.getElementById(tableID);
     let newTaskName = "", progress = "", date = "", newRow = [];
-    let fromThisPage = taskDateID.localeCompare("N/A");
+    //let fromThisPage = taskDateID.localeCompare("N/A");
     //let projectName = document.getElementById(projectID);
     let projectName = document.getElementById(projectID).textContent.trim();
     
-    if (fromThisPage) {
+    if (!fromThisPage) {
+        progress = taskProgressID;
+        newTaskName = taskNameID;
+        date = taskDateID;
+
+        if (progress == null) {
+            progress = 0;
+        }
+
+        if (date == null) {
+            date = "N/A";
+        }
+    }
+
+    else {
         newTaskName = document.getElementById(taskNameID).value;
         progress = document.getElementById(taskProgressID).value;
         date = document.getElementById(taskDateID).value;
     }
 
-    else {
-        progress = taskProgressID;
-        newTaskName = taskNameID;
-        date = taskDateID;
-    }
+    // else {
+    //     progress = taskProgressID;
+    //     newTaskName = taskNameID;
+    //     date = taskDateID;
+    // }
 
     if (newTaskName.localeCompare("") && progress >= 0 && progress <= 100) {
         taskDetailsCount++;
         let taskDetailsID = "task-"+taskDetailsCount;
+        var newProgress = progress;
         
         if (progress == 0) {
-            progress = '--';
+            newProgress = '--';
         }
 
         else if (progress == 100) {
-            progress = '&#10004';
+            newProgress = '&#10004';
         }
 
         else {
-            progress += '% Complete';
+            newProgress += '% Complete';
         }
 
         if (fromThisPage) {
@@ -120,7 +135,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         let newRows = `
                     <tr class="taskHeader">
                         <td>${newTaskName}</td>
-                        <td>${progress}</td>
+                        <td>${newProgress}</td>
                         <td class="date">${date}</td>
                     </tr>
                     <tr class="accordion-item-body taskDetails">
@@ -145,7 +160,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
-            newOptionsUT.push({project : `${projectName}`, projectID : `${projectID}`, task : `${newTaskName}`, update : 'task'});
+            newOptionsUT.push({project : `${projectName}`, projectID : `${projectID}`, task : `${newTaskName}`, progress : `${progress}`, date : `${date}`, update : 'task'});
             //localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
             localStorage.setItem("newOptions", JSON.stringify(newOptionsUT));
         }
@@ -198,7 +213,7 @@ function createNewProject(name, fromThisPage) {
                         <label for="taskProgress">Progress:</label>
                         <input type="number" class="taskProgress" id="${newTaskProgressID}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                         </div>
-                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}', '${newTaskProgressID}', '${newProjID}')">Done</button>
+                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}', '${newTaskProgressID}', '${newProjID}', true)">Done</button>
                     </td>
                     </tr>`;
 
@@ -373,6 +388,8 @@ function update(newItems) {
             let projID = newItem.projectID;
             let taskName = newItem.task;
             let update = newItem.update;
+            let progress = newItem.progress;
+            let date = newItem.date;
 
             if (update == "project") {
                 createNewProject(projName, false);
@@ -384,7 +401,14 @@ function update(newItems) {
                 if (projIndex > -1) {
                     let table = "table"+(projIndex + 1);
                     let project = "project-"+(projIndex + 1);
-                    createNewTask(table, taskName, "N/A", 0, project);
+
+                    //if (progress != null && date != null) {
+                        createNewTask(table, taskName, date, progress, project, false);
+                    //}
+
+                    // else {
+                    //     createNewTask(table, taskName, "N/A", 0, project);
+                    // }
                 }
             }
         }

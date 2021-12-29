@@ -101,10 +101,15 @@ function createNewOption(selectBox, type) {
 	if (type == "task") {
 		taskDetailsCount++;
 		newOption = new Option(newOptionValue, "task-"+taskDetailsCount);
-		let project = project_selectBox.value;
+		let projectID = project_selectBox[project_selectBox.selectedIndex].value;
+		let project = project_selectBox[project_selectBox.selectedIndex].text;
+
+		if (!project.localeCompare("None")) {
+			project = "Miscellaneous";
+		}
 
 		//newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
-		newOptions.push({project : `${project.text}`, projectID : `${project}`, task : `${newOptionValue}`, update : 'task'});
+		newOptions.push({project : `${project}`, projectID : `${projectID}`, task : `${newOptionValue}`, update : 'task'});
 	}
 
 	else {
