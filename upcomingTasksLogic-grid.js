@@ -151,9 +151,9 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         let newTaskHeader = table.getElementsByClassName("taskHeader")[taskHeaders - 1];
         addTaskDetailsEvent(newTaskHeader);
 
-        if (fromThisPage) {
-            sortByDate(table);
+        sortByDate(table);
 
+        if (fromThisPage) {
             //notify users
             toast_elem.className = "show";
             toast_elem.textContent = "New task "+ " '" + newTaskName + "' created.";
