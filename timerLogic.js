@@ -100,6 +100,7 @@ var album_sec = -1;
 const saveSession = () => {
     var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
     var selected_proj = document.getElementById("project-selector").options[document.getElementById("project-selector").selectedIndex].text;
+    var notes = document.getElementById("notes-text").value;
 
     if (typeof(Storage) !== "undefined") {
         // Store to for sessionStorage
@@ -107,6 +108,7 @@ const saveSession = () => {
         localStorage.setItem("time_focused", time_focused);
         localStorage.setItem("task_name", selected_task);
         localStorage.setItem("project_name", selected_proj);
+        localStorage.setItem("Notes", notes);
     } else {
         // Sorry! No Web Storage support..
     }
