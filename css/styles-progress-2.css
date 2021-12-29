@@ -546,15 +546,16 @@ div.accordion-item-header.active::after {
 The toast - position it at the bottom and in the middle of the screen */
 #toast {
     visibility: hidden; /* Hidden by default. Visible on click */
-    margin-left: -125px; /* Divide value of min-width by 2 */
+    /* margin-left: -125px;  */
     background-color: rgba(51, 51, 51, 0.897); /* Black background color */
     color: #fff; /* White text color */
     border-radius: 0.3em; /* Rounded borders */
     padding: 1.5vh; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
-    left: 9%; /* right align the toast */
-    bottom: 2vh; /* 2vh from the bottom */
+    right: 10.3%; /* right align the toast */
+    bottom: 81%; /* 2vh from the bottom */
+    text-align: right;
 }
 
 /* Show the toast when clicking on a button (class added with JavaScript) */
@@ -566,19 +567,19 @@ The toast - position it at the bottom and in the middle of the screen */
 #dialogBox {
     position: fixed;
     top: 40%;
-    left:45%;
+    left:48%;
     transform: translate(-50%);
-    /* max-width: 30%; */
-    width: 400px;
+    width: 300px;
     height: auto;
     padding: 0.5em;
     color: black;
     border: 1px solid #5f6063;
-    background-color: rgb(252, 252, 253);
+    background-color: rgb(222, 222, 228);
     z-index: 1;
     display: none;
     margin:0;
     padding:0;
+    font-size: 2.2vh;
 }
 
 .dbox-header {
@@ -589,38 +590,42 @@ The toast - position it at the bottom and in the middle of the screen */
 
 #dbox-input {
     margin:3%;
-    width: 350px;
+    width: 270px;
+    font-size: 2.2vh;
 }
  #dbox-msg {
   margin:3%;
  }
 
-.dbox-buttons {
-  display: flex;
-  /* justify-content:space-between; */
-}
+ .dbox-buttons {
+    display: flex;
+    justify-content:right;
+  }
 
 #confirm-btn {
-  background-color: rgb(190, 194, 202);
-  margin: 3%;
-  padding: 1%;
-  cursor: pointer;
+    background-color: rgb(190, 194, 202);
+    margin: 3%;
+    padding: 1%;
+    cursor: pointer;
+    font-size: 2.2vh;
 }
 
 #skip-btn {
-  background-color: rgb(190, 194, 202);
-  padding: 1%;
-  margin: 3%;
-  cursor: pointer;
+    background-color: rgb(190, 194, 202);
+    padding: 1%;
+    margin: 3%;
+    cursor: pointer;
+    font-size: 2.2vh;
 }
 
 #cancel-btn {
-  background-color: rgb(196, 3, 35);
-  padding: 1%;
-  cursor: pointer;
-  /* position:relative;
-  left: 90%; */
-  color: white;
+    background-color: rgb(196, 3, 35);
+    padding: 1%;
+    cursor: pointer;
+    /* position:relative;
+    left: 90%; */
+    color: white;
+    font-size: 2.2vh;
 }
 
 /* ---------- A3 ---------- */
