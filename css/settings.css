@@ -406,15 +406,6 @@ li:not(.navitemlist li){
     color: var(--greyed-out-text);
 }
 
-/* .home-tab-item-overlay{
-    grid-area: TIMG;
-    cursor: pointer;
-    opacity: 1;
-    color: red;
-    z-index: 3;
-} */
-
-
 .home-tab-item-title.selected,.home-tab-item-img.selected,.home-tab-item-activebar.selected{
     opacity: 1;
 }
@@ -431,17 +422,13 @@ li:not(.navitemlist li){
     display: grid;
     grid-area: TACTV;
     background-color: black;
-    height: var(--pxw-05);
-    width: var(--pxw-05);
+    height: 1.3vh;
+    width: 1.3vh;
     justify-self: center;
     border-radius: 15vh;
     box-shadow: var(--box-shadow);
-
     opacity: 0;
 }
-
-
-
 
 .img-bg-item{
     width: var(--settings-item-width);
@@ -593,9 +580,94 @@ li:not(.navitemlist li){
     display: grid;
     justify-self: center;
     align-self: center;
-    padding: var(--pxh-10);
+    padding: var(--pxh-15);
 }
 
+#about-logo{
+    height: 13vh;
+    /* border: 1px black solid; */
+    align-self: center;
+    justify-self: center;
+}
+
+#about-version{
+    padding-bottom: var(--pxh-10);
+    text-align: center;
+    font-size: var(--font-size-3);
+    /* border: 1px black solid; */
+
+}
+
+#about-project{
+    margin: var(--pxh-05);
+    text-align: justify;
+    font-size: var(--font-size-3);
+    color: var(--greyed-out-text);
+    /* border: 1px black solid; */
+
+}
+
+#about-authors-header{
+    font-size: var(--pxh-20);
+    text-align: center;
+    margin-top: var(--pxh-15);
+    margin-bottom: var(--pxh-15);
+
+}
+
+#about-authors-list{
+    padding: var(--pxw-03);
+    /* border: 1px black solid; */
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: var(--pxw-03) var(--pxw-05);
+    font-size: var(--font-size-3);
+    color: var(--greyed-out-text);
+}
+
+.author-item{
+    display: grid;
+    grid-template-areas:  "AIMG" "ANAME";
+    grid-template-rows: 2fr 1fr;
+    gap: var(--pxw-01) var(--pxw-05);
+    align-items: center;
+
+}
+
+.author-item-link-img{
+    grid-area: AIMG;
+    cursor: pointer;
+    justify-self: center;
+    display: grid;
+}
+
+.author-item-img{
+    /* border: 1px black dashed; */
+    justify-self: center;
+    width: 55%;
+    border-radius: 15vh;
+    box-shadow: var(--box-shadow);
+    cursor: pointer;
+}
+.author-item-name{
+    /* border: 1px black solid; */
+    font-size: var(--font-size-3);
+    text-align: center;
+    /* color: var(--greyed-out-text); */
+}
+
+a:link, a:visited {
+    color: pink;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  
+a:hover{
+    color: rgb(255, 106, 130);
+    background-color: transparent;
+    text-decoration: underline;
+}
 
 
 
