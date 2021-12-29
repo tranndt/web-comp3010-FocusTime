@@ -57,6 +57,7 @@ GENRES = Array.from(
         {genre_name: "Short", src:"assets/music/filters/filter_30mins.png"},
     ]);
 
+
 ALBUMS = Array.from(
 [
     {album_name: 'Blonde', artist:"Frank Ocean", year:2016, num_tracks: 17, length: '60:08', topic:"Today's Pick", src:"assets/music/albums/album_blonde.jpeg"},
@@ -170,20 +171,73 @@ SONG_TITLES = [
 TOPICS = ["Today's Pick","What's Popular", "Release Radar"]
 LISTS = ['list-todays-pick',"list-whats-popular","list-release-radar"]
 
+function get_album(album_name){
+    let album;
+    for (j in ALBUMS){
+        d=ALBUMS[j]
+        if (unhyphenated(d.album_name) == unhyphenated(album_name)){
+            album = d
+            break;
+        }
+    }
+    return album;
+}
+
+function change_active_status(button_id,parent,button_class,flag){
+    parent = parent == null ? "html" : parent;
+    button_class = button_class == null ? ".button" : button_class;
+    flag = flag == null ? " active" : flag;
+
+    parent_item = document.querySelector(parent);
+    var all_buttons = parent_item.querySelectorAll(button_class);
+    Array.from(all_buttons).forEach(button=>{
+        button.className = button.className.replace(flag,"")
+    })
+    if (button_id != null){
+        button_active = parent_item.querySelector(button_id)
+        if (button_active) button_active.className += flag
+    }
+}
+
+function writeHTML(element,html){
+    document.querySelector(element).innerHTML = html;
+}
+
+function hideHTMLElement(element){
+    document.querySelector(element).style.display = "none";
+}
+
+function showHTMLElement(element,display){
+    display = display ? display : "grid"
+    document.querySelector(element).style.display = display;
+}
+
+
+    // const album_item = JSON.parse(sessionStorage.current_album_obj)
+
+
+
+// LOADING FUNCTIONS
+
 function load_albums(){
     TOPICS.forEach(topic => {
         var html_i = '';
         ALBUMS.forEach(d => {
             if (d.topic == topic){
-                span = `<div class="album-item" id="album-item-${hyphenated(d.album_name)}" onclick="album_item_onclick(\`${d.album_name}\`)">
-                <img class="album-item-img" id="album-item-img-${hyphenated(d.album_name)}" src="${d.src}">
-                <div class="album-item-descr" id="album-item-descr-${hyphenated(d.album_name)}">
-                    <div class="album-item-descr-album-name">${d.album_name}</div>
-                    <div class="album-item-descr-album-artist">${d.artist}</div>
-                    <div class="album-item-descr-album-num_tracks">${d.num_tracks} Songs</div>
-                    <div class="album-item-descr-album-playlist-length">${d.length}</div>
-                </div>
-            </div>`
+                span = `
+                <div class="album-item" id="album-item-${hyphenated(d.album_name)}" onclick="album_item_onclick(\`${d.album_name}\`)">
+                    <img class="album-item-img" id="album-item-img-${hyphenated(d.album_name)}" src="${d.src}">
+                    <div class="album-item-descr" id="album-item-descr-${hyphenated(d.album_name)}">
+                        <div class="album-item-details-title">
+                            <div class="album-item-name">${d.album_name}</div>
+                            <div class="album-item-artist">${d.artist}</div>
+                        </div>
+                        <div class="album-item-details-info">
+                            <div class="album-item-num_tracks">${d.num_tracks} Songs</div>
+                            <div class="album-item-playlist-length">${d.length}</div>
+                        </div>
+                    </div>
+                </div>`
             html_i += span;
             }
         })
@@ -205,152 +259,21 @@ function load_genres(){
     writeHTML(`#list-genres`,html);
 }
 
-function show_albums_by_topic(topic){
-    var html = '';
-    ALBUMS.forEach(d => {
-        if (d.topic == topic){
-            span = `<div class="album-item-2" id="album-item-2-${hyphenated(d.album_name)}" onclick="album_item_onclick_2(\`${d.album_name}\`)">
-                        <img class="album-item-img-2" id="album-item-img-2-${hyphenated(d.album_name)}" src="${d.src}">
-                        <div class="album-item-descr-2" id="album-item-descr-2-${hyphenated(d.album_name)}">
-                            <div class="album-item-descr-2-album-name">${d.album_name}</div>
-                            <div class="album-item-descr-2-album-artist">${d.artist}</div>
-                            <div class="album-item-descr-2-album-num_tracks">${d.num_tracks} Songs</div>
-                            <div class="album-item-descr-2-album-playlist-length">${d.length}</div>
-                        </div>
-                    </div>
-                    `
-            html += span;
-        }
-    })
-    writeHTML(`#header-topic`,topic);
-    writeHTML(`#list-topic`,html);
-
-    var container_explore_topic = document.querySelector("#container-explore-main");
-    container_explore_topic.style.display = "none";
-    var container_explore_topic = document.querySelector("#container-explore-topic");
-    container_explore_topic.style.display = "grid";
-
-    dismiss_details();
-}
-
-function album_item_onclick(album_name){
-    display_details(album_name)
-    var all_album_items_descr = document.querySelectorAll(`.album-item-descr`);
-    Array.from(all_album_items_descr).forEach(album_item_descr=>{
-        album_item_descr.className = album_item_descr.className.replace(" selected","")
-    })
-
-    var album_item = document.querySelector(`#album-item-${hyphenated(album_name)}`);
-    album_item_descr = album_item.querySelector(`.album-item-descr`)
-    album_item_descr.className += " selected"
-}
-
-function album_item_onclick_2(album_name){
-    display_details(album_name)
-    var all_album_items_descr = document.querySelectorAll(`.album-item-descr-2`);
-    Array.from(all_album_items_descr).forEach(album_item_descr=>{
-        album_item_descr.className = album_item_descr.className.replace(" selected","")
-    })
-
-    var album_item = document.querySelector(`#album-item-2-${hyphenated(album_name)}`);
-    album_item_descr = album_item.querySelector(`.album-item-descr-2`)
-    album_item_descr.className += " selected"
-}
-
-
 function load_summary(album_name){
     var d = get_album(album_name);
     var html=
-            `<div id="album-name">${d.album_name}</div>
-            <div id="album-artist">${d.artist}</div>
-            <div id="album-num_tracks">${d.num_tracks} Songs</div>
-            <div id="album-playlist-length">${d.length}</div>`
+            `
+            <div class="album-details-title">
+                <div id="album-name">${d.album_name}</div>
+                <div id="album-artist">${d.artist}</div>
+            </div>
+            <div class="album-details-info">
+                <div id="album-num_tracks">${d.num_tracks} Songs</div>
+                <div id="album-playlist-length">${d.length}</div>
+            </div>`
 
-    album_cover = document.querySelector("#album-cover-img");
-    album_cover.src = d.src
+    document.querySelector("#album-cover-img").src = d.src;
     writeHTML(`#album-details`,html)
-}
-
-function display_details(album_name){
-    load_summary(album_name)
-    load_playlist(album_name)
-    showHTMLElement("#container-a3b","grid");
-    showHTMLElement("#container-a4","grid");
-    showHTMLElement("#container-a5","grid");
-    showHTMLElement("#button-dismiss","grid");
-    document.querySelector("#app-a4").scrollTo(0,0)
-}
-
-function dismiss_details(){
-    html = 
-        `<div id="album-name"></div>
-        <div id="album-artist"></div>
-        <div id="album-num_tracks"></div>
-        <div id="album-playlist-length"></div>`
-    
-    writeHTML(`#album-details`,html)
-    document.querySelector("#album-cover-img").src = ""
-
-    hideHTMLElement("#container-a3b");
-    hideHTMLElement("#container-a4");
-    hideHTMLElement("#container-a5");
-    hideHTMLElement("#button-dismiss");
-    change_active_button(null,"html",`.album-item-descr,.album-item-descr-2`,flag=" selected")
-}
-
-function get_album(album_name){
-    let album;
-    for (j in ALBUMS){
-        d=ALBUMS[j]
-        if (unhyphenated(d.album_name) == unhyphenated(album_name)){
-            album = d
-            break;
-        }
-    }
-    return album;
-}
-
-function change_active_button(button_id,parent,button_class,flag){
-    parent = parent == null ? "html" : parent;
-    button_class = button_class == null ? ".button" : button_class;
-    flag = flag == null ? " active" : flag;
-
-    parent_item = document.querySelector(parent);
-    var all_buttons = parent_item.querySelectorAll(button_class);
-    Array.from(all_buttons).forEach(button=>{
-        button.className = button.className.replace(flag,"")
-    })
-    if (button_id){
-        button_active = parent_item.querySelector(button_id)
-        button_active.className += flag
-    }
-}
-
-function writeHTML(element,html){
-    document.querySelector(element).innerHTML = html;
-}
-
-function hideHTMLElement(element){
-    document.querySelector(element).style.display = "none";
-}
-
-function showHTMLElement(element,display){
-    display = display ? display : "grid"
-    document.querySelector(element).style.display = display;
-}
-
-function on_playlist_button_clicked(){
-    // Scroll To Playlist section
-    app_a4 = document.querySelector("#app-a4");
-    container_album_summary = document.querySelector("#container-album-summary");
-    app_a4.scrollTo(0,container_album_summary.offsetHeight)
-}
-
-function on_summary_button_clicked(){
-    // Scroll To Playlist section
-    app_a4 = document.querySelector("#app-a4");
-    container_album_summary = document.querySelector("#container-album-summary");
-    app_a4.scrollTo(0,0)
 }
 
 function load_playlist(album_name){
@@ -394,42 +317,138 @@ function load_scroll_listener_details(){
     app_a4 = document.querySelector("#app-a4")
     container_album_summary = document.querySelector("#container-album-summary");
     app_a4.addEventListener("scroll",function(event){
-        if (this.scrollTop > container_album_summary.offsetHeight){
-            change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
-        } else change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+        console.log(this.scrollTop,container_album_summary.offsetHeight)
+        if (this.scrollTop <= container_album_summary.offsetHeight){
+            change_active_status(button_id=`#button-summary`,parent=`#app-a3b`)
+        } else  change_active_status(button_id=`#button-playlist`,parent=`#app-a3b`)
     })
 }
 
 function load_scroll_listener_explore(){
-    app_a4 = document.querySelector("#app-a2")
-    container_album_summary = document.querySelector("#container-album-summary");
-    app_a4.addEventListener("scroll",function(event){
-        if (this.scrollTop > container_album_summary.offsetHeight){
-            change_active_button(button_id=`#button-playlist`,parent=`#app-a3b`)
-        } else change_active_button(button_id=`#button-summary`,parent=`#app-a3b`)
+    app_a2 = document.querySelector("#app-a2")
+    // container_album_summary = document.querySelector("#container-album-summary");
+    app_a2.addEventListener("scroll",function(event){
+        sessionStorage.app_a2_scrollY = this.scrollTop;
     })
 }
 
+function show_albums_by_topic(topic){
+    app_a2 = document.querySelector("#app-a2")
+    sessionStorage.a2_prev_scrollY = app_a2.scrollTop;
+
+    var html = '';
+    ALBUMS.forEach(d => {
+        if (d.topic == topic){
+            span = 
+            `<div class="album-item" id="album-item-${hyphenated(d.album_name)}" onclick="album_item_onclick(\`${d.album_name}\`)">
+                <img class="album-item-img" id="album-item-img-${hyphenated(d.album_name)}" src="${d.src}">
+                <div class="album-item-descr" id="album-item-descr-${hyphenated(d.album_name)}">
+                    <div class="album-item-details-title">
+                        <div class="album-item-name">${d.album_name}</div>
+                        <div class="album-item-artist">${d.artist}</div>
+                    </div>
+                    <div class="album-item-details-info">
+                        <div class="album-item-num_tracks">${d.num_tracks} Songs</div>
+                        <div class="album-item-playlist-length">${d.length}</div>
+                    </div>
+                </div>
+            </div>`
+            html += span;
+        }
+    })
+    writeHTML(`#header-topic`,topic);
+    writeHTML(`#list-topic`,html);
+    hideHTMLElement("#container-explore-main")
+    showHTMLElement("#container-explore-topic","grid")
+    dismiss_details();
+}
+
+function display_details(album_name){
+    load_summary(album_name)
+    load_playlist(album_name)
+    showHTMLElement("#container-a3b","grid");
+    showHTMLElement("#container-a4","grid");
+    showHTMLElement("#container-a5","grid");
+    showHTMLElement("#button-dismiss","grid");
+    document.querySelector("#app-a4").scrollTo(0,0)
+}
+
+function dismiss_details(){
+    writeHTML(`#album-details`,"")
+    document.querySelector("#album-cover-img").src = ""
+    hideHTMLElement("#container-a3b");
+    hideHTMLElement("#container-a4");
+    hideHTMLElement("#container-a5");
+    hideHTMLElement("#button-dismiss");
+    change_active_status(null,"html",`.album-item-descr,.album-item-descr-2`,flag=" selected")
+}
+
+// BUTTON ONCLICK
+
+function album_item_onclick(album_name){
+    display_details(album_name)
+    change_active_status(`#album-item-descr-${hyphenated(album_name)}`,null,`.album-item-descr`," selected")
+    change_active_status(`#album-item-descr-${hyphenated(album_name)}`,`#container-explore-topic`,`.album-item-descr`," selected")
+    sessionStorage.latest_album_viewed = JSON.stringify(get_album(album_name)) // Need to parse it to use it
+}
+
+function album_item_onclick_2(album_name){
+    display_details(album_name)
+    change_active_status(`#album-item-descr-2-${hyphenated(album_name)}`,null,`.album-item-descr-2`," selected")
+    sessionStorage.latest_album_viewed = JSON.stringify(get_album(album_name)) // Need to parse it to use it
+}
+
+function on_playlist_button_clicked(){   // Scroll To Playlist section  
+    app_a4 = document.querySelector("#app-a4");
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.scrollTo(0,container_album_summary.offsetHeight + 15)
+}
+
+function on_summary_button_clicked(){     // Scroll To Summary section
+    app_a4 = document.querySelector("#app-a4");
+    container_album_summary = document.querySelector("#container-album-summary");
+    app_a4.scrollTo(0,0)
+}
+
+const NO_ALBUM_CHOSEN = 0;
+const ALBUM_CHOSEN_NO_TIMER = 1;
+const ALBUM_CHOSEN_WITH_TIMER = 2;
+
+function on_button_add_to_queue_clicked(){
+    sessionStorage.album_chosen = sessionStorage.latest_album_viewed
+    sessionStorage.flag_set_timer = ALBUM_CHOSEN_NO_TIMER;
+}
+
+function on_button_set_playlist_timer_clicked(){
+    sessionStorage.album_chosen = sessionStorage.latest_album_viewed
+    sessionStorage.flag_set_timer = ALBUM_CHOSEN_WITH_TIMER;
+}
 
 function show_main_music_page(){
-    var container_explore_topic = document.querySelector("#container-explore-main");
-    container_explore_topic.style.display = "grid";
-    var container_explore_topic = document.querySelector("#container-explore-topic");
-    container_explore_topic.style.display = "none";
-
-    load_scroll_listener_details()
     dismiss_details()
     load_genres()
     load_albums()
-
+    showHTMLElement("#container-explore-main","grid")
+    hideHTMLElement("#container-explore-topic")
+    document.querySelector("#app-a2").scrollTop = sessionStorage.a2_prev_scrollY;
 }
 
+function init_page(){
+    showHTMLElement("#container-explore-main","grid")
+    hideHTMLElement("#container-explore-topic")
+    load_scroll_listener_details()
+    load_scroll_listener_explore()
+    dismiss_details()
+    load_genres()
+    load_albums()
+    document.querySelector("#app-a2").scrollTop = 0;
+}
+
+window.addEventListener("load",function(event){
+    sessionStorage.a2_prev_scrollY = 0;
+    sessionStorage.album_chosen = null;
+    sessionStorage.flag_set_timer = NO_ALBUM_CHOSEN;
+})
 
 
-show_main_music_page()
-
-/****** DRAFT */
-
-
-
-
+init_page()

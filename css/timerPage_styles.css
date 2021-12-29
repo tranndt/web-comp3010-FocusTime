@@ -7,7 +7,7 @@
     --item-border-color-grey: rgba(0, 0, 0, 0.1);
     --border-between-ele: rgb(218, 218, 218) solid 0.5px;
     --greyed-out-text:rgba(128, 128, 128, 0.8);
-    --secondary-header-font-size: 18px;
+    --secondary-header-font-size: 1.8vh;
 }
   
 
@@ -17,7 +17,7 @@
 
 body{
     margin: 0px; 
-    height: 100%;
+    height: 100vh;
     font-family: 'Montserrat', sans-serif;
 
     background-image: url("../assets/imgs/img6.jpg");
@@ -29,8 +29,10 @@ body{
 .container-body{
     height: 100%;
     display: grid;
-    grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 70px 60px 270px 60px 270px;
+    /* grid-template-columns: auto 500px 500px 500px auto;
+    grid-template-rows: 100px 70px 60px 270px 60px 270px; */
+    grid-template-columns: auto 21% 33% 27% auto;
+    grid-template-rows: 12% 7.5% 7.5% 27% 7.5% 27%;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
@@ -87,11 +89,11 @@ border-radius: 50px;
     grid-area: N1;
 }
 
-.logoimg{
+.logoimg img{
     display: block;
     position: relative;
-    top: -95%;
-    left: -10%; 
+    top: -0.5vh;
+    width:65%;
 }
 
 /* NAVBAR CENTER - N2- NAV-ITEMS */
@@ -106,7 +108,12 @@ border-radius: 50px;
     grid-template-areas: 
             "NC2"
             "NC3";
-    padding-top:25px;
+    padding-top:3vh;
+}
+
+.icon img{
+    width:5vh;
+    height:5vh;
 }
 
 /* .navitem-name{
@@ -119,15 +126,21 @@ border-radius: 50px;
     /* background: rgb(212, 221, 83); */
     display: flex;
     position: relative;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 .activebar{
     grid-area: NC3;
     display: flex;
+    margin-top: 0.2vh;
+    padding: 0vh 7vh 0vh 0vh;
     justify-content: space-around;
+}
 
+.activebar:last-child {
+    border-right: none;
+    padding: 0vh 0vh 0vh 0vh;
 }
 
 ul{
@@ -138,35 +151,36 @@ ul{
 
 .navitemlist li {
     display: inline-flex;
-    padding: 0em 1.25em 0em 1.25em;
+    padding: 0vh 3vh 0vh 0vh;
     text-align: center;  
-    border-right: 0.05em solid rgba(0, 0, 0, 0.1);
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .navitemlist li:last-child {
     border-right: none;
+    padding: 0vh 0vh 0vh 0vh;
 }
 
-.navitem {
+/* .navitem {
     text-decoration: none;
     display: flex; 
     padding: 0 0.1em;
-}
+} */
 
 .activebar .tab-active{
     background-color: rgb(60, 60, 60);
     border-radius: 50em;
-    height: 10px;
-    width: 10px;
-    margin-top: 1px;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0.2vh;
 }
 
 .activebar .tab-inactive{
     background-color: rgba(255, 255, 255, 0);
     border-radius: 50em;
-    height: 10px;
-    width: 10px;
-    margin-top: 1px;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0.2vh;
 }
 
 /* NAVBAR RIGHT  */
@@ -212,21 +226,29 @@ li:not(.navitemlist li){
 }
 
 .header {
-    font-size: 25px;
-    padding-top:10px;
-    padding-left: 10px;
+    font-size: 2.8vh;
+    padding-top:1.5vh;
+    padding-left: 1vw;
 }
 
-/* ---------- A0 ---------- */
+/* ----------------------------------
+ A0 - area below nav bar
+ Page header
+ ------------------------------------ 
+ */
 
 #app-a0{
     grid-area: A0;
-    font-size: 40px;
+    font-size: 5vh;
     color: var(--white-bg-color);
     text-shadow: black 0px 0px 3px;
 }
 
-/* ---------- A1 ---------- */
+/* --------------------------------------- 
+Grid A1 - box 1 header-left
+Timer header
+-------------------------------------------
+*/
 
 #app-a1{
     grid-area: A1;
@@ -262,7 +284,11 @@ li:not(.navitemlist li){
     padding-left: 20px ;
 } */
 
-/* ---------- A2 (Timer styles) ---------- */
+/* --------------------------------------
+Grid A2 -- box 1 body
+Timer 
+------------------------------------------
+*/
 
 #app-a2{
     grid-area: A2;
@@ -276,6 +302,8 @@ li:not(.navitemlist li){
 /* Sets the containers height and width */
 .base-timer {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 /* Removes SVG styling that would hide the time label */
@@ -286,8 +314,8 @@ li:not(.navitemlist li){
 
 /* The SVG path that displays the timer's progress */
 .base-timer__path-elapsed {
-    stroke-width: 5;
-    stroke: rgba(145, 100, 175, 0.932);
+    stroke-width: 3.5%;
+    stroke: rgba(248, 131, 131, 0.932);
 }
 
 .base-timer__path-remaining {
@@ -295,17 +323,19 @@ li:not(.navitemlist li){
     transform:rotate(-90deg);
     transform-origin:50% 50%;
     stroke: rgba(185, 185, 192, 0.904);
-    stroke-width: 4.9;
+    stroke-width: 3.4%;
 }
 
 .base-timer__init-line{
-    stroke: rgb(93, 0, 136);
-    stroke-width: 0.5;
+    stroke: rgb(136, 0, 0);
+    stroke-width: 0.5%;
 }
   
 .base-timer__svg {
 /* Flips the svg and makes the animation to move left-to-right */
 transform: scaleX(-1);
+width: 100%;
+height: 100%;
 }
 
 
@@ -313,7 +343,7 @@ transform: scaleX(-1);
     position:absolute;
     width:35%;
     height: 60%;
-    top:22%;
+    top:19%;
     left: 33%;
     display: flex;
     flex-direction: column;
@@ -334,23 +364,23 @@ transform: scaleX(-1);
     display:inline-block;
     padding: 1.1vh 0vw 1.1vh 0.2vw;
     line-height:20%;
-    font-size: 2vh;
+    font-size: 100%;
     overflow: visible;
 } 
 
 
 .session-time .timer-set{
-    font-size: 450%;
-    font-weight: bold;
-    color: var(--text-color);
+    font-size: 6.5vh;
+    /* font-weight: bold; */
+    color: black;
     display: flex;
     justify-content: center;
     transition: display 0.3s ease;
 }
 
 .break-time {
-    font-size: 200%;
-    color: #E92C45;
+    font-size: 3vh;
+    color: #d31111;
 }
 
 .timer-controls{
@@ -362,12 +392,12 @@ transform: scaleX(-1);
 }
 
 .timer-button  {
-    height: 80%;
-    width: 40%;
-    color: rgb(69, 6, 83);
-    font-size: 150%;
+    height: 75%;
+    width: 35%;
+    color: #a1303f;
+    font-size: 2.5vh;
     font-weight : bold;
-    border: solid rgb(102, 53, 158) 1px;
+    border: solid rgb(224, 175, 181) 1px;
     display: grid;
     place-items: center;
     border-radius: 100%;
@@ -375,7 +405,12 @@ transform: scaleX(-1);
     cursor:pointer;
 }
 
-/* ---------- A6 ---------- */
+/*
+------------------------------------------------------------------
+GRID - A6 (box2 body)
+Song queue body 
+-----------------------------------------------------------------
+*/
 
 #app-a6{
     grid-area: A6;
@@ -389,9 +424,9 @@ transform: scaleX(-1);
 /*  Song View styles*/
 
 .songView-header, .notes-header{
-    font-size: 25px;
-    padding-top:10px;
-    padding-left: 10px;
+    font-size: 2.8vh;
+    padding-top:1.5vh;
+    padding-left: 1vw;
 }
 
 .songView {
@@ -446,10 +481,11 @@ transform: scaleX(-1);
     background:url(/assets/volume.svg) no-repeat;
     height: 15%;
     width:8%;
+    background-size: contain;
     cursor:pointer;
     border:none;
     position: absolute;
-    top: 85%;
+    top: 84.5%;
     left:1%;
     outline: none;
     opacity: .5;
@@ -458,7 +494,8 @@ transform: scaleX(-1);
 .mutebutton:hover{ opacity:2; }
 
 #volumeslider { 
-    width: 88%;
+    left: 10.5%;
+    width: 87.5%;
  }
 
 input[type='range'] {
@@ -475,141 +512,17 @@ input[type='range'] {
 input[type='range']::-webkit-slider-thumb {
 	-webkit-appearance: none !important;
 	background: radial-gradient(#FFF, #333);
-	height:17px;
-	width:17px;
+	height:1.7vh;
+	width:1.7vh;
 	border-radius:100%;
 	cursor:pointer;
 }
 
-/* 
-styles from the original/old page
-.songView {
-    position: relative;
-    height:40vh; width:25vw;
-    margin: 0 0 0 1.875em;
-    color:black;
-    padding-top: 0.1vh;
-    padding-left: 20px;
-    border: none; 
-    background-color:grey;
-    border-radius: 1em;
-}
-
-.songView-header {
-    margin-bottom:1vh;
-    font-size: 3vh;
-    font-size: 25px;
-    padding-top:10px;
-    padding-left: 10px;
-}
-
-.songList {
-    background:#a3a3a3;
-    position:absolute;
-    height:24vh; width:23vw;
-    overflow-x: hidden;
-    overflow-y: auto;
-    text-align:justify;
-}
-
-.notesView {
-    position: relative;
-    height:40vh; width:25vw; 
-    margin: 1.6em 0 0 1.875em;
-    color:black;
-    padding-left: 20px; 
-    padding-top: 0.1vh;
-    border: none; 
-    background-color:grey;
-    border-radius: 1em;
-}
-
-.notesView h2 {
-    margin-bottom:1vh;
-    font-size: 3vh;
-}
-
-.notes{
-    position:absolute;
-    height:28vh; width:23vw;
-    font-size: 1.25em;
-} */
-
-  
-/* http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial */
-/* .trackbar { 
-    background:#DDD; 
-    height:60px; 
-    width:23vw; 
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
-    vertical-align: middle;
-}
-
-.trackbar:nth-child(even) { background:#EEE; }
-
-.playbutton{ 
-    opacity:.8; 
-    display:block; 
-    float:left; 
-    width:25px; 
-    height:25px; 
-    margin:14px 0px 0px 14px; 
-    background:url(/assets/playButton.svg) no-repeat; 
-    border:none; 
-    cursor:pointer; 
-    outline:none; 
-}
-
-.playbutton:hover{ opacity:1; }
-
-.mutebutton{ 
-    opacity:.8; 
-    display:block;
-    position: absolute;
-    bottom: 10px;
-    left: 20px; 
-    float:left; 
-    width:35px; 
-    height:30px; 
-    background:url(/assets/volume.svg) no-repeat; 
-    border:none; 
-    cursor:pointer; 
-    outline:none; 
-}
-
-.mutebutton:hover{ opacity:1; }
-
-.trackname{ 
-    float:left; 
-    color:#000; 
-    margin:12px 0px 0px 14px; 
-    font-size:1vw; 
-    font-weight:bold; 
-}
-
-.volumeslider { width: 70px }
-
-input[type='range'] {
-	-webkit-appearance: none !important;
-	float:left;
-    position: absolute;
-    bottom: 15px;
-    left: 60px; 
-	padding:0px;
-	background: #000;
-	height:13px;
-	border-bottom:#333 1px solid;
-}
-input[type='range']::-webkit-slider-thumb {
-	-webkit-appearance: none !important;
-	background: radial-gradient(#FFF, #333);
-	height:11px;
-	width:11px;
-	border-radius:100%;
-	cursor:pointer;
-} */
-
-/* ---------- A3 ---------- */
+/* ---------------------------------------------
+GRID A3 - Box 2 Header
+Song queue Header
+------------------------------------------------ 
+*/
 
 #app-a3{
     grid-area: A3;
@@ -621,58 +534,11 @@ input[type='range']::-webkit-slider-thumb {
     overflow-y:auto;
 }
 
-
-#container-filters{
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows:  1fr 1fr;
-    grid-template-areas: "F1 F1"
-                         "F1 F1";
-    padding: 3px;
-    gap: 5px 0px;
-}
-
-#list-filters{
-    grid-area: F1;
-
-    /* cursor: pointer; */
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    display: grid;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr) );
-    grid-template-rows: 1fr 1fr;
-    gap: 5px 1px;
-    /* border-left: rgb(218, 218, 218) solid 0.1px; */
-    /* align-items: flex-start; */
-}
-
-/* #header-filters{
-    grid-area: HF;
-    align-self: center;
-    justify-self: center;
-    font-size: 25px;
-} */
-
-
-
-.filter-btn{
-    border: none;
-    outline: none;
-    align-self: center;
-    padding: 8px 8px;
-    background-color: #ffffff;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    box-shadow: 0px 0px 2px rgba(53, 53, 53, 0.329);
-
-    /* font-size: 9px; */
-
-}
-
-/* ---------- A8 ---------- */
+/* ---------------------------------------------
+GRID A8 - Box 3 Header
+Notes Header
+------------------------------------------------ 
+*/
 
 #app-a8{
     grid-area: A8;
@@ -682,7 +548,11 @@ input[type='range']::-webkit-slider-thumb {
     border-bottom: rgb(218, 218, 218) solid 0.5px;
 }
 
-/* ---------- A4 task-project selector styles---------- */
+/* --------------------------------------------
+ GRID A4 - Box 1 header-right
+ Task-project selector styles
+ --------------------------------------------- 
+ */
 
 #app-a4{
     grid-area: A4;
@@ -690,6 +560,7 @@ input[type='range']::-webkit-slider-thumb {
     border-top-right-radius: 15px ;
     border-bottom: rgb(218, 218, 218) solid 0.5px;
     border-left: none;
+    padding-top: 1vh;
 
     font-size: var(--secondary-header-font-size);
 }
@@ -701,72 +572,12 @@ input[type='range']::-webkit-slider-thumb {
     color: var(--greyed-out-text);
 }
 
-#container-buttons{
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 1.5fr;
-    grid-template-rows:  1fr;
-    grid-template-areas: "HD BT BP";
-    /* justify-self: center;
-    align-self: center; */
-    gap: 0px 2px;
-    padding:5px;
-}
-
 #header-details{
     grid-area: HD;
     justify-self: center;
     align-self: center;
     font-size: 25px;
 }
-
-#task-btn{
-    grid-area: BT;
-    border: none;
-    outline: none;
-    padding: 10px 10px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-}
-
-#project-btn{
-    grid-area: BP;
-
-    border: none;
-    outline: none;
-    border-radius: 50px;
-    padding: 10px 10px;
-    cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-}
-
-.btn:hover ,.filter-btn:hover{
-    background-color: #ddd;
-}
-
-.btn {
-    background-color: #ffffff;
-    color: black;
-    box-shadow: 0px 0px 2px rgba(31, 31, 31, 0.4);
-    font-size: var(--secondary-header-font-size);
-
-}
-
-.btn.active {
-    background-color: #984ea3;
-    color: white;
-}
-
-/* #container-border{
-    margin-top: 10px;
-    margin-left:10px;
-    border-radius: 10px;
-    border: solid;
-    border-width: 2.5px;
-    height: 651px;
-} */
 
 .task-proj-selector{
     display:flex;
@@ -783,17 +594,15 @@ input[type='range']::-webkit-slider-thumb {
     justify-content: space-evenly;  
 }
 
-
-
 .select {
     border-left: none;
     border-right: none;
     border-top: none;
     background: none;
-    padding: 10px 10px;
+    padding: 1vh;
     font-size: var(--secondary-header-font-size);
-    color: var(--text-color);
-    margin: 0.5em 0 8px 0;
+    color: black;
+    margin: 1vh 0 1vh 0;
     font-weight: normal;
     /* max-width: 11em; */
 
@@ -804,7 +613,7 @@ input[type='range']::-webkit-slider-thumb {
     background-image: url(/assets/dropdownArrow.svg);
     background-position: right 8px top 50%;
     background-repeat: no-repeat;
-    background-size: 8px;
+    background-size: 10px;
     padding-right: 28px;
 }
 
@@ -848,66 +657,12 @@ Notes body
     position:absolute;
     height:100%; 
     width:100%;
-    font-size: 1.25em;
-}
-
-
-#container-list{
-    margin-right:10px;
-    margin-left: 10px;
-
-}
-
-
-/* ---------------------------------- */
-/* ----- 4.STATS-BUBBLES STYLES ----- */
-/* ---------------------------------- */
-
-.show {
-    display: block;
-}
-
-.hidden {
-    display: none;
-}
-
-.unhighlight {
-    opacity: 0.05;
-}
-
-.highlight {
-    opacity: 1;
-}
-
-.container {
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-
-
-
-.node:hover{
-/* stroke-width: 7px !important; */
-    filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
-    opacity: 1 !important;
-    cursor: pointer;
-}
-
-div.tooltip{
-    position: absolute;
-    text-align: center;
-    padding: 5px;
-    font: 12px sans-serif;		
-    background-color: white;
-    border: 1px #b7b7b7 solid;	
-    pointer-events: none;	
-    width: 100px;
+    font-size: 2vh;
 }
 
 /* 
 ---------------------------------------------
-Other Elements
+Other fixed position Elements
 ---------------------------------------------
 */
 
@@ -946,6 +701,24 @@ The toast - position it at the bottom and in the middle of the screen */
     display: none;
     margin:0;
     padding:0;
+    font-size: 2.2vh;
+}
+
+#dialogBox-2 {
+    position: fixed;
+    top: 40%;
+    left:48%;
+    transform: translate(-50%);
+    min-width: 30%;
+    height: auto;
+    padding: 0.5em;
+    color: black;
+    border: 1px solid #5f6063;
+    background-color: rgb(222, 222, 228);
+    z-index: 1;
+    display: none;
+    margin:0;
+    padding:0;
 }
 
 .dbox-header {
@@ -954,11 +727,12 @@ The toast - position it at the bottom and in the middle of the screen */
   justify-content: right;
 }
 
-#dbox-input {
+#dbox-input, #dbox-input-2 {
     margin:3%;
     max-width: 30%;
+    font-size: 2.2vh;
 }
- #dbox-msg {
+ #dbox-msg, #dbox-msg-2 {
   margin:3%;
  }
 
@@ -967,25 +741,28 @@ The toast - position it at the bottom and in the middle of the screen */
   justify-content:right;
 }
 
-#confirm-btn {
+#confirm-btn, #confirm-btn-2 {
   background-color: rgb(190, 194, 202);
   margin: 3%;
   padding: 1%;
   cursor: pointer;
+  font-size: 2.2vh;
 }
 
-#skip-btn {
+#skip-btn, #skip-btn-2 {
   background-color: rgb(190, 194, 202);
   padding: 1%;
   margin: 3%;
   cursor: pointer;
+  font-size: 2.2vh;
 }
 
-#cancel-btn {
+#cancel-btn, #cancel-btn-2 {
   background-color: rgb(196, 3, 35);
   padding: 1%;
   cursor: pointer;
   /* position:relative;
   left: 90%; */
   color: white;
+  font-size: 2.2vh;
 }

@@ -62,11 +62,11 @@ const EDIT = 3;
 const READY = 4;
 
 //button colors
-const disabled_background = '#E7C8F9';
+const disabled_background = 'rgba(248, 222, 222, 0.932)';
 const disabled_text = "rgb(158, 150, 147)";
-const enabled_text = "rgb(69, 6, 83)";
-const main_btn_color = '#BA83DA';
-const click_color = '#4B2C6F';
+const enabled_text = "#a1303f";
+const main_btn_color = 'rgba(253, 152, 152, 0.932)';
+const click_color = '#B6404F';
 
 //initial state
 let state = STOPPED;

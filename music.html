@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Import Scripts-->
-    <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
-    <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
+    <!-- Import Scripts-->
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <title>My Music</title>
     <!--Our styles scripts-->
-    <link rel="stylesheet" href="css/music-2.css">
+    <link rel="stylesheet" href="css/music.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 
@@ -32,7 +29,7 @@
         <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
 
         <div class="navbar" id="navbar-left">
-            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+            <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
         </div>
         <div class="navbar" id="navbar-center">
             <div class="app-container" id="container-main-navbar">
@@ -51,7 +48,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="active" href="index.html">
+                        <a class="active" href="timerPage.html">
                             <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
                         </a>
                     </li>
@@ -165,10 +162,14 @@
                         <img id="album-cover-img">
                     </div>
                     <div id="album-details">
-                        <div id="album-name"></div>
-                        <div id="album-artist"></div>
-                        <div id="album-num_tracks"></div>
-                        <div id="album-playlist-length"></div>
+                        <div class="album-details-title">
+                            <div id="album-name"></div>
+                            <div id="album-artist"></div>
+                        </div>
+                        <div class="album-details-info">
+                            <div id="album-num_tracks"></div>
+                            <div id="album-playlist-length"></div>
+                        </div>
                     </div>
                 </div>
                 <div class = "container-song-list" id="container-album-playlist">
@@ -176,12 +177,12 @@
             </div>
         </div>
 
-        <!-- A3B -->
+        <!-- A5 -->
 
         <div class="app-div" id="app-a5">
             <div class="app-container" id="container-a5">
-                <button class="button" id='button-add-to-queue' onclick="">Add to Song Queue</button>
-                <button class="button" id='button-start-timer' onclick="">Start Timer using Playlist</button>
+                <button class="button" id='button-add-to-queue' onclick="on_button_add_to_queue_clicked()">Add to Song Queue</button>
+                <button class="button" id='button-set-timer' onclick="on_button_set_playlist_timer_clicked()">Set Timer to Playlist Length</button>
             </div>  
         </div>
 
