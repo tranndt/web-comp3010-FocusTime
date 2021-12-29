@@ -68,6 +68,10 @@ task_selectBox.addEventListener('change', () => {
 
 		PT_dbox_elem.style.display = "block";
 	}
+
+	else {
+		updateNotes(task_selectBox.value);
+	}
 });
 
 project_selectBox.addEventListener('change', () => {
@@ -101,10 +105,15 @@ function createNewOption(selectBox, type) {
 	if (type == "task") {
 		taskDetailsCount++;
 		newOption = new Option(newOptionValue, "task-"+taskDetailsCount);
-		let project = project_selectBox.value;
+		let projectID = project_selectBox[project_selectBox.selectedIndex].value;
+		let project = project_selectBox[project_selectBox.selectedIndex].text;
+
+		if (!project.localeCompare("None")) {
+			project = "Miscellaneous";
+		}
 
 		//newOptions.push({project : `${project}`, task : `${newOptionValue}`, update : 'task'});
-		newOptions.push({project : `${project.text}`, projectID : `${project}`, task : `${newOptionValue}`, update : 'task'});
+		newOptions.push({project : `${project}`, projectID : `${projectID}`, task : `${newOptionValue}`, update : 'task'});
 	}
 
 	else {
@@ -196,6 +205,18 @@ function updateSelector(newOptionsList) {
 				projectBox.add(newOption, projectBox.options.length);
 			}
 		}
+	}
+}
+
+function updateNotes(taskID) {
+	var taskNotes = localStorage.getItem(taskID);
+	var notesArea = document.querySelector(".notes");
+	if (taskNotes != null) {
+		notesArea.innerHTML = taskNotes;
+	}
+
+	else {
+		notesArea.innerHTML = bulletWithSpace;
 	}
 }
 
