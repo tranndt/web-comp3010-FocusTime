@@ -300,7 +300,8 @@
         album_chosen = JSON.parse(album_chosen);
         album_title.innerHTML = "Album: " + album_chosen.album_name;
         window.addEventListener("load", function(){audioApp(album_chosen.album_name)}, false);
-        //window.addEventListener("load", function(){set_album_length(album_chosen.length)}, false);
+        if (sessionStorage.flag_set_timer == 2)
+            window.addEventListener("load", function(){set_album_length(album_chosen.length)}, false);
     }
 </script>
 
