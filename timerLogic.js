@@ -20,20 +20,35 @@ const convert_from_secs = (input_sec) => {
 //--------------------------------------------------------
 
 const toast_elem = document.getElementById("toast");
+
 const dbox_elem = document.getElementById("dialogBox");
 const dbox_msg = document.getElementById("dbox-msg");
 const task_amount = document.querySelector('#dbox-input');
 const dbox_btn_done = document.querySelector('#confirm-btn');
 const dbox_btn_cancel = document.querySelector('#cancel-btn');
 const dbox_btn_skip = document.querySelector('#skip-btn');
+
+const dbox_warn = document.getElementById("dialogBox-3");
+const dbox_warn_msg = document.getElementById("dbox-msg-3");
+const dbox_warn_okay = document.querySelector('#okay');
+const dbox_warn_cancel = document.querySelector('#cancel-btn-3');
+
+const dbox_noTask = document.getElementById("dialogBox-4");
+const dbox_noTask_msg = document.getElementById("dbox-msg-4");
+const dbox_noTask_okay = document.querySelector('#okay-4');
+const dbox_noTask_cancel = document.querySelector('#cancel-btn-4');
+
 const hr_elem = document.querySelector('#hr');
 const min_elem = document.querySelector('#min');
 const sec_elem= document.querySelector('#sec');
+
 const br_hr = document.querySelector('#br-hr');
 const br_min = document.querySelector('#br-min');
 const br_sec= document.querySelector('#br-sec');
+
 const start_pause_btn = document.querySelector('#start-pause');
 const stop_btn = document.querySelector('#stop');
+
 const time_input_elem = document.querySelector('#input-time');
 const main_timer_elem = document.querySelector('#timer-set'); //main timer
 const time_inputs = document.querySelectorAll('.time-inputs');
@@ -53,6 +68,9 @@ var time_focused = -1; // amount of time user focused on work(seconds)
 
 let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
+
+var task_not_selected_warned = false;
+var task_warning_message = "Warning! No task selected. You must at least select a task to save your progress after this focus session. If you proceed without selecting a task, you cannot save your progress for this session.";
 
 //timer states
 const RUNNING = 0;
@@ -76,8 +94,26 @@ stop_btn.style.backgroundColor = main_btn_color;
 start_pause_btn.style.backgroundColor = disabled_background;
 start_pause_btn.style.color = disabled_text;
 start_pause_btn.style.cursor = 'default';
+setProgress(100);
 
 var album_sec = -1;
+
+const saveSession = () => {
+    var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
+    var selected_proj = document.getElementById("project-selector").options[document.getElementById("project-selector").selectedIndex].text;
+    var notes = document.getElementById("notes-text").value;
+
+    if (typeof(Storage) !== "undefined") {
+        // Store to for sessionStorage
+        localStorage.setItem("task_progress", task_done_input);
+        localStorage.setItem("time_focused", time_focused);
+        localStorage.setItem("task_name", selected_task);
+        localStorage.setItem("project_name", selected_proj);
+        localStorage.setItem("Notes", notes);
+    } else {
+        // Sorry! No Web Storage support..
+    }
+};
 
 const isValidInteger = (input_val, min_val, max_val) => {
     return Number.isInteger(Number(input_val)) && Number(input_val) >= min_val && Number(input_val) <= max_val;
@@ -188,9 +224,9 @@ const countdown = () => {
         clearInterval(intervalID);
         clearInterval(br_intervalID);
         setProgress(100);
-        setTimeout(() => {
-            setProgress(0);
-        }, 1000);
+        // setTimeout(() => {
+        //     setProgress(0);
+        // }, 1000);
 
         time_focused = total_secs - time;
 
@@ -202,10 +238,24 @@ const countdown = () => {
 
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
-        dbox_elem.style.display = "block";
-        dbox_msg.textContent = "Focus time over! \nType in a value between 1 - 100 to save your progress as percentage.";
+        var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
+        if(selected_task == "Choose a task" || selected_task == "+ Create new task") {
+            //if task not chosen, don't prompt for progress
+            console.log("Warning: task not chosen");
+            task_not_selected_warned = true;
+            dbox_noTask_msg.textContent = "Time over! Click \"okay\" to continue.";
+            dbox_noTask_okay.textContent = "Okay";
+            dbox_noTask.style.display = "block";
+        }
+        else {
+            dbox_elem.style.display = "block";
+            dbox_msg.textContent = "Focus time over! \nType in a value between 1 - 100 to save your progress as percentage.";
+        }
+
         // To disable:    
         // document.getElementById('container-body').style.pointerEvents = 'none';
+
+        task_not_selected_warned = false;
     }
     else {
         set_timer(hr_elem, min_elem, sec_elem, time);
@@ -270,23 +320,21 @@ dbox_btn_done.addEventListener('click', () => {
         time = 0;
         br_time = 0;
         state = STOPPED;
-        setProgress(0);
+        setProgress(100);
 
         toast_elem.className = "show";
         toast_elem.textContent = "Focus time over. Good job! Your progress is saved.";
 
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000); 
         task_done_input = Number(task_amount.value);
-        if (typeof(Storage) !== "undefined") {
-            // Store to for sessionStorage
-            sessionStorage.setItem("task_done", task_done_input);
-            sessionStorage.setItem("time_focused", time_focused);
-        } else {
-            // Sorry! No Web Storage support..
-        }
+
+        saveSession();
+
         dbox_elem.style.display = "none";
         // To re-enable:
         // document.getElementById('container-body').style.pointerEvents = 'auto'; 
+
+        task_not_selected_warned = false;
     }
     
 });
@@ -303,7 +351,7 @@ dbox_btn_skip.addEventListener('click', () => {
     time = 0;
     br_time = 0;
     state = STOPPED;
-    setProgress(0);
+    setProgress(100);
 
     toast_elem.className = "show";
     toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
@@ -312,6 +360,8 @@ dbox_btn_skip.addEventListener('click', () => {
     dbox_elem.style.display = "none";
     // To re-enable:
     // document.getElementById('container-body').style.pointerEvents = 'auto'; 
+
+    task_not_selected_warned = false;
 
 });
 
@@ -325,34 +375,90 @@ dbox_btn_cancel.addEventListener('click', () => {
     // document.getElementById('container-body').style.pointerEvents = 'auto';   
 });
 
+dbox_warn_cancel.addEventListener('click', () => {
+    dbox_warn.style.display = "none"; 
+    // To re-enable:
+    // document.getElementById('container-body').style.pointerEvents = 'auto';  
+});
+
+dbox_warn_okay.addEventListener('click', () => {
+    dbox_warn.style.display = "none";   
+    // To re-enable:
+    // document.getElementById('container-body').style.pointerEvents = 'auto';
+});
+
+dbox_noTask_cancel.addEventListener('click', () => {
+    // resume timer
+    state = RUNNING;
+    countdown();//start main countdown again
+    intervalID = setInterval(countdown, 1000);
+    dbox_noTask.style.display = "none";  
+    // To re-enable:
+    // document.getElementById('container-body').style.pointerEvents = 'auto';  
+});
+
+dbox_noTask_okay.addEventListener('click', () => {
+    time_focused =total_secs - time;
+
+    stop_btn.textContent = "Set"; //allow to edit 
+    disable_start_pause_button("Start");
+
+    //clear timer
+    clear_timer(hr_elem, min_elem, sec_elem);
+    clear_timer(br_hr, br_min, br_sec);
+    time = 0;
+    br_time = 0;
+    state = STOPPED;
+    setProgress(100);
+
+    toast_elem.className = "show";
+    toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
+
+    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
+    dbox_noTask.style.display = "none";
+    // To re-enable:
+    // document.getElementById('container-body').style.pointerEvents = 'auto'; 
+
+    task_not_selected_warned = false;   
+});
+
 start_pause_btn.addEventListener('click', () => {
     start_pause_btn.style.backgroundColor = click_color;
 
     if (state != RUNNING) { //if not running, start
 
         main_timer_elem.style.display = "flex";
-
         setTimeout(() => { //button blink effect
             start_pause_btn.style.backgroundColor = main_btn_color;
         }, 100);
 
-        //set timer in running state -> pause,stop btn
-        start_pause_btn.textContent = "Pause";
-        start_pause_btn.style.color =  enabled_text;
-
-        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 1000);
-
-        stop_btn.textContent = "Stop";
-
-        console.log('AFTER setTimeout()');
-
-        //only run when timer is >= 0
-        state = RUNNING;
-        countdown();//start countdown immediately when clicked
-        intervalID = setInterval(countdown, 1000);
-
-        clearInterval(br_intervalID);//pause br timer
-
+        var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
+        console.log(selected_task, total_secs-time, task_not_selected_warned);
+        if((selected_task == "Choose a task" || selected_task == "+ Create new task") 
+        && time-total_secs <= 0 && !task_not_selected_warned) {
+            console.log("Warning: task not chosen");
+            task_not_selected_warned = true;
+            dbox_warn_msg.textContent = task_warning_message;
+            dbox_warn.style.display = "block";
+        }
+        else {    
+            //set timer in running state -> pause,stop btn
+            start_pause_btn.textContent = "Pause";
+            start_pause_btn.style.color =  enabled_text;
+    
+            setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 1000);
+    
+            stop_btn.textContent = "Stop";
+    
+            console.log('AFTER setTimeout()');
+    
+            //only run when timer is >= 0
+            state = RUNNING;
+            countdown();//start countdown immediately when clicked
+            intervalID = setInterval(countdown, 1000);
+    
+            clearInterval(br_intervalID);//pause br timer
+        }
     } 
     
     else { //if running, paused
@@ -411,6 +517,8 @@ stop_btn.addEventListener('click', () => {
         //if done:  state
         console.log('State: READY');
         state = READY;
+        setProgress(0);
+
         stop_btn.textContent = "Set"; //allow to edit after input
 
         main_timer_elem.style.display = "flex";
@@ -450,8 +558,19 @@ stop_btn.addEventListener('click', () => {
 
         time_focused =total_secs - time;
 
-        dbox_elem.style.display = "block";
-        dbox_msg.textContent = "Focus time over! \nType in a value between 1 - 100 to save your progress as percentage.";
+        var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
+        if(selected_task == "Choose a task" || selected_task == "+ Create new task") {
+            //if task not chosen, don't prompt for progress
+            console.log("Warning: task not chosen");
+            task_not_selected_warned = true;
+            dbox_noTask_msg.textContent = "Are you sure to stop the timer?";
+            dbox_noTask_okay.textContent = "Yes";
+            dbox_noTask.style.display = "block";
+        }
+        else {
+            dbox_elem.style.display = "block";
+            dbox_msg.textContent = "Focus time over! \nType in a value between 1 - 100 to save your progress as percentage.";
+        }
         
         // To disable everything other than the pop-up:    
         // document.getElementById('container-body').style.pointerEvents = 'none';
