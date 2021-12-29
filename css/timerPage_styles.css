@@ -721,6 +721,24 @@ The toast - position it at the bottom and in the middle of the screen */
     padding:0;
 }
 
+#dialogBox-3 {
+    position: fixed;
+    top: 40%;
+    left:48%;
+    transform: translate(-50%);
+    max-width: 30%;
+    height: auto;
+    padding: 0.5em;
+    color: black;
+    border: 1px solid #5f6063;
+    background-color: rgb(222, 222, 228);
+    z-index: 1;
+    display: none;
+    margin:0;
+    padding:0;
+    font-size: 2.2vh;
+}
+
 .dbox-header {
   background-color: rgb(54, 54, 185);
   display: flex;
@@ -732,7 +750,7 @@ The toast - position it at the bottom and in the middle of the screen */
     max-width: 30%;
     font-size: 2.2vh;
 }
- #dbox-msg, #dbox-msg-2 {
+ #dbox-msg, #dbox-msg-2, #dbox-msg-3 {
   margin:3%;
  }
 
@@ -741,7 +759,12 @@ The toast - position it at the bottom and in the middle of the screen */
   justify-content:right;
 }
 
-#confirm-btn, #confirm-btn-2 {
+#dialogBox-3 .dbox-buttons {
+    display: flex;
+    justify-content:center;
+}
+
+#confirm-btn, #confirm-btn-2, #okay {
   background-color: rgb(190, 194, 202);
   margin: 3%;
   padding: 1%;
@@ -757,7 +780,7 @@ The toast - position it at the bottom and in the middle of the screen */
   font-size: 2.2vh;
 }
 
-#cancel-btn, #cancel-btn-2 {
+#cancel-btn, #cancel-btn-2, #cancel-btn-3 {
   background-color: rgb(196, 3, 35);
   padding: 1%;
   cursor: pointer;
