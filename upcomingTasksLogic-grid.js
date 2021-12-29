@@ -116,7 +116,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
     //     date = taskDateID;
     // }
 
-    if (newTaskName.localeCompare("") && progress >= 0 && progress <= 100) {
+    if (checkNameLength(newTaskName) && progress >= 0 && progress <= 100) {
         taskDetailsCount++;
         let taskDetailsID = "task-"+taskDetailsCount;
         var newProgress = progress;
@@ -171,7 +171,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
     }
 
     else {
-        alert('Task name cannot be empty and/or Progress should be 0-100. Please try again.');
+        alert('Task name must not be empty and no more than 30 characters in length and/or progress should be 0-100. Please try again.');
     }
 }
 
@@ -344,11 +344,6 @@ searchInput.addEventListener('keyup', function(event) {
 
     const q = event.target.value.toLowerCase();
     display_search_result(q);
-    // rows.forEach((row) => {
-    //     row.querySelector("td").textContent.toLowerCase().startsWith(q)
-    //     ? (row.style.display = "table-row") 
-    //     : (row.style.display = "none");
-    // });
 })
 
 function updateNotes() {
@@ -473,8 +468,8 @@ UT_dbox_btn_cancel.addEventListener('click', () => {
 UT_dbox_btn_done.addEventListener('click', () => {
     newProject = UT_new_item.value;
 
-    if(newProject == "") {
-        alert("New task/project name should not be empty. Please try again.");
+    if(!checkNameLength(newProject)) {
+        alert("New project name should not be empty and less than 30 characters. Please try again.");
     }
 
     else {
@@ -524,13 +519,14 @@ function display_search_result(q){
                 project_item.style.display = "none";
             };
         }
-
-        // if (project_item.style.display == "block"){
-        //     num_tasks = 0;
-        //     Array.from(project_item.querySelectorAll(".task-item")).forEach( task_item =>{
-        //         num_tasks = (task_item.style.display == "flex") ? num_tasks + 1 : num_tasks;
-        //     })
-        //     project_item.querySelector(".project-item-header-ele-num-tasks").textContent = num_tasks;
-        // }
     });
+}
+
+function checkNameLength(name) {
+    let result = false;
+    if (name.length > 0 && name.length <= 30) {
+        result = true;
+    }
+
+    return result;
 }
