@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusTime</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+    <div class="container">
+        <nav>
+            <ul class="navitemlist">
+                <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:80%"> </div>
+                <li>
+                    <a href="upcomingTasks.html">
+                        <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="statistics.html">
+                        <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Statistics">Statistics</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html"> 
+                        <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Timer Page">Homepage</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="music.html">
+                        <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Music">Music</div>
+                    </a>
+                </li>
+                <li>
+                    <a class="active" href="settings.html">
+                        <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69" style="padding-left: 41%;"></div>
+                        <div class="navitem" data-text="Settings">Settings</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Headers -->
+<div class="h_settings"><img src="assets/settings/header_settings.png" alt="header_settings" style="width:85%"> </div>
+<div class="h_theme"><img src="assets/settings/header_theme.png" alt="header_settings" style="width:50%"> </div>
+<div class="h_defaulttab"><img src="assets/settings/header_defaulttab.png" alt="header_settings" style="width:45%"></div>
+
+<!-- Theme Menu -->
+<div class="themewrapper">
+    <div class="menu">
+        <div class="theme_menu">
+        </div>
+        <div class="dd_wrap" id="dd_theme">
+            <ul>
+                <li><a href="#" class="a_parent" onclick="chBackcolor(1)">
+                        <div class="wrap" >
+                            <span class="icon">
+                                <i class="light"></i>
+                            </span>
+                            <span class="text">Light</span>
+                        </div>
+                    </a></li>
+                <li><a href="#" class="a_parent" onclick="chBackcolor(2)">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="dark"></i>
+                            </span>
+                            <span class="text">Dark</span>
+                        </div>
+                    </a>
+                </li>
+                <li><a href="#" class="a_parent" onclick="chBackcolor(3)">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="ocean"></i>
+                            </span>
+                            <span class="text">Ocean</span>
+                        </div>
+                    </a>
+                </li>
+                <li><a href="#" class="a_parent" onclick="chBackcolor(4)">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="forest"></i>
+                            </span>
+                            <span class="text">Forest</span>
+                        </div>
+                    </a></li>
+                <li><a href="#" class="a_parent" onclick="chBackcolor(5)">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="sunset"></i>
+                            </span>
+                            <span class="text">Sunset</span>
+                        </div>
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Default Tab Menu -->
+<div class="tabwrapper">
+    <div class="menu">
+        <div class="tab_menu">
+        </div>
+        <div class="dd_wrap" id="dd_tab">
+            <ul>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-home"></i>
+                            </span>
+                            <span class="text">Timer</span>
+                        </div>
+                    </a></li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-volleyball-ball"></i>
+                            </span>
+                            <span class="text">Music</span>
+                        </div>
+                    </a>
+                </li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-utensils"></i>
+                            </span>
+                            <span class="text">Stats</span>
+                        </div>
+                    </a>
+                </li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </span>
+                            <span class="text">Tasks</span>
+                        </div>
+                    </a></li>
+                <li><a href="#" class="a_parent">
+                        <div class="wrap">
+                            <span class="icon">
+                                <i class="fas fa-cog"></i>
+                            </span>
+                            <span class="text">Settings</span>
+                        </div>
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Sign Up Button -->
+<div class="d-flex justify-content-between flex-wrap">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupmodal">
+        Sign Up
+    </button>
+</div>
+<div class="modal fade" id="signupmodal" tabindex="-1" aria-labelledby="signupmodal" style="display: none;" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+            <!-- <h5 class="modal-title">Modal title</h5> -->
+            <h2 class="fw-bold mb-0">Sign up for free</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-5 pt-0">
+            <form class="">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control rounded-4" id="floatingInput"
+                        placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Sign up</button>
+                <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+                <hr class="my-4">
+                <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+                <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-4" type="submit">
+                    <svg class="bi me-1" width="16" height="16">
+                        <use xlink:href="#twitter"></use>
+                    </svg>
+                    Sign up with Google
+                </button>
+                <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4" type="submit">
+                    <svg class="bi me-1" width="16" height="16">
+                        <use xlink:href="#facebook"></use>
+                    </svg>
+                    Sign up with Facebook
+                </button>
+                <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-4" type="submit">
+                    <svg class="bi me-1" width="16" height="16">
+                        <use xlink:href="#github"></use>
+                    </svg>
+                    Sign up with Apple
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+</body>
+
+<script>
+    var theme_menu = document.querySelector(".theme_menu");
+    var tab_menu = document.querySelector(".tab_menu");
+    var themewrapper = document.querySelector(".themewrapper");
+    var tabwrapper = document.querySelector(".tabwrapper");
+    var dd_wrap = document.querySelector(".dd_wrap");
+    var a_parent = document.querySelectorAll(".a_parent");
+    var dd_theme = document.getElementById('dd_theme');
+    var dd_tab = document.getElementById('dd_tab');    
+
+    theme_menu.addEventListener("click", function () {
+        dd_tab.classList.remove("active");
+        //tabwrapper.setAttribute("style", "visibility:hidden");
+        dd_theme.classList.toggle("active");
+        // a_parent.forEach(function (aitem) {
+        //     aitem.classList.remove("active");
+        // })
+    })
+
+    tab_menu.addEventListener("click", function () {
+        dd_theme.classList.remove("active");
+        //themewrapper.setAttribute("style", "visibility:hidden");
+        dd_tab.classList.toggle("active");
+        // a_parent.forEach(function (aitem) {
+        //     aitem.classList.remove("active");
+        // })
+    })    
+
+    function chBackcolor(color) {
+        var header = document.getElementsByClassName('navbar')[0];       
+        var nav = document.getElementsByClassName('navitemlist')[0];
+
+        // Light
+        if (color == 1){
+            document.body.style.background = "#DEDEDE";}
+            header.setAttribute("style", "background-color:#BABABA;");  
+            nav.setAttribute("style", "background-color:#DBD163;");    
+            localStorage.theme = 1;    
+
+        // Dark
+        if (color == 2) {
+            document.body.style.background = "#696969";
+            header.setAttribute("style", "background-color:#5C5C5C;");
+            nav.setAttribute("style", "background-color:#898989;");
+            localStorage.theme = 2;
+        }    
+
+        // Ocean
+        if (color == 3) {
+            document.body.style.background = "#9EBEDB";
+            header.setAttribute("style", "background-color:#8AA6C0;");
+            nav.setAttribute("style", "background-color:#C5D478;");
+            localStorage.theme = 3;
+        }     
+        
+        // Forest
+        if (color == 4) {
+            document.body.style.background = "#A0D665";
+            header.setAttribute("style", "background-color:#8CBB58;");
+            nav.setAttribute("style", "background-color:#CADDB5;");
+            localStorage.theme = 4;
+        }        
+
+        // Sunset    
+        if (color == 5) {
+            document.body.style.background = "#F4BE7F";
+            header.setAttribute("style", "background-color:#F1A954;");
+            nav.setAttribute("style", "background-color:#F1D554;");
+            localStorage.theme = 5;
+        }                            
+        
+        //dd_theme.classList.remove("active");
+
+    }
+
+    function setTheme() {
+         if (localStorage.theme) {
+            chBackcolor(localStorage.theme);
+        } else {
+            localStorage.theme = 1;
+        }
+    }
+
+    window.onload = setTheme();
+
+</script>
+</html>
