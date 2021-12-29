@@ -670,15 +670,16 @@ Other fixed position Elements
 The toast - position it at the bottom and in the middle of the screen */
 #toast {
     visibility: hidden; /* Hidden by default. Visible on click */
-    margin-left: -125px; /* Divide value of min-width by 2 */
+    /* margin-left: -125px;  */
     background-color: rgba(51, 51, 51, 0.897); /* Black background color */
     color: #fff; /* White text color */
     border-radius: 0.3em; /* Rounded borders */
     padding: 1.5vh; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
-    left: 9%; /* right align the toast */
-    bottom: 2vh; /* 2vh from the bottom */
+    right: 10.3%; /* right align the toast */
+    bottom: 81%; /* 2vh from the bottom */
+    text-align: right;
 }
 
 /* Show the toast when clicking on a button (class added with JavaScript) */
