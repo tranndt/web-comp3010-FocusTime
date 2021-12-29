@@ -654,14 +654,14 @@ li:not(.navitemlist li){
 }
 
 a:link, a:visited {
-    color: pink;
+    color: rgb(255, 145, 165);
     background-color: transparent;
     text-decoration: none;
   }
   
   
 a:hover{
-    color: rgb(255, 106, 130);
+    color: rgb(255, 66, 98);
     background-color: transparent;
     text-decoration: underline;
 }

@@ -165,11 +165,12 @@ function has_visited(tab_name){
 
 function default_settings(){
     settings = {
-        home_tab: 'My Timer',
-        background_img_src: "none",
-        background_img_name: "none",
-        background_color: "EDDCD2",
-        background_color_name: "Champagne Pink"
+        background_color: "none",
+        background_color_name: "none",
+        background_img_name: "Snow 2",
+        background_img_src: "assets/imgs/img6.jpg",
+        home_tab: "My Timer",
+        home_tab_href: "index.html"
     }
     sessionStorage.settings = JSON.stringify(settings)
     return settings
