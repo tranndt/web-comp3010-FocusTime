@@ -176,18 +176,13 @@ function default_settings(){
 }
 
 function load_settings(){
-    if (sessionStorage.settings){
-        var settings = JSON.parse(sessionStorage.settings);
-        set_home_tab(settings.home_tab)
-        if (settings.background_img_src != "none")
-            set_background_img(settings.background_img_src)
-        else if (settings.background_color != "none")
-            set_background_color(settings.background_color)
-        return settings
-    }
-    else{
-        return default_settings()
-    }
+    settings = get_settings()
+    set_home_tab(settings.home_tab)
+    if (settings.background_img_src != "none")
+        set_background_img(settings.background_img_src)
+    else if (settings.background_color != "none")
+        set_background_color(settings.background_color)
+    return settings
 }
 
 function get_settings(){
