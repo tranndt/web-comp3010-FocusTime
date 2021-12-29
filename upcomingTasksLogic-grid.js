@@ -448,7 +448,7 @@ const UT_newProject_btn = document.getElementById("button-add-project");
 var newProject = "";
 
 UT_newProject_btn.addEventListener('click', () => {
-	UT_dbox_msg.textContent = "What is the new project?";
+	UT_dbox_msg.textContent = "What is the new project? (1-30 characters)";
 	UT_dbox_elem.style.display = "block";
     document.getElementById('container-body').style.pointerEvents = 'none';
 });
