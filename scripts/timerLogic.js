@@ -145,6 +145,31 @@ const set_timer_to_album_length = () => {
 const set_album_length = (album_sec_stored) => {
     console.log('album_sec', album_sec_stored);
     album_sec = album_sec_stored;
+
+
+    var alb_hr = -1;
+    var alb_min = -1;
+    var alb_sec = -1;
+
+    var str_time = album_sec_stored;
+    var splitted = str_time.split(':');
+    console.log(Number(splitted[0]), Number(splitted[1]));
+
+
+    if(splitted.length == 2) {
+        alb_hr = 0;
+        alb_min = Number(splitted[0]);
+        alb_sec = Number(splitted[1]);
+    }
+    else if(splitted.length == 3) {
+        alb_hr = Number(splitted[0]);
+        alb_min = Number(splitted[1]);
+        alb_sec = Number(splitted[2]);
+    }
+
+    album_sec = convert_to_secs(alb_hr, alb_min, alb_sec);
+
+
     set_timer_to_album_length();
 };
 
