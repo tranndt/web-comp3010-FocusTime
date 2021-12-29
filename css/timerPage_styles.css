@@ -32,7 +32,7 @@ body{
     /* grid-template-columns: auto 500px 500px 500px auto;
     grid-template-rows: 100px 70px 60px 270px 60px 270px; */
     grid-template-columns: auto 21% 33% 27% auto;
-    grid-template-rows: 12% 7.5% 7.5% 27% 7.5% 27%;
+    grid-template-rows: 12.6% 7.5% 7.5% 27% 7.5% 27%;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
@@ -92,7 +92,7 @@ border-radius: 50px;
 .logoimg img{
     display: block;
     position: relative;
-    top: -0.5vh;
+    /* top: -0.5vh; */
     width:65%;
 }
 
@@ -104,11 +104,12 @@ border-radius: 50px;
 
 #container-main-navbar{
     display: grid;
-    grid-template-rows: 5fr 1fr;
-    grid-template-areas: 
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-areas:
+            "NC1" 
             "NC2"
             "NC3";
-    padding-top:3vh;
+    padding-top:0.5vh;
 }
 
 .icon img{
@@ -116,10 +117,15 @@ border-radius: 50px;
     height:5vh;
 }
 
-/* .navitem-name{
+.navitem-name{
     grid-area: NC1;
-    height: 10px;
-} */
+    height: 0.5vh;
+    /* margin: 0; */
+    font-size: 2vh;
+    padding-bottom: 1.9%;
+    text-align: center;
+    visibility: visible;
+}
 
 .navitemlist{
     grid-area: NC2;
@@ -133,8 +139,8 @@ border-radius: 50px;
 .activebar{
     grid-area: NC3;
     display: flex;
-    margin-top: 0.2vh;
-    padding: 0vh 7vh 0vh 0vh;
+    margin-top: 0vh;
+    padding: 0vh 0vh 0vh 0vh;
     justify-content: space-around;
 }
 
@@ -151,7 +157,7 @@ ul{
 
 .navitemlist li {
     display: inline-flex;
-    padding: 0vh 3vh 0vh 0vh;
+    padding: 0vh 3.5vh 0vh 0vh;
     text-align: center;  
     border-right: 2px solid rgba(0, 0, 0, 0.1);
 }
@@ -172,7 +178,7 @@ ul{
     border-radius: 50em;
     height: 1vh;
     width: 1vh;
-    margin-top: 0.2vh;
+    margin-top: 0vh;
 }
 
 .activebar .tab-inactive{
@@ -180,7 +186,7 @@ ul{
     border-radius: 50em;
     height: 1vh;
     width: 1vh;
-    margin-top: 0.2vh;
+    margin-top: 0vh;
 }
 
 /* NAVBAR RIGHT  */
