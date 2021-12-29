@@ -68,6 +68,10 @@ task_selectBox.addEventListener('change', () => {
 
 		PT_dbox_elem.style.display = "block";
 	}
+
+	else {
+		updateNotes(task_selectBox.value);
+	}
 });
 
 project_selectBox.addEventListener('change', () => {
@@ -201,6 +205,18 @@ function updateSelector(newOptionsList) {
 				projectBox.add(newOption, projectBox.options.length);
 			}
 		}
+	}
+}
+
+function updateNotes(taskID) {
+	var taskNotes = localStorage.getItem(taskID);
+	var notesArea = document.querySelector(".notes");
+	if (taskNotes != null) {
+		notesArea.innerHTML = taskNotes;
+	}
+
+	else {
+		notesArea.innerHTML = bulletWithSpace;
 	}
 }
 
