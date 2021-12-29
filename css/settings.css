@@ -48,6 +48,7 @@
 
     --border-bottom: rgb(218, 218, 218) solid var(--pxh-01);
 
+    --box-shadow-white:0px 0px var(--pxh-03) rgba(245, 245, 245, 0.767);
 
     --font-size-1: 2.8vh;
     --font-size-2: 2.2vh;
@@ -58,6 +59,11 @@
     --album-item-size: 20vh;
     --genre-item-size:12vh;
     --song-item-img-size:8vh;
+
+    --settings-item-height: 14vh;
+    --settings-item-width: 20vh;
+
+
 
 
 }
@@ -73,7 +79,7 @@ body{
     font-family: 'Montserrat', sans-serif;
 
     background-image: url("../assets/imgs/img6.jpg");
-    /* background-color: var(--transparent-bg-color); */
+    background-color: var(--transparent-bg-color);
     background-size: cover;
     opacity: 0.95;
 }
@@ -81,17 +87,14 @@ body{
 .container-body{
     height: 100%;
     display: grid;
-    /* grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 70px 60px 60px 460px 80px; */
     grid-template-columns: auto 21% 33% 27% auto;
-    grid-template-rows: 12% 8% 7% 7% 50% 8%;
+    grid-template-rows: 12% 8% 7% 65%;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
             "M3 A1 A1 A3 M4"
-            "M3 A2 A2 A3B M4"
             "M3 A2 A2 A4 M4"
-            "M3 A2 A2 A5 M4"
+
 
 }
 
@@ -271,15 +274,9 @@ li:not(.navitemlist li){
     margin-right: var(--pxh-05);
 }
 
-/* .header {
-    font-size: 25px;
-    padding-top:10px;
-    padding-left: 10px;
-} */
 
 .header {
     font-size: 2.8vh;
-    padding-top:1.5vh;
     padding-left: 1vw;
 }
 
@@ -307,14 +304,18 @@ li:not(.navitemlist li){
     background-color: var(--white-bg-color);
     border-top-left-radius: var(--border-radius-tab) ;
     border-top-right-radius: var(--border-radius-tab)  ;
-    border-bottom: var(--border-bottom) 
+    border-bottom: var(--border-bottom);
+    display: grid;
 }
 
 #container-a1{
     display: grid;
-    grid-template-areas: "AP SB";
-    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    align-content: center;
+    /* margin-top: 0.5vh; */
 }
+
+
 
 /* ---------- A2 ---------- */
 
@@ -325,20 +326,15 @@ li:not(.navitemlist li){
     border-bottom-left-radius: var(--border-radius-tab) ;
     overflow-y:scroll;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 
 }
 #container-a2{
+    display: grid;
     align-items: stretch;
     padding-bottom: var(--pxh-25);
 }
 
-#container-explore-main{
-    display: grid;
-
-}
-#container_explore_topic{
-    display: none;
-}
 
 .container-explore-component{
     display: grid;
@@ -369,29 +365,87 @@ li:not(.navitemlist li){
 
 .container-list{
     grid-area: CL1;
-    min-height: var(--pxh-50);
+    min-height: 10vh;
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    gap: var(--pxh-40) var(--pxh-30);
+    gap: var(--pxh-30) var(--pxh-10);
     padding-left: var(--pxh-05);
     padding-top: var(--pxh-15);
     padding-bottom: var(--pxh-15);
-    /* margin-left: var(--pxh-15); */
+    margin-bottom: var(--pxw-15);
 }
 
-#list-genres{
+#list-home-tab{
     display: grid;
-    grid-template-columns: repeat(6,1fr);
-    gap: var(--pxh-20) 0vh;
-    padding: 15px;
-    padding: var(--pxh-15);
-    padding-bottom: var(--pxh-25);
+    grid-template-columns: repeat(5,1fr);
+    justify-items: center;
+    padding: var(--pxw-05);
+    margin-right: 0;
+}
+
+.home-tab-item{
+    /* border: 1px solid; */
+    display: grid;
+    grid-template-areas:  "TNAME" "TIMG" "TACTV";
+    gap: var(--pxw-05);
+    
 }
 
 
-.album-item, .album-item-2{
-    width: var(--album-item-size);
-    height: var(--album-item-size);
+.home-tab-item-img{
+    grid-area: TIMG;
+    justify-self: center;
+    width: 37%;
+    border-radius: 15vh;
+    /* border: red solid 0.1vh; */
+    box-shadow: var(--box-shadow);
+    z-index: 1;
+    cursor: pointer;
+}
+.home-tab-item-title{
+    color: var(--greyed-out-text);
+}
+
+/* .home-tab-item-overlay{
+    grid-area: TIMG;
+    cursor: pointer;
+    opacity: 1;
+    color: red;
+    z-index: 3;
+} */
+
+
+.home-tab-item-title.selected,.home-tab-item-img.selected,.home-tab-item-activebar.selected{
+    opacity: 1;
+}
+
+.settings-item-title.home-tab-item-title {
+    display: grid;
+    text-align: center;
+    grid-area: TNAME;
+    /* border: 1px dashed; */
+    color: black;
+}
+
+.home-tab-item-activebar{
+    display: grid;
+    grid-area: TACTV;
+    background-color: black;
+    height: var(--pxw-05);
+    width: var(--pxw-05);
+    justify-self: center;
+    border-radius: 15vh;
+    box-shadow: var(--box-shadow);
+
+    opacity: 0;
+}
+
+
+
+
+.img-bg-item{
+    width: var(--settings-item-width);
+    height: var(--settings-item-height);
     border-radius: var(--border-radius-large-item);
     display:grid;
     justify-self: center;
@@ -400,7 +454,7 @@ li:not(.navitemlist li){
     box-shadow: var(--box-shadow);
 }
 
-.album-item-img, .album-item-img-2{
+.img-bg-item-img {
     grid-area: AI;
     width: inherit;
     height: inherit;
@@ -411,91 +465,72 @@ li:not(.navitemlist li){
     box-shadow: var(--box-shadow);
 }
 
-.album-item-descr, .album-item-descr-2{
+.img-bg-item-overlay{
     grid-area: AI;
+    background-color: rgba(75, 75, 75);
+    color: white;
     width: inherit;
     height: inherit;
-    border-radius: inherit;
-    top: -10vh;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    font-size: var(--font-size-3);
+    display:grid;
     opacity: 0;
-    box-shadow: black 0px 0px var(--pxh-05);
+    border-radius: inherit;
+    box-shadow: rgb(255, 255, 255) 0px 0px var(--pxh-05);
     overflow: hidden;
 }
 
-.album-item-descr:hover, .album-item-descr-2:hover{
-    opacity: 0.8;
+.settings-item-overlay:hover{
+    opacity: 0.6;
 }
 
-.album-item-descr.selected, .album-item-descr-2.selected{
-    opacity: 0.8;
+.settings-item-overlay.selected{
+    opacity: 0.7;
 }
 
-.album-item-descr-album-name, .album-item-descr-2-album-name{
-    padding: var(--pxh-05);
-    padding-top: var(--pxh-25);
+
+.color-bg-item{
+    grid-template-areas: "CBI";
+    width: var(--settings-item-width);
+    height: var(--settings-item-height);
+    border-radius: var(--border-radius-large-item);
+    display:grid;
+    justify-self: center;
+    cursor: pointer;
+    box-shadow: var(--box-shadow);
+}
+
+.color-bg-item-overlay{
+    grid-area: CBI;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: white;
+    width: inherit;
+    height: inherit;
+    text-align: center;
+    font-size: var(--font-size-3);
+    display:grid;
+    opacity: 0;
+    border-radius: inherit;
+    box-shadow: rgb(255, 255, 255) 0px 0px var(--pxh-05);
+    overflow: hidden;
+}
+
+
+.settings-item-title{
+    padding: var(--pxh-03);
+    align-self: center;
+    color: rgba(255, 255, 255);
     font-size: var(--font-size-2);
 }
 
-.album-item-descr-album-artist,.album-item-descr-2-album-artist{
-    font-size: var(--font-size-3);
-}
-.album-item-descr-album-num_tracks,.album-item-descr-2-album-num_tracks{
-    padding-top: var(--pxh-25);
-    font-size: var(--font-size-3);
-}
-.album-item-descr-album-playlist-length, .album-item-descr-2-album-playlist-length{
-    font-size: var(--font-size-3);
-}
-
-.genre-item{
-    width: var(--genre-item-size);
-    height: var(--genre-item-size);
-    display:grid;
-    grid-template-areas: "GI";
-    justify-self: center;
-    border-radius: var(--border-radius-small-item);
-    cursor: pointer;
-    box-shadow: var(--box-shadow);
-}
-
-.genre-item-img{
-    grid-area: GI;
-    width: inherit;
-    height: inherit;
-    display:block;
-    justify-self: center;
-    border-radius: var(--border-radius-small-item);
-    cursor: pointer;
-    box-shadow: var(--box-shadow);
-}
-
-.genre-item-descr{
-    grid-area: GI;
-    width: inherit;
-    height: inherit;
-    border-radius: inherit;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: white;
-    opacity: 0;
-    box-shadow: var(--text-shadow);
-    overflow: hidden;
-}
-
-.genre-item-descr:hover{
-    opacity: 0.8;
+.color-bg-item-overlay .settings-item-title{
+    padding: var(--pxh-03);
+    align-self: center;
+    color: rgb(71, 71, 71);
+    font-size: var(--font-size-2);
 }
 
 
-
-
-
-/* .album-item:hover{
-    opacity: 0.9;
-} */
 /* ------- BUTTONS ------- */
 
 .button{
@@ -528,43 +563,26 @@ li:not(.navitemlist li){
     border-top-right-radius: var(--border-radius-tab) ;
     border-top-left-radius: var(--border-radius-tab) ;
     border-bottom: var(--border-bottom) ;
+    display: grid;
+
 }
 
 #container-a3{
     font-size: var(--font-size-1);
-    display: flex;
-    justify-content: space-between;
-}
-
-#button-dismiss{
-    color: rgb(175, 175, 175);
-    font-size: var(--font-size-3);
-
-}
-
-/* ---------- A3B ---------- */
-
-#app-a3b{
-    grid-area: A3B;
-    background-color: var(--white-bg-color);
-}
-
-#container-a3b{
-    font-size: var(--font-size-2);
     display: grid;
-    grid-template-columns: 15vh 15vh;
-    gap: 1vh 0.5vh;
-    justify-content: center;
-    padding-right:var(--pxh-10);
-    padding-top:var(--pxh-10);
+    grid-template-columns: auto 5vw;
+    align-items: center;
+    align-content: center;
+    /* margin-top: 0.5vh; */
 }
-
 
 /* ---------- A4 ---------- */
 
 #app-a4{
     grid-area: A4;
     background-color: var(--white-bg-color);
+    border-bottom-left-radius: var(--border-radius-tab);
+    border-bottom-right-radius: var(--border-radius-tab);
     overflow-y:scroll;
     scroll-behavior: smooth;
     /* border: 1px black dashed; */
@@ -578,135 +596,7 @@ li:not(.navitemlist li){
     padding: var(--pxh-10);
 }
 
-#container-album-summary{
-    width: 100%;
-    display: grid;
-    flex-direction: column;
-    justify-content: center;
-}
 
-#album-cover{
-    border-radius: var(--border-radius-button);
-    width: var(--album-cover-size);
-    height: var(--album-cover-size);
-    display:block;
-    justify-self: center;
-    box-shadow: var(--text-shadow);
-    cursor: pointer;
-}
-
-#album-cover-img{
-    border-radius: var(--border-radius-button);
-    width: inherit;
-    height: inherit;
-}
-
-#album-details{
-    padding: var(--pxh-10);
-    text-align: center;
-    font-size: var(--font-size-2);
-}
-
-#album-name{
-    font-size: var(--font-size-1);
-}
-#album-num_tracks{
-    padding-top: var(--pxh-25);
-}
-
-#album-playlist-length{
-    padding-bottom: var(--pxh-10);
-
-}
-
-/* ----- CONTAINER SONG ITEM ----- */
-.container-song-list{
-    padding-top:0;
-}
-
-.container-song-item{
-    display: grid;
-    grid-template-areas:    "SIMG SNAME DURTN"
-                            "SIMG ARTST .";
-    grid-template-columns: var(--song-item-img-size) auto 6vh;
-    grid-template-rows: repeat(2,var(--song-item-img-size)/2);
-
-}
-
-.song-item-img{
-    grid-area: SIMG;
-    width: var(--song-item-img-size);
-    height: var(--song-item-img-size);
-    border-radius: var(--border-radius-large-item);
-}
-
-.song-item-title{
-    grid-area: SNAME;
-    padding: var(--pxh-05);
-    padding-left: var(--pxw-05);
-    align-self: end;
-    font-size: var(--font-size-3);
-    overflow: hidden;
-}
-
-.song-item-artist{
-    grid-area: ARTST;
-    align-self: start;
-    padding: var(--pxh-05);
-    padding-left: var(--pxw-05);
-    color:var(--greyed-out-text);
-    font-size: var(--font-size-4);
-}
-
-.song-item-duration{
-    grid-area: DURTN;
-    padding: var(--pxh-05);
-    align-self: end;
-    font-size: var(--font-size-3);
-}
-
-/* ---------- A5 ---------- */
-
-#app-a5{
-    grid-area: A5;
-    background-color: var(--white-bg-color);
-    border-bottom-right-radius: var(--border-radius-tab) ;
-    border-bottom-left-radius: var(--border-radius-tab) ;
-    padding: var(--pxh-10);
-}
-
-#container-a5{
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--pxh-10) var(--pxh-10);
-}
-
-#button-add-to-queue, #button-set-timer{
-    border-radius: 5vh;
-    padding: var(--pxh-05);
-    font-size: var(--font-size-3);
-
-}
-#button-add-to-queue{
-    background-color: white;
-    color: var(--accent-color);
-}
-
-#button-add-to-queue:hover{
-    background-color: var(--transparent-bg-color);
-    color: var(--accent-color);
-}
-
-#button-set-timer{
-    background-color: var(--accent-color);
-    color: white;
-}
-
-#button-set-timer:hover{
-    background-color: var(--accent-color-transparent);
-    color: white;
-}
 
 
 
