@@ -459,6 +459,10 @@ updateNotes();
 function display_search_result(q){
     let projects = document.querySelectorAll(".accordion-item");
     projects.forEach(project_item => {
+        if (project_item.firstElementChild.classList.contains("active")) {
+            project_item.firstElementChild.classList.toggle("active");
+        }
+
         project_item.children[1].style.maxHeight = "250px";
 
         if (project_item.querySelector(".accordion-item-header").textContent.toLowerCase().includes(q)){
