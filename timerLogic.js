@@ -97,6 +97,21 @@ start_pause_btn.style.cursor = 'default';
 
 var album_sec = -1;
 
+const saveSession = () => {
+    var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
+    var selected_proj = document.getElementById("project-selector").options[document.getElementById("project-selector").selectedIndex].text;
+
+    if (typeof(Storage) !== "undefined") {
+        // Store to for sessionStorage
+        localStorage.setItem("task_progress", task_done_input);
+        localStorage.setItem("time_focused", time_focused);
+        localStorage.setItem("task_name", selected_task);
+        localStorage.setItem("project_name", selected_proj);
+    } else {
+        // Sorry! No Web Storage support..
+    }
+};
+
 const isValidInteger = (input_val, min_val, max_val) => {
     return Number.isInteger(Number(input_val)) && Number(input_val) >= min_val && Number(input_val) <= max_val;
 };
@@ -309,13 +324,9 @@ dbox_btn_done.addEventListener('click', () => {
 
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000); 
         task_done_input = Number(task_amount.value);
-        if (typeof(Storage) !== "undefined") {
-            // Store to for sessionStorage
-            sessionStorage.setItem("task_done", task_done_input);
-            sessionStorage.setItem("time_focused", time_focused);
-        } else {
-            // Sorry! No Web Storage support..
-        }
+
+        saveSession();
+
         dbox_elem.style.display = "none";
         // To re-enable:
         // document.getElementById('container-body').style.pointerEvents = 'auto'; 
