@@ -540,9 +540,10 @@ The toast - position it at the bottom and in the middle of the screen */
 #dialogBox {
     position: fixed;
     top: 40%;
-    left:34%;
+    left:45%;
     transform: translate(-50%);
-    max-width: 30%;
+    /* max-width: 30%; */
+    width: 400px;
     height: auto;
     padding: 0.5em;
     color: black;
@@ -562,9 +563,9 @@ The toast - position it at the bottom and in the middle of the screen */
 
 #dbox-input {
     margin:3%;
-    max-width: 30%;
+    width: 350px;
 }
- #dbox-msg, #dbox-msg-2 {
+ #dbox-msg {
   margin:3%;
  }
 
