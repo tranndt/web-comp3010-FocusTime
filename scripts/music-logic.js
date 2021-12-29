@@ -63,7 +63,7 @@ ALBUMS = Array.from(
     {album_name: 'Blonde', artist:"Frank Ocean", year:2016, num_tracks: 17, length: '60:08', topic:"Today's Pick", src:"assets/music/albums/album_blonde.jpeg"},
     {album_name: 'Flower Boy', artist:"Tyler, The Creator", year:2017, num_tracks: 14, length: '46:39', topic:"Today's Pick", src:"assets/music/albums/album_flowerboy.png"},
     {album_name: 'Ctrl', artist:"SZA", year:2017, num_tracks: 14, length: '49:06', topic:"Today's Pick", src:"assets/music/albums/album_ctrl.png"},
-    {album_name: 'KIDS SEE GHOSTS', artist:"KIDS SEE GHOSTS, Kanye West, Kid Cudi", year:2017, num_tracks: 7, length: '23:52', topic:"Today's Pick", src:"assets/music/albums/album_ksg.png"},
+    {album_name: 'Kids See Ghosts', artist:"KIDS SEE GHOSTS, Kanye West, Kid Cudi", year:2017, num_tracks: 7, length: '23:52', topic:"Today's Pick", src:"assets/music/albums/album_ksg.png"},
     {album_name: 'Coloring Book', artist:"Chance the Rapper", year:2016, num_tracks: 14, length: '57:21', topic:"Today's Pick", src:"assets/music/albums/album_coloringbook.png"},
     {album_name: 'Freudian', artist:"Daniel Ceasar", year:2017, num_tracks: 10, length: '44:51', topic:"Today's Pick", src:"assets/music/albums/album_freudian.jpg"},
     {album_name: 'American Teen', artist:"Khalid", year:2017, num_tracks: 15, length: '54:45', topic:"Today's Pick", src:"assets/music/albums/album_americanteen.png"},
@@ -417,6 +417,10 @@ const ALBUM_CHOSEN_WITH_TIMER = 2;
 function on_button_add_to_queue_clicked(){
     sessionStorage.album_chosen = sessionStorage.latest_album_viewed
     sessionStorage.flag_set_timer = ALBUM_CHOSEN_NO_TIMER;
+    //notify users of chosen album
+    toast_elem.className = "show";
+    toast_elem.textContent = "'" + JSON.parse(sessionStorage.album_chosen).album_name + "' added to song queue.";
+    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 6000);
 }
 
 function on_button_set_playlist_timer_clicked(){
@@ -446,9 +450,10 @@ function init_page(){
 
 window.addEventListener("load",function(event){
     sessionStorage.a2_prev_scrollY = 0;
-    sessionStorage.album_chosen = null;
+    //sessionStorage.album_chosen = null;
     sessionStorage.flag_set_timer = NO_ALBUM_CHOSEN;
 })
 
+const toast_elem = document.getElementById("toast");
 
 init_page()

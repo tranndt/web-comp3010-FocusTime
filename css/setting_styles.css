@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+    --navbar-bg-color:rgba(49, 49, 49, 0.171);
+    --transparent-bg-color:rgba(189, 189, 189, 0.664);
+    --white-bg-color:rgba(255, 255, 255, 0.95);
+    --item-border-color-grey: rgba(0, 0, 0, 0.1);
+    --border-between-ele: rgb(218, 218, 218) solid 0.5px;
+    --greyed-out-text:rgba(128, 128, 128, 0.8);
+    --secondary-header-font-size: 1.8vh;
+}
+
+/* ---------------------------------- */
+/* ---------- 0.BODY LAYOUT --------- */
+/* ---------------------------------- */
+
+body{
+    margin: 0px; 
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+
+    background-image: url("../assets/imgs/img6.jpg");
+    /* background-color: var(--transparent-bg-color); */
+    background-size: cover;
+    opacity: 0.95;
+}
+
+.container-body{
+    height: 100%;
+    display: grid;
+    /* grid-template-columns: auto 200px 500px 500px auto;
+    grid-template-rows: 100px 60px 60px 80px 80px; */
+    grid-template-columns: auto 21% 33% 27% auto;
+    grid-template-rows: 12% 7.5% 7% 7.5% 8%;
+    grid-template-areas: 
+            "M1 N1 N2 N3 M2"
+            "M3 A0 A0 A0 M4"
+            "M3 A1 A1 A1 M4"
+            "M3 A2 A3 A3 M4"
+            "M3 A4 A5 A5 M4"
+}
+
+/* ---------------------------------- */
+/* --------- 1.MARGIN LAYOUT -------- */
+/* ---------------------------------- */
+
+#margin-navbar-left{ grid-area: M1;}
+#margin-navbar-right{ grid-area: M2;}
+#margin-left{ grid-area: M3;}
+#margin-right{ grid-area: M4;}
+/* .margin{font-size: 0;} Comment out to remove the texts */
+
+/* ---------------------------------- */
+/* ------- 1.1.MISCELLANEOUS --------- */
+/* ---------------------------------- */
+/* Scroll bar for list/windows */
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px;
+  }
+
+*::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.021);
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+
+}
+
+*::-webkit-scrollbar-thumb {
+background-color: rgb(139, 139, 139);
+border-radius: 50px;
+}
+
+
+
+/* ---------------------------------- */
+/* -------- 2.NAVBAR LAYOUT --------- */
+/* ---------------------------------- */
+
+.navbar {
+    background-color: var(--navbar-bg-color);
+}
+
+/* NAVBAR LEFT - LOGO */
+
+#navbar-left {
+    grid-area: N1;
+}
+
+.logoimg{
+    display: block;
+    position: relative;
+    top: 1vh;
+    width:65%;
+}
+
+/* NAVBAR CENTER - N2- NAV-ITEMS */
+
+#navbar-center{
+    grid-area: N2;
+}
+
+#container-main-navbar{
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas: 
+            "NC2"
+            "NC3";
+    padding-top:3vh;
+}
+
+/* .navitem-name{
+    grid-area: NC1;
+    height: 10px;
+} */
+
+.navitemlist{
+    grid-area: NC2;
+    /* background: rgb(212, 221, 83); */
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.activebar{
+    grid-area: NC3;
+    display: flex;
+    margin-top: 0.2vh;
+    padding: 0vh 7vh 0vh 0vh;
+    justify-content: space-around;
+}
+
+.activebar:last-child {
+    border-right: none;
+    padding: 0vh 0vh 0vh 0vh;
+}
+
+ul{
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.navitemlist li {
+    display: inline-flex;
+    padding: 0vh 3vh 0vh 0vh;
+    text-align: center;  
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.navitemlist li:last-child {
+    border-right: none;
+}
+
+/* .navitem {
+    text-decoration: none;
+    display: flex; 
+    padding: 0 0.1em;
+} */
+
+.activebar .tab-active{
+    background-color: rgb(60, 60, 60);
+    border-radius: 50em;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0.2vh;
+}
+
+.activebar .tab-inactive{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50em;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0.2vh;
+}
+
+/* NAVBAR RIGHT  */
+#navbar-right{
+    grid-area: N3;
+    font-size: 0;
+}
+
+/* ---------------------- */
+
+li .active .iconhover {
+    opacity: 1;
+} 
+
+li {
+    list-style-type: none;
+}
+
+li:not(.navitemlist li):not(:last-child){
+    border-bottom: 1px #ccc solid;
+}
+
+li:not(.navitemlist li){
+    padding: 10px
+}
+
+/* ---------------------------------- */
+/* ---------- 3. APP LAYOUT --------- */
+/* ---------------------------------- */
+
+.app-div{
+    padding: 5px;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+/* ---------- A0 ---------- */
+
+#app-a0{
+    grid-area: A0;
+    font-size: 5vh;
+    color: var(--white-bg-color);
+    text-shadow: black 0px 0px 3px;
+}
+
+/* ---------- A1 ---------- */
+
+#app-a1{
+    grid-area: A1;
+}
+
+
+/* ---------- A2 ---------- */
+
+#app-a2{
+    grid-area: A2;
+    background-color: var(--white-bg-color);
+    border-top-left-radius: 15px ;
+    overflow: hidden;
+}
+
+/* ---------- A3 ---------- */
+
+#app-a3{
+    grid-area: A3;
+    background-color: var(--white-bg-color);
+    border-top-right-radius: 15px ;
+    /* border-radius: 10px; */
+}
+
+/* ---------- A4 ---------- */
+
+#app-a4{
+    grid-area: A4;
+    background-color: var(--white-bg-color);
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+}
+
+/* ---------- A5 ---------- */
+
+#app-a5{
+    grid-area: A5;
+    background-color: var(--white-bg-color);
+    border-bottom-right-radius: 15px;
+}
+
+.h_theme{
+    /* position: absolute; */
+    float: right;
+    margin-top: 5%;
+    /* left: 2.7%; */
+  }
+  
+.h_defaulttab{
+    float: right;
+    margin-top: 8%;
+    margin-left: 5%;
+    /* position: relative;*/
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+*{
+  margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+	text-decoration: none;
+	font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+.themewrapper{
+    visibility: visible;
+	/* display: flex; */
+	/* justify-content: center; */
+	/* margin-top: 15vh;
+    margin-right: 70vw; */
+    /* overflow: hidden; */
+    float: left;
+}
+
+.theme_menu{
+	width: 80px;
+	height: 50px;
+	background: #dc555f;
+	border-radius: 3px;
+	text-align: center;
+	color: #fff;
+	line-height: 50px;
+	font-size: 26px;
+	cursor: pointer;
+	margin: 0 auto 30px;
+	transition: all 0.2s ease;
+    display:flex;
+}
+
+.theme_menu:hover{
+	background: #9e3c48;
+}
+
+.tabwrapper{
+    visibility: visible;
+	/* display: flex;
+	justify-content: center;
+	margin-top: 3vh;
+    margin-right: 70vw; */
+    float: left;
+}
+
+.tab_menu{
+	width: 80px;
+	height: 50px;
+	background: #dc555f;
+	border-radius: 3px;
+	text-align: center;
+	color: #fff;
+	line-height: 50px;
+	font-size: 26px;
+	cursor: pointer;
+	margin: 0 auto 30px;
+	transition: all 0.2s ease;
+  display:flex;
+}
+
+.tab_menu:hover{
+	background: #9e3c48;
+}
+
+.dd_wrap{
+	width: 225px;
+	position: relative;
+	display: none;
+}
+
+.dd_wrap ul li{
+	position: relative;
+}
+
+.dd_wrap ul li a{
+	display: block;
+	background: #dc555f;
+	color: #fff;
+	padding: 20px 20px;
+	width: 80%;
+	letter-spacing: 2px;
+	/* text-transform: uppercase; */
+	transition: all 0.2s ease;
+}
+
+.dd_wrap ul li a:hover,
+.dd_wrap ul li a.active{
+	background: #9e3c48;
+}
+
+.dd_wrap ul li:first-child a{
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+}
+
+.dd_wrap ul li:last-child a{
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+.dd_wrap:before{
+	content: "";
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	transform: translateX(-50%);
+	border: 15px solid;
+	border-color: transparent transparent #dc555f transparent;
+	z-index: 1;
+}
+
+.dd_wrap ul li a .icon{
+	width: 30px;
+	display: inline-block;
+}
+
+.dd_wrap.active{
+	display: block;
+}
+
+.dd_menu {
+    position: absolute;
+    top: 0;
+    left: 115%;
+    width: 100%;
+    display: none;
+}
+
+.dd_menu:before{
+	content: "";
+	position: absolute;
+	top: 15px;
+	left: -30px;
+	z-index: 1;
+	border: 15px solid;
+	border-color: transparent #dc555f transparent transparent; 
+}
