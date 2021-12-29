@@ -165,29 +165,25 @@ function has_visited(tab_name){
 
 function default_settings(){
     settings = {
-        home_tab: 'My Timer',
-        background_img_src: "none",
-        background_img_name: "none",
-        background_color: "EDDCD2",
-        background_color_name: "Champagne Pink"
+        background_color: "none",
+        background_color_name: "none",
+        background_img_name: "Snow 2",
+        background_img_src: "assets/imgs/img6.jpg",
+        home_tab: "My Timer",
+        home_tab_href: "index.html"
     }
     sessionStorage.settings = JSON.stringify(settings)
     return settings
 }
 
 function load_settings(){
-    if (sessionStorage.settings){
-        var settings = JSON.parse(sessionStorage.settings);
-        set_home_tab(settings.home_tab)
-        if (settings.background_img_src != "none")
-            set_background_img(settings.background_img_src)
-        else if (settings.background_color != "none")
-            set_background_color(settings.background_color)
-        return settings
-    }
-    else{
-        return default_settings()
-    }
+    settings = get_settings()
+    set_home_tab(settings.home_tab)
+    if (settings.background_img_src != "none")
+        set_background_img(settings.background_img_src)
+    else if (settings.background_color != "none")
+        set_background_color(settings.background_color)
+    return settings
 }
 
 function get_settings(){
@@ -227,6 +223,10 @@ function set_home_tab(tab_name){
     save_settings('home_tab',tab_name)
     save_settings('home_tab_href',get_item_indirect(TABS,'href','tab_name',tab_name))
 }
+
+// ========= INIT FOR EVERY PAGE ========
+
+load_settings()
 
 
 

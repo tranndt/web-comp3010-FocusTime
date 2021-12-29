@@ -58,10 +58,28 @@
     --album-item-size: 20vh;
     --genre-item-size:12vh;
     --song-item-img-size:8vh;
-
-
 }
-  
+
+/* Code for the toast messages adapted from - https://www.w3schools.com/howto/howto_js_snackbar.asp 
+The toast - position it at the bottom and in the middle of the screen */
+#toast {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    /* margin-left: -125px;  */
+    background-color: rgba(51, 51, 51, 0.897); /* Black background color */
+    color: #fff; /* White text color */
+    border-radius: 0.3em; /* Rounded borders */
+    padding: 1.5vh; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    right: 10.3%; /* right align the toast */
+    bottom: 81%; /* 2vh from the bottom */
+    text-align: right;
+}
+
+/* Show the toast when clicking on a button (class added with JavaScript) */
+#toast.show {
+    visibility: visible; /* Show the snackbar */
+} 
 
 /* ---------------------------------- */
 /* ---------- 0.BODY LAYOUT --------- */
@@ -71,9 +89,6 @@ body{
     margin: 0px; 
     height: 100vh;
     font-family: 'Montserrat', sans-serif;
-
-    background-image: url("../assets/imgs/img6.jpg");
-    /* background-color: var(--transparent-bg-color); */
     background-size: cover;
     opacity: 0.95;
 }
@@ -146,7 +161,7 @@ border-radius: var(--pxh-50);
 .logoimg img{
     display: block;
     position: relative;
-    top: -0.5vh;
+    /* top: -0.5vh; */
     width:65%;
 }
 
@@ -158,11 +173,12 @@ border-radius: var(--pxh-50);
 
 #container-main-navbar{
     display: grid;
-    grid-template-rows: 5fr 1fr;
-    grid-template-areas: 
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-areas:
+            "NC1" 
             "NC2"
             "NC3";
-    padding-top:3vh;
+    padding-top:0.5vh;
     }
 
 .icon img{
@@ -170,10 +186,15 @@ border-radius: var(--pxh-50);
     height:5vh;
 }
 
-/* .navitem-name{
+.navitem-name{
     grid-area: NC1;
-    height: 10px;
-} */
+    height: 0.5vh;
+    /* margin: 0; */
+    font-size: 2vh;
+    padding-bottom: 1.9%;
+    text-align: center;
+    visibility: visible;
+}
 
 .navitemlist{
     grid-area: NC2;
@@ -187,8 +208,8 @@ border-radius: var(--pxh-50);
 .activebar{
     grid-area: NC3;
     display: flex;
-    margin-top: 0.05vh;
-    padding: 0vh 7vh 0vh 0vh;
+    margin-top: 0vh;
+    padding: 0vh 0vh 0vh 0vh;
     justify-content: space-around;
 }
 
@@ -205,9 +226,9 @@ ul{
 
 .navitemlist li {
     display: inline-flex;
-    padding: 0vh 4vh 0vh 0vh;
+    padding: 0vh 3.5vh 0vh 0vh;
     text-align: center;  
-    border-right: var(--pxw-01) solid rgba(0, 0, 0, 0.1);
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .navitemlist li:last-child {
@@ -223,18 +244,18 @@ ul{
 
 .activebar .tab-active{
     background-color: rgb(60, 60, 60);
-    border-radius: 50vh;
+    border-radius: 50em;
     height: 1vh;
     width: 1vh;
-    margin-top: 0.2vh;
+    margin-top: 0vh;
 }
 
 .activebar .tab-inactive{
     background-color: rgba(255, 255, 255, 0);
-    border-radius: 50vh;
+    border-radius: 50em;
     height: 1vh;
     width: 1vh;
-    margin-top: 0.2vh;
+    margin-top: 0vh;
 }
 
 /* NAVBAR RIGHT  */
@@ -254,11 +275,11 @@ li {
 }
 
 li:not(.navitemlist li):not(:last-child){
-    border-bottom: var(--pxh-01) #ccc solid;
+    border-bottom: 1px #ccc solid;
 }
 
 li:not(.navitemlist li){
-    padding: var(--pxh-10);
+    padding: 10px
 }
 
 /* ---------------------------------- */

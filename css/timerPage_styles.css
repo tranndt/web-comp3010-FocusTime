@@ -19,9 +19,6 @@ body{
     margin: 0px; 
     height: 100vh;
     font-family: 'Montserrat', sans-serif;
-
-    background-image: url("../assets/imgs/img6.jpg");
-    /* background-color: var(--transparent-bg-color); */
     background-size: cover;
     opacity: 0.95;
 }
@@ -475,7 +472,7 @@ Song queue body
     width:25px; 
     height:25px; 
     margin:14px 0px 0px 14px; 
-    background:url(/assets/playButton.svg) no-repeat; 
+    background:url(../assets/playButton.svg) no-repeat; 
     border:none; 
     cursor:pointer; 
     outline:none; 
@@ -484,7 +481,7 @@ Song queue body
 .playbutton:hover{ opacity:1; }
 
 .mutebutton{ 
-    background:url(/assets/volume.svg) no-repeat;
+    background:url(../assets/volume.svg) no-repeat;
     height: 15%;
     width:8%;
     background-size: contain;
@@ -616,7 +613,7 @@ Notes Header
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url(/assets/dropdownArrow.svg);
+    background-image: url(../assets/dropdownArrow.svg);
     background-position: right 8px top 50%;
     background-repeat: no-repeat;
     background-size: 10px;

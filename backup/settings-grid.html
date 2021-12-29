@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Time</title>
+    <!--Our styles scripts-->
+    <link rel="stylesheet" href="css/setting_styles.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container-body" id='container-body'>
+
+        <!-- 1.MARGINS -->
+
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+        <div class="margin" id="margin-left">Margin Left</div>
+        <div class="margin" id="margin-right">Margin Right</div>
+
+        <!-- 2.NAVBAR -->
+
+        <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
+
+        <div class="navbar" id="navbar-left">
+            <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg" style="width:60%"> </div>
+        </div>
+        <div class="navbar" id="navbar-center">
+            <div class="app-container" id="container-main-navbar">
+                <div class="navitem-name">
+                </div>
+
+                <ul class="navitemlist">
+                    <li>
+                        <a href="upcomingTasks.html">
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="statistics.html">
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active" href="index.html">
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="activebar">
+                    <div class = "tab-inactive" id="tab-indicator-upcoming"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-stats"> </div>
+                    <div class = "tab-active" id="tab-indicator-timer"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-music"> </div>
+                    <div class = "tab-inactive" id="tab-indicator-settings"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar" id="navbar-right">Navbar Right</div>
+
+        <!-- 3.MAIN APP -->
+
+        <!-- A0 -->
+
+        <div class="app-div" id="app-a0">
+            <div class="app-container" id="container-a0">
+                Settings
+            </div>
+        </div>
+
+        <!-- A1 -->
+
+        <div class="app-div" id="app-a1">
+            <!-- Headers -->
+            <div class="app-container" id="container-a1"></div>
+        </div>
+
+        <!-- A2 -->
+
+        <div class="app-div" id="app-a2">
+            <div class="app-container" id="container-a2">
+                <div class="h_theme"><img src="assets/settings/header_theme.png" alt="header_settings" style="width:55%"> </div>
+            </div>
+        </div>
+
+        <!-- A3 -->
+
+        <div class="app-div" id="app-a3">
+            <div class="app-container" id="container-a3">[Function Not Yet Implemented]
+                <!-- Theme Menu -->
+                <div class="themewrapper">
+                    <div class="menu">
+                        <div class="theme_menu"></div>
+                        <div class="dd_wrap" id="dd_theme">
+                            <ul>
+                                <li>
+                                    <a href="#" class="a_parent" onclick="chBackcolor(1)">
+                                        <div class="wrap" >
+                                            <span class="icon">
+                                                <i class="light"></i>
+                                            </span>
+                                            <span class="text">Light</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent" onclick="chBackcolor(2)">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="dark"></i>
+                                            </span>
+                                            <span class="text">Dark</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent" onclick="chBackcolor(3)">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="ocean"></i>
+                                            </span>
+                                            <span class="text">Ocean</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent" onclick="chBackcolor(4)">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="forest"></i>
+                                            </span>
+                                            <span class="text">Forest</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent" onclick="chBackcolor(5)">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="sunset"></i>
+                                            </span>
+                                            <span class="text">Sunset</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <!-- A4 -->
+
+        <div class="app-div" id="app-a4">
+            <div class="app-container" id="container-a4">
+                <div class="h_defaulttab"><img src="assets/settings/header_defaulttab.png" alt="header_settings" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="app-div" id="app-a5">
+            <div class="app-container" id="container-a5">[Function Not Yet Implemented]
+                <!-- Default Tab Menu -->
+                <div class="tabwrapper">
+                    <div class="menu">
+                        <div class="tab_menu">
+                        </div>
+                        <div class="dd_wrap" id="dd_tab">
+                            <ul>
+                                <li>
+                                    <a href="#" class="a_parent">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="fas fa-home"></i>
+                                            </span>
+                                            <span class="text">Timer</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="fas fa-volleyball-ball"></i>
+                                            </span>
+                                            <span class="text">Music</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="fas fa-utensils"></i>
+                                            </span>
+                                            <span class="text">Stats</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="fas fa-paper-plane"></i>
+                                            </span>
+                                            <span class="text">Tasks</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="a_parent">
+                                        <div class="wrap">
+                                            <span class="icon">
+                                                <i class="fas fa-cog"></i>
+                                            </span>
+                                            <span class="text">Settings</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more app-div below if necessary -->
+</body>
+</html>

@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Music</title>
     <!-- Import Scripts-->
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-    <title>My Music</title>
-    <!--Our styles scripts-->
+    <!-- Styles -->
     <link rel="stylesheet" href="css/music.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 
     </style>
 </head>
 <body>
+    <!-- Toast and Dialog box -->
+    <div id="toast">Some text some message..</div>
     <div class="container-body" id='container-body'>
 
         <!-- 1.MARGINS -->
@@ -33,33 +34,32 @@
         </div>
         <div class="navbar" id="navbar-center">
             <div class="app-container" id="container-main-navbar">
-                <div class="navitem-name">
-                </div>
+                <div class="navitem-name" id = "icon-name"></div>
 
                 <ul class="navitemlist">
                     <li>
                         <a href="upcoming-tasks.html">
-                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                            <div class="icon" id="upcoming-tasks-icon"><img src="assets/tasks.png" alt="Upcoming Tasks"></div>
                         </a>
                     </li>
                     <li>
                         <a href="statistics.html">
-                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <div class="icon" id="stats-icon"><img src="assets/stats.png" alt="Statistics"></div>
                         </a>
                     </li>
                     <li>
-                        <a class="active" href="timerPage.html">
-                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        <a href="index.html">
+                            <div class="icon" id="timer-icon"><img src="assets/timer.png" alt="Timer Page"></div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
-                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                            <div class="icon" id="music-icon"><img src="assets/music.png" alt="Music"></div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
-                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                            <div class="icon" id="settings-icon"><img src="assets/settings.png" alt="Settings"></div>
                         </a>
                     </li>
                 </ul>
@@ -71,6 +71,51 @@
                     <div class = "tab-inactive" id="tab-indicator-settings"> </div>
                 </div>
             </div>
+            <script>
+                var upcomingTask_icon = document.getElementById("upcoming-tasks-icon");
+                var stats_icon = document.getElementById("stats-icon");
+                var timer_icon = document.getElementById("timer-icon");
+                var music_icon = document.getElementById("music-icon");
+                var settings_icon = document.getElementById("settings-icon");
+                var navItem_name = document.getElementById("icon-name");
+                
+                //upcoming tasks
+                upcomingTask_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Upcoming Tasks"  
+                });
+                upcomingTask_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                }); 
+                //stats
+                stats_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Statistics"  
+                });
+                stats_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+                //timer
+                timer_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Focus time"  
+                });
+                timer_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+                //music
+                music_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Music"  
+                });
+                music_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+                //settings
+                settings_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Settings"  
+                });
+                settings_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+
+            </script>
         </div>
         <div class="navbar" id="navbar-right">Navbar Right</div>
 
@@ -185,9 +230,8 @@
                 <button class="button" id='button-set-timer' onclick="on_button_set_playlist_timer_clicked()">Set Timer to Playlist Length</button>
             </div>  
         </div>
-
 </body>
-
+<script src="scripts/main.js"></script>
 <script src="scripts/music-logic.js"></script>
 
 </html>

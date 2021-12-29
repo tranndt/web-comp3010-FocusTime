@@ -77,9 +77,6 @@ body{
     margin: 0px; 
     height: 100vh;
     font-family: 'Montserrat', sans-serif;
-
-    background-image: url("../assets/imgs/img6.jpg");
-    background-color: var(--transparent-bg-color);
     background-size: cover;
     opacity: 0.95;
 }
@@ -657,14 +654,14 @@ li:not(.navitemlist li){
 }
 
 a:link, a:visited {
-    color: pink;
+    color: rgb(255, 145, 165);
     background-color: transparent;
     text-decoration: none;
   }
   
   
 a:hover{
-    color: rgb(255, 106, 130);
+    color: rgb(255, 66, 98);
     background-color: transparent;
     text-decoration: underline;
 }
