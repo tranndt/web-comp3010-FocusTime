@@ -570,7 +570,7 @@ li:not(.navitemlist li){
     background-color: var(--white-bg-color);
     border-bottom-left-radius: var(--border-radius-tab);
     border-bottom-right-radius: var(--border-radius-tab);
-    overflow-y:scroll;
+    overflow-y:auto;
     scroll-behavior: smooth;
     /* border: 1px black dashed; */
 
