@@ -22,9 +22,6 @@ body{
     margin: 0px; 
     height: 100%;
     font-family: 'Montserrat', sans-serif;
-
-    background-image: url("../assets/imgs/img6.jpg");
-    /* background-color: var(--transparent-bg-color); */
     background-size: cover;
     opacity: 0.95;
 }

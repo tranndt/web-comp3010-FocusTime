@@ -1,4 +1,6 @@
 
+
+// ============== LOAD ITEMS ==============
 function load_home_tab_items(){
     var html = '';
     TABS.forEach(d => {
@@ -46,6 +48,8 @@ function load_img_backgrounds(){
     writeHTML(`#list-backgrounds`,html);
 }
 
+// ============== BUTTONS HANDLING ==============
+
 function on_img_bg_item_clicked(background_name){
     var d = get_item(BACKGROUNDS,'background_name',background_name)
     if (d) {
@@ -53,6 +57,7 @@ function on_img_bg_item_clicked(background_name){
         set_background_img(d.src)
     }
 }
+
 
 function on_color_bg_item_clicked(color_name){
     var d = get_item(COLORS,'color_name',color_name)
@@ -71,6 +76,8 @@ function on_home_tab_item_clicked(tab_name){
         set_home_tab(d.tab_name)
     }
 }
+
+// ============== INITIALIZING PAGE ==============
 
 function init_page(){
     var settings = has_visited() ? load_settings() : default_settings();

@@ -228,5 +228,9 @@ function set_home_tab(tab_name){
     save_settings('home_tab_href',get_item_indirect(TABS,'href','tab_name',tab_name))
 }
 
+// ========= INIT FOR EVERY PAGE ========
+
+load_settings()
+
 
 
