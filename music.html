@@ -8,7 +8,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <title>My Music</title>
     <!--Our styles scripts-->
-    <link rel="stylesheet" href="css/music-2.css">
+    <link rel="stylesheet" href="css/music.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -205,10 +205,14 @@
                         <img id="album-cover-img">
                     </div>
                     <div id="album-details">
-                        <div id="album-name"></div>
-                        <div id="album-artist"></div>
-                        <div id="album-num_tracks"></div>
-                        <div id="album-playlist-length"></div>
+                        <div class="album-details-title">
+                            <div id="album-name"></div>
+                            <div id="album-artist"></div>
+                        </div>
+                        <div class="album-details-info">
+                            <div id="album-num_tracks"></div>
+                            <div id="album-playlist-length"></div>
+                        </div>
                     </div>
                 </div>
                 <div class = "container-song-list" id="container-album-playlist">
@@ -216,7 +220,7 @@
             </div>
         </div>
 
-        <!-- A3B -->
+        <!-- A5 -->
 
         <div class="app-div" id="app-a5">
             <div class="app-container" id="container-a5">
