@@ -135,7 +135,8 @@ function load_home_tab_items(){
     })
     writeHTML(`#list-home-tab`,html);
 
-    
+    settings = JSON.parse(sessionStorage.settings)
+    on_home_tab_item_clicked(settings.home_tab)
 }
 
 //  <div class="settings-item-overlay home-tab-item-overlay" id="home-tab-item-overlay-${hyphenated(d.tab_name)}"></div>
@@ -155,6 +156,7 @@ function load_color_backgrounds(){
         html += span;
     })
     writeHTML(`#list-themes`,html);
+    on_color_bg_item_clicked(get_settings().background_color_name)
 }
 
 function load_img_backgrounds(){
@@ -171,29 +173,81 @@ function load_img_backgrounds(){
         html += span;
     })
     writeHTML(`#list-backgrounds`,html);
+    on_img_bg_item_clicked(get_settings().background_img_name)
+}
+
+function get_settings(){
+    return sessionStorage.settings ? JSON.parse(sessionStorage.settings) : null;
 }
 
 function get_item(array,attr,val){
     for (i in array){
         d = array[i]
-        console.log(d[attr],val,d[attr]===val)
         if (d[attr] == val) 
             return d;
     }
     return null;
 }
 
+function get_item_indirect(array,key1,key2,val2){
+    for (i in array){
+        d = array[i]
+        // console.log(key1,key2,val2,d,d[key2]==val2)
+        if (d[key2] == val2) 
+            return d[key1];
+    }
+    return null;
+}
+
 function set_background_img(src,root="../"){
-    document.querySelector('body').style.backgroundImage = `url(${root}${src})`;
+    src1 = src | (src != "none") ? `url(${root}${src})` : "none"
+    document.querySelector('body').style.backgroundImage = src1;
+    save_settings('background_img_src',src)
+    save_settings('background_img_name',get_item_indirect(BACKGROUNDS,'background_name','src',src))
+    save_settings('background_color',"none")
+    save_settings('background_color_name',"none")
 }
 
 function set_background_color(value){
     document.querySelector('body').style.backgroundImage = "none";
     document.querySelector('body').style.backgroundColor = `#${value}`;
+    save_settings('background_img_src',"none")
+    save_settings('background_img_name',"none")
+    save_settings('background_color',value)
+    save_settings('background_color_name',get_item_indirect(COLORS,'color_name','value',value))
 }
 
 function set_home_tab(tab_name){
-    
+    save_settings('home_tab',tab_name)
+    save_settings('home_tab_href',get_item_indirect(TABS,'href','tab_name',tab_name))
+}
+
+function save_settings(attr,value){
+    var settings = JSON.parse(sessionStorage.settings);
+    settings[attr] = value
+    sessionStorage.settings = JSON.stringify(settings)
+}
+
+function init_settings(){
+    settings = {
+        home_tab: 'My Timer',
+        background_img_src: "none",
+        background_img_name: "none",
+        background_color: "EDDCD2",
+        background_color_name: "Champagne Pink"
+    }
+    sessionStorage.settings = JSON.stringify(settings)
+}
+
+function load_settings(){
+    if (sessionStorage.settings){
+        var settings = JSON.parse(sessionStorage.settings);
+        set_home_tab(settings.home_tab)
+        if (settings.background_img_src != "none")
+            set_background_img(settings.background_img_src)
+        else if (settings.background_color != "none")
+            set_background_color(settings.background_color)
+    }
 }
 
 function on_img_bg_item_clicked(background_name){
@@ -217,16 +271,33 @@ function on_home_tab_item_clicked(tab_name){
     if (d) {
         change_active_status(`#home-tab-item-title-${hyphenated(d.tab_name)}`,'body','.home-tab-item-title'," selected")
         change_active_status(`#home-tab-item-img-${hyphenated(d.tab_name)}`,'body','.home-tab-item-img'," selected")
-        // change_active_status(`#home-tab-item-overlay-${hyphenated(d.tab_name)}`,'body','.home-tab-item-overlay'," selected")
         change_active_status(`#home-tab-item-activebar-${hyphenated(d.tab_name)}`,'body','.home-tab-item-activebar'," selected")
         set_home_tab(d.tab_name)
     }
 }
 
 function init_page(){
+    var visited = check_visited('My Settings')
+    if (!visited) init_settings()
+    load_settings()
     load_img_backgrounds()
     load_color_backgrounds()
     load_home_tab_items()
 }
-    
+
+function check_visited(tab_name){
+    var has_visited = false
+    if (sessionStorage.visited){
+        var visited = JSON.parse(sessionStorage.visited)
+        has_visited = visited[tab_name];
+    }
+    else {
+        var visited = {"My Progress":false,"My Statistics":false,"My Timer":false,"My Music":false,"My Settings":false}
+    }
+    visited[tab_name] = true;
+    sessionStorage.visited = JSON.stringify(visited);
+    return has_visited
+}
+
+
 init_page();
