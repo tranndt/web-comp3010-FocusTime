@@ -302,6 +302,8 @@ Timer
 /* Sets the containers height and width */
 .base-timer {
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 /* Removes SVG styling that would hide the time label */
@@ -332,6 +334,8 @@ Timer
 .base-timer__svg {
 /* Flips the svg and makes the animation to move left-to-right */
 transform: scaleX(-1);
+width: 100%;
+height: 100%;
 }
 
 
