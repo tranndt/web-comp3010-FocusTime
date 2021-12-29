@@ -530,9 +530,11 @@ function audioApp(album_title){
 		if(audio.muted){
 		    audio.muted = false;
 		    mutebtn.style.background = "url(assets/volume.svg) no-repeat";
+			mutebtn.style.backgroundSize = "contain";
 	    } else {
 		    audio.muted = true;
 		    mutebtn.style.background = "url(assets/muteVolume.svg) no-repeat";
+			mutebtn.style.backgroundSize = "contain";
 	    }
 	}	
 	function setVolume() {
