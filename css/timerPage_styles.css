@@ -32,7 +32,7 @@ body{
     /* grid-template-columns: auto 500px 500px 500px auto;
     grid-template-rows: 100px 70px 60px 270px 60px 270px; */
     grid-template-columns: auto 21% 33% 27% auto;
-    grid-template-rows: 12% 7.5% 7.5% 27% 7.5% 27%;
+    grid-template-rows: 12.6% 7.5% 7.5% 27% 7.5% 27%;
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
@@ -92,7 +92,7 @@ border-radius: 50px;
 .logoimg img{
     display: block;
     position: relative;
-    top: -0.5vh;
+    /* top: -0.5vh; */
     width:65%;
 }
 
@@ -104,11 +104,12 @@ border-radius: 50px;
 
 #container-main-navbar{
     display: grid;
-    grid-template-rows: 5fr 1fr;
-    grid-template-areas: 
+    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-areas:
+            "NC1" 
             "NC2"
             "NC3";
-    padding-top:3vh;
+    padding-top:0.5vh;
 }
 
 .icon img{
@@ -116,10 +117,15 @@ border-radius: 50px;
     height:5vh;
 }
 
-/* .navitem-name{
+.navitem-name{
     grid-area: NC1;
-    height: 10px;
-} */
+    height: 0.5vh;
+    /* margin: 0; */
+    font-size: 2vh;
+    padding-bottom: 1.9%;
+    text-align: center;
+    visibility: visible;
+}
 
 .navitemlist{
     grid-area: NC2;
@@ -133,8 +139,8 @@ border-radius: 50px;
 .activebar{
     grid-area: NC3;
     display: flex;
-    margin-top: 0.2vh;
-    padding: 0vh 7vh 0vh 0vh;
+    margin-top: 0vh;
+    padding: 0vh 0vh 0vh 0vh;
     justify-content: space-around;
 }
 
@@ -151,7 +157,7 @@ ul{
 
 .navitemlist li {
     display: inline-flex;
-    padding: 0vh 3vh 0vh 0vh;
+    padding: 0vh 3.5vh 0vh 0vh;
     text-align: center;  
     border-right: 2px solid rgba(0, 0, 0, 0.1);
 }
@@ -172,7 +178,7 @@ ul{
     border-radius: 50em;
     height: 1vh;
     width: 1vh;
-    margin-top: 0.2vh;
+    margin-top: 0vh;
 }
 
 .activebar .tab-inactive{
@@ -180,7 +186,7 @@ ul{
     border-radius: 50em;
     height: 1vh;
     width: 1vh;
-    margin-top: 0.2vh;
+    margin-top: 0vh;
 }
 
 /* NAVBAR RIGHT  */
@@ -670,15 +676,16 @@ Other fixed position Elements
 The toast - position it at the bottom and in the middle of the screen */
 #toast {
     visibility: hidden; /* Hidden by default. Visible on click */
-    margin-left: -125px; /* Divide value of min-width by 2 */
+    /* margin-left: -125px;  */
     background-color: rgba(51, 51, 51, 0.897); /* Black background color */
     color: #fff; /* White text color */
     border-radius: 0.3em; /* Rounded borders */
     padding: 1.5vh; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
-    left: 9%; /* right align the toast */
-    bottom: 2vh; /* 2vh from the bottom */
+    right: 10.3%; /* right align the toast */
+    bottom: 81%; /* 2vh from the bottom */
+    text-align: right;
 }
 
 /* Show the toast when clicking on a button (class added with JavaScript) */
@@ -721,6 +728,42 @@ The toast - position it at the bottom and in the middle of the screen */
     padding:0;
 }
 
+#dialogBox-3 {
+    position: fixed;
+    top: 40%;
+    left:48%;
+    transform: translate(-50%);
+    max-width: 30%;
+    height: auto;
+    padding: 0.5em;
+    color: black;
+    border: 1px solid #5f6063;
+    background-color: rgb(222, 222, 228);
+    z-index: 1;
+    display: none;
+    margin:0;
+    padding:0;
+    font-size: 2.2vh;
+}
+
+#dialogBox-4 {
+    position: fixed;
+    top: 40%;
+    left:48%;
+    transform: translate(-50%);
+    max-width: 30%;
+    height: auto;
+    padding: 0.5em;
+    color: black;
+    border: 1px solid #5f6063;
+    background-color: rgb(222, 222, 228);
+    z-index: 1;
+    display: none;
+    margin:0;
+    padding:0;
+    font-size: 2.2vh;
+}
+
 .dbox-header {
   background-color: rgb(54, 54, 185);
   display: flex;
@@ -732,7 +775,7 @@ The toast - position it at the bottom and in the middle of the screen */
     max-width: 30%;
     font-size: 2.2vh;
 }
- #dbox-msg, #dbox-msg-2 {
+ #dbox-msg, #dbox-msg-2, #dbox-msg-3, #dbox-msg-4 {
   margin:3%;
  }
 
@@ -741,7 +784,17 @@ The toast - position it at the bottom and in the middle of the screen */
   justify-content:right;
 }
 
-#confirm-btn, #confirm-btn-2 {
+#dialogBox-3 .dbox-buttons {
+    display: flex;
+    justify-content:center;
+}
+
+#dialogBox-4 .dbox-buttons {
+    display: flex;
+    justify-content:center;
+}
+
+#confirm-btn, #confirm-btn-2, #okay, #okay-4 {
   background-color: rgb(190, 194, 202);
   margin: 3%;
   padding: 1%;
@@ -757,7 +810,7 @@ The toast - position it at the bottom and in the middle of the screen */
   font-size: 2.2vh;
 }
 
-#cancel-btn, #cancel-btn-2 {
+#cancel-btn, #cancel-btn-2, #cancel-btn-3, #cancel-btn-4 {
   background-color: rgb(196, 3, 35);
   padding: 1%;
   cursor: pointer;
