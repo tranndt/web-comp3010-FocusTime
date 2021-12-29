@@ -279,7 +279,7 @@ li:not(.navitemlist li){
 
 .header {
     font-size: 2.8vh;
-    padding-top:1.5vh;
+    /* padding-top:1.5vh; */
     padding-left: 1vw;
 }
 
@@ -307,14 +307,18 @@ li:not(.navitemlist li){
     background-color: var(--white-bg-color);
     border-top-left-radius: var(--border-radius-tab) ;
     border-top-right-radius: var(--border-radius-tab)  ;
-    border-bottom: var(--border-bottom) 
+    border-bottom: var(--border-bottom);
+    display: grid;
 }
 
 #container-a1{
     display: grid;
-    grid-template-areas: "AP SB";
-    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    align-content: center;
+    /* margin-top: 0.5vh; */
 }
+
+
 
 /* ---------- A2 ---------- */
 
@@ -325,6 +329,7 @@ li:not(.navitemlist li){
     border-bottom-left-radius: var(--border-radius-tab) ;
     overflow-y:scroll;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 
 }
 #container-a2{
@@ -411,7 +416,7 @@ li:not(.navitemlist li){
     box-shadow: var(--box-shadow);
 }
 
-.album-item-descr, .album-item-descr-2{
+/* .album-item-descr, .album-item-descr-2{
     grid-area: AI;
     width: inherit;
     height: inherit;
@@ -425,31 +430,7 @@ li:not(.navitemlist li){
     overflow: hidden;
 }
 
-.album-item-descr:hover, .album-item-descr-2:hover{
-    opacity: 0.8;
-}
-
-.album-item-descr.selected, .album-item-descr-2.selected{
-    opacity: 0.8;
-}
-
-.album-item-descr-album-name, .album-item-descr-2-album-name{
-    padding: var(--pxh-05);
-    padding-top: var(--pxh-25);
-    font-size: var(--font-size-2);
-}
-
-.album-item-descr-album-artist,.album-item-descr-2-album-artist{
-    font-size: var(--font-size-3);
-}
-.album-item-descr-album-num_tracks,.album-item-descr-2-album-num_tracks{
-    padding-top: var(--pxh-25);
-    font-size: var(--font-size-3);
-}
-.album-item-descr-album-playlist-length, .album-item-descr-2-album-playlist-length{
-    font-size: var(--font-size-3);
-}
-
+*/
 .genre-item{
     width: var(--genre-item-size);
     height: var(--genre-item-size);
@@ -528,17 +509,25 @@ li:not(.navitemlist li){
     border-top-right-radius: var(--border-radius-tab) ;
     border-top-left-radius: var(--border-radius-tab) ;
     border-bottom: var(--border-bottom) ;
+    display: grid;
+
 }
 
 #container-a3{
     font-size: var(--font-size-1);
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 5vw;
+    align-items: center;
+    align-content: center;
+    /* margin-top: 0.5vh; */
 }
 
 #button-dismiss{
     color: rgb(175, 175, 175);
     font-size: var(--font-size-3);
+    margin-right: var(--pxw-05);
+
+    /* align-self: center; */
 
 }
 
@@ -602,21 +591,84 @@ li:not(.navitemlist li){
 }
 
 #album-details{
-    padding: var(--pxh-10);
+    padding: var(--pxh-05);
     text-align: center;
     font-size: var(--font-size-2);
+    display:grid;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    height: 15vh;
+    /* border: black 0.1vh solid; */
+}
+
+.album-details-title{
+    /* border: black 0.1vh solid; */
+    align-self: center;
+}
+
+.album-details-info{
+    /* border: black 0.1vh solid; */
+    align-self: center;
 }
 
 #album-name{
+    font-weight: bolder;
     font-size: var(--font-size-1);
 }
-#album-num_tracks{
-    padding-top: var(--pxh-25);
+
+/**/
+ /* .album-item-descr, .album-item-descr-2{
+    grid-area: AI;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    top: -10vh;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    opacity: 0;
+    box-shadow: black 0px 0px var(--pxh-05);
+    overflow: hidden;
+} */
+
+.album-item-descr{
+    grid-area: AI;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    width: inherit;
+    height: inherit;
+    text-align: center;
+    font-size: var(--font-size-3);
+    display:grid;
+    opacity: 0;
+    border-radius: inherit;
+    box-shadow: black 0px 0px var(--pxh-05);
+    /* border: white 0.1vh solid; */
+    overflow: hidden;
+
 }
 
-#album-playlist-length{
-    padding-bottom: var(--pxh-10);
+.album-item-details-title{
+    padding: var(--pxh-03);
+    align-self: center;
+}
 
+.album-item-details-info{
+    align-self: center;
+}
+
+.album-item-name{
+    font-weight: bolder;
+    font-size: var(--font-size-2);
+}
+
+
+.album-item-descr:hover{
+    opacity: 0.7;
+}
+
+.album-item-descr.selected{
+    opacity: 0.8;
 }
 
 /* ----- CONTAINER SONG ITEM ----- */
@@ -638,6 +690,7 @@ li:not(.navitemlist li){
     width: var(--song-item-img-size);
     height: var(--song-item-img-size);
     border-radius: var(--border-radius-large-item);
+    box-shadow: var(--box-shadow);
 }
 
 .song-item-title{

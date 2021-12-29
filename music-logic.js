@@ -193,9 +193,9 @@ function change_active_status(button_id,parent,button_class,flag){
     Array.from(all_buttons).forEach(button=>{
         button.className = button.className.replace(flag,"")
     })
-    if (button_id){
+    if (button_id != null){
         button_active = parent_item.querySelector(button_id)
-        button_active.className += flag
+        if (button_active) button_active.className += flag
     }
 }
 
@@ -224,15 +224,20 @@ function load_albums(){
         var html_i = '';
         ALBUMS.forEach(d => {
             if (d.topic == topic){
-                span = `<div class="album-item" id="album-item-${hyphenated(d.album_name)}" onclick="album_item_onclick(\`${d.album_name}\`)">
-                <img class="album-item-img" id="album-item-img-${hyphenated(d.album_name)}" src="${d.src}">
-                <div class="album-item-descr" id="album-item-descr-${hyphenated(d.album_name)}">
-                    <div class="album-item-descr-album-name">${d.album_name}</div>
-                    <div class="album-item-descr-album-artist">${d.artist}</div>
-                    <div class="album-item-descr-album-num_tracks">${d.num_tracks} Songs</div>
-                    <div class="album-item-descr-album-playlist-length">${d.length}</div>
-                </div>
-            </div>`
+                span = `
+                <div class="album-item" id="album-item-${hyphenated(d.album_name)}" onclick="album_item_onclick(\`${d.album_name}\`)">
+                    <img class="album-item-img" id="album-item-img-${hyphenated(d.album_name)}" src="${d.src}">
+                    <div class="album-item-descr" id="album-item-descr-${hyphenated(d.album_name)}">
+                        <div class="album-item-details-title">
+                            <div class="album-item-name">${d.album_name}</div>
+                            <div class="album-item-artist">${d.artist}</div>
+                        </div>
+                        <div class="album-item-details-info">
+                            <div class="album-item-num_tracks">${d.num_tracks} Songs</div>
+                            <div class="album-item-playlist-length">${d.length}</div>
+                        </div>
+                    </div>
+                </div>`
             html_i += span;
             }
         })
@@ -257,10 +262,15 @@ function load_genres(){
 function load_summary(album_name){
     var d = get_album(album_name);
     var html=
-            `<div id="album-name">${d.album_name}</div>
-            <div id="album-artist">${d.artist}</div>
-            <div id="album-num_tracks">${d.num_tracks} Songs</div>
-            <div id="album-playlist-length">${d.length}</div>`
+            `
+            <div class="album-details-title">
+                <div id="album-name">${d.album_name}</div>
+                <div id="album-artist">${d.artist}</div>
+            </div>
+            <div class="album-details-info">
+                <div id="album-num_tracks">${d.num_tracks} Songs</div>
+                <div id="album-playlist-length">${d.length}</div>
+            </div>`
 
     document.querySelector("#album-cover-img").src = d.src;
     writeHTML(`#album-details`,html)
@@ -307,9 +317,10 @@ function load_scroll_listener_details(){
     app_a4 = document.querySelector("#app-a4")
     container_album_summary = document.querySelector("#container-album-summary");
     app_a4.addEventListener("scroll",function(event){
-        if (this.scrollTop >= container_album_summary.offsetHeight - 5){
-            change_active_status(button_id=`#button-playlist`,parent=`#app-a3b`)
-        } else change_active_status(button_id=`#button-summary`,parent=`#app-a3b`)
+        console.log(this.scrollTop,container_album_summary.offsetHeight)
+        if (this.scrollTop <= container_album_summary.offsetHeight){
+            change_active_status(button_id=`#button-summary`,parent=`#app-a3b`)
+        } else  change_active_status(button_id=`#button-playlist`,parent=`#app-a3b`)
     })
 }
 
@@ -328,16 +339,20 @@ function show_albums_by_topic(topic){
     var html = '';
     ALBUMS.forEach(d => {
         if (d.topic == topic){
-            span = `<div class="album-item-2" id="album-item-2-${hyphenated(d.album_name)}" onclick="album_item_onclick_2(\`${d.album_name}\`)">
-                        <img class="album-item-img-2" id="album-item-img-2-${hyphenated(d.album_name)}" src="${d.src}">
-                        <div class="album-item-descr-2" id="album-item-descr-2-${hyphenated(d.album_name)}">
-                            <div class="album-item-descr-2-album-name">${d.album_name}</div>
-                            <div class="album-item-descr-2-album-artist">${d.artist}</div>
-                            <div class="album-item-descr-2-album-num_tracks">${d.num_tracks} Songs</div>
-                            <div class="album-item-descr-2-album-playlist-length">${d.length}</div>
-                        </div>
+            span = 
+            `<div class="album-item" id="album-item-${hyphenated(d.album_name)}" onclick="album_item_onclick(\`${d.album_name}\`)">
+                <img class="album-item-img" id="album-item-img-${hyphenated(d.album_name)}" src="${d.src}">
+                <div class="album-item-descr" id="album-item-descr-${hyphenated(d.album_name)}">
+                    <div class="album-item-details-title">
+                        <div class="album-item-name">${d.album_name}</div>
+                        <div class="album-item-artist">${d.artist}</div>
                     </div>
-                    `
+                    <div class="album-item-details-info">
+                        <div class="album-item-num_tracks">${d.num_tracks} Songs</div>
+                        <div class="album-item-playlist-length">${d.length}</div>
+                    </div>
+                </div>
+            </div>`
             html += span;
         }
     })
@@ -359,15 +374,8 @@ function display_details(album_name){
 }
 
 function dismiss_details(){
-    html = 
-        `<div id="album-name"></div>
-        <div id="album-artist"></div>
-        <div id="album-num_tracks"></div>
-        <div id="album-playlist-length"></div>`
-    
-    writeHTML(`#album-details`,html)
+    writeHTML(`#album-details`,"")
     document.querySelector("#album-cover-img").src = ""
-
     hideHTMLElement("#container-a3b");
     hideHTMLElement("#container-a4");
     hideHTMLElement("#container-a5");
@@ -380,6 +388,7 @@ function dismiss_details(){
 function album_item_onclick(album_name){
     display_details(album_name)
     change_active_status(`#album-item-descr-${hyphenated(album_name)}`,null,`.album-item-descr`," selected")
+    change_active_status(`#album-item-descr-${hyphenated(album_name)}`,`#container-explore-topic`,`.album-item-descr`," selected")
     sessionStorage.latest_album_viewed = JSON.stringify(get_album(album_name)) // Need to parse it to use it
 }
 
@@ -387,7 +396,6 @@ function album_item_onclick_2(album_name){
     display_details(album_name)
     change_active_status(`#album-item-descr-2-${hyphenated(album_name)}`,null,`.album-item-descr-2`," selected")
     sessionStorage.latest_album_viewed = JSON.stringify(get_album(album_name)) // Need to parse it to use it
-
 }
 
 function on_playlist_button_clicked(){   // Scroll To Playlist section  
@@ -417,15 +425,23 @@ function on_button_set_playlist_timer_clicked(){
 }
 
 function show_main_music_page(){
-    showHTMLElement("#container-explore-main","grid")
-    hideHTMLElement("#container-explore-topic")
-    load_scroll_listener_details()
-    // load_scroll_listener_explore()
     dismiss_details()
     load_genres()
     load_albums()
-    app_a2 = document.querySelector("#app-a2")
-    app_a2.scrollTop = sessionStorage.a2_prev_scrollY;
+    showHTMLElement("#container-explore-main","grid")
+    hideHTMLElement("#container-explore-topic")
+    document.querySelector("#app-a2").scrollTop = sessionStorage.a2_prev_scrollY;
+}
+
+function init_page(){
+    showHTMLElement("#container-explore-main","grid")
+    hideHTMLElement("#container-explore-topic")
+    load_scroll_listener_details()
+    load_scroll_listener_explore()
+    dismiss_details()
+    load_genres()
+    load_albums()
+    document.querySelector("#app-a2").scrollTop = 0;
 }
 
 window.addEventListener("load",function(event){
@@ -435,10 +451,4 @@ window.addEventListener("load",function(event){
 })
 
 
-show_main_music_page()
-
-/****** DRAFT */
-
-
-
-
+init_page()
