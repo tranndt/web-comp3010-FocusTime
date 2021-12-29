@@ -409,6 +409,10 @@ const ALBUM_CHOSEN_WITH_TIMER = 2;
 function on_button_add_to_queue_clicked(){
     sessionStorage.album_chosen = sessionStorage.latest_album_viewed
     sessionStorage.flag_set_timer = ALBUM_CHOSEN_NO_TIMER;
+    //notify users of chosen album
+    toast_elem.className = "show";
+    toast_elem.textContent = "'" + JSON.parse(sessionStorage.album_chosen).album_name + "' added to song queue.";
+    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 6000);
 }
 
 function on_button_set_playlist_timer_clicked(){
@@ -433,6 +437,9 @@ window.addEventListener("load",function(event){
     //sessionStorage.album_chosen = null;
     sessionStorage.flag_set_timer = NO_ALBUM_CHOSEN;
 })
+
+const toast_elem = document.getElementById("toast");
+
 
 
 show_main_music_page()

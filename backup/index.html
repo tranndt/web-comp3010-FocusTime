@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusTime</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <script src="script.js"></script> -->
+</head>
+<body>
+    <div id="toast">Some text some message..</div>
+    <div id="dialogBox">
+        <div class="dbox-header">
+            <button id="cancel-btn">X</button>
+        </div>
+        <div id="dbox-msg">Some text</div>
+        <input id="dbox-input" type="text">
+        <div class = "dbox-buttons">
+            <button id="confirm-btn">Save Progress</button>
+            <button id="skip-btn">Skip saving</button>
+        </div>
+    </div>
+
+    <div id="dialogBox-2">
+        <div class="dbox-header">
+            <button id="cancel-btn-2">X</button>
+        </div>
+        <div id="dbox-msg-2">Some text</div>
+        <input id="dbox-input-2" type="text">
+        <div class = "dbox-buttons">
+            <button id="confirm-btn-2">Done</button>
+            <button id="skip-btn-2">Cancel</button>
+        </div>
+    </div>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="container">
+            <nav>
+                <ul class="navitemlist">
+                    <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:80%"> </div>
+                    <li>
+                        <a href="upcomingTasks.html">
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
+                            <div class="navitem" data-text="Upcoming Tasks">Upcoming tasks</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="statistics.html">
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
+                            <div class="navitem" data-text="Statistics">Statistics</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class = "active" href="index.html">
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
+                            <div class="navitem" data-text="Timer Page">Homepage</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
+                            <div class="navitem" data-text="Music">Music</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                            <div class="iconhover"><img src="assets/navbarhover.png" alt="Hover" width="115" height="69"
+                                    style="padding-left: 41%;"></div>
+                            <div class="navitem" data-text="Settings">Settings</div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="left-col">
+            <div class="timer">
+                <div class="base-timer">
+                    <svg class="base-timer__svg" viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg">
+                      <g class="base-timer__circle">
+                        <circle class="base-timer__path-elapsed" cx="48%" cy="50%" r="19" />
+                        <circle class="base-timer__path-remaining" cx="50%" cy="45%" r="19" />
+                        <line class="base-timer__init-line" x1="47.77" y1="0" x2="47.77" y2="2"/>
+                      </g>
+                    </svg>
+                    <div class="timer-details">
+                        <div class="session-time">
+                            <div class="input-time" id = "input-time">
+                                <input class="time-inputs" id="hr-input" type="text" placeholder="hr">:
+                                <input class="time-inputs" id="min-input" type="text" placeholder="min">:
+                                <input class="time-inputs" id="sec-input" type="text" placeholder="sec"> 
+                            </div>
+                            <div class = "timer-set" id="timer-set">
+                                <span id="hr">00</span>:<span id="min">00</span>:<span id="sec">00</span>
+                            </div> 
+                        </div>
+                        <div class="break-time">
+                            <span>Break:</span>
+                            <span id="br-hr">00</span>:<span id="br-min">00</span>:<span id="br-sec">00</span> 
+                        </div>
+                        <div class="timer-controls">
+                            <button class="timer-button" id="start-pause">
+                                Start
+                            </button>
+                            <button  class="timer-button" id="stop">
+                                Set
+                            </button>
+                        </div>
+                    </div>
+                  </div>
+                  <script src="timerLogic.js"></script>
+            </div>
+            
+    
+            <div class="task-proj-selector">
+                <ul>
+                    <li> Task:
+                        <!-- <select class="select" name="" id="task-selector"  onchange="createNewOption('task-selector', 'task')"> -->
+                        <select class="select" name="" id="task-selector">
+                            <option disabled selected value="choose-a-task">Choose a task</option>
+                            <option value="create-task">+ Create new task</option>
+                            <option value="task-1">Task 1</option>
+                            <option value="task-2">Task 2</option>
+                            <option value="task-3">Task 3</option>
+                            <option value="task-4">Task 4</option>
+                            <option value="task-5">Task 5</option>
+                            <option value="task-6">Task 6</option>
+                            <option value="task-7">Task 7</option>
+                            <option value="task-8">Task 8</option>
+                            <option value="task-9">Task 9</option>
+                            <option value="task-10">Task 10</option>
+                            <option value="task-11">Task 11</option>
+                            <option value="task-12">Task 12</option>
+                            <option value="task-13">Task 13</option>
+                        </select>
+                    </li>
+                    <li> Project:
+                        <!-- <select class="select" name="" id="project-selector"  onchange="createNewOption('project-selector', 'project')"> -->
+                        <select class="select" name="" id="project-selector">
+                            <option value="create-project">+ Create new project</option>
+                            <option value="project-6" selected>None</option>
+                            <option value="project-1">COMP 3020</option>
+                            <option value="project-2">COMP 3040</option>
+                            <option value="project-3">COMP 2140</option>
+                            <option value="project-4">COMP 4710</option>
+                            <option value="project-5">COMP 4230</option>
+                        </select>
+                    </li>
+                </ul>    
+            </div>
+        </div>
+
+        <div class="right-col">
+            <div class="songView">
+                <h2 id="songTitle" class="songView-header">Album: Blond</h2>
+                <div class="songList">
+                    <div id="trackbox"></div>
+                </div>
+                <button class="mutebutton" id="mutebutton"></button>
+                <input id="volumeslider" type="range" min="0" max="100" value="15" step="1">
+            </div>
+            <div class="notesView">
+                <h2>Notes</h2>
+                <textarea class="notes" onkeyup="handleInput(event)">• </textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+<script>
+    var album_title = document.getElementById("songTitle");
+    if (sessionStorage.getItem("album_title") === null) {
+        album_title.innerHTML = "Album: Choose an Album";
+    }
+    else {
+        album_title.innerHTML = "Album: " + sessionStorage.getItem("album_title");
+        window.addEventListener("load", function(){audioApp(sessionStorage.getItem("album_title"))}, false);
+        window.addEventListener("load", function(){set_album_length(sessionStorage.getItem("album_length"))}, false);
+    }
+    
+    
+</script>
+</html>
