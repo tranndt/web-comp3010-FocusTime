@@ -244,15 +244,17 @@ li:not(.navitemlist li){
 #button-add-project{
     grid-area: AP;
     align-self: center;
-    width: fit-content;
     margin: 0 0.5rem 0 0;
     float: right;
-    border-radius: 0.5rem;
-    text-align: left;
-    box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    min-height: 2rem;
-    font-size: inherit;
+    /* border: var(--item-border-color-grey); */
+    border-radius: 50px;
+    background-color: rgb(212, 221, 83);
+    /* box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5); */
+    padding: 10px 25px;
+    margin-top: 2px;
+    margin-right: 10px;
+    /* min-height: 2rem; */
+    font-size: var(--secondary-header-font-size);
     font-weight: bold;
     cursor: pointer;
 }
@@ -274,7 +276,6 @@ li:not(.navitemlist li){
     font-family: 'Montserrat', sans-serif;
     padding-left:10px;   
     font-size: var(--secondary-header-font-size);
-
 }
 
 
@@ -366,6 +367,7 @@ li:not(.navitemlist li){
 }
 
 .accordion-item-header{
+    width: 100%;
     padding-bottom: 10px;
     cursor: pointer;
 }
@@ -451,21 +453,6 @@ div.accordion-item-header.active::after {
     width: 30%;
     float: left;
 }
-
-#newProj {
-    float: right;
-    background-color: var(--primary-color);
-    width: fit-content;
-    margin: 0 0 0 2rem;
-    border-radius: 0.5rem;
-    text-align: left;
-    box-shadow: 0 0px 1px 0 rgba(0,0,0,0.5);
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    min-height: 2rem;
-    font-size: inherit;
-    font-weight: bold;
-    cursor: pointer;
-  }
   
   .search-container {
       float: right;
@@ -522,7 +509,6 @@ div.accordion-item-header.active::after {
   .taskDetails ul {
     padding: 1px 0 0 20px;
   }
-
 
 /*  */
 

@@ -11,7 +11,7 @@ const toast_elem = document.getElementById("toast");
 var tableCount = 6;
 var projectCount = 6;
 var taskCount = 13;
-var taskDetailsCount = 13; 
+var taskDetailsCount = 13;
 
 var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'project-6'];
 // var existingProjs = ['COMP 3020', 'COMP 3040', 'COMP 2140', 'COMP 4710', 'COMP 4230', 'none'];
@@ -21,7 +21,6 @@ var newOptionsUT = JSON.parse(localStorage.getItem("newOptions") || "[]");
 var taskHeaders = document.getElementsByClassName("taskHeader");
 var taskDetails_target = document.getElementById("text-notes");
 
-
 for (var i = 0; i < taskHeaders.length; i++) {
     addTaskDetailsEvent(taskHeaders[i]);
 }
@@ -29,14 +28,22 @@ for (var i = 0; i < taskHeaders.length; i++) {
 function addTaskDetailsEvent(taskHeader) {
     //taskHeaders.forEach(taskHeader=> {
     taskHeader.addEventListener("click", event => {
-        taskHeader.classList.toggle("active");
+        //taskHeader.classList.toggle("active");
         const taskDetailBody = taskHeader.nextElementSibling;
 
-        if(taskHeader.classList.contains("active")) {
+        //if(taskHeader.classList.contains("active")) {
             //if (taskDetailBody.tagName.localeCompare("TR")) {
-                taskDetails_target.innerHTML = taskDetailBody.innerHTML;
+            var project = taskHeader.closest('.accordion-item').firstElementChild.textContent.trim();
+            var taskNotes = taskDetailBody.innerHTML;
+            var taskBody = `<p>Project:      ${project}</p>
+                            <p>Task:         ${taskHeader.firstElementChild.textContent}</p>
+                            <p>Status:       ${taskHeader.children[1].textContent}</p>
+                            <p>Due Date:     ${taskHeader.children[2].textContent}</p>
+                            <p>Task Notes: ${taskNotes}</p>`;
+            
+            taskDetails_target.innerHTML = taskBody;
             //}
-        }
+        //}
     });
     //});
 }
@@ -314,14 +321,15 @@ function formatDate(date) {
 const searchInput = document.getElementById('searchID');
 
 searchInput.addEventListener('keyup', function(event) {
-    let rows = document.querySelectorAll(".content-table > tbody > tr");
+    let rows = document.querySelectorAll(".content-table > tbody > .taskHeader");
 
     const q = event.target.value.toLowerCase();
-    rows.forEach((row) => {
-        row.querySelector("td").textContent.toLowerCase().startsWith(q)
-        ? (row.style.display = "table-row") 
-        : (row.style.display = "none");
-    });
+    display_search_result(q);
+    // rows.forEach((row) => {
+    //     row.querySelector("td").textContent.toLowerCase().startsWith(q)
+    //     ? (row.style.display = "table-row") 
+    //     : (row.style.display = "none");
+    // });
 })
 
 function updateNotes() {
@@ -447,3 +455,45 @@ UT_dbox_btn_done.addEventListener('click', () => {
 
 updatePage();
 updateNotes();
+
+function display_search_result(q){
+    let projects = document.querySelectorAll(".accordion-item");
+    projects.forEach(project_item => {
+        project_item.children[1].style.maxHeight = "250px";
+
+        if (project_item.querySelector(".accordion-item-header").textContent.toLowerCase().includes(q)){
+            project_item.style.display = "block";
+            project_item.children[1].style.maxHeight = "0";
+            let rows = project_item.querySelectorAll(".taskHeader");
+            rows.forEach((row) => {row.style.display = "table-row"});
+        }
+
+        else {
+            str = ''; 
+            Array.from(project_item.querySelectorAll(".taskHeader")).forEach(d => str += d.querySelector("td").textContent + " ")
+            if (str.toLowerCase().includes(q)){
+                let rows = project_item.querySelectorAll(".taskHeader");
+                    rows.forEach((row) => {
+                        console.log(row.querySelector("td").textContent,row.querySelector("td").textContent.toLowerCase().includes(q),row.style.display)
+                    if (row.querySelector("td").textContent.toLowerCase().includes(q)){
+                        project_item.style.display = "block";
+                        row.style.display = "table-row";
+                    }
+
+                    else row.style.display = "none";
+                })
+            }
+            else {
+                project_item.style.display = "none";
+            };
+        }
+
+        // if (project_item.style.display == "block"){
+        //     num_tasks = 0;
+        //     Array.from(project_item.querySelectorAll(".task-item")).forEach( task_item =>{
+        //         num_tasks = (task_item.style.display == "flex") ? num_tasks + 1 : num_tasks;
+        //     })
+        //     project_item.querySelector(".project-item-header-ele-num-tasks").textContent = num_tasks;
+        // }
+    });
+}
