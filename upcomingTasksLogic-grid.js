@@ -286,16 +286,16 @@ function sortDateVal(a, b) {
         dateAvalue,
         dateBvalue;
 
-    if (a == "N/A") {
+    if (a.value == "N/A") {
         result = 1;
 
-        if (b == "N/A") { result = 0;}
+        if (b.value == "N/A") { result = 0;}
     }
 
-    else if (b == "N/A") {
+    else if (b.value == "N/A") {
         result = -1;
 
-        if (a == "N/A") { result = 0;}
+        if (a.value == "N/A") { result = 0;}
     }
 
     else {
