@@ -33,7 +33,7 @@ body{
     grid-template-areas: 
             "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
-            "M3 A1 A4 A6 M4"
+            "M3 A4 A4 A6 M4"
             "M3 A2 A2 A3 M4"
             "M3 A2 A2 A8 M4"
             "M3 A2 A2 A5 M4"
@@ -225,7 +225,8 @@ li:not(.navitemlist li){
 }
 
 #app-a4{
-    margin-left: -101px;
+    margin-left: 7px;
+    border-top-left-radius: 15px ;
 }
 
 .header {
