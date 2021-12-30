@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--Our styles scripts-->
+    <title>My Timer</title>
+
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/timerPage_styles.css">
-    <title>Focus Time</title>
     <style>
     </style>
 </head>
@@ -53,111 +55,64 @@
             <button id="okay-4">Okay</button>
         </div>
     </div>
-    <div class="container-body" id='container-body'>
 
         <!-- 1.MARGINS -->
-
-        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
-        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
-        <div class="margin" id="margin-left">Margin Left</div>
-        <div class="margin" id="margin-right">Margin Right</div>
-
-        <!-- 2.NAVBAR -->
-
-
-        <div class="navbar" id="navbar-left">
-            <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
-        </div>
-        <div class="navbar" id="navbar-center">
-            <div class="app-container" id="container-main-navbar">
-                <div class="navitem-name" id = "icon-name"></div>
-
-                <ul class="navitemlist">
-                    <li>
-                        <a href="upcoming-tasks.html">
-                            <div class="icon" id="upcoming-tasks-icon"><img src="assets/tasks.png" alt="Upcoming Tasks"></div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="statistics.html">
-                            <div class="icon" id="stats-icon"><img src="assets/stats.png" alt="Statistics"></div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="index.html">
-                            <div class="icon" id="timer-icon"><img src="assets/timer.png" alt="Timer Page"></div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="music.html">
-                            <div class="icon" id="music-icon"><img src="assets/music.png" alt="Music"></div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings.html">
-                            <div class="icon" id="settings-icon"><img src="assets/settings.png" alt="Settings"></div>
-                        </a>
-                    </li>
-                </ul>
-                <div class="activebar">
-                    <div class = "tab-inactive" id="tab-indicator-upcoming"> </div>
-                    <div class = "tab-inactive" id="tab-indicator-stats"> </div>
-                    <div class = "tab-active" id="tab-indicator-timer"> </div>
-                    <div class = "tab-inactive" id="tab-indicator-music"> </div>
-                    <div class = "tab-inactive" id="tab-indicator-settings"> </div>
+        <div class="container-navbar" id='container-navbar'>
+            <!-- 2.NAVBAR -->
+            <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+            <div class="navbar" id="navbar-left">
+                <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
+            </div>
+            <div class="navbar" id="navbar-center">
+                <div class="app-container" id="container-main-navbar">
+                    <div class="navitem-name" id = "icon-name"></div>
+    
+                    <ul class="navitemlist">
+                        <li>
+                            <a href="upcoming-tasks.html">
+                                <div class="icon" id="upcoming-tasks-icon"><img src="assets/tasks.png" alt="My Progress"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="statistics.html">
+                                <div class="icon" id="stats-icon"><img src="assets/stats.png" alt="My Statistics"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.html">
+                                <div class="icon" id="timer-icon"><img src="assets/timer.png" alt="My Timer"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="music.html">
+                                <div class="icon" id="music-icon"><img src="assets/music.png" alt="My Music"></div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="settings.html">
+                                <div class="icon" id="settings-icon"><img src="assets/settings.png" alt="My Settings"></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="activebar">
+                        <div class = "tab-inactive" id="tab-indicator-upcoming"> </div>
+                        <div class = "tab-inactive" id="tab-indicator-stats"> </div>
+                        <div class = "tab-active" id="tab-indicator-timer"> </div>
+                        <div class = "tab-inactive" id="tab-indicator-music"> </div>
+                        <div class = "tab-inactive" id="tab-indicator-settings"> </div>
+                    </div>
                 </div>
             </div>
-            <script>
-                var upcomingTask_icon = document.getElementById("upcoming-tasks-icon");
-                var stats_icon = document.getElementById("stats-icon");
-                var timer_icon = document.getElementById("timer-icon");
-                var music_icon = document.getElementById("music-icon");
-                var settings_icon = document.getElementById("settings-icon");
-                var navItem_name = document.getElementById("icon-name");
-                
-                //upcoming tasks
-                upcomingTask_icon.addEventListener('mouseover', () => {
-                    navItem_name.textContent = "Upcoming Tasks"  
-                });
-                upcomingTask_icon.addEventListener('mouseout', () => {
-                    navItem_name.textContent = ""  
-                }); 
-                //stats
-                stats_icon.addEventListener('mouseover', () => {
-                    navItem_name.textContent = "Statistics"  
-                });
-                stats_icon.addEventListener('mouseout', () => {
-                    navItem_name.textContent = ""  
-                });
-                //timer
-                timer_icon.addEventListener('mouseover', () => {
-                    navItem_name.textContent = "Focus time"  
-                });
-                timer_icon.addEventListener('mouseout', () => {
-                    navItem_name.textContent = ""  
-                });
-                //music
-                music_icon.addEventListener('mouseover', () => {
-                    navItem_name.textContent = "Music"  
-                });
-                music_icon.addEventListener('mouseout', () => {
-                    navItem_name.textContent = ""  
-                });
-                //settings
-                settings_icon.addEventListener('mouseover', () => {
-                    navItem_name.textContent = "Settings"  
-                });
-                settings_icon.addEventListener('mouseout', () => {
-                    navItem_name.textContent = ""  
-                });
-
-            </script>
+            <div class="navbar" id="navbar-right">Navbar Right</div>
+            <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
         </div>
-        <div class="navbar" id="navbar-right">Navbar Right</div>
 
         <!-- 3.MAIN APP -->
 
         <!-- A0 - H2 --> 
+    <div class="container-body" id='container-body'>
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
 
         <div class="app-div" id="app-a0">
             <div class="app-container" id="container-a0">

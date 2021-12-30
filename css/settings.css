@@ -146,10 +146,6 @@
         --border-radius-1: var(--h-10);
 
         --border-radius-tab: var(--border-radius-4);
-    
-
-
-
 }
   
 
@@ -169,7 +165,7 @@ body{
     height: 88%;
     display: grid;
     grid-template-columns: auto 30% 25% 30% auto;
-    grid-template-rows: 8% 7% 80%;
+    grid-template-rows: 8% 7% 75%;
     grid-template-areas: 
             "M3 A0 A0 A0 M4"
             "M3 A1 A1 A3 M4"

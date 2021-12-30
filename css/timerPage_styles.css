@@ -1,6 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 :root {
+    --pxh-50: 5.0vh;
+    --pxh-40: 4.0vh;
+    --pxh-30: 3.0vh;
+    --pxh-25: 2.5vh;
+    --pxh-20: 2.0vh;
+    --pxh-15: 1.5vh; 
+    --pxh-12: 1.2vh; 
+    --pxh-10: 1.0vh; 
+    --pxh-05: 0.5vh; 
+    --pxh-04: 0.4vh; 
+    --pxh-03: 0.3vh;     
+    --pxh-02: 0.2vh; 
+    --pxh-01: 0.1vh; 
+
+    --pxw-50: 5.0vw;
+    --pxw-40: 4.0vw;
+    --pxw-30: 3.0vw;
+    --pxw-25: 2.5vw;
+    --pxw-20: 2.0vw;
+    --pxw-15: 1.5vw; 
+    --pxw-12: 1.2vw; 
+    --pxw-10: 1.0vw; 
+    --pxw-05: 0.5vw; 
+    --pxw-04: 0.4vw; 
+    --pxw-03: 0.3vw;     
+    --pxw-02: 0.2vw; 
+    --pxw-01: 0.1vw; 
+
     --navbar-bg-color:rgba(49, 49, 49, 0.171);
     --transparent-bg-color:rgba(189, 189, 189, 0.664);
     --white-bg-color:rgba(255, 255, 255, 0.95);
@@ -8,6 +36,116 @@
     --border-between-ele: rgb(218, 218, 218) solid 0.5px;
     --greyed-out-text:rgba(128, 128, 128, 0.8);
     --secondary-header-font-size: 1.8vh;
+    --header-font-size: 25px;
+    --box-shadow:0px 0px var(--pxh-03) rgba(31, 31, 31, 0.4);
+    --text-shadow:black 0px 0px var(--pxh-04);
+    --accent-color:#984ea3;
+    --accent-color-transparent:#64356d;
+    --border-radius-tab:2vh;
+    --border-radius-large-item:1.5vh;
+    --border-radius-small-item:1vh;
+    --border-radius-button: 3vh;
+
+    --border-bottom: rgb(218, 218, 218) solid var(--pxh-01);
+
+
+    --album-cover-size: 30vh;
+    --album-item-size: 20vh;
+    --genre-item-size:12vh;
+    --song-item-img-size:8vh;
+
+    --settings-item-height: 14vh;
+    --settings-item-width: 20vh;
+
+    /* UNITS  */
+    --h-150: 15vh; --h-100: 10vh; --h-50: 5.0vh;--h-40: 4.0vh;--h-30: 3.0vh;
+    --h-25: 2.5vh;--h-20: 2.0vh; --h-18: 1.8vh; --h-15: 1.5vh; --h-12: 1.2vh; 
+    --h-10: 1.0vh; --h-09: 0.9vh; --h-08: 0.8vh; --h-07: 0.7vh; --h-06: 0.6vh;
+    --h-05: 0.5vh; --h-04: 0.4vh; --h-03: 0.3vh; --h-02: 0.2vh; --h-01: 0.1vh;
+
+    --w-150: 15vw; --w-100: 10vw; --w-50: 5.0vw;--w-40: 4.0vw;--w-30: 3.0vw;
+    --w-25: 2.5vw;--w-20: 2.0vw; --w-18: 1.8vw; --w-15: 1.5vw; --w-12: 1.2vw; 
+    --w-10: 1.0vw; --w-09: 0.9vw; --w-08: 0.8vw; --w-07: 0.7vw; --w-06: 0.6vw;
+    --w-05: 0.5vw; --w-04: 0.4vw; --w-03: 0.3vw; --w-02: 0.2vw; --w-01: 0.1vw;
+
+    /* 50 SHADES OF GREY, SORT OF */
+    --grey-250: rgb(25, 25, 25); /* REALLY DARK GREY*/
+    --grey-200: rgb(45, 45, 45);
+    --grey-150: rgb(90, 90, 90);
+    --grey-100: rgb(128, 128, 128); /* NEUTRAL GREY*/
+    --grey-75: rgb(165, 165, 165);
+    --grey-50: rgb(200, 200, 200);
+    --grey-25: rgb(225, 225, 225); /* REALLY LIGHT GREY*/
+    /* WHITES */
+    --white-100: rgba(255, 255, 255, 1); --white-90: rgba(255, 255, 255, 0.9);
+    --white-80: rgba(255, 255, 255, 0.8);--white-70: rgba(255, 255, 255, 0.7);
+    --white-60: rgba(255, 255, 255, 0.6);--white-50: rgba(255, 255, 255, 0.5);
+    --white-40: rgba(255, 255, 255, 0.4);--white-30: rgba(255, 255, 255, 0.3);
+    --white-20: rgba(255, 255, 255, 0.2);--white-10: rgba(255, 255, 255, 0.1);
+    /* BLACKS  */
+    --black-100: rgba(0, 0, 0, 1); --black-90: rgba(0, 0, 0, 0.9);
+    --black-80: rgba(0, 0, 0, 0.8);--black-70: rgba(0, 0, 0, 0.7);
+    --black-60: rgba(0, 0, 0, 0.6);--black-50: rgba(0, 0, 0, 0.5);
+    --black-40: rgba(0, 0, 0, 0.4);--black-30: rgba(0, 0, 0, 0.3);
+    --black-20: rgba(0, 0, 0, 0.2);--black-10: rgba(0, 0, 0, 0.1);
+    /* ACCENT COLOR */
+    --color-accent:rgb(150, 75, 150);
+    --color-accent-dark:rgb(125, 60, 125);
+    --color-accent-darker:rgb(100, 50, 100);
+
+    /* ITEMS COLORS */
+    --color-navbar:var(--black-10);
+    --color-app-div-white:var(--white-90);     
+    --color-item-border: var(--black-10);
+
+    --color-button: var(--white-100);
+    --color-button-hovered: var(--grey-25);
+    --color-button-clicked: var(--grey-75);
+    --color-button-active: var(--grey-200);
+
+    --color-button-accent: var(--color-accent);
+    --color-button-accent-hovered: var(--color-accent-dark);
+    --color-button-accent-clicked: var(--color-accent-darker);
+
+    /* TEXT COLORS */
+    --color-text: var(--black-100);
+    --color-text-greyed-out:var(--grey-75);
+    --color-text-button: var(--grey-250);
+    --color-text-button-active: var(--grey-25);
+
+    /* FONT-SIZE */
+    --font-size-10: var(--h-50);
+    --font-size-6: var(--h-30);
+    --font-size-5: var(--h-25);
+    --font-size-4: var(--h-18);
+    --font-size-3: var(--h-15);
+    --font-size-2: var(--h-12);
+    --font-size-1: var(--h-10);
+
+    /* SHADOW */
+    --box-shadow-black :black 0px 0px var(--h-02);
+    --box-shadow-grey :var(--grey-100) 0px 0px var(--h-02);
+    --box-shadow-white :white 0px 0px var(--h-02);
+
+    --text-shadow-black :black 0px 0px var(--h-03);
+    --text-shadow-grey :var(--grey-100) 0px 0px var(--h-03);
+    --text-shadow-white :white 0px 0px var(--h-03);
+
+    /* BORDERS */
+    --border-divider-thin: solid var(--h-01) var(--color-item-border);
+    --border-divider-regular: solid var(--h-02) var(--color-item-border);
+    --border-divider-thick: solid var(--h-03) var(--color-item-border);
+
+    /* BORDER CORNER RADIUS */
+    --border-radius-10: var(--h-150);
+    --border-radius-9: var(--h-100);
+    --border-radius-5: var(--h-50);
+    --border-radius-4: var(--h-25);
+    --border-radius-3: var(--h-20);
+    --border-radius-2: var(--h-15);
+    --border-radius-1: var(--h-10);
+
+    --border-radius-tab: var(--border-radius-4);
 }
   
 
@@ -24,14 +162,11 @@ body{
 }
 
 .container-body{
-    height: 100%;
+    height: 88%;
     display: grid;
-    /* grid-template-columns: auto 500px 500px 500px auto;
-    grid-template-rows: 100px 70px 60px 270px 60px 270px; */
-    grid-template-columns: auto 21% 33% 27% auto;
-    grid-template-rows: 12.6% 7.5% 7.5% 27% 7.5% 27%;
+    grid-template-columns: auto 30% 25% 30% auto;
+    grid-template-rows: 8% 7% 33% 7% 35%;
     grid-template-areas: 
-            "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
             "M3 A1 A4 A6 M4"
             "M3 A2 A2 A3 M4"
@@ -43,181 +178,20 @@ body{
 /* --------- 1.MARGIN LAYOUT -------- */
 /* ---------------------------------- */
 
-#margin-navbar-left{ grid-area: M1;}
-#margin-navbar-right{ grid-area: M2;}
+
 #margin-left{ grid-area: M3;}
 #margin-right{ grid-area: M4;}
 .margin{font-size: 0;} /* Comment out to remove the texts */
 
-/* ---------------------------------- */
-/* ------- 1.1.MISCELLANEOUS --------- */
-/* ---------------------------------- */
-/* Scroll bar for list/windows */
-
-/* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-    width: 10px;
-  }
-
-*::-webkit-scrollbar-track {
-background: rgba(255, 255, 255, 0.021);
-border-top-right-radius: 10px;
-border-bottom-right-radius: 10px;
-
-}
-
-*::-webkit-scrollbar-thumb {
-background-color: rgb(139, 139, 139);
-border-radius: 50px;
-}
-
-
-/* ---------------------------------- */
-/* -------- 2.NAVBAR LAYOUT --------- */
-/* ---------------------------------- */
-
-.navbar {
-    background-color: var(--navbar-bg-color);
-}
-
-/* NAVBAR LEFT - LOGO */
-
-#navbar-left {
-    grid-area: N1;
-}
-
-.logoimg img{
-    display: block;
-    position: relative;
-    /* top: -0.5vh; */
-    width:65%;
-}
-
-/* NAVBAR CENTER - N2- NAV-ITEMS */
-
-#navbar-center{
-    grid-area: N2;
-}
-
-#container-main-navbar{
-    display: grid;
-    grid-template-rows: 1fr 5fr 1fr;
-    grid-template-areas:
-            "NC1" 
-            "NC2"
-            "NC3";
-    padding-top:0.5vh;
-}
-
-.icon img{
-    width:5vh;
-    height:5vh;
-}
-
-.navitem-name{
-    grid-area: NC1;
-    height: 0.5vh;
-    /* margin: 0; */
-    font-size: 2vh;
-    padding-bottom: 1.9%;
-    text-align: center;
-    visibility: visible;
-}
-
-.navitemlist{
-    grid-area: NC2;
-    /* background: rgb(212, 221, 83); */
-    display: flex;
-    position: relative;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.activebar{
-    grid-area: NC3;
-    display: flex;
-    margin-top: 0vh;
-    padding: 0vh 0vh 0vh 0vh;
-    justify-content: space-around;
-}
-
-.activebar:last-child {
-    border-right: none;
-    padding: 0vh 0vh 0vh 0vh;
-}
-
-ul{
-    padding-inline-start: 0px;
-    margin-block-start: 0px;
-    margin-block-end: 0px;
-}
-
-.navitemlist li {
-    display: inline-flex;
-    padding: 0vh 3.5vh 0vh 0vh;
-    text-align: center;  
-    border-right: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.navitemlist li:last-child {
-    border-right: none;
-    padding: 0vh 0vh 0vh 0vh;
-}
-
-/* .navitem {
-    text-decoration: none;
-    display: flex; 
-    padding: 0 0.1em;
-} */
-
-.activebar .tab-active{
-    background-color: rgb(60, 60, 60);
-    border-radius: 50em;
-    height: 1vh;
-    width: 1vh;
-    margin-top: 0vh;
-}
-
-.activebar .tab-inactive{
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 50em;
-    height: 1vh;
-    width: 1vh;
-    margin-top: 0vh;
-}
-
-/* NAVBAR RIGHT  */
-#navbar-right{
-    grid-area: N3;
-    font-size: 0;
-}
-
-/* ---------------------- */
-
-li .active .iconhover {
-    opacity: 1;
-} 
-
-li {
-    list-style-type: none;
-}
-
-li:not(.navitemlist li):not(:last-child){
-    border-bottom: 1px #ccc solid;
-}
-
-li:not(.navitemlist li){
-    padding: 10px
-}
 
 /* ---------------------------------- */
 /* ---------- 3. APP LAYOUT --------- */
 /* ---------------------------------- */
 
 .app-div{
-    padding: 5px;
-    margin-left: 7px;
-    margin-right: 7px;
+    padding: var(--pxh-05);
+    margin-left: var(--pxh-05);
+    margin-right: var(--pxh-05);
 }
 
 #app-a1{
