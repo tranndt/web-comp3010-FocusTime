@@ -34,47 +34,46 @@
 
         <!-- 1.MARGINS -->
 
-        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
-        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
-        <div class="margin" id="margin-left">Margin Left</div>
-        <div class="margin" id="margin-right">Margin Right</div>
+        <div class="margin navbar" id="margin-navbar-left"></div>
+        <div class="margin navbar" id="margin-navbar-right"></div>
+        <div class="margin" id="margin-left"></div>
+        <div class="margin" id="margin-right"></div>
 
         <!-- 2.NAVBAR -->
 
         <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
 
         <div class="navbar" id="navbar-left">
-            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+            <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
         </div>
         <div class="navbar" id="navbar-center">
             <div class="app-container" id="container-main-navbar">
-                <div class="navitem-name">
-                </div>
+                <div class="navitem-name" id = "icon-name"></div>
 
                 <ul class="navitemlist">
                     <li>
-                        <a href="upcomingTasks.html">
-                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        <a href="upcoming-tasks.html">
+                            <div class="icon" id="upcoming-tasks-icon"><img src="assets/tasks.png" alt="Upcoming Tasks"></div>
                         </a>
                     </li>
                     <li>
                         <a href="statistics.html">
-                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <div class="icon" id="stats-icon"><img src="assets/stats.png" alt="Statistics"></div>
                         </a>
                     </li>
                     <li>
                         <a class="active" href="index.html">
-                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                            <div class="icon" id="timer-icon"><img src="assets/timer.png" alt="Timer Page"></div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
-                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                            <div class="icon" id="music-icon"><img src="assets/music.png" alt="Music"></div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
-                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                            <div class="icon" id="settings-icon"><img src="assets/settings.png" alt="Settings"></div>
                         </a>
                     </li>
                 </ul>
@@ -86,9 +85,53 @@
                     <div class = "tab-inactive" id="tab-indicator-settings"> </div>
                 </div>
             </div>
+            <script>
+                var upcomingTask_icon = document.getElementById("upcoming-tasks-icon");
+                var stats_icon = document.getElementById("stats-icon");
+                var timer_icon = document.getElementById("timer-icon");
+                var music_icon = document.getElementById("music-icon");
+                var settings_icon = document.getElementById("settings-icon");
+                var navItem_name = document.getElementById("icon-name");
+                
+                //upcoming tasks
+                upcomingTask_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Upcoming Tasks"  
+                });
+                upcomingTask_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                }); 
+                //stats
+                stats_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Statistics"  
+                });
+                stats_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+                //timer
+                timer_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Focus time"  
+                });
+                timer_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+                //music
+                music_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Music"  
+                });
+                music_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+                //settings
+                settings_icon.addEventListener('mouseover', () => {
+                    navItem_name.textContent = "Settings"  
+                });
+                settings_icon.addEventListener('mouseout', () => {
+                    navItem_name.textContent = ""  
+                });
+
+            </script>
         </div>
         <div class="navbar" id="navbar-right">Navbar Right</div>
-
         <!-- 3.MAIN APP -->
 
         <!-- A0 -->
@@ -113,7 +156,7 @@
                 <div class="container-search">
                     <table class="search-box">
                         <td>
-                          <input id="searchID" class="search" name="search" type="text" placeholder="Search for a Task" autocomplete="off">
+                          <input id="searchID" class="search" name="search" type="text" placeholder="Search for a Task or Project" autocomplete="off">
                         </td>
                         <!-- <td>
                           <i class="material-icons">search</i>
@@ -215,7 +258,7 @@
                                         <label for="taskProgress">Progress:</label>
                                         <input type="number" class="taskProgress" id="taskProgress1" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                                         </div>
-                                        <button class="doneButton" onclick="createNewTask('table1', 'taskName1', 'taskDate1', 'taskProgress1', 'project-1')">Done</button>
+                                        <button class="doneButton" onclick="createNewTask('table1', 'taskName1', 'taskDate1', 'taskProgress1', 'project-1', true)">Done</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -299,7 +342,7 @@
                                             <label for="taskProgress">Progress:</label>
                                             <input type="number" class="taskProgress" id="taskProgress2" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                                             </div>
-                                        <button class="doneButton" onclick="createNewTask('table2', 'taskName2', 'taskDate2', 'taskProgress2', 'project-2')">Done</button>
+                                        <button class="doneButton" onclick="createNewTask('table2', 'taskName2', 'taskDate2', 'taskProgress2', 'project-2', true)">Done</button>
                                     </td>
                                 </tr>
                               </tbody>
@@ -383,7 +426,7 @@
                                           <label for="taskProgress">Progress:</label>
                                           <input type="number" class="taskProgress" id="taskProgress3" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                                           </div>
-                                      <button class="doneButton" onclick="createNewTask('table3', 'taskName3', 'taskDate3', 'taskProgress3', 'project-3')">Done</button>
+                                      <button class="doneButton" onclick="createNewTask('table3', 'taskName3', 'taskDate3', 'taskProgress3', 'project-3', true)">Done</button>
                                   </td>
                               </tr>
                             </tbody>
@@ -407,7 +450,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr class="accordion-item-header taskHeader">
+                              <tr class="taskHeader">
                                   <td>Task 10</td>
                                   <td>&#10004</td>
                                   <td class="date">Oct 8, 2021</td>
@@ -423,7 +466,7 @@
                               </tr>
         
         
-                              <tr class="accordion-item-header taskHeader">
+                              <tr class="taskHeader">
                                   <td>Task 11</td>
                                   <td>&#10004</td>
                                   <td class="date">Oct 22, 2021</td>
@@ -454,7 +497,7 @@
                                           <label for="taskProgress">Progress:</label>
                                           <input type="number" class="taskProgress" id="taskProgress4" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                                           </div>
-                                      <button class="doneButton" onclick="createNewTask('table4', 'taskName4', 'taskDate4', 'taskProgress4', 'project-4')">Done</button>
+                                      <button class="doneButton" onclick="createNewTask('table4', 'taskName4', 'taskDate4', 'taskProgress4', 'project-4', true)">Done</button>
                                   </td>
                               </tr>
                             </tbody>
@@ -478,7 +521,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr class="accordion-item-header taskHeader">
+                              <tr class="taskHeader">
                                   <td>Task 12</td>
                                   <td>&#10004</td>
                                   <td class="date">Oct 8, 2021</td>
@@ -510,7 +553,7 @@
                                           <label for="taskProgress">Progress:</label>
                                           <input type="number" class="taskProgress" id="taskProgress5" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                                           </div>
-                                      <button class="doneButton" onclick="createNewTask('table5', 'taskName5', 'taskDate5', 'taskProgress5', 'project-5')">Done</button>
+                                      <button class="doneButton" onclick="createNewTask('table5', 'taskName5', 'taskDate5', 'taskProgress5', 'project-5', true)">Done</button>
                                   </td>
                               </tr>
                             </tbody>
@@ -521,7 +564,7 @@
         
             <div class="accordion-item" id="misc">
                 <div class="accordion-item-header" id="project-6">
-                      Miscelllaneous
+                      Miscellaneous
                 </div>
                 <div class="accordion-item-body" id="table6Parent">
                     <div class="accordion-item-body-content">
@@ -534,7 +577,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr class="accordion-item-header taskHeader">
+                              <tr class="taskHeader">
                                   <td>Task 13</td>
                                   <td>&#10004</td>
                                   <td class="date">Oct 8, 2021</td>
@@ -542,7 +585,7 @@
         
                               <tr class="accordion-item-body taskDetails">
                                   <td colspan="3" style="width:100%" class="accordion-item-body-content" id="task-13">
-                                      Task Notes
+                                      <ul><li>Task Notes</li></ul>
                                   </td>
                               </tr>
         
@@ -563,7 +606,7 @@
                                           <label for="taskProgress">Progress:</label>
                                           <input type="number" class="taskProgress" id="taskProgress6" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                                           </div>
-                                      <button class="doneButton" onclick="createNewTask('table6', 'taskName6', 'taskDate6', 'taskProgress6', 'project-6')">Done</button>
+                                      <button class="doneButton" onclick="createNewTask('table6', 'taskName6', 'taskDate6', 'taskProgress6', 'project-6', true)">Done</button>
                                   </td>
                               </tr>
                             </tbody>

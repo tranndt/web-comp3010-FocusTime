@@ -11,7 +11,7 @@ const toast_elem = document.getElementById("toast");
 var tableCount = 6;
 var projectCount = 6;
 var taskCount = 13;
-var taskDetailsCount = 13; 
+var taskDetailsCount = 13;
 
 var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'project-6'];
 // var existingProjs = ['COMP 3020', 'COMP 3040', 'COMP 2140', 'COMP 4710', 'COMP 4230', 'none'];
@@ -21,7 +21,6 @@ var newOptionsUT = JSON.parse(localStorage.getItem("newOptions") || "[]");
 var taskHeaders = document.getElementsByClassName("taskHeader");
 var taskDetails_target = document.getElementById("text-notes");
 
-
 for (var i = 0; i < taskHeaders.length; i++) {
     addTaskDetailsEvent(taskHeaders[i]);
 }
@@ -29,14 +28,27 @@ for (var i = 0; i < taskHeaders.length; i++) {
 function addTaskDetailsEvent(taskHeader) {
     //taskHeaders.forEach(taskHeader=> {
     taskHeader.addEventListener("click", event => {
-        taskHeader.classList.toggle("active");
+        //taskHeader.classList.toggle("active");
         const taskDetailBody = taskHeader.nextElementSibling;
+        //const taskDetailBody = localStorage.getItem(taskHeader.nextElementSibling.id);
+        var taskNotes = "";
 
-        if(taskHeader.classList.contains("active")) {
+        //if(taskHeader.classList.contains("active")) {
             //if (taskDetailBody.tagName.localeCompare("TR")) {
-                taskDetails_target.innerHTML = taskDetailBody.innerHTML;
+            var project = taskHeader.closest('.accordion-item').firstElementChild.textContent.trim();
+
+            //if (taskDetailBody != null) {
+                taskNotes = taskDetailBody.innerHTML;
             //}
-        }
+            var taskBody = `<p>Project:      ${project}</p>
+                            <p>Task:         ${taskHeader.firstElementChild.textContent}</p>
+                            <p>Status:       ${taskHeader.children[1].textContent}</p>
+                            <p>Due Date:     ${taskHeader.children[2].textContent}</p>
+                            <p>Task Notes: ${taskNotes}</p>`;
+            
+            taskDetails_target.innerHTML = taskBody;
+            //}
+        //}
     });
     //});
 }
@@ -71,39 +83,54 @@ function addAccordionItemEvent(accordionItemHeaders) {
     });
 }
 
-function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectID) {
+function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectID, fromThisPage) {
     let table = document.getElementById(tableID);
     let newTaskName = "", progress = "", date = "", newRow = [];
-    let fromThisPage = taskDateID.localeCompare("N/A");
+    //let fromThisPage = taskDateID.localeCompare("N/A");
     //let projectName = document.getElementById(projectID);
     let projectName = document.getElementById(projectID).textContent.trim();
     
-    if (fromThisPage) {
+    if (!fromThisPage) {
+        progress = taskProgressID;
+        newTaskName = taskNameID;
+        date = taskDateID;
+
+        if (progress == null) {
+            progress = 0;
+        }
+
+        if (date == null) {
+            date = "N/A";
+        }
+    }
+
+    else {
         newTaskName = document.getElementById(taskNameID).value;
         progress = document.getElementById(taskProgressID).value;
         date = document.getElementById(taskDateID).value;
     }
 
-    else {
-        progress = taskProgressID;
-        newTaskName = taskNameID;
-        date = taskDateID;
-    }
+    // else {
+    //     progress = taskProgressID;
+    //     newTaskName = taskNameID;
+    //     date = taskDateID;
+    // }
 
-    if (newTaskName.localeCompare("") && progress >= 0 && progress <= 100) {
+    if (checkNameLength(newTaskName) && progress >= 0 && progress <= 100) {
         taskDetailsCount++;
         let taskDetailsID = "task-"+taskDetailsCount;
+        var newProgress = progress;
         
         if (progress == 0) {
-            progress = '--';
+            newProgress = '--';
         }
 
         else if (progress == 100) {
-            progress = '&#10004';
+            newProgress = '&#10004';
         }
 
         else {
-            progress += '% Complete';
+            newProgress += '% Complete';
         }
 
         if (fromThisPage) {
@@ -113,7 +140,7 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         let newRows = `
                     <tr class="taskHeader">
                         <td>${newTaskName}</td>
-                        <td>${progress}</td>
+                        <td>${newProgress}</td>
                         <td class="date">${date}</td>
                     </tr>
                     <tr class="accordion-item-body taskDetails">
@@ -131,21 +158,20 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
 
         if (fromThisPage) {
             sortByDate(table);
-
             //notify users
             toast_elem.className = "show";
             toast_elem.textContent = "New task "+ " '" + newTaskName + "' created.";
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
-            newOptionsUT.push({project : `${projectName}`, projectID : `${projectID}`, task : `${newTaskName}`, update : 'task'});
+            newOptionsUT.push({project : `${projectName}`, projectID : `${projectID}`, task : `${newTaskName}`, progress : `${progress}`, date : `${date}`, update : 'task'});
             //localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
             localStorage.setItem("newOptions", JSON.stringify(newOptionsUT));
         }
     }
 
     else {
-        alert('Task name cannot be empty and/or Progress should be 0-100. Please try again.');
+        alert('Task name must not be empty and no more than 30 characters in length and/or progress should be 0-100. Please try again.');
     }
 }
 
@@ -191,7 +217,7 @@ function createNewProject(name, fromThisPage) {
                         <label for="taskProgress">Progress:</label>
                         <input type="number" class="taskProgress" id="${newTaskProgressID}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                         </div>
-                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}', '${newTaskProgressID}', '${newProjID}')">Done</button>
+                        <button class="doneButton" onclick="createNewTask('${newTableID}', '${newTaskNameID}', '${newTaskDateID}', '${newTaskProgressID}', '${newProjID}', true)">Done</button>
                     </td>
                     </tr>`;
 
@@ -279,16 +305,16 @@ function sortDateVal(a, b) {
         dateAvalue,
         dateBvalue;
 
-    if (a == "N/A") {
+    if (a.value == "N/A") {
         result = 1;
 
-        if (b == "N/A") { result = 0;}
+        if (b.value == "N/A") { result = 0;}
     }
 
-    else if (b == "N/A") {
+    else if (b.value == "N/A") {
         result = -1;
 
-        if (a == "N/A") { result = 0;}
+        if (a.value == "N/A") { result = 0;}
     }
 
     else {
@@ -314,14 +340,10 @@ function formatDate(date) {
 const searchInput = document.getElementById('searchID');
 
 searchInput.addEventListener('keyup', function(event) {
-    let rows = document.querySelectorAll(".content-table > tbody > tr");
+    let rows = document.querySelectorAll(".content-table > tbody > .taskHeader");
 
     const q = event.target.value.toLowerCase();
-    rows.forEach((row) => {
-        row.querySelector("td").textContent.toLowerCase().startsWith(q)
-        ? (row.style.display = "table-row") 
-        : (row.style.display = "none");
-    });
+    display_search_result(q);
 })
 
 function updateNotes() {
@@ -365,6 +387,8 @@ function update(newItems) {
             let projID = newItem.projectID;
             let taskName = newItem.task;
             let update = newItem.update;
+            let progress = newItem.progress;
+            let date = newItem.date;
 
             if (update == "project") {
                 createNewProject(projName, false);
@@ -376,7 +400,14 @@ function update(newItems) {
                 if (projIndex > -1) {
                     let table = "table"+(projIndex + 1);
                     let project = "project-"+(projIndex + 1);
-                    createNewTask(table, taskName, "N/A", 0, project);
+
+                    //if (progress != null && date != null) {
+                        createNewTask(table, taskName, date, progress, project, false);
+                    //}
+
+                    // else {
+                    //     createNewTask(table, taskName, "N/A", 0, project);
+                    // }
                 }
             }
         }
@@ -417,25 +448,28 @@ const UT_newProject_btn = document.getElementById("button-add-project");
 var newProject = "";
 
 UT_newProject_btn.addEventListener('click', () => {
-	UT_dbox_msg.textContent = "What is the new project?";
+	UT_dbox_msg.textContent = "What is the new project? (1-30 characters)";
 	UT_dbox_elem.style.display = "block";
+    document.getElementById('container-body').style.pointerEvents = 'none';
 });
 
 UT_dbox_btn_skip.addEventListener('click', () => {
 	UT_dbox_elem.style.display = "none";
 	newProject = "";
+    document.getElementById('container-body').style.pointerEvents = 'auto';
 });
 
 UT_dbox_btn_cancel.addEventListener('click', () => {
 	UT_dbox_elem.style.display = "none";
 	newProject = "";
+    document.getElementById('container-body').style.pointerEvents = 'auto';
 });
 
 UT_dbox_btn_done.addEventListener('click', () => {
     newProject = UT_new_item.value;
 
-    if(newProject == "") {
-        alert("New task/project name should not be empty. Please try again.");
+    if(!checkNameLength(newProject)) {
+        alert("New project name should not be empty and less than 30 characters. Please try again.");
     }
 
     else {
@@ -443,7 +477,56 @@ UT_dbox_btn_done.addEventListener('click', () => {
         createNewProject(newProject, true);
         newProject = "";
     }
+
+    document.getElementById('container-body').style.pointerEvents = 'auto';
 });
 
 updatePage();
 updateNotes();
+
+function display_search_result(q){
+    let projects = document.querySelectorAll(".accordion-item");
+    projects.forEach(project_item => {
+        if (project_item.firstElementChild.classList.contains("active")) {
+            project_item.firstElementChild.classList.toggle("active");
+        }
+
+        project_item.children[1].style.maxHeight = "250px";
+
+        if (project_item.querySelector(".accordion-item-header").textContent.toLowerCase().includes(q)){
+            project_item.style.display = "block";
+            project_item.children[1].style.maxHeight = "0";
+            let rows = project_item.querySelectorAll(".taskHeader");
+            rows.forEach((row) => {row.style.display = "table-row"});
+        }
+
+        else {
+            str = ''; 
+            Array.from(project_item.querySelectorAll(".taskHeader")).forEach(d => str += d.querySelector("td").textContent + " ")
+            if (str.toLowerCase().includes(q)){
+                let rows = project_item.querySelectorAll(".taskHeader");
+                    rows.forEach((row) => {
+                        console.log(row.querySelector("td").textContent,row.querySelector("td").textContent.toLowerCase().includes(q),row.style.display)
+                    if (row.querySelector("td").textContent.toLowerCase().includes(q)){
+                        project_item.style.display = "block";
+                        row.style.display = "table-row";
+                    }
+
+                    else row.style.display = "none";
+                })
+            }
+            else {
+                project_item.style.display = "none";
+            };
+        }
+    });
+}
+
+function checkNameLength(name) {
+    let result = false;
+    if (name.length > 0 && name.length <= 30) {
+        result = true;
+    }
+
+    return result;
+}
