@@ -194,13 +194,13 @@ body{
     margin-right: var(--pxh-05);
 }
 
-#app-a1{
+/* #app-a1{
     margin-right: 100px;
-}
+} */
 
 #app-a4{
-    margin-left: 7px;
-    border-top-left-radius: 15px ;
+    /* margin-left: 7px; */
+    border-top-left-radius: var(--border-radius-tab);
 }
 
 .header {
@@ -218,8 +218,8 @@ body{
 #app-a0{
     grid-area: A0;
     font-size: 5vh;
-    color: var(--white-bg-color);
-    text-shadow: black 0px 0px 3px;
+    color: var(--color-app-div-white);
+    text-shadow: var(--box-shadow-black)
 }
 
 /* --------------------------------------- 
@@ -230,11 +230,10 @@ Timer header
 
 #app-a1{
     grid-area: A1;
-    background-color: var(--white-bg-color);
-    border-top-left-radius: 15px ;
-    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    background-color: var(--color-app-div-white);
+    border-top-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-divider-regular);
     border-right: none;
-
 }
 
 
@@ -242,25 +241,8 @@ Timer header
 
 #app-a7{
     grid-area: A7;
-    background-color: var(--white-bg-color);
+    background-color: var(--color-app-div-white);
 }
-
-#stats-summary{
-    padding-left: 35px ; 
-    padding-right: 35px ; 
-    padding-top: 5px;
-    color: rgba(95, 0, 95, 0.842);
-}
-
-/* #header-weeks-summary{
-    height:30px;
-    font-size: 25px;
-    justify-self: left;
-    align-self: center;
-    padding-top: 15px;
-    padding-bottom: 5px;
-    padding-left: 20px ;
-} */
 
 /* --------------------------------------
 Grid A2 -- box 1 body
@@ -270,11 +252,10 @@ Timer
 
 #app-a2{
     grid-area: A2;
-    background-color: var(--white-bg-color);
-    border-bottom-right-radius: 15px ;
-    border-bottom-left-radius: 15px ;
+    background-color: var(--color-app-div-white);
+    border-bottom-right-radius: var(--border-radius-tab) ;
+    border-bottom-left-radius: var(--border-radius-tab) ;
     overflow: none;
-
 }
 
 /* Sets the containers height and width */
@@ -311,9 +292,9 @@ Timer
   
 .base-timer__svg {
 /* Flips the svg and makes the animation to move left-to-right */
-transform: scaleX(-1);
-width: 100%;
-height: 100%;
+    transform: scaleX(-1);
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -392,10 +373,10 @@ Song queue body
 
 #app-a6{
     grid-area: A6;
-    background-color: var(--white-bg-color);
-    border-top-right-radius: 15px ;
-    border-top-left-radius: 15px ;
-    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    background-color: var(--color-app-div-white);
+    border-top-right-radius: var(--border-radius-tab) ;
+    border-top-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-between-ele);
     align-items: center;
 }
 
@@ -414,7 +395,8 @@ Song queue body
 }
 
 .songList {
-    background:#d6d5da;
+    background:var(--black-10);
+
     height:80%; 
     width:100%;
     overflow-x: hidden;
@@ -504,11 +486,11 @@ Song queue Header
 
 #app-a3{
     grid-area: A3;
-    background-color: var(--white-bg-color);
-    border-bottom-right-radius: 15px ;
-    border-bottom-left-radius: 15px ;
-    border-bottom: rgb(218, 218, 218) solid 0.5px;
-    margin-bottom: 10px;
+    background-color: var(--color-app-div-white);
+    border-bottom-right-radius: var(--border-radius-tab) ;
+    border-bottom-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-between-ele);
+    margin-bottom: var(--h-10);
     overflow-y:auto;
 }
 
@@ -520,10 +502,10 @@ Notes Header
 
 #app-a8{
     grid-area: A8;
-    background-color: var(--white-bg-color);
-    border-top-right-radius: 15px ;
-    border-top-left-radius: 15px ;
-    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    background-color: var(--color-app-div-white);
+    border-top-right-radius: var(--border-radius-tab) ;
+    border-top-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-between-ele);
 }
 
 /* --------------------------------------------
@@ -534,13 +516,12 @@ Notes Header
 
 #app-a4{
     grid-area: A4;
-    background-color: var(--white-bg-color);
-    border-top-right-radius: 15px ;
-    border-bottom: rgb(218, 218, 218) solid 0.5px;
+    background-color: var(--color-app-div-white);
+    border-top-right-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-between-ele);
     border-left: none;
-    padding-top: 1vh;
-
-    font-size: var(--secondary-header-font-size);
+    padding-top: 0.5vh;
+    font-size: var(--font-size-5);
 }
 
 #text-details{
@@ -597,10 +578,12 @@ Notes Header
 
 .select:focus, .select:hover {
     outline: none;
-    border: 1px solid #bbbbbb;
+    cursor: pointer;;
+    /* border: 1px solid #bbbbbb; */
 }
 
 .select option {
+    font-family: 'Montserrat';
     font-weight: normal;
     background: #ffffffff;
 }
