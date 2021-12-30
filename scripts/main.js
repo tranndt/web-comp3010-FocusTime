@@ -201,7 +201,7 @@ function save_settings(attr,value){
 // ------------- PAGE STYLING ------------
 // ---------------------------------------
 
-function set_background_img(src,root="../"){
+function set_background_img(src,root=""){
     src1 = src | (src != "none") ? `url(${root}${src})` : "none"
     document.querySelector('body').style.backgroundImage = src1;
     save_settings('background_img_src',src)
