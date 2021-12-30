@@ -68,6 +68,10 @@ task_selectBox.addEventListener('change', () => {
 
 		PT_dbox_elem.style.display = "block";
 	}
+
+	else {
+		updateNotes(task_selectBox.value);
+	}
 });
 
 project_selectBox.addEventListener('change', () => {
@@ -151,7 +155,18 @@ function updateSelector(newOptionsList) {
 }
 
 updateSelector(JSON.parse(localStorage.getItem('newOptions') || "[]"));
-//updateSelector(JSON.parse(localStorage.getItem('newOptionsUT') || "[]"));
+
+function updateNotes(taskID) {
+	var taskNotes = localStorage.getItem(taskID);
+	var notesArea = document.querySelector(".notes");
+	if (taskNotes != null) {
+		notesArea.innerHTML = taskNotes;
+	}
+
+	else {
+		notesArea.innerHTML = bulletWithSpace;
+	}
+}
 
 // http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial 
 function audioApp(album_title){
