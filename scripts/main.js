@@ -117,16 +117,28 @@ function get_item_indirect(array,key1,key2,val2){
 // -------- HTML-CSS MANIPULATION ----------
 
 function writeHTML(element,html){
-    document.querySelector(element).innerHTML = html;
+    if (document.querySelector(element))
+        document.querySelector(element).innerHTML = html;
 }
 
 function hideHTMLElement(element){
-    document.querySelector(element).style.display = "none";
+    if (document.querySelector(element))
+        document.querySelector(element).style.display = "none";
 }
 
 function showHTMLElement(element,display){
     display = display ? display : "grid"
-    document.querySelector(element).style.display = display;
+    if (document.querySelector(element))
+        document.querySelector(element).style.display = display;
+}
+
+function write_textContent(element,text){
+    if (document.querySelector(element))
+        document.querySelector(element).textContent = text;
+}
+
+function clear_textContent(element){
+    write_textContent(element,"")
 }
 
 function change_active_status(button_id,parent,button_class,flag){
@@ -161,6 +173,25 @@ function has_visited(tab_name){
     sessionStorage.visited = JSON.stringify(visited);
     return has_visited
 }
+
+// ========================================
+// ----------- NAV BAR EFFECTS ------------
+// ========================================
+function load_navbar_effects(){
+    Array.from(document.querySelectorAll(".navitemlist .icon")).forEach(icon => {
+        var tab_name = icon.querySelector('img').alt
+        icon.addEventListener('mouseover', () => { write_textContent("#icon-name",tab_name) });
+        icon.addEventListener('mouseout', () => { clear_textContent("#icon-name") });
+    })
+
+    var current_tab = document.querySelector("head title").textContent
+
+    Array.from(document.querySelectorAll(".activebar-item")).forEach(item => {
+        console.log(item.label)
+    })
+
+}
+
 
 // ------------ SETTINGS OPERATIONS ------------
 
@@ -227,6 +258,7 @@ function set_home_tab(tab_name){
 
 // ========= INIT FOR EVERY PAGE ========
 
+load_navbar_effects()
 load_settings()
 
 

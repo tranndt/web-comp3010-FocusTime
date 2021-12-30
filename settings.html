@@ -8,55 +8,46 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <title>My Settings</title>
     <!--Our styles scripts-->
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/settings.css">
 
 </head>
 <body>
-    <div class="container-body" id='container-body'>
-
-        <!-- 1.MARGINS -->
-
-        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
-        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
-        <div class="margin app" id="margin-left">Margin Left</div>
-        <div class="margin app" id="margin-right">Margin Right</div>
-
+    <div id="toast">Some text some message..</div>
+    <div class="container-navbar" id='container-navbar'>
         <!-- 2.NAVBAR -->
-
-        <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
-
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
         <div class="navbar" id="navbar-left">
             <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
         </div>
         <div class="navbar" id="navbar-center">
             <div class="app-container" id="container-main-navbar">
-                <div class="navitem-name">
-                </div>
+                <div class="navitem-name" id = "icon-name"></div>
 
                 <ul class="navitemlist">
                     <li>
                         <a href="upcoming-tasks.html">
-                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                            <div class="icon" id="upcoming-tasks-icon"><img src="assets/tasks.png" alt="My Progress"></div>
                         </a>
                     </li>
                     <li>
                         <a href="statistics.html">
-                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <div class="icon" id="stats-icon"><img src="assets/stats.png" alt="My Statistics"></div>
                         </a>
                     </li>
                     <li>
                         <a href="index.html">
-                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                            <div class="icon" id="timer-icon"><img src="assets/timer.png" alt="My Timer"></div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
-                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                            <div class="icon" id="music-icon"><img src="assets/music.png" alt="My Music"></div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
-                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                            <div class="icon" id="settings-icon"><img src="assets/settings.png" alt="My Settings"></div>
                         </a>
                     </li>
                 </ul>
@@ -70,6 +61,13 @@
             </div>
         </div>
         <div class="navbar" id="navbar-right">Navbar Right</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+    </div>
+    <div class="container-body" id='container-body'>
+
+        <!-- 1.MARGINS -->
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
 
         <!-- 3.MAIN APP -->
 

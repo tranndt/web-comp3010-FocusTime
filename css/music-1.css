@@ -49,6 +49,11 @@
     --border-bottom: rgb(218, 218, 218) solid var(--pxh-01);
 
 
+    --font-size-1: 2.8vh;
+    --font-size-2: 2.2vh;
+    --font-size-3: 1.7vh;
+    --font-size-4: 1.5vh;
+
     --album-cover-size: 30vh;
     --album-item-size: 20vh;
     --genre-item-size:12vh;
@@ -89,11 +94,14 @@ body{
 }
 
 .container-body{
-    height: 88%;
+    height: 100%;
     display: grid;
-    grid-template-columns: auto 30% 25% 30% auto;
-    grid-template-rows: 8% 7% 7% 60% 8%;
+    /* grid-template-columns: auto 500px 500px 500px auto;
+    grid-template-rows: 100px 70px 60px 60px 460px 80px; */
+    grid-template-columns: auto 21% 33% 27% auto;
+    grid-template-rows: 12% 8% 7% 7% 50% 8%;
     grid-template-areas: 
+            "M1 N1 N2 N3 M2"
             "M3 A0 A0 A0 M4"
             "M3 A1 A1 A3 M4"
             "M3 A2 A2 A3B M4"
@@ -106,11 +114,177 @@ body{
 /* --------- 1.MARGIN LAYOUT -------- */
 /* ---------------------------------- */
 
-
+#margin-navbar-left{ grid-area: M1;}
+#margin-navbar-right{ grid-area: M2;}
 #margin-left{ grid-area: M3;}
 #margin-right{ grid-area: M4;}
 .margin{font-size: 0;} /* Comment out to remove the texts */
 
+/* ---------------------------------- */
+/* ------- 1.1.MISCELLANEOUS --------- */
+/* ---------------------------------- */
+/* Scroll bar for list/windows */
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: var(--pxh-10);
+    height: var(--pxh-10);
+  }
+
+*::-webkit-scrollbar-track {
+background: rgba(255, 255, 255, 0.021);
+border-top-right-radius: var(--border-radius-button);
+border-bottom-right-radius: var(--border-radius-button);
+
+}
+
+*::-webkit-scrollbar-thumb {
+background-color: rgb(139, 139, 139);
+border-radius: var(--pxh-50);
+}
+
+
+/* ---------------------------------- */
+/* -------- 2.NAVBAR LAYOUT --------- */
+/* ---------------------------------- */
+
+.navbar {
+    background-color: var(--navbar-bg-color);
+}
+
+/* NAVBAR LEFT - LOGO */
+
+#navbar-left {
+    grid-area: N1;
+    display: grid; /* Fixed the issue */
+    grid-template-columns: 40vh auto; /* Fixed the issue */
+}
+
+.logoimg img{
+    display: block;
+    position: relative;
+    width:65%;
+}
+
+/* NAVBAR CENTER - N2- NAV-ITEMS */
+
+#navbar-center{
+    grid-area: N2;
+    display: grid;
+}
+
+#container-main-navbar{
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr; /* Fixed the issue */
+    grid-template-areas:
+            "NC1" 
+            "NC2"
+            "NC3";
+    padding-top:0.5vh;
+}
+
+.icon img{
+    width:5vh;
+    height:5vh;
+    border-radius: 25vh;
+}
+
+.navitem-name{
+    grid-area: NC1;
+    height: 0.5vh;
+    /* margin: 0; */
+    font-size: 2vh;
+    padding-bottom: 1.9%;
+    text-align: center;
+    visibility: visible;
+}
+
+.navitemlist{
+    grid-area: NC2;
+    /* background: rgb(212, 221, 83); */
+    display: flex;
+    position: relative;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.activebar{
+    grid-area: NC3;
+    display: flex;
+    margin-top: 0vh;
+    padding: 0vh 0vh 0vh 0vh;
+    justify-content: space-around;
+}
+
+.activebar:last-child {
+    border-right: none;
+    padding: 0vh 0vh 0vh 0vh;
+}
+
+ul{
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.navitemlist li {
+    display: inline-flex;
+    padding: 0vh 3.5vh 0vh 0vh;
+    text-align: center;  
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.navitemlist li:last-child {
+    border-right: none;
+    padding: 0vh 0vh 0vh 0vh;
+}
+
+/* .navitem {
+    text-decoration: none;
+    display: flex; 
+    padding: 0 0.1em;
+} */
+
+.activebar .tab-active{
+    background-color: rgb(41, 41, 41);
+    border-radius: 50vh;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0vh;
+    box-shadow: 0px 0px var(--pxh-04) rgba(150, 150, 150, 0.5);
+}
+
+.activebar .tab-inactive{
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50em;
+    height: 1vh;
+    width: 1vh;
+    margin-top: 0vh;
+}
+
+/* NAVBAR RIGHT  */
+#navbar-right{
+    grid-area: N3;
+    font-size: 0;
+}
+
+/* ---------------------- */
+
+li .active .iconhover {
+    opacity: 1;
+} 
+
+li {
+    list-style-type: none;
+}
+
+li:not(.navitemlist li):not(:last-child){
+    border-bottom: 1px #ccc solid;
+}
+
+li:not(.navitemlist li){
+    padding: 10px
+}
 
 /* ---------------------------------- */
 /* ---------- 3. APP LAYOUT --------- */
@@ -122,9 +296,15 @@ body{
     margin-right: var(--pxh-05);
 }
 
+/* .header {
+    font-size: 25px;
+    padding-top:10px;
+    padding-left: 10px;
+} */
 
 .header {
     font-size: 2.8vh;
+    /* padding-top:1.5vh; */
     padding-left: 1vw;
 }
 
@@ -313,6 +493,9 @@ body{
 .genre-item-descr:hover{
     opacity: 0.8;
 }
+
+
+
 
 
 /* .album-item:hover{

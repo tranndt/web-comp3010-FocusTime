@@ -147,7 +147,13 @@ The toast - position it at the bottom and in the middle of the screen */
 /* --------- NAVBAR LAYOUT ------------ */
 /* ==================================== */
 
-.navbar { background-color: var(--color-navbar);}
+.container-navbar{
+    background-color: var(--color-navbar);
+    display: grid;
+    height: 12%;
+    grid-template-areas: "M1 N1 N2 N3 M2";
+    grid-template-columns: auto 30% 25% 30% auto;
+}
 
 /* NAVBAR LEFT - LOGO */
 
@@ -174,37 +180,54 @@ The toast - position it at the bottom and in the middle of the screen */
     display: grid;
     grid-template-rows: 1fr 3fr 1fr; /* Fixed the issue */
     grid-template-areas: "NC1" "NC2" "NC3";
-    padding-top:0.5vh;
+    padding-top: var(--h-03);
 }
 
 .icon img{
     width: var(--h-50);
-    height:var(--h-50);
+    height:var(--h-50);    
 }
 
 .navitem-name{
     grid-area: NC1;
-    height: var(--h-50);
-    font-size: var(--font-size-3);
-    padding-bottom: 1.9%;
+    display: inline;
+    font-size: var(--font-size-4);
     text-align: center;
+    align-content: end;
     visibility: visible;
 }
 
 .navitemlist{
     grid-area: NC2;
-    display: flex;
-    position: relative;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    justify-items: center;
     align-items: center;
+}
+
+.navitemlist li a{
+    display: grid;
+    justify-self: center;
+    align-self: center;
+    padding-left: var(--w-15);
+    padding-right: var(--w-15);
+    text-align: center;  
+    border-right: var(--border-divider-thin);
+    cursor: pointer;
+
+}
+
+.navitemlist li:last-child a{
+    border-right: none;
 }
 
 .activebar{
     grid-area: NC3;
-    display: flex;
-    margin-top: 0vh;
-    padding: 0vh 0vh 0vh 0vh;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    justify-items: center;
+    align-items: start;
+    margin-bottom: var(--h-05);
 }
 
 .activebar:last-child {
@@ -218,17 +241,7 @@ ul{
     margin-block-end: 0px;
 }
 
-.navitemlist li {
-    display: inline-flex;
-    padding: 0vh 3.5vh 0vh 0vh;
-    text-align: center;  
-    border-right: 2px solid rgba(0, 0, 0, 0.1);
-}
 
-.navitemlist li:last-child {
-    border-right: none;
-    padding: 0vh 0vh 0vh 0vh;
-}
 
 .activebar .tab-active{
     background-color: var(--grey-250);
@@ -240,11 +253,6 @@ ul{
 }
 
 .activebar .tab-inactive{
-    /* background-color: var(--white-100);
-    border-radius: var(--border-radius-0);
-    height: var(--h-10);
-    width: var(--h-10);
-    margin-top: 0vh; */
     opacity: 0;
 }
 
@@ -252,6 +260,7 @@ ul{
 #navbar-right{
     grid-area: N3;
     font-size: 0;
+    z-index: -900;
 }
 
 /* ---------------------- */
