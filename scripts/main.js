@@ -19,13 +19,14 @@ COLORS = Array.from(
 
 BACKGROUNDS = Array.from(
     [
-        {background_name: "Night Sky", src:"assets/imgs/img1.jpg"},
+        {background_name: "Mist", src:"assets/imgs/img1.jpg"},
         {background_name: "Trees", src:"assets/imgs/img2.jpg"},
         {background_name: "Sunset", src:"assets/imgs/img3.jpg"},
         {background_name: "Snow 1", src:"assets/imgs/img4.jpg"},
         {background_name: "Sea", src:"assets/imgs/img5.jpg"},
         {background_name: "Snow 2", src:"assets/imgs/img6.jpg"},
         {background_name: "Wood", src:"assets/imgs/img7.jpg"},
+        {background_name: "Clouds", src:"assets/imgs/img8.jpg"},
     ]);
 
 TABS = Array.from(

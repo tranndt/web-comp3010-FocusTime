@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import Scripts-->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <title>My Settings</title>
+    <!--Our styles scripts-->
+    <link rel="stylesheet" href="css/navbar.css">
+
+</head>
+<style>
+
+    #navbar-center{
+        display: grid;
+        /* border: 1px solid; */
+        align-items: center;
+        padding-top: var(--pxw-02);
+        padding-right: var(--pxw-03);
+        padding-left: var(--pxw-03);
+        padding-bottom:  var(--pxw-03);
+    }
+
+
+    #list-navbar-tab{
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        justify-self: center;
+        padding: var(--pxw-01);
+        gap: 0;
+        width:90%;
+        justify-self: center;
+    }
+
+    .navbar-tab-item{
+        border: 1px solid;
+        display: grid;
+        grid-template-areas:  "TNAME" "TIMG" "TACTV";
+        gap: var(--pxw-01);
+        height: 100%;
+
+        
+    }
+
+
+    .navbar-tab-item-img{
+        grid-area: TIMG;
+        justify-self: center;
+        width: 45%;
+        border-radius: 15vh;
+        box-shadow: 0px 0px var(--pxh-03) rgba(172, 172, 172, 0.75);
+        z-index: 1;
+        cursor: pointer;
+    }
+    .navbar-tab-item-title{
+        border: 1px solid;
+        align-content: end;
+        font-size: 1.5vh;
+    }
+
+    .navbar-tab-item-title.selected,.navbar-tab-item-img.selected,.navbar-tab-item-activebar.selected{
+        opacity: 1;
+    }
+
+    .settings-item-title.navbar-tab-item-title {
+        text-align: center;
+        grid-area: TNAME;
+        text-shadow: 0px 0px var(--pxh-03) rgba(172, 172, 172, 0.75);
+        color: black;
+    }
+
+    .navbar-tab-item-activebar{
+        display: grid;
+        grid-area: TACTV;
+        background-color: black;
+        height: 1vh;
+        width: 1vh;
+        justify-self: center;
+        border-radius: 25vh;
+        box-shadow: 0px 0px var(--pxh-03) rgba(172, 172, 172, 0.75);
+        opacity: 0;
+    }
+
+</style>
+
+<body>
+    <div class="container-body" id='container-body'>
+
+        <!-- 1.MARGINS -->
+
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
+
+        <!-- 2.NAVBAR -->
+
+        <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
+
+        <div class="navbar" id="navbar-left">
+            <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
+        </div>
+
+
+        <div class="navbar" id="navbar-center">
+                <div class="container-list" id="list-navbar-tab">
+                    <div class="navbar-tab-item" id="navbar-tab-item-My-Progress">
+                        <div class="settings-item-title navbar-tab-item-title" id="navbar-tab-item-title-My-Progress">My Progress</div>
+                        <img class="navbar-tab-item-img" id="navbar-tab-item-img-My-Progress" src="assets/tasks.png">    
+                        <div class="navbar-tab-item-activebar" id="navbar-tab-item-activebar-My-Progress"></div>
+                    </div>
+                    
+                    <div class="navbar-tab-item" id="navbar-tab-item-My-Statistics">
+                        <div class="settings-item-title navbar-tab-item-title" id="navbar-tab-item-title-My-Statistics">My Statistics</div>
+                        <img class="navbar-tab-item-img" id="navbar-tab-item-img-My-Statistics" src="assets/stats.png">    
+                        <div class="navbar-tab-item-activebar" id="navbar-tab-item-activebar-My-Statistics"></div>
+                    </div>
+        
+                    <div class="navbar-tab-item" id="navbar-tab-item-My-Timer">
+                        <div class="settings-item-title navbar-tab-item-title selected" id="navbar-tab-item-title-My-Timer">My Timer</div>
+                        <img class="navbar-tab-item-img selected" id="navbar-tab-item-img-My-Timer" src="assets/timer.png">    
+                        <div class="navbar-tab-item-activebar selected" id="navbar-tab-item-activebar-My-Timer"></div>
+                    </div>
+                    
+                    <div class="navbar-tab-item" id="navbar-tab-item-My-Music">
+                        <div class="settings-item-title navbar-tab-item-title" id="navbar-tab-item-title-My-Music">My Music</div>
+                        <img class="navbar-tab-item-img" id="navbar-tab-item-img-My-Music" src="assets/music.png">    
+                        <div class="navbar-tab-item-activebar" id="navbar-tab-item-activebar-My-Music"></div>
+                    </div>
+                    
+                    <div class="navbar-tab-item" id="navbar-tab-item-My-Settings">
+                        <div class="settings-item-title navbar-tab-item-title" id="navbar-tab-item-title-My-Settings">My Settings</div>
+                        <img class="navbar-tab-item-img" id="navbar-tab-item-img-My-Settings" src="assets/settings.png">    
+                        <div class="navbar-tab-item-activebar" id="navbar-tab-item-activebar-My-Settings"></div>
+                    </div>
+                </div>
+        </div>
+
+
+
+        <div class="navbar" id="navbar-right">Navbar Right</div>
+
+        <!-- 3.MAIN APP -->
+
+        <!-- A0 -->
+
+        <div class="app-div" id="app-a0">
+            <div class="app-container" id="container-a0">
+                My Settings
+            </div>
+        </div>
+        
+</body>
+
+<script src="scripts/main.js"></script>
+<script src="scripts/settings-logic.js"></script>
+
+</html>

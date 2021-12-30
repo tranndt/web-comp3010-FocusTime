@@ -141,6 +141,8 @@ border-radius: var(--pxh-50);
 
 #navbar-left {
     grid-area: N1;
+    display: grid;
+    grid-template-columns: 40vh auto;
 }
 
 .logoimg img{
@@ -148,6 +150,7 @@ border-radius: var(--pxh-50);
     position: relative;
     top: -0.5vh;
     width:65%;
+    border: 1px black solid;
 }
 
 /* NAVBAR CENTER - N2- NAV-ITEMS */
