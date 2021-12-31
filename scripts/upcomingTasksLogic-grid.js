@@ -14,8 +14,6 @@ var taskCount = 13;
 var taskDetailsCount = 13;
 
 var existingProjs = ['project-1', 'project-2', 'project-3', 'project-4', 'project-5', 'project-6'];
-// var existingProjs = ['COMP 3020', 'COMP 3040', 'COMP 2140', 'COMP 4710', 'COMP 4230', 'none'];
-//var newOptionsUT = JSON.parse(localStorage.getItem("newOptionsUT") || "[]");
 var newOptionsUT = JSON.parse(localStorage.getItem("newOptions") || "[]");
 
 var taskHeaders = document.getElementsByClassName("taskHeader");
@@ -26,31 +24,18 @@ for (var i = 0; i < taskHeaders.length; i++) {
 }
 
 function addTaskDetailsEvent(taskHeader) {
-    //taskHeaders.forEach(taskHeader=> {
     taskHeader.addEventListener("click", event => {
-        //taskHeader.classList.toggle("active");
         const taskDetailBody = taskHeader.nextElementSibling;
-        //const taskDetailBody = localStorage.getItem(taskHeader.nextElementSibling.id);
-        var taskNotes = "";
-
-        //if(taskHeader.classList.contains("active")) {
-            //if (taskDetailBody.tagName.localeCompare("TR")) {
-            var project = taskHeader.closest('.accordion-item').firstElementChild.textContent.trim();
-
-            //if (taskDetailBody != null) {
-                taskNotes = taskDetailBody.innerHTML;
-            //}
-            var taskBody = `<p>Project:      ${project}</p>
-                            <p>Task:         ${taskHeader.firstElementChild.textContent}</p>
-                            <p>Status:       ${taskHeader.children[1].textContent}</p>
-                            <p>Due Date:     ${taskHeader.children[2].textContent}</p>
-                            <p>Task Notes: ${taskNotes}</p>`;
-            
-            taskDetails_target.innerHTML = taskBody;
-            //}
-        //}
+        var project = taskHeader.closest('.accordion-item').firstElementChild.textContent.trim();
+        var taskNotes = taskDetailBody.innerHTML;
+        var taskBody = `<p><b>Project:</b>      ${project}</p>
+                        <p><b>Task:</b>         ${taskHeader.firstElementChild.textContent}</p>
+                        <p><b>Status:</b>       ${taskHeader.children[1].textContent}</p>
+                        <p><b>Due Date:</b>     ${taskHeader.children[2].textContent}</p>
+                        <p><b>Task Notes:</b> ${taskNotes}</p>`;
+        
+        taskDetails_target.innerHTML = taskBody;
     });
-    //});
 }
 
 addAccordionItemEvent(accordionItemsList);
@@ -86,8 +71,6 @@ function addAccordionItemEvent(accordionItemHeaders) {
 function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectID, fromThisPage) {
     let table = document.getElementById(tableID);
     let newTaskName = "", progress = "", date = "", newRow = [];
-    //let fromThisPage = taskDateID.localeCompare("N/A");
-    //let projectName = document.getElementById(projectID);
     let projectName = document.getElementById(projectID).textContent.trim();
     
     if (!fromThisPage) {
@@ -109,12 +92,6 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         progress = document.getElementById(taskProgressID).value;
         date = document.getElementById(taskDateID).value;
     }
-
-    // else {
-    //     progress = taskProgressID;
-    //     newTaskName = taskNameID;
-    //     date = taskDateID;
-    // }
 
     if (checkNameLength(newTaskName) && progress >= 0 && progress <= 100) {
         taskDetailsCount++;
@@ -157,7 +134,8 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
         addTaskDetailsEvent(newTaskHeader);
 
         if (fromThisPage) {
-            sortByDate(table);
+            //sortByDate(table);
+
             //notify users
             toast_elem.className = "show";
             toast_elem.textContent = "New task "+ " '" + newTaskName + "' created.";
@@ -165,7 +143,6 @@ function createNewTask(tableID, taskNameID, taskDateID, taskProgressID, projectI
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
             newOptionsUT.push({project : `${projectName}`, projectID : `${projectID}`, task : `${newTaskName}`, progress : `${progress}`, date : `${date}`, update : 'task'});
-            //localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
             localStorage.setItem("newOptions", JSON.stringify(newOptionsUT));
         }
     }
@@ -179,16 +156,6 @@ function createNewProject(name, fromThisPage) {
     let newProjDiv = document.getElementById("misc");
     let headers = [];
     let newProjectName = name;
-    //let fromThisPage = true;
-
-    // if (!name.localeCompare('')) {
-    //     newProjectName = prompt("What is the new project?");
-    // }
-
-    // else {
-    //     newProjectName = name;
-    //     fromThisPage = false;
-    // }
 
     if (newProjectName.localeCompare("") && newProjectName != null) {
         tableCount++;
@@ -254,7 +221,6 @@ function createNewProject(name, fromThisPage) {
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
 
             newOptionsUT.push({project : `${newProjectName}`, projectID : `${newProjID}`, task : "", update : 'project'});
-            //localStorage.setItem("newOptionsUT", JSON.stringify(newOptionsUT));
             localStorage.setItem("newOptions", JSON.stringify(newOptionsUT));
         }
     }
@@ -275,9 +241,9 @@ function sortByDate(table) {
     for (var index = 0; index < rows.length; index++) {
         node = rows[index].querySelector(".date");
         val = node.innerText;
-        //if(val != "N/A") {
-            values.push({value : val, row: rows[index]});
-        //}
+
+        values.push({value : val, row: rows[index]});
+
     }
 
     lastRow = table.querySelector(".newItem-container");
@@ -401,13 +367,7 @@ function update(newItems) {
                     let table = "table"+(projIndex + 1);
                     let project = "project-"+(projIndex + 1);
 
-                    //if (progress != null && date != null) {
-                        createNewTask(table, taskName, date, progress, project, false);
-                    //}
-
-                    // else {
-                    //     createNewTask(table, taskName, "N/A", 0, project);
-                    // }
+                    createNewTask(table, taskName, date, progress, project, false);
                 }
             }
         }
@@ -430,11 +390,6 @@ function searchProject(project) {
 }
 
 function updatePage() {
-    //let newItems = JSON.parse(localStorage.getItem('newOptions') || "[]");
-    //let newItemsUT = JSON.parse(localStorage.getItem('newOptionsUT') || "[]");
-
-    //update(newItemsUT);
-    //update(newItems);
     update(newOptionsUT);
 }
 
