@@ -85,8 +85,8 @@ project_selectBox.addEventListener('change', () => {
 });
 
 PT_dbox_btn_done.addEventListener('click', () => {
-    if(PT_new_item == ""){
-        alert("New task/project name should not be empty. Please try again.");
+    if(!checkNameLength(PT_new_item.value)){
+        alert("New task/project name should be 1-30 characters in length. Please try again.");
 		newItem_selectBox.value = selectBox.options[0].firstChild.textContent;
 		newItem_type = "";
 		newItem_selectBox = null;
@@ -166,6 +166,15 @@ function updateNotes(taskID) {
 	else {
 		notesArea.innerHTML = bulletWithSpace;
 	}
+}
+
+function checkNameLength(name) {
+    let result = false;
+    if (name.length > 0 && name.length <= 30) {
+        result = true;
+    }
+
+    return result;
 }
 
 // http://www.developphp.com/video/JavaScript/Audio-Playlist-Play-Buttons-JavaScript-Programming-Tutorial 
