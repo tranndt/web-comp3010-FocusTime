@@ -316,6 +316,7 @@ body{
     padding-left: var(--pxh-05);
     padding-top: var(--pxh-15);
     padding-bottom: var(--pxh-15);
+    margin-bottom: var(--w-15);
 }
 
 #list-genres{
@@ -468,7 +469,8 @@ body{
 
 #app-a3b{
     grid-area: A3B;
-    background-color: var(--white-bg-color);
+    background-color: var(--color-app-div-white);
+    display: grid;
 }
 
 #container-a3b{
@@ -477,8 +479,8 @@ body{
     grid-template-columns: 15vh 15vh;
     gap: 1vh 0.5vh;
     justify-content: center;
+    align-self: center;
     padding-right:var(--pxh-10);
-    padding-top:var(--pxh-10);
 }
 
 
@@ -659,6 +661,7 @@ body{
     border-bottom-right-radius: var(--border-radius-tab) ;
     border-bottom-left-radius: var(--border-radius-tab) ;
     padding: var(--pxh-10);
+    display: grid;
 }
 
 #container-a5{

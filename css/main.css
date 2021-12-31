@@ -206,19 +206,28 @@ The toast - position it at the bottom and in the middle of the screen */
     align-items: center;
 }
 
+.navitemlist li .icon{
+    display: grid;
+    border-right: var(--border-divider-thin);
+
+}
+
 .navitemlist li a{
     display: grid;
     justify-self: center;
     align-self: center;
-    padding-left: var(--w-15);
-    padding-right: var(--w-15);
-    text-align: center;  
-    border-right: var(--border-divider-thin);
-    cursor: pointer;
-
+    margin-left: var(--w-15);
+    margin-right: var(--w-15);
+    text-align: center;
+    cursor:default;
+    border-radius: 50vh;
 }
 
-.navitemlist li:last-child a{
+.icon img{
+    cursor: pointer;
+}
+
+.navitemlist li:last-child .icon{
     border-right: none;
 }
 
@@ -279,6 +288,10 @@ li:not(.navitemlist li){
 /* ==================================== */
 /* -------------- APP LAYOUT ---------- */
 /* ==================================== */
+body{
+    background-color: rgba(175, 175, 175, 0.75);
+}
+
 
 .app-div{
     padding: var(--h-05);

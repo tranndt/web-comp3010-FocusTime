@@ -178,18 +178,11 @@ function has_visited(tab_name){
 // ----------- NAV BAR EFFECTS ------------
 // ========================================
 function load_navbar_effects(){
-    Array.from(document.querySelectorAll(".navitemlist .icon")).forEach(icon => {
+    Array.from(document.querySelectorAll(".navitemlist .icon a")).forEach(icon => {
         var tab_name = icon.querySelector('img').alt
         icon.addEventListener('mouseover', () => { write_textContent("#icon-name",tab_name) });
         icon.addEventListener('mouseout', () => { clear_textContent("#icon-name") });
     })
-
-    var current_tab = document.querySelector("head title").textContent
-
-    Array.from(document.querySelectorAll(".activebar-item")).forEach(item => {
-        console.log(item.label)
-    })
-
 }
 
 
@@ -210,13 +203,16 @@ function default_settings(){
 
 function load_settings(){
     settings = get_settings()
-    set_home_tab(settings.home_tab)
+    if (settings.home_tab_href)
+        apply_home_tab(settings.home_tab_href)
     if (settings.background_img_src != "none")
-        set_background_img(settings.background_img_src)
+        apply_background_img(settings.background_img_src)
     else if (settings.background_color != "none")
-        set_background_color(settings.background_color)
+        apply_background_color(settings.background_color)
     return settings
 }
+
+
 
 function get_settings(){
     return sessionStorage.settings ? JSON.parse(sessionStorage.settings) : default_settings();
@@ -232,29 +228,21 @@ function save_settings(attr,value){
 // ---------------------------------------
 // ------------- PAGE STYLING ------------
 // ---------------------------------------
+function apply_home_tab(href){
+    document.querySelector('.logoimg > a').href = href
+}
 
-function set_background_img(src,root=""){
+function apply_background_img(src,root=""){
     src1 = src | (src != "none") ? `url(${root}${src})` : "none"
     document.querySelector('body').style.backgroundImage = src1;
-    save_settings('background_img_src',src)
-    save_settings('background_img_name',get_item_indirect(BACKGROUNDS,'background_name','src',src))
-    save_settings('background_color',"none")
-    save_settings('background_color_name',"none")
 }
 
-function set_background_color(value){
+function apply_background_color(value){
     document.querySelector('body').style.backgroundImage = "none";
     document.querySelector('body').style.backgroundColor = `#${value}`;
-    save_settings('background_img_src',"none")
-    save_settings('background_img_name',"none")
-    save_settings('background_color',value)
-    save_settings('background_color_name',get_item_indirect(COLORS,'color_name','value',value))
 }
 
-function set_home_tab(tab_name){
-    save_settings('home_tab',tab_name)
-    save_settings('home_tab_href',get_item_indirect(TABS,'href','tab_name',tab_name))
-}
+
 
 // ========= INIT FOR EVERY PAGE ========
 

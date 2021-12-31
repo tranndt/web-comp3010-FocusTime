@@ -79,6 +79,31 @@ function on_home_tab_item_clicked(tab_name){
 
 // ============== INITIALIZING PAGE ==============
 
+
+
+function set_background_img(src,root=""){
+    apply_background_img(src,root)
+    save_settings('background_img_src',src)
+    save_settings('background_img_name',get_item_indirect(BACKGROUNDS,'background_name','src',src))
+    save_settings('background_color',"none")
+    save_settings('background_color_name',"none")
+}
+
+function set_background_color(value){
+    apply_background_color(value);
+    save_settings('background_img_src',"none")
+    save_settings('background_img_name',"none")
+    save_settings('background_color',value)
+    save_settings('background_color_name',get_item_indirect(COLORS,'color_name','value',value))
+}
+
+function set_home_tab(tab_name){
+    href = get_item_indirect(TABS,'href','tab_name',tab_name)
+    apply_home_tab(href)
+    save_settings('home_tab',tab_name)
+    save_settings('home_tab_href',href)
+}
+
 function init_page(){
     var settings = has_visited() ? load_settings() : default_settings();
     load_img_backgrounds()
