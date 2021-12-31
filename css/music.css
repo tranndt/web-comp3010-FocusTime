@@ -53,6 +53,96 @@
     --album-item-size: 20vh;
     --genre-item-size:12vh;
     --song-item-img-size:8vh;
+
+            /* UNITS  */
+            --h-150: 15vh; --h-100: 10vh; --h-50: 5.0vh;--h-40: 4.0vh;--h-30: 3.0vh;
+            --h-25: 2.5vh;--h-20: 2.0vh; --h-18: 1.8vh; --h-15: 1.5vh; --h-12: 1.2vh; 
+            --h-10: 1.0vh; --h-09: 0.9vh; --h-08: 0.8vh; --h-07: 0.7vh; --h-06: 0.6vh;
+            --h-05: 0.5vh; --h-04: 0.4vh; --h-03: 0.3vh; --h-02: 0.2vh; --h-01: 0.1vh;
+        
+            --w-150: 15vw; --w-100: 10vw; --w-50: 5.0vw;--w-40: 4.0vw;--w-30: 3.0vw;
+            --w-25: 2.5vw;--w-20: 2.0vw; --w-18: 1.8vw; --w-15: 1.5vw; --w-12: 1.2vw; 
+            --w-10: 1.0vw; --w-09: 0.9vw; --w-08: 0.8vw; --w-07: 0.7vw; --w-06: 0.6vw;
+            --w-05: 0.5vw; --w-04: 0.4vw; --w-03: 0.3vw; --w-02: 0.2vw; --w-01: 0.1vw;
+        
+            /* 50 SHADES OF GREY, SORT OF */
+            --grey-250: rgb(25, 25, 25); /* REALLY DARK GREY*/
+            --grey-200: rgb(45, 45, 45);
+            --grey-150: rgb(90, 90, 90);
+            --grey-100: rgb(128, 128, 128); /* NEUTRAL GREY*/
+            --grey-75: rgb(165, 165, 165);
+            --grey-50: rgb(200, 200, 200);
+            --grey-25: rgb(225, 225, 225); /* REALLY LIGHT GREY*/
+            /* WHITES */
+            --white-100: rgba(255, 255, 255, 1); --white-90: rgba(255, 255, 255, 0.9);
+            --white-80: rgba(255, 255, 255, 0.8);--white-70: rgba(255, 255, 255, 0.7);
+            --white-60: rgba(255, 255, 255, 0.6);--white-50: rgba(255, 255, 255, 0.5);
+            --white-40: rgba(255, 255, 255, 0.4);--white-30: rgba(255, 255, 255, 0.3);
+            --white-20: rgba(255, 255, 255, 0.2);--white-10: rgba(255, 255, 255, 0.1);
+            /* BLACKS  */
+            --black-100: rgba(0, 0, 0, 1); --black-90: rgba(0, 0, 0, 0.9);
+            --black-80: rgba(0, 0, 0, 0.8);--black-70: rgba(0, 0, 0, 0.7);
+            --black-60: rgba(0, 0, 0, 0.6);--black-50: rgba(0, 0, 0, 0.5);
+            --black-40: rgba(0, 0, 0, 0.4);--black-30: rgba(0, 0, 0, 0.3);
+            --black-20: rgba(0, 0, 0, 0.2);--black-10: rgba(0, 0, 0, 0.1);
+            /* ACCENT COLOR */
+            --color-accent:rgb(150, 75, 150);
+            --color-accent-dark:rgb(125, 60, 125);
+            --color-accent-darker:rgb(100, 50, 100);
+        
+            /* ITEMS COLORS */
+            --color-navbar:var(--black-10);
+            --color-app-div-white:var(--white-90);     
+            --color-item-border: var(--black-10);
+        
+            --color-button: var(--white-100);
+            --color-button-hovered: var(--grey-25);
+            --color-button-clicked: var(--grey-75);
+            --color-button-active: var(--grey-200);
+        
+            --color-button-accent: var(--color-accent);
+            --color-button-accent-hovered: var(--color-accent-dark);
+            --color-button-accent-clicked: var(--color-accent-darker);
+        
+            /* TEXT COLORS */
+            --color-text: var(--black-100);
+            --color-text-greyed-out:var(--grey-75);
+            --color-text-button: var(--grey-250);
+            --color-text-button-active: var(--grey-25);
+        
+            /* FONT-SIZE */
+            --font-size-10: var(--h-50);
+            --font-size-6: var(--h-30);
+            --font-size-5: var(--h-25);
+            --font-size-4: var(--h-18);
+            --font-size-3: var(--h-15);
+            --font-size-2: var(--h-12);
+            --font-size-1: var(--h-10);
+        
+            /* SHADOW */
+            --box-shadow-black :black 0px 0px var(--h-02);
+            --box-shadow-grey :var(--grey-100) 0px 0px var(--h-02);
+            --box-shadow-white :white 0px 0px var(--h-02);
+        
+            --text-shadow-black :black 0px 0px var(--h-03);
+            --text-shadow-grey :var(--grey-100) 0px 0px var(--h-03);
+            --text-shadow-white :white 0px 0px var(--h-03);
+        
+            /* BORDERS */
+            --border-divider-thin: solid var(--h-01) var(--color-item-border);
+            --border-divider-regular: solid var(--h-02) var(--color-item-border);
+            --border-divider-thick: solid var(--h-03) var(--color-item-border);
+        
+            /* BORDER CORNER RADIUS */
+            --border-radius-10: var(--h-150);
+            --border-radius-9: var(--h-100);
+            --border-radius-5: var(--h-50);
+            --border-radius-4: var(--h-25);
+            --border-radius-3: var(--h-20);
+            --border-radius-2: var(--h-15);
+            --border-radius-1: var(--h-10);
+    
+            --border-radius-tab: var(--border-radius-4);
 }
 
 /* Code for the toast messages adapted from - https://www.w3schools.com/howto/howto_js_snackbar.asp 
@@ -116,11 +206,11 @@ body{
 /* ---------- 3. APP LAYOUT --------- */
 /* ---------------------------------- */
 
-.app-div{
+/* .app-div{
     padding: var(--pxh-05);
     margin-left: var(--pxh-05);
     margin-right: var(--pxh-05);
-}
+} */
 
 
 .header {
@@ -149,10 +239,10 @@ body{
 
 #app-a1{
     grid-area: A1;
-    background-color: var(--white-bg-color);
+    background-color: var(--color-app-div-white);
     border-top-left-radius: var(--border-radius-tab) ;
     border-top-right-radius: var(--border-radius-tab)  ;
-    border-bottom: var(--border-bottom);
+    border-bottom: var(--border-divider-thin);
     display: grid;
 }
 
@@ -178,6 +268,7 @@ body{
 
 }
 #container-a2{
+    display: grid;
     align-items: stretch;
     padding-bottom: var(--pxh-25);
 }
@@ -208,13 +299,12 @@ body{
 .header-button{
     grid-area: HB1;
     align-self: center;
-    font-size: var(--font-size-2);
-    color: #666;
+    font-size: var(--font-size-4);
+    color: var(--grey-150);
     text-decoration: underline;
     cursor: pointer;
-    /* padding-right: 10px; */
     text-align: right;
-    margin-right: var(--pxh-40);
+    margin-right: var(--w-20);
 }
 
 .container-list{
@@ -367,6 +457,8 @@ body{
     color: rgb(175, 175, 175);
     font-size: 0.9vw;
     margin-right: var(--pxw-05);
+    padding-left: var(--pxw-05);
+    padding-right: var(--pxw-05);
 
     /* align-self: center; */
 
@@ -434,11 +526,11 @@ body{
 #album-details{
     padding: var(--pxh-05);
     text-align: center;
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-4);
     display:grid;
     margin-top: 2vh;
     margin-bottom: 2vh;
-    height: 15vh;
+    height: 20vh;
     /* border: black 0.1vh solid; */
 }
 
@@ -454,7 +546,7 @@ body{
 
 #album-name{
     font-weight: bolder;
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-5);
 }
 
 /**/
@@ -500,7 +592,7 @@ body{
 
 .album-item-name{
     font-weight: bolder;
-    font-size: var(--font-size-2);
+    font-size: var(--font-size-4);
 }
 
 
@@ -539,7 +631,7 @@ body{
     padding: var(--pxh-05);
     padding-left: var(--pxw-05);
     align-self: end;
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-4);
     overflow: hidden;
 }
 
@@ -549,14 +641,14 @@ body{
     padding: var(--pxh-05);
     padding-left: var(--pxw-05);
     color:var(--greyed-out-text);
-    font-size: var(--font-size-4);
+    font-size: var(--font-size-3);
 }
 
 .song-item-duration{
     grid-area: DURTN;
     padding: var(--pxh-05);
     align-self: end;
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-4);
 }
 
 /* ---------- A5 ---------- */

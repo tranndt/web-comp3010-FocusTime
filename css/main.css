@@ -192,7 +192,7 @@ The toast - position it at the bottom and in the middle of the screen */
     grid-area: NC1;
     display: inline;
     font-size: var(--font-size-4);
-    text-shadow: var(--text-shadow-grey);
+    text-shadow: var(--text-shadow-white);
     text-align: center;
     align-content: end;
     visibility: visible;

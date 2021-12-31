@@ -1,62 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 :root {
-    --pxh-50: 5.0vh;
-    --pxh-40: 4.0vh;
-    --pxh-30: 3.0vh;
-    --pxh-25: 2.5vh;
-    --pxh-20: 2.0vh;
-    --pxh-15: 1.5vh; 
-    --pxh-12: 1.2vh; 
-    --pxh-10: 1.0vh; 
-    --pxh-05: 0.5vh; 
-    --pxh-04: 0.4vh; 
-    --pxh-03: 0.3vh;     
-    --pxh-02: 0.2vh; 
-    --pxh-01: 0.1vh; 
-
-    --pxw-50: 5.0vw;
-    --pxw-40: 4.0vw;
-    --pxw-30: 3.0vw;
-    --pxw-25: 2.5vw;
-    --pxw-20: 2.0vw;
-    --pxw-15: 1.5vw; 
-    --pxw-12: 1.2vw; 
-    --pxw-10: 1.0vw; 
-    --pxw-05: 0.5vw; 
-    --pxw-04: 0.4vw; 
-    --pxw-03: 0.3vw;     
-    --pxw-02: 0.2vw; 
-    --pxw-01: 0.1vw; 
-
-    --navbar-bg-color:rgba(49, 49, 49, 0.171);
-    --transparent-bg-color:rgba(189, 189, 189, 0.664);
-    --white-bg-color:rgba(255, 255, 255, 0.95);
-    --item-border-color-grey: rgba(0, 0, 0, 0.1);
-    --border-between-ele: rgb(218, 218, 218) solid 0.5px;
-    --greyed-out-text:rgba(128, 128, 128, 0.8);
-    --secondary-header-font-size: 1.8vh;
-    --header-font-size: 25px;
-    --box-shadow:0px 0px var(--pxh-03) rgba(31, 31, 31, 0.4);
-    --text-shadow:black 0px 0px var(--pxh-04);
-    --accent-color:#984ea3;
-    --accent-color-transparent:#64356d;
-    --border-radius-tab:2vh;
-    --border-radius-large-item:1.5vh;
-    --border-radius-small-item:1vh;
-    --border-radius-button: 3vh;
-
-    --border-bottom: rgb(218, 218, 218) solid var(--pxh-01);
-
-
-    --album-cover-size: 30vh;
-    --album-item-size: 20vh;
-    --genre-item-size:12vh;
-    --song-item-img-size:8vh;
-
-    --settings-item-height: 14vh;
-    --settings-item-width: 20vh;
-
         /* UNITS  */
         --h-150: 15vh; --h-100: 10vh; --h-50: 5.0vh;--h-40: 4.0vh;--h-30: 3.0vh;
         --h-25: 2.5vh;--h-20: 2.0vh; --h-18: 1.8vh; --h-15: 1.5vh; --h-12: 1.2vh; 
@@ -146,6 +90,9 @@
         --border-radius-1: var(--h-10);
 
         --border-radius-tab: var(--border-radius-4);
+
+        --settings-item-height: 14vh;
+        --settings-item-width: 20vh;
 }
   
 
@@ -188,11 +135,11 @@ body{
 /* ---------- 3. APP LAYOUT --------- */
 /* ---------------------------------- */
 
-.app-div{
-    padding: var(--pxh-05);
-    margin-left: var(--pxh-05);
-    margin-right: var(--pxh-05);
-}
+/* .app-div{
+    padding: var(--h-05);
+    margin-left: var(--h-05);
+    margin-right: var(--h-05);
+} */
 
 
 .header {
@@ -213,7 +160,7 @@ body{
 #app-a0{
     grid-area: A0;
     font-size: 5vh;
-    color: var(--white-bg-color);
+    color: var(--white-100);
     text-shadow: black 0px 0px 3px;
 }
 
@@ -221,10 +168,10 @@ body{
 
 #app-a1{
     grid-area: A1;
-    background-color: var(--white-bg-color);
+    background-color: var(--color-app-div-white);
     border-top-left-radius: var(--border-radius-tab) ;
     border-top-right-radius: var(--border-radius-tab)  ;
-    border-bottom: var(--border-divider-thin) ;
+    border-bottom: var(--border-divider-thin);
     display: grid;
 }
 
@@ -241,7 +188,7 @@ body{
 
 #app-a2{
     grid-area: A2;
-    background-color: var(--white-bg-color);
+    background-color: var(--color-app-div-white);
     border-bottom-right-radius: var(--border-radius-tab) ;
     border-bottom-left-radius: var(--border-radius-tab) ;
     overflow-y:scroll;
@@ -252,7 +199,7 @@ body{
 #container-a2{
     display: grid;
     align-items: stretch;
-    padding-bottom: var(--pxh-25);
+    padding-bottom: var(--h-25);
 }
 
 
@@ -274,13 +221,12 @@ body{
 .header-button{
     grid-area: HB1;
     align-self: center;
-    font-size: var(--font-size-2);
-    color: #666;
+    font-size: var(--font-size-4);
+    color: var(--grey-150);
     text-decoration: underline;
     cursor: pointer;
-    /* padding-right: 10px; */
     text-align: right;
-    margin-right: var(--pxh-40);
+    margin-right: var(--w-20);
 }
 
 .container-list{
@@ -288,18 +234,18 @@ body{
     min-height: 10vh;
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    gap: var(--pxh-30) var(--pxh-10);
-    padding-left: var(--pxh-05);
-    padding-top: var(--pxh-15);
-    padding-bottom: var(--pxh-15);
-    margin-bottom: var(--pxw-15);
+    gap: var(--h-30) var(--h-10);
+    padding-left: var(--h-05);
+    padding-top: var(--h-15);
+    padding-bottom: var(--h-15);
+    margin-bottom: var(--w-15);
 }
 
 #list-home-tab{
     display: grid;
     grid-template-columns: repeat(5,1fr);
     justify-items: center;
-    padding: var(--pxw-05);
+    padding: var(--w-05);
     margin-right: 0;
 }
 
@@ -307,7 +253,7 @@ body{
     /* border: 1px solid; */
     display: grid;
     grid-template-areas:  "TNAME" "TIMG" "TACTV";
-    gap: var(--pxw-05);
+    gap: var(--w-05);
     
 }
 
@@ -318,12 +264,12 @@ body{
     width: 37%;
     border-radius: 15vh;
     /* border: red solid 0.1vh; */
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow-white);
     z-index: 1;
     cursor: pointer;
 }
 .home-tab-item-title{
-    color: var(--greyed-out-text);
+    color: var(--color-text-greyed-out);
 }
 
 .home-tab-item-title.selected,.home-tab-item-img.selected,.home-tab-item-activebar.selected{
@@ -353,12 +299,12 @@ body{
 .img-bg-item{
     width: var(--settings-item-width);
     height: var(--settings-item-height);
-    border-radius: var(--border-radius-large-item);
+    border-radius: var(--border-radius-2);
     display:grid;
     justify-self: center;
     grid-template-areas: "AI";
     cursor: pointer;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow-grey);
 }
 
 .img-bg-item-img {
@@ -367,23 +313,23 @@ body{
     height: inherit;
     display:block;
     justify-self: center;
-    border-radius: var(--border-radius-large-item);
+    border-radius: var(--border-radius-2);
     cursor: pointer;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow-grey);
 }
 
 .img-bg-item-overlay{
     grid-area: AI;
-    background-color: rgba(75, 75, 75);
+    background-color: var(--grey-200);
     color: white;
     width: inherit;
     height: inherit;
     text-align: center;
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-4);
     display:grid;
     opacity: 0;
     border-radius: inherit;
-    box-shadow: rgb(255, 255, 255) 0px 0px var(--pxh-05);
+    box-shadow: var(--box-shadow-grey);
     overflow: hidden;
 }
 
@@ -400,38 +346,38 @@ body{
     grid-template-areas: "CBI";
     width: var(--settings-item-width);
     height: var(--settings-item-height);
-    border-radius: var(--border-radius-large-item);
+    border-radius: var(--border-radius-2);
     display:grid;
     justify-self: center;
     cursor: pointer;
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow-grey);
 }
 
 .color-bg-item-overlay{
     grid-area: CBI;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--white-50);
     color: white;
     width: inherit;
     height: inherit;
     text-align: center;
-    font-size: var(--font-size-3);
+    font-size: var(--font-size-4);
     display:grid;
     opacity: 0;
     border-radius: inherit;
-    box-shadow: rgb(255, 255, 255) 0px 0px var(--pxh-05);
+    box-shadow: var(--box-shadow-grey);
     overflow: hidden;
 }
 
 
 .settings-item-title{
-    padding: var(--pxh-03);
+    padding: var(--h-03);
     align-self: center;
-    color: rgba(255, 255, 255);
+    color: var(--white-100);
     font-size: var(--font-size-4);
 }
 
 .color-bg-item-overlay .settings-item-title{
-    padding: var(--pxh-03);
+    padding: var(--h-03);
     align-self: center;
     color: var(--grey-200);
     font-size: var(--font-size-4);
@@ -442,7 +388,7 @@ body{
 
 #app-a3{
     grid-area: A3;
-    background-color: var(--white-bg-color);
+    background-color: var(--color-app-div-white);
     border-top-right-radius: var(--border-radius-tab) ;
     border-top-left-radius: var(--border-radius-tab) ;
     border-bottom: var(--border-divider-thin) ;
@@ -493,21 +439,21 @@ body{
 #about-project{
     margin: var(--h-05);
     text-align: justify;
-    font-size: var(--font-size-4);
+    font-size: var(--w-08);
     color: var(--color-text-greyed-out);
 
 }
 
 #about-authors-header{
-    font-size: var(--font-size-4);
+    font-size: var(--w-08);
     text-align: center;
-    margin-top: var(--pxh-15);
-    margin-bottom: var(--pxh-15);
+    margin-top: var(--h-15);
+    margin-bottom: var(--h-15);
 
 }
 
 #about-authors-list{
-    padding: var(--pxw-03);
+    padding: var(--w-03);
     /* border: 1px black solid; */
     display: grid;
     grid-template-columns: repeat(3,1fr);

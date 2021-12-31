@@ -219,7 +219,7 @@ body{
     grid-area: A0;
     font-size: 5vh;
     color: var(--color-app-div-white);
-    text-shadow: var(--box-shadow-black)
+    text-shadow: var(--text-shadow-black)
 }
 
 /* --------------------------------------- 
