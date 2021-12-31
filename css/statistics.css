@@ -109,7 +109,7 @@ body{
     height: 88%;
     display: grid;
     grid-template-columns: auto 30% 25% 30% auto;
-    grid-template-rows: 8% 7% 13% 7% 50%;
+    grid-template-rows: 8% 7% 13% 7% 55%;
     grid-template-areas: 
             "M3 A0 A0 A0 M4"
             "M3 A1 A4 A6 M4"
