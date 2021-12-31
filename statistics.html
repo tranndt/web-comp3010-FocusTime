@@ -4,62 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Statistics</title>
     <!-- Import Scripts-->
     <script src="https://d3js.org/d3.v4.js"></script>     <!-- Load d3.js -->
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>     <!-- Color palette -->
     <script src = "https://d3js.org/d3-array.v3.min.js"></script>  
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <!--Our styles scripts-->
-    <link rel="stylesheet" href="css/stats.css">
-    <title>Statistics</title>
-    <style>
-    </style>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/statistics.css">
 </head>
 <body>
-    <div class="container-body" id='container-body'>
-
-        <!-- 1.MARGINS -->
-
-        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
-        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
-        <div class="margin" id="margin-left">Margin Left</div>
-        <div class="margin" id="margin-right">Margin Right</div>
-
+    <div id="toast">Some text some message..</div>
+    <div class="container-navbar" id='container-navbar'>
         <!-- 2.NAVBAR -->
-
-
+        <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
         <div class="navbar" id="navbar-left">
-            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
+            <div class="logoimg"><img src="assets/logoCropped.png" alt="logoimg"> </div>
         </div>
         <div class="navbar" id="navbar-center">
             <div class="app-container" id="container-main-navbar">
-                <div class="navitem-name">
-                </div>
+                <div class="navitem-name" id = "icon-name"></div>
 
                 <ul class="navitemlist">
                     <li>
                         <a href="upcoming-tasks.html">
-                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                            <div class="icon" id="upcoming-tasks-icon"><img src="assets/tasks.png" alt="My Progress"></div>
                         </a>
                     </li>
                     <li>
                         <a href="statistics.html">
-                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                            <div class="icon" id="stats-icon"><img src="assets/stats.png" alt="My Statistics"></div>
                         </a>
                     </li>
                     <li>
-                        <a class="active" href="index.html">
-                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        <a href="index.html">
+                            <div class="icon" id="timer-icon"><img src="assets/timer.png" alt="My Timer"></div>
                         </a>
                     </li>
                     <li>
                         <a href="music.html">
-                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                            <div class="icon" id="music-icon"><img src="assets/music.png" alt="My Music"></div>
                         </a>
                     </li>
                     <li>
                         <a href="settings.html">
-                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                            <div class="icon" id="settings-icon"><img src="assets/settings.png" alt="My Settings"></div>
                         </a>
                     </li>
                 </ul>
@@ -73,8 +63,16 @@
             </div>
         </div>
         <div class="navbar" id="navbar-right">Navbar Right</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+    </div>
 
-        <!-- 3.MAIN APP -->
+    <!-- 3.MAIN APP -->
+    <div class="container-body" id='container-body'>
+
+        <!-- 1.MARGINS -->
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
+
 
         <!-- A0 -->
 
@@ -88,12 +86,23 @@
         <!-- A1 -->
 
         <div class="app-div" id="app-a1">
-            <div class="app-container" id="container-summary">
+            <div class="app-container" id="container-a1">
                 <div class="header" id="header-summary">Week's Summary</div>
             </div>
         </div>
 
-        <!-- A7 -->
+        <!-- A1B -->
+
+        <div class="app-div" id="app-a4">
+            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
+                <div id="text-details">Viewing as</div>
+                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
+                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
+                <div id="container-border"></div>
+            </div>
+        </div>
+
+        <!-- A1C -->
 
         <div class="app-div" id="app-a7">                
             <div id="stats-summary">
@@ -108,7 +117,7 @@
             </div>  
         </div>
 
-        <!-- A6 -->
+        <!-- A3 -->
 
         <div class="app-div" id="app-a6">
             <div class="app-container" id="container-a6">
@@ -118,7 +127,7 @@
             </div>
         </div>
 
-        <!-- A3 -->
+        <!-- A4 -->
 
         <div class="app-div" id="app-a3">
             <div class="app-container" id="container-filters">
@@ -127,27 +136,19 @@
             </div>
         </div>
 
-        <!-- A4 -->
+        
 
-        <div class="app-div" id="app-a4">
-            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
-                <div id="text-details">Viewing as</div>
-                <button class="tasks btn active" id='task-btn' onclick="btnSelection('tasks')">Tasks</button>
-                <button class="projects btn" id='project-btn' onclick="btnSelection('projects')">Projects</button>
-            </div>
-            <div id="container-border"></div>
-        </div>
 
-        <!-- A8 -->
+        <!-- A5 -->
 
         <div class="app-div" id="app-a8">
-            <div class="app-container" id="container-buttons"> <!--"container-buttons"-->
+            <div class="app-container" id="container-a8"> <!--"container-buttons"-->
                 <div id="header-details">Details</div>
             </div>
         </div>
 
 
-        <!-- A5 -->
+        <!-- A6 -->
 
         <div class="app-div" id="app-a5">
             <div class="app-container" id="container-list">

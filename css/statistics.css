@@ -1,0 +1,481 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+:root {
+/* UNITS  */
+--h-150: 15vh; --h-100: 10vh; --h-50: 5.0vh;--h-40: 4.0vh;--h-30: 3.0vh;
+--h-25: 2.5vh;--h-20: 2.0vh; --h-18: 1.8vh; --h-15: 1.5vh; --h-12: 1.2vh; 
+--h-10: 1.0vh; --h-09: 0.9vh; --h-08: 0.8vh; --h-07: 0.7vh; --h-06: 0.6vh;
+--h-05: 0.5vh; --h-04: 0.4vh; --h-03: 0.3vh; --h-02: 0.2vh; --h-01: 0.1vh;
+
+--w-150: 15vw; --w-100: 10vw; --w-50: 5.0vw;--w-40: 4.0vw;--w-30: 3.0vw;
+--w-25: 2.5vw;--w-20: 2.0vw; --w-18: 1.8vw; --w-15: 1.5vw; --w-12: 1.2vw; 
+--w-10: 1.0vw; --w-09: 0.9vw; --w-08: 0.8vw; --w-07: 0.7vw; --w-06: 0.6vw;
+--w-05: 0.5vw; --w-04: 0.4vw; --w-03: 0.3vw; --w-02: 0.2vw; --w-01: 0.1vw;
+
+/* 50 SHADES OF GREY, SORT OF */
+--grey-250: rgb(25, 25, 25); /* REALLY DARK GREY*/
+--grey-200: rgb(45, 45, 45);
+--grey-150: rgb(90, 90, 90);
+--grey-100: rgb(128, 128, 128); /* NEUTRAL GREY*/
+--grey-75: rgb(165, 165, 165);
+--grey-50: rgb(200, 200, 200);
+--grey-25: rgb(225, 225, 225); /* REALLY LIGHT GREY*/
+/* WHITES */
+--white-100: rgba(255, 255, 255, 1); --white-90: rgba(255, 255, 255, 0.9);
+--white-80: rgba(255, 255, 255, 0.8);--white-70: rgba(255, 255, 255, 0.7);
+--white-60: rgba(255, 255, 255, 0.6);--white-50: rgba(255, 255, 255, 0.5);
+--white-40: rgba(255, 255, 255, 0.4);--white-30: rgba(255, 255, 255, 0.3);
+--white-20: rgba(255, 255, 255, 0.2);--white-10: rgba(255, 255, 255, 0.1);
+/* BLACKS  */
+--black-100: rgba(0, 0, 0, 1); --black-90: rgba(0, 0, 0, 0.9);
+--black-80: rgba(0, 0, 0, 0.8);--black-70: rgba(0, 0, 0, 0.7);
+--black-60: rgba(0, 0, 0, 0.6);--black-50: rgba(0, 0, 0, 0.5);
+--black-40: rgba(0, 0, 0, 0.4);--black-30: rgba(0, 0, 0, 0.3);
+--black-20: rgba(0, 0, 0, 0.2);--black-10: rgba(0, 0, 0, 0.1);
+/* ACCENT COLOR */
+--color-accent:rgb(150, 75, 150);
+--color-accent-dark:rgb(125, 60, 125);
+--color-accent-darker:rgb(100, 50, 100);
+
+/* ITEMS COLORS */
+--color-navbar:var(--black-10);
+--color-app-div-white:var(--white-90);     
+--color-item-border: var(--black-10);
+
+--color-button: var(--white-100);
+--color-button-hovered: var(--grey-25);
+--color-button-clicked: var(--grey-75);
+--color-button-active: var(--grey-200);
+
+--color-button-accent: var(--color-accent);
+--color-button-accent-hovered: var(--color-accent-dark);
+--color-button-accent-clicked: var(--color-accent-darker);
+
+/* TEXT COLORS */
+--color-text: var(--black-100);
+--color-text-greyed-out:var(--grey-75);
+--color-text-button: var(--grey-250);
+--color-text-button-active: var(--grey-25);
+
+/* FONT-SIZE */
+--font-size-10: var(--h-50);
+--font-size-6: var(--h-30);
+--font-size-5: var(--h-25);
+--font-size-4: var(--h-18);
+--font-size-3: var(--h-15);
+--font-size-2: var(--h-12);
+--font-size-1: var(--h-10);
+
+/* SHADOW */
+--box-shadow-black :black 0px 0px var(--h-02);
+--box-shadow-grey :var(--grey-100) 0px 0px var(--h-02);
+--box-shadow-white :white 0px 0px var(--h-02);
+
+--text-shadow-black :black 0px 0px var(--h-03);
+--text-shadow-grey :var(--grey-100) 0px 0px var(--h-03);
+--text-shadow-white :white 0px 0px var(--h-03);
+
+/* BORDERS */
+--border-divider-thin: solid var(--h-01) var(--color-item-border);
+--border-divider-regular: solid var(--h-02) var(--color-item-border);
+--border-divider-thick: solid var(--h-03) var(--color-item-border);
+
+/* BORDER CORNER RADIUS */
+--border-radius-10: var(--h-150);
+--border-radius-9: var(--h-100);
+--border-radius-5: var(--h-50);
+--border-radius-4: var(--h-25);
+--border-radius-3: var(--h-20);
+--border-radius-2: var(--h-15);
+--border-radius-1: var(--h-10);
+
+--border-radius-tab: var(--border-radius-4);
+}
+  
+
+/* ---------------------------------- */
+/* ---------- 0.BODY LAYOUT --------- */
+/* ---------------------------------- */
+
+body{
+    margin: 0px; 
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    background-size: cover;
+    opacity: 0.95;
+}
+
+.container-body{
+    height: 88%;
+    display: grid;
+    grid-template-columns: auto 30% 25% 30% auto;
+    grid-template-rows: 8% 7% 13% 7% 50%;
+    grid-template-areas: 
+            "M3 A0 A0 A0 M4"
+            "M3 A1 A4 A6 M4"
+            "M3 A7 A7 A3 M4"
+            "M3 A2 A2 A8 M4"
+            "M3 A2 A2 A5 M4"
+}
+
+/* ---------------------------------- */
+/* --------- 1.MARGIN LAYOUT -------- */
+/* ---------------------------------- */
+
+#margin-left{ grid-area: M3;}
+#margin-right{ grid-area: M4;}
+.margin{font-size: 0;} /* Comment out to remove the texts */
+
+
+/* ---------------------------------- */
+/* ---------- 3. APP LAYOUT --------- */
+/* ---------------------------------- */
+
+
+#app-a1{
+    margin-right: 0px;
+}
+
+#app-a4{
+    margin-left: 0px;
+}
+
+
+/* ---------- A0 ---------- */
+
+#app-a0{
+    grid-area: A0;
+    font-size: 5vh;
+    color: var(--white-100);
+    text-shadow: var(--text-shadow-black);
+}
+
+/* ---------- A1 ---------- */
+
+#app-a1{
+    grid-area: A1;
+    background-color: var(--color-app-div-white);
+    border-top-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-divider-thin);
+    display: grid;
+}
+
+#container-a1{
+    display: grid;
+    align-items: center;
+    align-content: center;
+    /* margin-top: 0.5vh; */
+}
+
+/* ---------- A4 ---------- */
+
+#app-a4{
+    grid-area: A4;
+    background-color: var(--color-app-div-white);
+    border-top-right-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-divider-thin);
+    font-size: var(--font-size-4);
+    display: grid;
+
+}
+
+
+#container-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr;
+    grid-template-areas: "HD BT BP";
+    padding-left: var(--w-05);
+    padding-right: var(--w-05);
+    align-items: center;
+    align-self: center;
+}
+
+#text-details{
+    display: grid;
+    grid-area: HD;
+    text-align: center;
+    justify-self: right;
+    padding-right: var(--w-02);
+    color: var(--color-text-greyed-out);
+}
+
+#task-btn{
+    display: grid;
+
+    grid-area: BT;
+    outline: none;
+    padding: var(--h-10) var(--w-10);
+    border: none;
+    border-radius: var(--border-radius-10);
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    box-shadow: var(--box-shadow-grey);
+    margin-right: var(--w-02);
+    margin-left: var(--w-02);
+
+}
+
+#project-btn{
+    display: grid;
+
+    grid-area: BP;
+    border: none;
+    border-radius: var(--border-radius-10);
+
+    padding: var(--h-10) var(--w-10);
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    box-shadow: var(--box-shadow-grey);
+
+}
+
+.btn:hover ,.filter-btn:hover{
+    background-color: var(--color-button-hovered);
+}
+
+.btn {
+    background-color: var(--color-button);
+    color: var(--color-text-button);
+    /* box-shadow: 0px 0px 2px rgba(31, 31, 31, 0.4); */
+    font-size: var(--font-size-4);
+
+}
+
+.btn.active {
+    background-color: var(--color-button-accent);
+    color: var(--white-100);
+    text-shadow: var(--box-shadow);
+
+}
+
+/* ---------- A7 ---------- */
+
+#app-a7{
+    grid-area: A7;
+    background-color: var(--color-app-div-white);
+}
+
+#stats-summary{
+    padding-left: var(--w-30) ; 
+    padding-right: var(--w-30) ; 
+    padding-top: var(--h-20);
+    align-content:center;
+    justify-content: center;
+    color: var(--color-accent);
+    font-size: var(--font-size-4);
+}
+
+/* ---------- A2 ---------- */
+
+#app-a2{
+    grid-area: A2;
+    background-color: var(--color-app-div-white);
+    border-bottom-right-radius: var(--border-radius-tab) ;
+    border-bottom-left-radius: var(--border-radius-tab) ;
+    overflow: none;
+
+}
+
+/* ---------- A6 ---------- */
+
+#app-a6{
+    grid-area: A6;
+    background-color: var(--color-app-div-white);
+    border-top-right-radius: var(--border-radius-tab)  ;
+    border-top-left-radius: var(--border-radius-tab)  ;
+    border-bottom: var(--border-divider-thin);
+    align-items: center;
+    display: grid;
+}
+
+#container-a6{
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-template-areas: "HF1 FO1 BC1";
+
+}
+
+#header-filters{
+    grid-area: HF1;
+    display: block;
+    align-self: center;
+}
+
+#text-filter-on{
+    display: block;
+    grid-area: FO1;
+    margin-left: var(--w-05);
+    margin-right: var(--h-05);
+    color: var(--white-100);
+    background-color: red;
+    align-self: center;
+    font-size: var(--font-size-4);
+    border: var(--border-divider-thin);
+    height: fit-content;
+    width: fit-content;
+    padding: 0px var(--w-04) 0px var(--w-04);
+    border-radius: var(--border-radius-4);
+}
+
+#button-clear-filter{
+    grid-area: BC1;
+    border-radius: 50px;
+    background-color: var(--white-100);
+    color: rgb(235, 96, 92);
+    padding: var(--h-10) var(--w-15);
+    justify-self: right;
+    margin-top: var(--h-04);
+    margin-right: 10px;
+    font-size: var(--font-size-4);
+    display: block;
+    align-self: center;
+}
+
+#button-clear-filter:hover{
+    background-color: rgb(255, 95, 67);
+    color: rgb(252, 252, 252);
+}
+
+/* ---------- A3 ---------- */
+
+#app-a3{
+    grid-area: A3;
+    background-color: var(--color-app-div-white);
+    border-bottom-right-radius: var(--border-radius-tab) ;
+    border-bottom-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-divider-thin);
+    margin-bottom: var(--h-10);
+    overflow-y:auto;
+}
+
+
+#container-filters{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows:  1fr 1fr;
+    grid-template-areas: "F1 F1"
+                         "F1 F1";
+    padding: var(--h-05);
+    gap: var(--h-05) var(--w-10);
+}
+
+#list-filters{
+    grid-area: F1;
+
+    /* cursor: pointer; */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fill, minmax(var(--h-100), 1fr) );
+    grid-template-rows: 1fr 1fr;
+    gap: var(--h-05) var(--w-02);
+    /* border-left: rgb(218, 218, 218) solid 0.1px; */
+    /* align-items: flex-start; */
+}
+
+.filter-btn{
+    border: none;
+    outline: none;
+    align-self: center;
+    padding: var(--h-08) var(--w-03);
+    background-color: #ffffff;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    box-shadow: var(--box-shadow-grey);
+
+    /* font-size: 9px; */
+
+}
+
+/* ---------- A8 ---------- */
+
+#app-a8{
+    display: grid;
+    grid-area: A8;
+    background-color: var(--color-app-div-white);
+    border-top-right-radius: var(--border-radius-tab) ;
+    border-top-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-divider-thin);
+}
+
+#container-a8{
+    display: grid;
+    align-self: center;
+
+}
+
+#header-details{
+    /* padding: var(--w-05); */
+    display: block;
+    font-size: var(--font-size-6);
+    padding-left: 1vw;
+
+}
+
+/* ----- A5 ------ */
+
+#app-a5{
+    grid-area: A5;
+    background-color: var(--color-app-div-white);
+    border-bottom-right-radius: var(--border-radius-tab) ;
+    border-bottom-left-radius: var(--border-radius-tab) ;
+    border-bottom: var(--border-divider-thin);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+
+#container-list{
+    margin-right:var(--w-05);
+    margin-left: var(--w-05);
+
+}
+
+
+/* ---------------------------------- */
+/* ----- 4.STATS-BUBBLES STYLES ----- */
+/* ---------------------------------- */
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.unhighlight {
+    opacity: 0.05;
+}
+
+.highlight {
+    opacity: 1;
+}
+
+.container {
+    margin-top: var(--h-20);
+    overflow: hidden;
+}
+
+.node:hover{
+/* stroke-width: 7px !important; */
+    filter: drop-shadow(0px 10px 10px rgba(31, 31, 31, 0.4));
+    opacity: 1 !important;
+    cursor: pointer;
+}
+
+div.tooltip{
+    position: absolute;
+    text-align: center;
+    padding: 5px;
+    font: 12px sans-serif;		
+    background-color: white;
+    border: 1px #b7b7b7 solid;	
+    pointer-events: none;	
+    width: 100px;
+}
