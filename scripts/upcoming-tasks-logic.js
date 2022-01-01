@@ -101,8 +101,7 @@ function load_projects_css(){
             'color': "white"
         });
         addCssRule(`.button-${hyphenated(d)}:hover`, {
-            'background-color': color(d),
-            'color': "white"
+            'filter':'brightness(85%)'
         });
     })
 
@@ -126,14 +125,15 @@ function load_completed_items(completed){
             date_str = completed ? "Date Completed" : "Due Date";
             // add_task_button = completed ? '<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>' : ''
 
+            //  ${!completed ? `<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>`:``}
             html += 
-            `<div class="project-item">
-                <div class="accordion project-item-header button-${hyphenated(project)}">
+            `<details class="project-item">
+                <summary class="accordion project-item-header button-${hyphenated(project)}">
                     <div class="project-item-header-ele project-name">${project}</div>
                     <div class="project-item-header-ele-num-tasks">${NUM_TASKS(project,completed)}</div>
-                </div>
-                ${!completed ? `<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>`:``}
-                <div class="project-item-table ${hyphenated(project)}" style="max-height: 250px;">
+                </summary>
+
+                <div class="project-item-table ${hyphenated(project)}">
                     <table class="project-item-table-content">
                         <tbody>
                             <tr class="th-row">
@@ -145,8 +145,13 @@ function load_completed_items(completed){
                         </tbody>
                     </table>
                 </div>
-            </div>`
+            </details>`
         }
+        $(`.project-item-header.button-${hyphenated(project)}`).click(function() {   
+            // document.querySelector("#app-a2").scrollTo(0,this.offsetTop)
+            // console.log(document.querySelector("#app-a2").scrollHeight, this.offsetTop)
+            // console.log(this.scrollTop, this.offsetHeight, this.scrollHeight)
+        })  
     })
     // console.log(html)
 
@@ -200,8 +205,6 @@ function load_search_listener(){
     searchInput.addEventListener('keyup', function(event) {
         const q = event.target.value.toLowerCase();
         display_search_result(q);
-        console.log(q)
-
     })
 
 }
@@ -274,10 +277,23 @@ function add_new_task(table_id, task_name_item, task_date_item){
 
 }
 
+function load_accordion_listener(){
+    Array.from(document.querySelectorAll('.accordion-container > details')).forEach(accordion_item => {
+        accordion_item.open = true
+    })
+
+    Array.from(document.querySelectorAll('.project-item')).forEach(accordion_item => {
+        accordion_item.open = true
+    })
+    // console.log(document.querySelector(`#container-inprogress > details`).open)
+    // document.querySelector(`#container-inprogress > details`).open = true;
+}
+
 
 load_projects_css();
 load_completed_items(false)
 load_completed_items(true)
 load_search_listener()
+load_accordion_listener()
 
 // display_search_result("12")

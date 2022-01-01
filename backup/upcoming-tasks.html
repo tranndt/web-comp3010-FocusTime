@@ -11,51 +11,59 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <title>My Progress</title>
     <!--Our styles scripts-->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/styles-progress-3.css">
+    <link rel="stylesheet" href="css/styles-progress.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 
     </style>
 </head>
 <body>
-    <div id="toast">Some text some message..</div>
-    <div id="dialogBox">
-        <div class="dbox-header">
-            <button id="cancel-btn">X</button>
-        </div>
-        <div id="dbox-msg">Some text</div>
-        <input id="dbox-input" type="text">
-        <div class = "dbox-buttons">
-            <button id="confirm-btn">Confirm</button>
-            <button id="skip-btn">Cancel</button>
-        </div>
-    </div>
+    <div class="container-body" id='container-body'>
 
-    <div class="container-navbar" id='container-navbar'>
-        <!-- 2.NAVBAR -->
+        <!-- 1.MARGINS -->
+
         <div class="margin navbar" id="margin-navbar-left">Navbar Margin Left</div>
+        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
+        <div class="margin app" id="margin-left">Margin Left</div>
+        <div class="margin app" id="margin-right">Margin Right</div>
+
+        <!-- 2.NAVBAR -->
+
+        <!-- Remember to change "tab-active" in div.activebar to the current tab> -->
+
         <div class="navbar" id="navbar-left">
-            <div class="logoimg"><a href="index.html"><img src="assets/logoCropped.png" alt="logoimg"></a></div>
+            <div class="logoimg"><img src="assets/logo.png" alt="logoimg" style="width:60%"> </div>
         </div>
         <div class="navbar" id="navbar-center">
             <div class="app-container" id="container-main-navbar">
-                <div class="navitem-name" id = "icon-name"></div>
+                <div class="navitem-name">
+                </div>
 
                 <ul class="navitemlist">
                     <li>
-                        <div class="icon" id="upcoming-tasks-icon"><a href="upcoming-tasks.html"><img src="assets/tasks.png" alt="My Progress"></a></div>
+                        <a href="upcoming-tasks.html">
+                            <div class="icon"><img src="assets/tasks.png" alt="Upcoming Tasks" width="48" height="48"></div>
+                        </a>
                     </li>
                     <li>
-                        <div class="icon" id="stats-icon"><a href="statistics.html"><img src="assets/stats.png" alt="My Statistics"></a></div>
+                        <a href="statistics.html">
+                            <div class="icon"><img src="assets/stats.png" alt="Statistics" width="48" height="48"></div>
+                        </a>
                     </li>
                     <li>
-                        <div class="icon" id="timer-icon"><a href="index.html"><img src="assets/timer.png" alt="My Timer"></a></div>
+                        <a class="active" href="index.html">
+                            <div class="icon"><img src="assets/timer.png" alt="Timer Page" width="48" height="48"></div>
+                        </a>
                     </li>
                     <li>
-                        <div class="icon" id="music-icon"><a href="music.html"><img src="assets/music.png" alt="My Music"></a></div>
+                        <a href="music.html">
+                            <div class="icon"><img src="assets/music.png" alt="Music" width="48" height="48"></div>
+                        </a>
                     </li>
-                    <li> 
-                        <div class="icon" id="settings-icon"><a href="settings.html"><img src="assets/settings.png" alt="My Settings"></a></div>
+                    <li>
+                        <a href="settings.html">
+                            <div class="icon"><img src="assets/settings.png" alt="Settings" width="48" height="48"></div>
+                        </a>
                     </li>
                 </ul>
                 <div class="activebar">
@@ -68,15 +76,6 @@
             </div>
         </div>
         <div class="navbar" id="navbar-right">Navbar Right</div>
-        <div class="margin navbar" id="margin-navbar-right">Navbar Margin Right</div>
-    </div>
-
-    <div class="container-body" id='container-body'>
-
-        <!-- 1.MARGINS -->
-
-        <div class="margin app" id="margin-left">Margin Left</div>
-        <div class="margin app" id="margin-right">Margin Right</div>
 
         <!-- 3.MAIN APP -->
 
@@ -107,17 +106,13 @@
         <div class="app-div" id="app-a2">
             <div class="app-container" id="container-a2">
                 <div id="button-add-project">Add New Project</div>
-                <div class = "accordion-container" id="container-inprogress">
-                    <details>
-                        <summary class="header" id ="header-inprogress">In Progress</summary>
-                        <div id="list-inprogress"></div>
-                    </details>
+                <div id="container-inprogress">
+                    <div class="header" id ="header-inprogress">In Progress</div>
+                    <div id="list-inprogress"></div>
                 </div>
-                <div class = "accordion-container" id="container-completed">
-                    <details>
-                        <summary class="header" id = "header-completed">Completed</summary>
-                        <div id="list-completed"></div>
-                    </details>
+                <div id="container-completed">
+                    <div class="header" id = "header-completed">Completed</div>
+                    <div id="list-completed"></div>
                 </div>                              
             </div>
         </div>

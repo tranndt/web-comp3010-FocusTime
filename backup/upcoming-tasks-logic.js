@@ -200,6 +200,8 @@ function load_search_listener(){
     searchInput.addEventListener('keyup', function(event) {
         const q = event.target.value.toLowerCase();
         display_search_result(q);
+        console.log(q)
+
     })
 
 }

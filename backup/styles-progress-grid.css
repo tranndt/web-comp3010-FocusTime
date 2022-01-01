@@ -41,6 +41,7 @@
     --text-shadow:black 0px 0px var(--pxh-04);
     --accent-color:#984ea3;
     --accent-color-transparent:#64356d;
+    --border-radius-tab:2vh;
     --border-radius-large-item:1.5vh;
     --border-radius-small-item:1vh;
     --border-radius-button: 3vh;
@@ -183,6 +184,7 @@ body{
 #margin-right{ grid-area: M4;}
 .margin{font-size: 0;} /* Comment out to remove the texts */
 
+
 /* ---------------------------------- */
 /* ---------- 3. APP LAYOUT --------- */
 /* ---------------------------------- */
@@ -233,10 +235,7 @@ body{
     align-self: center;
     width: fit-content;
     border-radius: 50px;
-    background-color: var(--color-button-accent);
-    color: var(--white-100);
-    border: none;
-    box-shadow: var(--box-shadow-grey);
+    background-color: rgb(212, 221, 83);
     padding: 8px 12px;
     min-height: 2rem;
     margin-right: 0;
@@ -313,29 +312,21 @@ body{
 }
 
 .content-table thead tr {
-    /* background-color: rgb(212, 221, 83); */
-    color: var(--color-text-greyed-out);
+    background-color: rgb(212, 221, 83);
+    color: black;
     text-align: left;
     font-weight: bold;
-    /* border-radius: var(--border-radius-tab); */
-    /* border-top-right-radius: var(--border-radius-tab); */
 }
-
 
 .content-table th,
 .content-table td {
     font-weight: normal; 
     padding: 10px;
-    border: 0;
-    /* border: black solid; */
-    /* border-radius: var(--border-radius-tab); */
 }
 
 .content-table tbody tr {
-    /* padding: 10px 0 10px 0; */
-    /* border-bottom: 1px solid #dddddd; */
-    border-bottom: var(--border-divider-thick);
-
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid #dddddd;
 }
 
 .content-table tbody tr:nth-of-type(even), .content-table tbody tr:last-of-type  {
@@ -346,32 +337,27 @@ body{
 .accordion-item{
     padding: 10px;
     margin: 20px;
+    border:rgb(60, 60, 60) solid 1px;
+    border-radius: 20px;
     /* align-items: stretch; */
     align-content: center;
-    display: grid;
 }
 
-/* .accordion-item-header{
+.accordion-item-header{
     width: 100%;
     padding-bottom: 10px;
     cursor: pointer;
-    border:var(--border-divider-thin);
-    border-radius: 20px;
-    display: grid;
-} */
+}
 
 .accordion-item-body-content {
     width: 100%;
-    /* border-bottom: 2px solid rgb(212, 221, 83); */
-    border:var(--border-divider-thin);
-    border-radius: var(--border-radius-tab);
+    border-bottom: 2px solid rgb(212, 221, 83);
 }
 
 .accordion-item-body {
     margin: 0;
     max-height: 0;
     overflow-y: auto;
-    overflow-x: hidden;
     transition: max-height 0.2s ease-out;
 }
 
@@ -384,21 +370,16 @@ div.accordion-item-header {
     padding: 0.25rem 0.25rem 0.25rem 0.25rem;
     min-height: 1rem;
     font-weight: bold; 
-    display: grid;
+    display: flex;
     align-items: center;
     position: relative;
     cursor: pointer;
-    border:var(--border-divider-thin);
-    border-radius: var(--border-radius-tab);
-    width: 50%;
 }
   
-/* tr.accordion-item-header {
+tr.accordion-item-header {
   cursor: pointer;
   width: 100%;
-} */
-
-
+}
 
 .accordion-item-header:hover,  .taskHeader:hover {
     background: lightgray;
@@ -444,8 +425,6 @@ div.accordion-item-header.active::after {
     border-bottom: 1px solid black;
     font-weight: normal;
 }
-
-
 
 .taskProgress-container {
     width: 30%;
