@@ -144,7 +144,35 @@ function load_completed_items(completed){
                             ${html_i}
                         </tbody>
                     </table>
+                    ${completed ? `` : 
+                    `<details>
+                    <summary class="project-item-add-tasks">Add New Task</summary>
+                    <table class="project-item-table-content">
+                        <tbody>
+                            <tr class="th-row">
+                                <th class="th-task">Task</th>
+                                <th class="th-progress">Progress (%)</th>
+                                <th class="th-date">${date_str}</th>
+                            </tr>
+                            <tr class="accordion-item-body newItem-container-details">
+                                <td class="td-task input">
+                                    <input type="text" class="taskName" id="taskName1" name="taskName" size="20" placeholder="New Task Name">
+                                </td> 
+                                <td class="td-progress">
+                                    <input type="number" class="taskProgress" id="taskProgress1" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                </div>
+                                </td>
+                                <td class="td-date">
+                                    <input type="date" class="taskDate" id="taskDate1" name="taskDate" value="2021-12-31" onkeydown="return false">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </details>
+                    `}
                 </div>
+
+
             </details>`
         }
         $(`.project-item-header.button-${hyphenated(project)}`).click(function() {   
