@@ -46,7 +46,9 @@
         --grey-100: rgb(128, 128, 128); /* NEUTRAL GREY*/
         --grey-75: rgb(165, 165, 165);
         --grey-50: rgb(200, 200, 200);
-        --grey-25: rgb(225, 225, 225); /* REALLY LIGHT GREY*/
+        --grey-25: rgb(225, 225, 225); 
+        --grey-10: rgb(245, 245, 245); /* REALLY LIGHT GREY*/
+
         /* WHITES */
         --white-100: rgba(255, 255, 255, 1); --white-90: rgba(255, 255, 255, 0.9);
         --white-80: rgba(255, 255, 255, 0.8);--white-70: rgba(255, 255, 255, 0.7);
@@ -106,6 +108,10 @@
         --border-divider-thin: solid var(--h-01) var(--color-item-border);
         --border-divider-regular: solid var(--h-02) var(--color-item-border);
         --border-divider-thick: solid var(--h-03) var(--color-item-border);
+        --border-divider-thin-dark: solid var(--h-01) var(--grey-50);
+        --border-divider-regular-dark: solid var(--h-02) var(--grey-50);
+
+
     
         /* BORDER CORNER RADIUS */
         --border-radius-10: var(--h-150);
@@ -204,10 +210,6 @@ body{
 
 }
 
-/* #button-add-project{
-    grid-area: AP;
-    align-self: center;
-} */
 
 .container-search{
     display: grid;
@@ -278,6 +280,7 @@ body{
     margin-top: var(--h-20);
     margin-left: var(--w-20);
     margin-right: auto;
+    margin-bottom: var(--h-40);
     font-size: var(--font-size-4);
     font-weight: bold;
     font-family: inherit;
@@ -291,7 +294,7 @@ body{
 /* ---- ACCORDION ---- */
 .accordion{
     padding:10px;
-    text-shadow: black 0px 0px 2px;
+    /* text-shadow: black 0px 0px 2px; */
 
     /* border: black solid 1px; */
 }
@@ -319,7 +322,7 @@ body{
     grid-template-columns: auto var(--w-30);
     width: 35%;
     opacity: 0.95;
-    margin-top: var(--h-10);
+    margin-top: var(--h-30);
     margin-bottom: var(--h-10);
 
 }
@@ -328,6 +331,7 @@ body{
 
     font-size: var(--font-size-4);
     align-content: center;
+    padding-left: var(--w-05)
 
 
 }
@@ -400,7 +404,6 @@ input.taskName, input.taskProgress, input.taskDate{
 
 
 
-
 /* ----- PROJECT ITEM TABLE ----- */
 
 .project-item-table-content tbody tr{
@@ -417,15 +420,38 @@ input.taskName, input.taskProgress, input.taskDate{
     border-bottom: none;
 }
 
-.project-item-table-content tbody tr:hover{
+.project-item-table-content tbody .newItem-container-details{
+    cursor: default;
     background-color: var(--grey-25);
+
+}
+
+/* .newItem-container-details{ 
+    cursor: default;
+} */
+
+.project-item-table-content tbody tr:hover:not(.th-row, .task-item.clicked, .newItem-container-details){
+    background-color: var(--grey-10);
 }
 
 .project-item-table-content tbody tr th{
-    color: var(--color-text-greyed-out);    
+    /* color: var(--color-text-greyed-out);     */
+    color:white;
+
     font-size: var(--font-size-4);
     cursor:auto;
 }
+
+.th-row{
+    /* background-color: var(--grey-25); */
+    cursor: default;
+    border-bottom: solid var(--h-01) black ;
+}
+
+
+
+
+
 
 .td-task,.td-progress,.td-date{
     padding-top: var(--h-10);
@@ -460,7 +486,7 @@ input.taskName, input.taskProgress, input.taskDate{
 
 
 .project-item-table-content{
-    box-shadow: var(--box-shadow-grey);
+    box-shadow: var(--box-shadow-black);
     border-radius: 15px;
     display: flex;
     width: 100%;

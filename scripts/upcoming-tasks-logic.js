@@ -96,12 +96,23 @@ function addCssRule(rule, css) {
 
 function load_projects_css(){
     PROJECT_LABELS.forEach( d=> {
-        addCssRule(`.button-${hyphenated(d)}`, {
+        addCssRule(`.button-${hyphenated(d)} ,.button-${hyphenated(d)}.clicked:hover`, {
+            'color': "white",
             'background-color': color(d),
-            'color': "white"
+            'border':`var(--border-divider-regular-dark)`,
+            'font-weight': 'bold',
+            // 'border-top-left-radius':'var(--border-radius-tab)',
+            // 'border-top-right-radius':'var(--border-radius-tab)',
+            // 'border-bottom-left-radius':0,
+            // 'border-bottom-right-radius':0,
+
         });
-        addCssRule(`.button-${hyphenated(d)}:hover`, {
-            'filter':'brightness(85%)'
+
+        addCssRule(`.button-${hyphenated(d)}.clicked`, {
+            // 'filter':'brightness(85%)'
+            'color': color(d),
+            'background-color': "white",
+            'border-radius':'var(--border-radius-tab)'
         });
     })
 
@@ -128,7 +139,7 @@ function load_completed_items(completed){
             //  ${!completed ? `<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>`:``}
             html += 
             `<details class="project-item">
-                <summary class="accordion project-item-header button-${hyphenated(project)}">
+                <summary class="accordion project-item-header button-${hyphenated(project)}" onclick="project_item_clicked('${project}')">
                     <div class="project-item-header-ele project-name">${project}</div>
                     <div class="project-item-header-ele-num-tasks">${NUM_TASKS(project,completed)}</div>
                 </summary>
@@ -136,7 +147,7 @@ function load_completed_items(completed){
                 <div class="project-item-table ${hyphenated(project)}">
                     <table class="project-item-table-content">
                         <tbody>
-                            <tr class="th-row">
+                            <tr class="th-row" style="background-color: ${color(project)}">
                                 <th class="th-task">Task</th>
                                 <th class="th-progress">Progress (%)</th>
                                 <th class="th-date">${date_str}</th>
@@ -146,28 +157,29 @@ function load_completed_items(completed){
                     </table>
                     ${completed ? `` : 
                     `<details>
-                    <summary class="project-item-add-tasks">Add New Task</summary>
+                    <summary class="project-item-add-tasks" id="project-item-add-tasks-${hyphenated(project)}">+ Add New Task</summary>
                     <table class="project-item-table-content">
                         <tbody>
-                            <tr class="th-row">
-                                <th class="th-task">Task</th>
-                                <th class="th-progress">Progress (%)</th>
-                                <th class="th-date">${date_str}</th>
+                            <tr class="th-row input" style="background-color: ${color(project)}">
+                                <th class="th-task input">Task</th>
+                                <th class="th-progress input">Progress (%)</th>
+                                <th class="th-date input">${date_str}</th>
                             </tr>
                             <tr class="accordion-item-body newItem-container-details">
                                 <td class="td-task input">
-                                    <input type="text" class="taskName" id="taskName1" name="taskName" size="20" placeholder="New Task Name">
+                                    <input type="text" class="taskName" id="input-task-${hyphenated(project)}" name="taskName" size="20" placeholder="New Task Name">
                                 </td> 
                                 <td class="td-progress">
-                                    <input type="number" class="taskProgress" id="taskProgress1" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                    <input type="number" class="taskProgress" id="input-progress-${hyphenated(project)}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
                                 </div>
                                 </td>
                                 <td class="td-date">
-                                    <input type="date" class="taskDate" id="taskDate1" name="taskDate" value="2021-12-31" onkeydown="return false">
+                                    <input type="date" class="taskDate" id="input-date-${hyphenated(project)}" name="taskDate" value="2022-01-10" onkeydown="return false">
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <button class="doneButton" onclick="createNewTask('${project}')">Done</button>
                     </details>
                     `}
                 </div>
@@ -181,11 +193,61 @@ function load_completed_items(completed){
             // console.log(this.scrollTop, this.offsetHeight, this.scrollHeight)
         })  
     })
-    // console.log(html)
 
     list_id = completed ? "list-completed" : "list-inprogress"
     table = document.getElementById(list_id)
     table.innerHTML = html;
+}
+
+function createNewTask(project){
+    d = {taskid: `${new Date().getTime()}`,    
+        task: document.querySelector(`#input-task-${hyphenated(project)}`).value,
+        project: project,
+        progress:document.querySelector(`#input-progress-${hyphenated(project)}`).value,
+        date: document.querySelector(`#input-date-${hyphenated(project)}`).value,
+        duration: '0', breaks: 0,
+        note: 'Empty'
+    }
+    error = data_error(d);
+    console.log(error)
+    if (error) {
+        alert(error)
+    }
+    else{
+        DATA.push(d)
+        clear_new_task(project)
+        span = `<tr class="task-item" id="taskid-${d.taskid}" onclick="task_clicked('${d.taskid}')">
+                    <td class="td-task">${d.task}</td>
+                    <td class="td-progress">${d.progress}</td>
+                    <td class="date td-date">${d.date}</td>
+                </tr>`
+        table = document.querySelector(`.project-item-table.${hyphenated(project)} > .project-item-table-content > tbody`);
+        table.innerHTML += span
+    }
+
+}
+
+function data_error(d){
+    function task_name_error(task){
+        if (task.length <= 0 | task.length > 30)
+            return 'Task name must not be empty or no more than 30 characters. Please try again.'
+        else return false
+    }
+    function progress_error(progress){
+        if (progress != "" & progress >= 0 & progress <=100)
+            return false
+        else return 'Progress should be a number between 0-100. Please try again.'
+    }
+    if (task_name_error(d.task)) return task_name_error(d.task)
+    else if (progress_error(d.progress)) return progress_error(d.progress)
+    else return false;
+}
+
+function clear_new_task(project){
+    document.querySelector(`#input-task-${hyphenated(project)}`).value = null
+    document.querySelector(`#input-progress-${hyphenated(project)}`).value = null
+    document.querySelector(`#input-date-${hyphenated(project)}`).value = '2022-01-10'
+    document.querySelector(`.project-item-table.${hyphenated(project)} > details`).open = false
 }
 
 function task_clicked(taskid){
@@ -201,6 +263,15 @@ function task_clicked(taskid){
 
     // Display its information on Details column
     display_task(taskid)
+}
+
+function project_item_clicked(project){
+    project_item = document.querySelector(`.project-item-header.button-${hyphenated(project)}`)
+    console.log(project_item.className.includes('clicked'))
+    if (project_item.className.includes('clicked'))
+    project_item.className = project_item.className.replace(' clicked','')
+    else
+        project_item.className += ' clicked'
 }
 
 function display_task(taskid){
@@ -241,7 +312,7 @@ function num_tasks_to_display(project_item){
     num_tasks = 0;
     if (project_item.style.display == "grid"){
         Array.from(project_item.querySelectorAll(".task-item")).forEach( task_item =>{
-            num_tasks = (task_item.style.display == "flex") ? num_tasks + 1 : num_tasks;
+            num_tasks = (task_item.style.display == "grid") ? num_tasks + 1 : num_tasks;
         })
     }
     return num_tasks;
@@ -254,7 +325,7 @@ function display_search_result(q){
         if (project_item.querySelector(".project-item-header-ele.project-name").textContent.toLowerCase().includes(q.toLowerCase())){
             project_item.style.display = "grid";
             let rows = project_item.querySelectorAll(".task-item");
-            rows.forEach((row) => {row.style.display = "flex"})
+            rows.forEach((row) => {row.style.display = "grid"})
         }
         else {
             str = ''; Array.from(project_item.querySelectorAll(".task-item")).forEach(d => str += d.querySelector("td").textContent + " ")
@@ -264,7 +335,7 @@ function display_search_result(q){
                         console.log(row.querySelector("td").textContent,row.querySelector("td").textContent.toLowerCase().includes(q.toLowerCase()),row.style.display)
                     if (row.querySelector("td").textContent.toLowerCase().includes(q.toLowerCase())){
                         project_item.style.display = "grid";
-                        row.style.display = "flex"
+                        row.style.display = "grid"
                     }
                     else row.style.display = "none";
                 })
@@ -277,7 +348,7 @@ function display_search_result(q){
         if (project_item.style.display == "grid"){
             num_tasks = 0;
             Array.from(project_item.querySelectorAll(".task-item")).forEach( task_item =>{
-                num_tasks = (task_item.style.display == "flex") ? num_tasks + 1 : num_tasks;
+                num_tasks = (task_item.style.display == "grid") ? num_tasks + 1 : num_tasks;
             })
             project_item.querySelector(".project-item-header-ele-num-tasks").textContent = num_tasks
         }
