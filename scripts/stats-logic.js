@@ -107,7 +107,7 @@ function reduced(DATA){
 
 var REDUCED_DATA = reduced(DATA)
 var PROJECT_LABELS = get_col(REDUCED_DATA,0)
-var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet1);
+var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet2);
 // var NUM_TASKS = {}; REDUCED_DATA.forEach(d => NUM_TASKS[d[0]] = d[1].num_tasks)
 function NUM_TASKS(project,completed){
     num_tasks = 0;
@@ -361,7 +361,7 @@ var size = d3.scaleLinear()
 
 var color = d3.scaleOrdinal()
     .domain(get_col(data_rollup,0))
-    .range(d3.schemeSet1);
+    .range(d3.schemeSet2);
 
 var node = svg.append("g")
     .attr("class","statscontainer projects hidden")
@@ -464,7 +464,7 @@ function displayTaskList(project){
 
     var color = d3.scaleOrdinal()
         .domain(get_col(data_rollup,0))
-        .range(d3.schemeSet1);
+        .range(d3.schemeSet2);
 
     html = ""
     for (const i in DATA.slice(0,DATA.length)){
@@ -486,7 +486,7 @@ function displayProjectList(project){
 
     var color = d3.scaleOrdinal()
         .domain(get_col(data_rollup,0))
-        .range(d3.schemeSet1);
+        .range(d3.schemeSet2);
 
     listcontainer = document.getElementById("container-list")
 
@@ -518,7 +518,7 @@ function createProjectFilterButtons(){
 
     var color = d3.scaleOrdinal()
         .domain(get_col(data_rollup,0))
-        .range(d3.schemeSet1);
+        .range(d3.schemeSet2);
 
     btnContainer = document.getElementById("list-filters")
     html = ""

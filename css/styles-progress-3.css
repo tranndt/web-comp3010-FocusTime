@@ -286,6 +286,28 @@ body{
     align-self: center;
 }
 
+
+.container-button-add-task{
+    /* align-self: right; */
+    /* align-content: flex-end; */
+    justify-self: right;
+    display: grid;
+    grid-template-columns: 60% 20% 20%;
+    grid-template-areas: ". CCT CRT";
+    margin-top: var(--h-10);
+    margin-right: var(--w-10);
+    gap: var(--w-05);
+
+}
+.button.create-task{
+    grid-area: CRT;
+    text-decoration: underline;
+}
+
+.button.cancel-task{
+    grid-area: CCT;
+}
+
 /* ====== PROJECT ITEM  ====== */
 
 .project-item{

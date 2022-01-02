@@ -56,8 +56,14 @@ function reduced(DATA){
 }
 
 var REDUCED_DATA = reduced(DATA)
+console.log(REDUCED_DATA)
 var PROJECT_LABELS = get_col(REDUCED_DATA,0)
-var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet1);
+var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet2);
+
+function update_color_scheme(){
+    PROJECT_LABELS = get_col(REDUCED_DATA,0)
+    color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet2);
+}
 // var NUM_TASKS = {}; REDUCED_DATA.forEach(d => NUM_TASKS[d[0]] = d[1].num_tasks)
 function NUM_TASKS(project,completed){
     num_tasks = 0;
@@ -95,19 +101,15 @@ function addCssRule(rule, css) {
 }
 
 function load_projects_css(){
+    console.log(document.querySelector(`head style`))
+    document.querySelector(`head style`).innerHTML = ""
     PROJECT_LABELS.forEach( d=> {
         addCssRule(`.button-${hyphenated(d)} ,.button-${hyphenated(d)}.clicked:hover`, {
             'color': "white",
             'background-color': color(d),
             'border':`var(--border-divider-regular-dark)`,
             'font-weight': 'bold',
-            // 'border-top-left-radius':'var(--border-radius-tab)',
-            // 'border-top-right-radius':'var(--border-radius-tab)',
-            // 'border-bottom-left-radius':0,
-            // 'border-bottom-right-radius':0,
-
         });
-
         addCssRule(`.button-${hyphenated(d)}.clicked`, {
             // 'filter':'brightness(85%)'
             'color': color(d),
@@ -115,7 +117,6 @@ function load_projects_css(){
             'border-radius':'var(--border-radius-tab)'
         });
     })
-
 }
 
 function load_completed_items(completed){
@@ -159,29 +160,32 @@ function load_completed_items(completed){
                     </table>
                     ${completed ? `` : 
                     `<details>
-                    <summary class="project-item-add-tasks" id="project-item-add-tasks-${hyphenated(project)}">+ Add New Task</summary>
-                    <table class="project-item-table-content">
-                        <tbody>
-                            <tr class="th-row input" style="background-color: ${color(project)}">
-                                <th class="th-task input">Task</th>
-                                <th class="th-progress input">Progress (%)</th>
-                                <th class="th-date input">${date_str}</th>
-                            </tr>
-                            <tr class="accordion-item-body newItem-container-details">
-                                <td class="td-task input">
-                                    <input type="text" class="taskName" id="input-task-${hyphenated(project)}" name="taskName" size="20" placeholder="New Task Name">
-                                </td> 
-                                <td class="td-progress">
-                                    <input type="number" class="taskProgress" id="input-progress-${hyphenated(project)}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
-                                </div>
-                                </td>
-                                <td class="td-date">
-                                    <input type="date" class="taskDate" id="input-date-${hyphenated(project)}" name="taskDate" value="2022-01-10" onkeydown="return false">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button class="doneButton" onclick="createNewTask('${project}')">Done</button>
+                        <summary class="project-item-add-tasks" id="project-item-add-tasks-${hyphenated(project)}">+ Add New Task</summary>
+                        <table class="project-item-table-content">
+                            <tbody>
+                                <tr class="th-row input" style="background-color: ${color(project)}">
+                                    <th class="th-task input">Task</th>
+                                    <th class="th-progress input">Progress (%)</th>
+                                    <th class="th-date input">${date_str}</th>
+                                </tr>
+                                <tr class="accordion-item-body newItem-container-details">
+                                    <td class="td-task input">
+                                        <input type="text" class="taskName" id="input-task-${hyphenated(project)}" name="taskName" size="20" placeholder="New Task Name">
+                                    </td> 
+                                    <td class="td-progress">
+                                        <input type="number" class="taskProgress" id="input-progress-${hyphenated(project)}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                                    </div>
+                                    </td>
+                                    <td class="td-date">
+                                        <input type="date" class="taskDate" id="input-date-${hyphenated(project)}" name="taskDate" value="2022-01-10" onkeydown="return false">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="container-button-add-task">
+                            <button class="button create-task button-${hyphenated(project)}" onclick="create_new_task('${project}')">Done</button>
+                            <button class="button cancel-task" onclick="clear_new_task('${project}')">Cancel</button>
+                        </div>
                     </details>
                     `}
                 </div>
@@ -200,7 +204,75 @@ function load_completed_items(completed){
     table.innerHTML = html;
 }
 
-function createNewTask(project){
+function create_new_project(project){
+    function project_error(project){
+        if (project.length <= 0 | project.length > 30)
+            return 'Project name must not be empty and no more than 30 characters. Please try again.'
+        else return false
+    }
+    if (project_error(project)) alert(project_error(project))
+    else{
+        REDUCED_DATA.push([project,{num_tasks:0, duration:0}])
+        update_color_scheme();
+        load_projects_css()
+        console.log(color(project))
+        completed = false;
+        date_str = completed ? "Date Completed" : "Due Date";
+        completed_str = completed ? "completed" : "inprogress";
+        span = 
+        `<details class="project-item" open>
+            <summary class="accordion project-item-header ${completed_str} button-${hyphenated(project)}" onclick="project_item_clicked('${project}',${completed})">
+                <div class="project-item-header-ele project-name">${project}</div>
+                <div class="project-item-header-ele-num-tasks">${NUM_TASKS(project,completed)}</div>
+            </summary>
+            <div class="project-item-table ${hyphenated(project)}">
+                <table class="project-item-table-content">
+                    <tbody>
+                    </tbody>
+                </table>
+            <details>
+            <summary class="project-item-add-tasks" id="project-item-add-tasks-${hyphenated(project)}">+ Add New Task</summary>
+            <table class="project-item-table-content">
+                <tbody>
+                    <tr class="th-row input" style="background-color: ${color(project)}">
+                        <th class="th-task input">Task</th>
+                        <th class="th-progress input">Progress (%)</th>
+                        <th class="th-date input">${date_str}</th>
+                    </tr>
+                    <tr class="accordion-item-body newItem-container-details">
+                        <td class="td-task input">
+                            <input type="text" class="taskName" id="input-task-${hyphenated(project)}" name="taskName" size="20" placeholder="New Task Name">
+                        </td> 
+                        <td class="td-progress">
+                            <input type="number" class="taskProgress" id="input-progress-${hyphenated(project)}" name="taskProgress" size="20" placeholder="0-100" min="0" max="100">
+                        </div>
+                        </td>
+                        <td class="td-date">
+                            <input type="date" class="taskDate" id="input-date-${hyphenated(project)}" name="taskDate" value="2022-01-10" onkeydown="return false">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container-button-add-task">
+                <button class="button create-task button-${hyphenated(project)}" onclick="create_new_task('${project}')">Done</button>
+                <button class="button cancel-task" onclick="clear_new_task('${project}')">Cancel</button>
+            </div>
+        </details>
+        </div>
+
+        </details>
+
+        `
+
+        list_inprogress = document.querySelector(`#list-inprogress`)
+        list_inprogress.innerHTML =  span + list_inprogress.innerHTML
+
+    }
+}
+
+
+
+function create_new_task(project){
     d = {taskid: `${new Date().getTime()}`,    
         task: document.querySelector(`#input-task-${hyphenated(project)}`).value,
         project: project,
@@ -209,24 +281,33 @@ function createNewTask(project){
         duration: '0', breaks: 0,
         note: 'Empty'
     }
-    if (data_error(d)) alert(data_error(d))
+    if (task_error(d)) alert(task_error(d))
     else{
         DATA.push(d)
         clear_new_task(project)
-        span = `<tr class="task-item" id="taskid-${d.taskid}" onclick="task_clicked('${d.taskid}')">
-                    <td class="td-task">${d.task}</td>
-                    <td class="td-progress">${d.progress}</td>
-                    <td class="date td-date">${d.date}</td>
-                </tr>`
         table = document.querySelector(`.project-item-table.${hyphenated(project)} > .project-item-table-content > tbody`);
+        span = 
+        ` ${(table.querySelector(`.th-row`) != null) ? '' : // Add table header row if not existed
+            `<tr class="th-row" style="background-color: ${color(project)}">
+                <th class="th-task">Task</th>
+                <th class="th-progress">Progress (%)</th>
+                <th class="th-date">${date_str}</th>
+            </tr>`}
+            <tr class="task-item" id="taskid-${d.taskid}" onclick="task_clicked('${d.taskid}')">
+                <td class="td-task">${d.task}</td>
+                <td class="td-progress">${d.progress}</td>
+                <td class="date td-date">${d.date}</td>
+            </tr>`
         table.innerHTML += span
     }
+    update_num_tasks()
 }
 
-function data_error(d){
+
+function task_error(d){
     function task_name_error(task){
         if (task.length <= 0 | task.length > 30)
-            return 'Task name must not be empty or no more than 30 characters. Please try again.'
+            return 'Task name must not be empty and no more than 30 characters. Please try again.'
         else return false
     }
     function progress_error(progress){
@@ -339,14 +420,19 @@ function display_search_result(q){
                 project_item.style.display = "none"
             };
         }
-        if (project_item.style.display == "grid"){
-            num_tasks = 0;
-            Array.from(project_item.querySelectorAll(".task-item")).forEach( task_item =>{
-                num_tasks = (task_item.style.display == "flex") ? num_tasks + 1 : num_tasks;
-            })
-            project_item.querySelector(".project-item-header-ele-num-tasks").textContent = num_tasks
-        }
     });
+    update_num_tasks()
+}
+
+function update_num_tasks(){
+    document.querySelectorAll(".project-item").forEach(project_item => {
+        num_tasks = 0;
+        Array.from(project_item.querySelectorAll(".task-item")).forEach( task_item =>{
+            num_tasks = (task_item.style.display != "none") ? num_tasks + 1 : num_tasks;
+        })
+        project_item.querySelector(".project-item-header-ele-num-tasks").textContent = num_tasks
+        console.log(project_item)
+    })
 }
 
 function load_accordion_listener(){
@@ -365,5 +451,6 @@ load_completed_items(false)
 load_completed_items(true)
 load_search_listener()
 load_accordion_listener()
+create_new_project('COMP 1020')
 
 // display_search_result("12")
