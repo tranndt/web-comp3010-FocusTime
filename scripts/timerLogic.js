@@ -284,6 +284,15 @@ const countdown = () => {
     }
     else {
         set_timer(hr_elem, min_elem, sec_elem, time);
+
+        if(total_secs - time == 1) {
+            toast_elem.className = "show";
+            toast_elem.textContent = "Don't move to other pages when the timer is running. Doing so will stop the timer and you will lose your progress.";
+
+            setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 8000);
+
+        }
+
     }
 
     let time_percent = Math.ceil(((total_secs-time)/total_secs)*100);
@@ -350,7 +359,7 @@ dbox_btn_done.addEventListener('click', () => {
         toast_elem.className = "show";
         toast_elem.textContent = "Focus time over. Good job! Your progress is saved.";
 
-        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000); 
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000); 
         task_done_input = Number(task_amount.value);
 
         saveSession();
@@ -381,7 +390,7 @@ dbox_btn_skip.addEventListener('click', () => {
     toast_elem.className = "show";
     toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
 
-    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
+    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
     dbox_elem.style.display = "none";
     // To re-enable:
     document.getElementById('container-body').style.pointerEvents = 'auto'; 
@@ -439,7 +448,7 @@ dbox_noTask_okay.addEventListener('click', () => {
     toast_elem.className = "show";
     toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
 
-    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 2000);
+    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
     dbox_noTask.style.display = "none";
     // To re-enable:
     document.getElementById('container-body').style.pointerEvents = 'auto'; 

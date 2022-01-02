@@ -638,8 +638,8 @@ The toast - position it at the bottom and in the middle of the screen */
     padding: 1.5vh; /* Padding */
     position: fixed; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
-    right: 10.3%; /* right align the toast */
-    bottom: 81%; /* 2vh from the bottom */
+    right: 8%; /* right align the toast */
+    bottom: 82%; /* 2vh from the bottom */
     text-align: right;
 }
 
