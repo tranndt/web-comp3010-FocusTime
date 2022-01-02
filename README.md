@@ -5,15 +5,23 @@ An app that helps user focus on tasks, save and track progress, as well as motiv
 
 ### My Timer page:
 
-![Editing resume with Visual Studio Code](https://raw.githubusercontent.com/Humayra98/Humayra98.github.io/gh-pages/readme%20assets/resume%20md%20.png)
+![My Timer page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_timer.png)
 
 ### My Music page:
 
+![My Music page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_music.png)
+
 ### My Statistics page:
+
+![My Statistics page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_statistics.png)
 
 ### My Progress page (previously Upcoming Tasks):
 
+![My Progress page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_progress.png)
+
 ### My Settings page:
+
+![My Settings page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_settings.png)
 
 ## How to run:
 
