@@ -265,26 +265,6 @@ body{
 
 /* ===== ADD PROJECT ====== */
 
-#button-add-project{
-    display: block;
-    align-self: center;
-    width: fit-content;
-    border-radius: 50px;
-    background-color: var(--color-button);
-    color: var(--color-accent);
-    border: none;
-    box-shadow: var(--box-shadow-grey);
-    padding: var(--h-15);
-    margin-top: var(--h-20);
-    margin-left: var(--w-20);
-    margin-right: auto;
-    margin-bottom: var(--h-40);
-    font-size: var(--font-size-4);
-    font-weight: bold;
-    font-family: inherit;
-    cursor: pointer;
-    align-self: center;
-}
 
 
 .container-button-add-task{
@@ -306,6 +286,7 @@ body{
 
 .button.cancel-task{
     grid-area: CCT;
+    color:var(--grey-100);
 }
 
 /* ====== PROJECT ITEM  ====== */
@@ -323,6 +304,58 @@ body{
 }
 
 /* ----- PROJECT ITEM HEADER ----- */
+#button-add-project{
+    display: block;
+    align-self: center;
+    width: fit-content;
+    border-radius: 50px;
+    background-color: var(--color-button);
+    color: var(--color-accent);
+    border: none;
+    box-shadow: var(--box-shadow-grey);
+    padding: var(--h-15);
+    margin-top: var(--h-10);
+    margin-left: var(--w-20);
+    margin-right: auto;
+    margin-bottom: var(--h-10);
+    font-size: 2.2vh;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+    align-self: center;
+}
+
+#button-add-project:hover{
+    filter: brightness(85%)
+}
+
+
+#project-item-new-project{
+    border-radius: var(--border-radius-4);
+    border: var(--border-divider-regular);
+    margin-top: var(--h-10);
+    margin-left: var(--w-20);
+    margin-right: var(--w-20);
+    padding: var(--h-10);
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+
+}
+#header-new-project{
+    margin-left: var(--w-20);
+}
+
+#input-project{
+    align-self: center;
+    display: block;
+    border: none;
+    border-bottom: var(--grey-50) solid var(--h-01);
+    padding: var(--h-10) var(--w-10);
+    font-family: 'Montserrat';
+    font-size: var(--font-size-4);
+    border-radius: 1vh;
+    margin-right: var(--w-10)
+}
 
 .project-item-header{
     grid-area: PH;
@@ -334,13 +367,15 @@ body{
     opacity: 0.95;
     margin-top: var(--h-40);
     margin-bottom: var(--h-05);
-    padding: var(--h-10)
-
+    padding: var(--h-10);
+    text-shadow: var(--text-shadow-black);
 }
 
 
-.project-item-header-ele-project-name{
-    font-size: var(--font-size-4);
+
+
+.project-item-header-ele.project-name{
+    font-size: var(--font-size-5);
     align-content: center;
     padding-left: var(--w-05)
 }

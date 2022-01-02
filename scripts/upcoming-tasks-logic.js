@@ -58,11 +58,14 @@ function reduced(DATA){
 var REDUCED_DATA = reduced(DATA)
 console.log(REDUCED_DATA)
 var PROJECT_LABELS = get_col(REDUCED_DATA,0)
-var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet2);
+var color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet1);
+function get_projects(){
+    return get_col(REDUCED_DATA,0);
+}
 
 function update_color_scheme(){
     PROJECT_LABELS = get_col(REDUCED_DATA,0)
-    color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet2);
+    color = d3.scaleOrdinal().domain(PROJECT_LABELS).range(d3.schemeSet1);
 }
 // var NUM_TASKS = {}; REDUCED_DATA.forEach(d => NUM_TASKS[d[0]] = d[1].num_tasks)
 function NUM_TASKS(project,completed){
@@ -183,8 +186,8 @@ function load_completed_items(completed){
                             </tbody>
                         </table>
                         <div class="container-button-add-task">
-                            <button class="button create-task button-${hyphenated(project)}" onclick="create_new_task('${project}')">Done</button>
                             <button class="button cancel-task" onclick="clear_new_task('${project}')">Cancel</button>
+                            <button class="button create-task button-${hyphenated(project)}" onclick="create_new_task('${project}')">Done</button>
                         </div>
                     </details>
                     `}
@@ -204,12 +207,22 @@ function load_completed_items(completed){
     table.innerHTML = html;
 }
 
-function create_new_project(project){
+function cancel_new_project(){
+    document.querySelector(`#input-project`).value = null
+    document.querySelector(`#container-inprogress > details > details`).open = false
+}
+
+function create_new_project(){
+    var project = document.querySelector(`#input-project`).value
+    console.log(get_item(get_projects(),project))
     function project_error(project){
         if (project.length <= 0 | project.length > 30)
             return 'Project name must not be empty and no more than 30 characters. Please try again.'
+        // else if (get_item(get_projects(),project))
+        //     return 'Project with this name already exists. Please choose another project name.'
         else return false
     }
+    
     if (project_error(project)) alert(project_error(project))
     else{
         REDUCED_DATA.push([project,{num_tasks:0, duration:0}])
@@ -451,6 +464,3 @@ load_completed_items(false)
 load_completed_items(true)
 load_search_listener()
 load_accordion_listener()
-create_new_project('COMP 1020')
-
-// display_search_result("12")

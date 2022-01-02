@@ -108,7 +108,15 @@
             <div class="app-container" id="container-a2">
                 <div class = "accordion-container" id="container-inprogress">
                     <details>
-                        <div id="button-add-project">+ Add New Project</div>
+                        <details >
+                            <summary class="button" id="button-add-project">Add New Project</summary>
+                                <!-- <label for="input-project">Project Name</label> -->
+                                <div id = "project-item-new-project">
+                                    <input  id ="input-project" type="text" label= "Project Name" placeholder="New Project Name">
+                                    <button class="button cancel-project" style="color:rgb(125,125,125);" onclick="cancel_new_project()">Cancel</button>
+                                    <button class="button create-project" style="text-decoration:underline;" onclick="create_new_project()">Done</button>
+                                </div>
+                        </details>
                         <summary class="header" id ="header-inprogress">In Progress</summary>
                         <div id="list-inprogress"></div>
                     </details>
