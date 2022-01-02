@@ -252,13 +252,10 @@ body{
     align-items: stretch;
 }
 
+/* ===== HEADERS ====== */
 #header-inprogress, #header-completed{
-    margin-top:var(--h-30);
+    margin-top:var(--h-40);
     margin-bottom:var(--h-30);
-}
-
-#header-completed{
-    margin-top:var(--h-50);
 }
 
 #header-inprogress:hover, #header-completed:hover{
@@ -266,6 +263,7 @@ body{
     text-decoration: underline;
 }
 
+/* ===== ADD PROJECT ====== */
 
 #button-add-project{
     display: block;
@@ -288,52 +286,41 @@ body{
     align-self: center;
 }
 
-
-
-
-/* ---- ACCORDION ---- */
-.accordion{
-    padding:10px;
-    /* text-shadow: black 0px 0px 2px; */
-
-    /* border: black solid 1px; */
-}
-
-/* ----- PROJECT ITEM HEADER ----- */
-
-
+/* ====== PROJECT ITEM  ====== */
 
 .project-item{
     /* padding: 15px; */
     display:grid;
-    grid-template-areas: "PH AT"
-                         "PT PT";
-    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "PH"
+                         "PT";
+    grid-template-columns: 1fr;
     margin-left: var(--h-40);
     margin-right: var(--h-40);
     margin-bottom: var(--h-30);
+    min-height: 0;
 }
+
+/* ----- PROJECT ITEM HEADER ----- */
 
 .project-item-header{
     grid-area: PH;
     display: grid;
     cursor: pointer;
-    border-radius: 50vh;
+    border-radius: var(--border-radius-4);
     grid-template-columns: auto var(--w-30);
-    width: 35%;
+    width: 40%;
     opacity: 0.95;
-    margin-top: var(--h-30);
-    margin-bottom: var(--h-10);
+    margin-top: var(--h-40);
+    margin-bottom: var(--h-05);
+    padding: var(--h-10)
 
 }
 
-.project-item-header-ele.project-name{
 
+.project-item-header-ele-project-name{
     font-size: var(--font-size-4);
     align-content: center;
     padding-left: var(--w-05)
-
-
 }
 
 .project-item-header-ele-num-tasks{
@@ -348,6 +335,8 @@ body{
 
 }
 
+
+/* ===== ADD TASKS BUTTON ====== */
 .project-item-add-tasks{
     display: block;
     width: 50%;
@@ -370,12 +359,32 @@ body{
     text-decoration: underline;
 }
 
+/* ===== PROJECT-ITEM TABLE ====== */
 .project-item-table{
     display: grid;
     grid-area: PT;
-    margin-top: var(--h-10);
+    /* margin-top: var(--h-10); */
     /* margin-bottom: var(--h-50); */
 }
+
+.project-item-table-content{
+    box-shadow: var(--box-shadow-black);
+    border-radius: var(--border-radius-tab);
+    display: flex;
+    width: 100%;
+    align-content: center;
+    align-content: center;
+    overflow: hidden;
+    font-size: var(--font-size-4);
+}
+
+tbody{
+    display: block;
+    width: 100%;
+    align-content: center;
+}
+
+/* ROWS DATA */
 
 tr td{
     display: grid;
@@ -383,28 +392,17 @@ tr td{
 
 input.taskName, input.taskProgress, input.taskDate{
     align-self: center;
-    /* justify-self: center; */
     display: block;
     border: none;
     border-bottom: var(--grey-50) solid var(--h-01);
-    /* margin-left: var(--w-10);
-    margin-right: 0; */
     padding: var(--h-15) var(--w-10);
-    /* width: fit-content; */
     font-family: 'Montserrat';
     font-size: var(--font-size-4);
     border-radius: 1vh;
-    /* margin-left: var(--w-10); */
     margin-right: var(--w-10)
 
 }
 
-
-
-
-
-
-/* ----- PROJECT ITEM TABLE ----- */
 
 .project-item-table-content tbody tr{
     display: flex;
@@ -426,10 +424,6 @@ input.taskName, input.taskProgress, input.taskDate{
 
 }
 
-/* .newItem-container-details{ 
-    cursor: default;
-} */
-
 .project-item-table-content tbody tr:hover:not(.th-row, .task-item.clicked, .newItem-container-details){
     background-color: var(--grey-10);
 }
@@ -447,10 +441,6 @@ input.taskName, input.taskProgress, input.taskDate{
     cursor: default;
     border-bottom: solid var(--h-01) black ;
 }
-
-
-
-
 
 
 .td-task,.td-progress,.td-date{
@@ -485,27 +475,7 @@ input.taskName, input.taskProgress, input.taskDate{
 }
 
 
-.project-item-table-content{
-    box-shadow: var(--box-shadow-black);
-    border-radius: 15px;
-    display: flex;
-    width: 100%;
-    align-content: center;
-    align-content: center;
-    overflow: hidden;
-    font-size: var(--font-size-4);
-}
 
-/* #table-details{
-    display: block;
-    width: 100%;
-} */
-
-tbody{
-    display: block;
-    width: 100%;
-    align-content: center;
-}
 
 /* ---- CLICKED ---- */
 

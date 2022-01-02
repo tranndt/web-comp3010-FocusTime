@@ -134,14 +134,16 @@ function load_completed_items(completed){
         })
         if (html_i != ''){
             date_str = completed ? "Date Completed" : "Due Date";
+            completed_str = completed ? "completed" : "inprogress";
             // add_task_button = completed ? '<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>' : ''
 
             //  ${!completed ? `<div class="project-item-add-tasks button-${hyphenated(project)}">+</div>`:``}
             html += 
             `<details class="project-item">
-                <summary class="accordion project-item-header button-${hyphenated(project)}" onclick="project_item_clicked('${project}')">
+                <summary class="accordion project-item-header ${completed_str} button-${hyphenated(project)}" onclick="project_item_clicked('${project}',${completed})">
                     <div class="project-item-header-ele project-name">${project}</div>
                     <div class="project-item-header-ele-num-tasks">${NUM_TASKS(project,completed)}</div>
+                    
                 </summary>
 
                 <div class="project-item-table ${hyphenated(project)}">
@@ -194,8 +196,7 @@ function load_completed_items(completed){
         })  
     })
 
-    list_id = completed ? "list-completed" : "list-inprogress"
-    table = document.getElementById(list_id)
+    table = document.getElementById(`list-${completed_str}`)
     table.innerHTML = html;
 }
 
@@ -208,11 +209,7 @@ function createNewTask(project){
         duration: '0', breaks: 0,
         note: 'Empty'
     }
-    error = data_error(d);
-    console.log(error)
-    if (error) {
-        alert(error)
-    }
+    if (data_error(d)) alert(data_error(d))
     else{
         DATA.push(d)
         clear_new_task(project)
@@ -224,7 +221,6 @@ function createNewTask(project){
         table = document.querySelector(`.project-item-table.${hyphenated(project)} > .project-item-table-content > tbody`);
         table.innerHTML += span
     }
-
 }
 
 function data_error(d){
@@ -260,14 +256,13 @@ function task_clicked(taskid){
     curr_task.className += " clicked"
     console.log(curr_task.className)
 
-
     // Display its information on Details column
     display_task(taskid)
 }
 
-function project_item_clicked(project){
-    project_item = document.querySelector(`.project-item-header.button-${hyphenated(project)}`)
-    console.log(project_item.className.includes('clicked'))
+function project_item_clicked(project,completed){
+    completed_str = completed ? "completed" : "inprogress";
+    project_item = document.querySelector(`.project-item-header.${completed_str}.button-${hyphenated(project)}`)
     if (project_item.className.includes('clicked'))
     project_item.className = project_item.className.replace(' clicked','')
     else
@@ -325,55 +320,33 @@ function display_search_result(q){
         if (project_item.querySelector(".project-item-header-ele.project-name").textContent.toLowerCase().includes(q.toLowerCase())){
             project_item.style.display = "grid";
             let rows = project_item.querySelectorAll(".task-item");
-            rows.forEach((row) => {row.style.display = "grid"})
+            rows.forEach((row) => {row.style.display = "flex"})
         }
         else {
-            str = ''; Array.from(project_item.querySelectorAll(".task-item")).forEach(d => str += d.querySelector("td").textContent + " ")
+            str = ''; 
+            Array.from(project_item.querySelectorAll(".task-item")).forEach(d => str += d.querySelector("td").textContent + " ")
             if (str.toLowerCase().includes(q.toLowerCase())){
                 let rows = project_item.querySelectorAll(".task-item");
                     rows.forEach((row) => {
-                        console.log(row.querySelector("td").textContent,row.querySelector("td").textContent.toLowerCase().includes(q.toLowerCase()),row.style.display)
                     if (row.querySelector("td").textContent.toLowerCase().includes(q.toLowerCase())){
                         project_item.style.display = "grid";
-                        row.style.display = "grid"
+                        row.style.display = "flex"
                     }
                     else row.style.display = "none";
                 })
             }
             else {
                 project_item.style.display = "none"
-
             };
         }
         if (project_item.style.display == "grid"){
             num_tasks = 0;
             Array.from(project_item.querySelectorAll(".task-item")).forEach( task_item =>{
-                num_tasks = (task_item.style.display == "grid") ? num_tasks + 1 : num_tasks;
+                num_tasks = (task_item.style.display == "flex") ? num_tasks + 1 : num_tasks;
             })
             project_item.querySelector(".project-item-header-ele-num-tasks").textContent = num_tasks
         }
     });
-}
-
-function add_new_task(table_id, task_name_item, task_date_item){
-    let task_name = document.getElementById(task_name_item).value;
-    let task_date = document.getElementById(task_date_item).value;
-    let task_id = get_next_id()
-    let table = document.getElementById(table_id);
-    let newRows = ` <tr class="task-item" id="taskid-${task_id}" onclick="task_clicked('${taskid}')">
-                        <td class="td-task">${task_name}</td>
-                        <td class="td-progress">0</td>
-                        <td class="date td-date">${task_date}</td>
-                    </tr>`;
-
-    let lastRow = table.rows[table.rows.length-2];
-    lastRow.insertAdjacentHTML('beforebegin', newRows);
-    
-    let taskHeaders = table.getElementsByClassName("taskHeader").length;
-    let newTaskHeader = table.getElementsByClassName("taskHeader")[taskHeaders - 1];
-    newRow.push(newTaskHeader);
-    addAccordionItemEvent(newRow);
-
 }
 
 function load_accordion_listener(){
@@ -384,8 +357,6 @@ function load_accordion_listener(){
     Array.from(document.querySelectorAll('.project-item')).forEach(accordion_item => {
         accordion_item.open = true
     })
-    // console.log(document.querySelector(`#container-inprogress > details`).open)
-    // document.querySelector(`#container-inprogress > details`).open = true;
 }
 
 
