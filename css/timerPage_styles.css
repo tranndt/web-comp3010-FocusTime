@@ -278,7 +278,7 @@ Timer
 }
 
 .base-timer__path-remaining {
-    transition :0.9s;
+    transition : 0s;
     transform:rotate(-90deg);
     transform-origin:50% 50%;
     stroke: rgba(185, 185, 192, 0.904);

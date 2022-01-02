@@ -95,6 +95,7 @@ start_pause_btn.style.backgroundColor = disabled_background;
 start_pause_btn.style.color = disabled_text;
 start_pause_btn.style.cursor = 'default';
 setProgress(100);
+progress.style.transition = '0s';
 
 var album_sec = -1;
 
@@ -249,9 +250,10 @@ const countdown = () => {
         clearInterval(intervalID);
         clearInterval(br_intervalID);
         setProgress(100);
-        // setTimeout(() => {
-        //     setProgress(0);
-        // }, 1000);
+    
+        setTimeout(() => {
+            progress.style.transition = '0s';
+        }, 1000);
 
         time_focused = total_secs - time;
 
@@ -355,6 +357,9 @@ dbox_btn_done.addEventListener('click', () => {
         br_time = 0;
         state = STOPPED;
         setProgress(100);
+        setTimeout(() => {
+            progress.style.transition = '0s';
+        }, 1000);
 
         toast_elem.className = "show";
         toast_elem.textContent = "Focus time over. Good job! Your progress is saved.";
@@ -386,6 +391,9 @@ dbox_btn_skip.addEventListener('click', () => {
     br_time = 0;
     state = STOPPED;
     setProgress(100);
+    setTimeout(() => {
+        progress.style.transition = '0s';
+    }, 1000);
 
     toast_elem.className = "show";
     toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
@@ -444,6 +452,9 @@ dbox_noTask_okay.addEventListener('click', () => {
     br_time = 0;
     state = STOPPED;
     setProgress(100);
+    setTimeout(() => {
+        progress.style.transition = '0s';
+    }, 1000);
 
     toast_elem.className = "show";
     toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
@@ -460,6 +471,11 @@ start_pause_btn.addEventListener('click', () => {
     start_pause_btn.style.backgroundColor = click_color;
 
     if (state != RUNNING) { //if not running, start
+
+        //enable timer animation transition
+        if(total_secs - time <= 1) {
+            progress.style.transition = '0.9s';
+        }
 
         main_timer_elem.style.display = "flex";
         setTimeout(() => { //button blink effect
@@ -482,7 +498,7 @@ start_pause_btn.addEventListener('click', () => {
             start_pause_btn.textContent = "Pause";
             start_pause_btn.style.color =  enabled_text;
     
-            setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 1000);
+            // setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 1000);
     
             stop_btn.textContent = "Stop";
     
