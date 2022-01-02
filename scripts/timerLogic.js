@@ -133,6 +133,9 @@ const set_timer_to_album_length = () => {
     set_timer(hr_elem, min_elem, sec_elem, time);
     set_timer(br_hr, br_min, br_sec, br_time);
 
+    progress.style.transition = '0.9s';
+    setProgress(0);
+
 
     if(state != EDIT) {
         enable_start_pause_button("Start");
@@ -567,6 +570,8 @@ stop_btn.addEventListener('click', () => {
         //check if input is done
         //get inputs
         //if done:  state
+
+        progress.style.transition = '0.9s';
         console.log('State: READY');
         state = READY;
         setProgress(0);
