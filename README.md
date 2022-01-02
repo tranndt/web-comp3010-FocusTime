@@ -30,3 +30,6 @@ Download or clone from GitHub: https://github.com/Humayra98/focustime
 ### Via _index.html_:
 
 ### Via Live server:
+
+## Authors:
+
