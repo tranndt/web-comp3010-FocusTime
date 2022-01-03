@@ -168,7 +168,7 @@
 
         <div class="app-div" id="app-a3">
             <div class="songView">
-                <div class="songList">
+                <div id = "songList" class="songList">
                     <div id="trackbox"></div>
                 </div>
                 <button class="mutebutton" id="mutebutton"></button>
@@ -240,6 +240,7 @@
     var album_chosen = sessionStorage.album_chosen;
     if (album_chosen == null) {
         album_title.innerHTML = "Choose an Album";
+        document.getElementById("songList").innerHTML = "Choose Playlist from Music Page";
     }
     else {
         album_chosen = JSON.parse(album_chosen);
