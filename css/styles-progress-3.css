@@ -282,6 +282,7 @@ body{
 .button.create-task{
     grid-area: CRT;
     text-decoration: underline;
+    text-shadow: var(--text-shadow-grey);
 }
 
 .button.cancel-task{
@@ -368,7 +369,7 @@ body{
     margin-top: var(--h-40);
     margin-bottom: var(--h-05);
     padding: var(--h-10);
-    text-shadow: var(--text-shadow-black);
+    text-shadow: var(--text-shadow-grey);1
 }
 
 
@@ -497,6 +498,10 @@ input.taskName, input.taskProgress, input.taskDate{
     /* background-color: var(--grey-25); */
     cursor: default;
     border-bottom: solid var(--h-01) black ;
+}
+
+table tbody th{
+    text-shadow: var(--text-shadow-grey);
 }
 
 
