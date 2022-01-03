@@ -257,28 +257,25 @@ function taskSimulation(DATA){
         .data(allgroups)
         .enter()
         .append("circle")
-            .attr("cx", (d,i) => 100 - dotsize + i * 180)
-            .attr("cy", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("cx", (d,i) => 50)
+            .attr("cy", function(d,i){ return 100 + i * 40}) // 100 is where the first dot appears. 25 is the distance between dots
             .attr("r", (d,i) => sizedot(alldurations[i]))
             .style("fill", function(d){ return color(d)})
             .style("stroke", "black")
             .style("stroke-width", 1)
-            // .on("mouseover", highlightSelection)
-            // .on("mouseleave", unhighlightSelection)
 
         // Add labels beside legend dots
         svg.append("g").attr("class","mylabels").selectAll("mylabels")
         .data(allgroups)
         .enter()
         .append("text")
-            .attr("x", (d,i) => 100 + i * 180)
-            .attr("y", function(d,i){ return height - 30}) // 100 is where the first dot appears. 25 is the distance between dots
+            .attr("x", (d,i) => 65)
+            .attr("y", function(d,i){ return 100 + i * 40}) // 100 is where the first dot appears. 25 is the distance between dots
             .style("fill", function(d){ return color(d)})
             .text(function(d){ return d})
             .attr("text-anchor", "left")
             .style("alignment-baseline", "middle")
-            // .on("mouseover", highlightSelection)
-            // .on("mouseleave", unhighlightSelection)
+
 
 
     simulation
@@ -320,7 +317,7 @@ var mouseover = function(d) {
 }
 var mousemove = function(d) {
     Tooltip
-    .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
+    .html('<span style="color:'+color(d[0])+ '"><b>' + d[0] + '</b></span>'
         + "<br><b>" + d.length  + " Tasks" + "</b>"
         + "<br>" + fmt(d[1]))
     .style("left", (d3.mouse(this)[0]+10) + "px")
@@ -341,7 +338,7 @@ function dragged(d) {
     d.fx = d3.event.x;
     d.fy = d3.event.y;
     Tooltip
-    .html('<span style="color:'+color(d[0])+ '"><u><b>' + d[0] + '</b></u></span>'
+    .html('<span style="color:'+color(d[0])+ '"><b>' + d[0] + '</b></span>'
         + "<br><b>" + d.length  + " Tasks" + "</b>"
         + "<br>" + fmt(d[1]))
     .style("left", (d3.mouse(this)[0]+10) + "px")
