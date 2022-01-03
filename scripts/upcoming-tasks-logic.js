@@ -1,3 +1,5 @@
+const toast_elem = document.getElementById("toast");
+
 DATA = Array.from(
     [{taskid: '1', task: 'Self study', project: 'COMP 3020', duration: '200', breaks: 0, progress: 100, date: '2021-11-26', note:'Lorem ipsum dolor sit amet, consectetuar adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'},
     {taskid: '2', task: 'Quiz Prep', project: 'COMP 3020', duration: '250',breaks: 10, progress: 100, date: '2021-11-29', note:'Integer venenatis orci et massa feugiat vehicula. Integer ullamcorper non libero vel semper. Nam eu tempor purus. Suspendisse potenti. Vivamus eget erat ex. '},
@@ -280,6 +282,11 @@ function create_new_project(){
         list_inprogress = document.querySelector(`#list-inprogress`)
         list_inprogress.innerHTML =  span + list_inprogress.innerHTML
 
+        toast_elem.className = "show";
+        toast_elem.textContent = "New project "+ " '" + project + "' created.";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+
     }
 }
 
@@ -312,6 +319,11 @@ function create_new_task(project){
                 <td class="date td-date">${d.date}</td>
             </tr>`
         table.innerHTML += span
+
+        toast_elem.className = "show";
+        toast_elem.textContent = "New task "+ " '" + d.task + "' created.";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
     }
     update_num_tasks()
 }
