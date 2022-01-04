@@ -214,12 +214,11 @@ function cancel_new_project(){
 
 function create_new_project(){
     var project = document.querySelector(`#input-project`).value
-    console.log(get_item(get_projects(),project))
     function project_error(project){
         if (project.length <= 0 | project.length > 30)
             return 'Project name must not be empty and no more than 30 characters. Please try again.'
-        // else if (get_item(get_projects(),project))
-        //     return 'Project with this name already exists. Please choose another project name.'
+        else if (get_projects().includes(project))
+            return 'Project with this name already exists. Please choose another project name.'
         else return false
     }
     
@@ -371,13 +370,13 @@ function display_task(taskid){
         if (d.taskid == taskid){
             date_str = (d.progress < 100) ? "Due Date" : "Date Completed"
             html = 
-            `<tr><td>Task</td><td>${d.task}</td></tr>
-            <tr><td>Project</td><td>${d.project}</td></tr>
-            <tr><td>Focus Time</td><td>${fmt(d.duration)}</td></tr>
-            <tr><td>Break Time</td><td>${fmt(d.breaks)}</td></tr>
-            <tr><td>Progress</td><td>${d.progress}%</td></tr>
-            <tr><td>${date_str}</td><td>${d.date}</td></tr>
-            <tr><td>Notes:</td><td></td></tr>`
+            `<tr><td class="td-details-label">Task</td><td>${d.task}</td></tr>
+            <tr><td class="td-details-label">Project</td><td>${d.project}</td></tr>
+            <tr><td class="td-details-label">Focus Time</td><td>${fmt(d.duration)}</td></tr>
+            <tr><td class="td-details-label">Break Time</td><td>${fmt(d.breaks)}</td></tr>
+            <tr><td class="td-details-label">Progress</td><td>${d.progress}%</td></tr>
+            <tr><td class="td-details-label">${date_str}</td><td>${d.date}</td></tr>
+            <tr><td class="td-details-label">Notes:</td><td></td></tr>`
             note = d.note;
             break;
         }

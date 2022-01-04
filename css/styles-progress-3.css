@@ -174,8 +174,12 @@ body{
 
 .header {
     font-size: 2.8vh;
-    /* padding-top:1.5vh; */
     padding-left: 1vw;
+}
+#header-details{
+    padding-top: 1vh;
+    display: block;
+    align-self: center;
 }
 
 /* ---------- A0 ---------- */
@@ -369,7 +373,7 @@ body{
     margin-top: var(--h-40);
     margin-bottom: var(--h-05);
     padding: var(--h-10);
-    text-shadow: var(--text-shadow-grey);1
+    text-shadow: var(--text-shadow-grey);
 }
 
 
@@ -536,7 +540,18 @@ table tbody th{
     text-align: center;
 }
 
+/* ===== table-details-body ====== */
+#table-details-body{
+    width: 27vw;
+}
+#table-details-body tr{
+    display: flex;
+    justify-content: space-between;
+}
 
+.td-details-label{
+    color: var(--grey-100);
+}
 
 
 /* ---- CLICKED ---- */
