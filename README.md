@@ -38,12 +38,12 @@ This page contains the main functionality of the music aspect for FocusTime. Thi
 ### My Statistics page:
 
 ![My Statistics page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_statistics.png)  
-This page shows statistics on the tasks and projects done in a week in form of bubbles. Each color represents a project and the size of the bubbles represents the amount of time spent on it. So the more time spent on a task, the bigger the circle. The users can filter the bubbles by tasks or projects so that they can see the overall stats of the projects or in details with the tasks. Users also have the option to filter by specific courses so that they can see the bubble stats and the details for the selected course.
+This page shows statistics on the tasks and projects done in a week in the form of bubbles. Different colors represent different projects and the bubble's size of represents the amount of time spent on it. The more time spent on a task, the bigger the circle. The user also has the option of filtering by a specific project so that they can easily see all of its associating tasks.
 
 ### My Progress page (previously Upcoming Tasks):
 
 ![My Progress page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_progress.png)
-As the page’s title suggests, this page keeps track of the progress of user has made on their tasks. The tasks are categorized by their respective projects and whether they are still in progress or have been completed. The user can also create new tasks and projects on this page. Task details such as its due date, progress, notes, and focus and break times are shown on the _Details_ panel once clicked. For quick access, users can find particular tasks or projects by using the search feature. 
+This page keeps track of the progress of user has made on their tasks, as the title suggests. The tasks are categorized by their respective projects and whether they are still in progress or have been completed. The user can also create new tasks and projects on this page. Task details such as its due date, progress, notes, and focus and break times are shown on the _Details_ panel once clicked. For quick access, users can find particular tasks or projects by using the search feature. 
 
 ### My Settings page:
 
