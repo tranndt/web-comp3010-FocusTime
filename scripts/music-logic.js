@@ -119,7 +119,7 @@ ALBUMS = Array.from(
     {album_name: 'Season Two', artist:"Lofi Lia", year:2017, num_tracks: 21, length: '01:25:18', topic:"LoFi", src:"assets/music/albums/album_lofilia.jpg"},
 
     // Rainy Day
-    {album_name: 'Ginger', artist:"Various Artists", year:2019, num_tracks: 17, length: '60:08', topic:"Rainy Day", src:"assets/music/albums/album_ginger.png"},
+    {album_name: 'Ginger', artist:"BROCKHAMPTON", year:2019, num_tracks: 17, length: '60:08', topic:"Rainy Day", src:"assets/music/albums/album_ginger.png"},
     {album_name: 'love is not dying', artist:"Jeremy Zucker", year:2015, num_tracks: 15, length: '51:12', topic:"Rainy Day", src:"assets/music/albums/album_loveisntdying.jpg"},
     {album_name: 'Nectar', artist:"Joji", year:2017, num_tracks: 10, length: '01:12:08', topic:"Rainy Day", src:"assets/music/albums/album_nectar.png"},
     {album_name: '?', artist:"XXXTENTACION", year:2017, num_tracks: 21, length: '01:25:18', topic:"Rainy Day", src:"assets/music/albums/album_x.png"},
