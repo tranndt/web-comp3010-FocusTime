@@ -142,7 +142,7 @@ const isValidInteger = (input_val, min_val, max_val) => {
 const set_timer_to_album_length = () => {
     total_secs = album_sec;
     time = total_secs;
-    br_time = time*BREAK_PERCENT;
+    br_time = Math.ceil(time*BREAK_PERCENT);
 
     const [hr, min, sec] = convert_from_secs(album_sec);
     time_inputs[0].value = hr;
@@ -578,7 +578,7 @@ stop_btn.addEventListener('click', () => {
         }
         else {
             total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
-            br_time = total_secs*BREAK_PERCENT;
+            br_time = Math.ceil(total_secs*BREAK_PERCENT);
             set_timer(br_hr, br_min, br_sec, br_time);
         }
 
@@ -602,7 +602,7 @@ stop_btn.addEventListener('click', () => {
         time_input_elem.style.display = "none";
         //input field disappears, and main field appears with set time
         time = total_secs;
-        br_time = BREAK_PERCENT*time;
+        br_time = Math.ceil(BREAK_PERCENT*time);
 
         // set main time
         set_timer(hr_elem, min_elem, sec_elem, time);
