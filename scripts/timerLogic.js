@@ -70,7 +70,7 @@ let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
 
 var task_not_selected_warned = false;
-var task_warning_message = "Warning! No task selected. You must at least select a task to save your progress after this focus session. If you proceed without selecting a task, you cannot save your progress for this session.";
+var task_warning_message = "Whoops! No task selected. You can proceed without selecting a task, but your progress will not be saved.";
 
 //timer states
 const RUNNING = 0;
@@ -279,7 +279,7 @@ const countdown = () => {
         }
         else {
             dbox_elem.style.display = "block";
-            dbox_msg.textContent = "Focus time over! \nType in a value between 1 - 100 to save your progress as percentage.";
+            dbox_msg.textContent = "Focus time over! \nEstimate your progress percentage between 1 - 100 to save for your next session.";
         }
 
         // To disable:    
@@ -292,7 +292,7 @@ const countdown = () => {
 
         if(total_secs - time == 1) {
             toast_elem.className = "show";
-            toast_elem.textContent = "Don't move to other pages when the timer is running. Doing so will stop the timer and you will lose your progress.";
+            toast_elem.textContent = "Focus time started! Don't move to other pages while the timer is running, or the session will end.";
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 8000);
 
@@ -324,12 +324,12 @@ const br_countdown = () => {
 
         if(time > 0) { //resume main timer,set timer in running state -> pause,stop btn
             //notify users
-            toast_elem.textContent = "Break Over! Focus time resumed."
+            toast_elem.textContent = "Break over! Timer resumed."
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
             state = RUNNING;
 
             //disable pause -> no more breaks
-            disable_start_pause_button("No break left!");
+            disable_start_pause_button("Pause");
 
             countdown();//start main countdown again
             intervalID = setInterval(countdown, 1000);
@@ -365,7 +365,7 @@ dbox_btn_done.addEventListener('click', () => {
         }, 1000);
 
         toast_elem.className = "show";
-        toast_elem.textContent = "Focus time over. Good job! Your progress is saved.";
+        toast_elem.textContent = "Focus time over! Your progress has been saved.";
 
         setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000); 
         task_done_input = Number(task_amount.value);
@@ -399,7 +399,7 @@ dbox_btn_skip.addEventListener('click', () => {
     }, 1000);
 
     toast_elem.className = "show";
-    toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
+    toast_elem.textContent = "Focus time over! Your progress has not been saved.";
 
     setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
     dbox_elem.style.display = "none";
@@ -460,7 +460,7 @@ dbox_noTask_okay.addEventListener('click', () => {
     }, 1000);
 
     toast_elem.className = "show";
-    toast_elem.textContent = "Focus time over. Good job! Progress not saved.";
+    toast_elem.textContent = "Focus time over! Since a task was not selected, your progress has not been saved.";
 
     setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
     dbox_noTask.style.display = "none";
@@ -620,7 +620,7 @@ stop_btn.addEventListener('click', () => {
             //if task not chosen, don't prompt for progress
             console.log("Warning: task not chosen");
             task_not_selected_warned = true;
-            dbox_noTask_msg.textContent = "Are you sure to stop the timer?";
+            dbox_noTask_msg.textContent = "Are you sure you wish to end the session early?";
             dbox_noTask_okay.textContent = "Yes";
             dbox_noTask.style.display = "block";
         }

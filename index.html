@@ -220,8 +220,8 @@
     var album_title = document.getElementById("songTitle");
     var album_chosen = sessionStorage.album_chosen;
     if (album_chosen == null) {
-        album_title.innerHTML = "Choose an Album";
-        document.getElementById("songList").innerHTML = "Choose Playlist from Music Page";
+        album_title.innerHTML = "Song Queue";
+        document.getElementById("songList").innerHTML = "The queue is empty! You can select an album to listen to from the Music tab.";
     }
     else {
         album_chosen = JSON.parse(album_chosen);

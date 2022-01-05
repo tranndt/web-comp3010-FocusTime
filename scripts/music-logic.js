@@ -453,10 +453,10 @@ function show_albums_by_topic(topic){
 function display_details(album_name){
     load_summary(album_name)
     load_playlist(album_name)
-    showHTMLElement("#app-a3","grid");
-    showHTMLElement("#app-a3b","grid");
-    showHTMLElement("#app-a4","grid");
-    showHTMLElement("#app-a5","grid")
+    // showHTMLElement("#app-a3","grid");
+    // showHTMLElement("#app-a3b","grid");
+    // showHTMLElement("#app-a4","grid");
+    // showHTMLElement("#app-a5","grid")
     showHTMLElement("#container-a3b","grid");
     showHTMLElement("#container-a4","grid");
     showHTMLElement("#container-a5","grid");
@@ -467,10 +467,10 @@ function display_details(album_name){
 function dismiss_details(){
     writeHTML(`#album-details`,"")
     document.querySelector("#album-cover-img").src = ""
-    hideHTMLElement("#app-a3");
-    hideHTMLElement("#app-a3b");
-    hideHTMLElement("#app-a4");
-    hideHTMLElement("#app-a5");
+    // hideHTMLElement("#app-a3");
+    // hideHTMLElement("#app-a3b");
+    // hideHTMLElement("#app-a4");
+    // hideHTMLElement("#app-a5");
     hideHTMLElement("#container-a3b");
     hideHTMLElement("#container-a4");
     hideHTMLElement("#container-a5");
