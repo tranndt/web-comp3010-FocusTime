@@ -139,6 +139,7 @@ const set_timer_to_album_length = () => {
 
     if(state != EDIT) {
         enable_start_pause_button("Start");
+        stop_btn.textContent = "Edit";
     }
     else {
         disable_start_pause_button("Start");
@@ -576,7 +577,7 @@ stop_btn.addEventListener('click', () => {
         state = READY;
         setProgress(0);
 
-        stop_btn.textContent = "Set"; //allow to edit after input
+        stop_btn.textContent = "Edit"; //allow to edit after input
 
         main_timer_elem.style.display = "flex";
         time_input_elem.style.display = "none";
