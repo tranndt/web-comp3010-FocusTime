@@ -30,14 +30,17 @@ This page contains the main functionality of the music aspect for FocusTime. Thi
 Download or clone from GitHub: https://github.com/Humayra98/focustime
 
 ### Via _index.html_:
-Click on the .html file located in the _focustime_ directory to run software.
+Double click on the index.html file located in the _focustime_ directory to run application.
 
 ### Via Live server:
-Open the _focustime_ folder in visual studio code and make sure that it has the extension _live server_ installed. Navigate to the _Go Live_ buttone and click on it to run software. 
+Make sure that the extension _Live Server_ is installed in your Visual Studio Code. Open/import the _focustime_ folder in visual studio code. Navigate to the _Go Live_ buttone and click on it to run software. Or right click on the index.html file and select _Open with Live Server_ 
+
+### Via GitHub Pages:
+The application is also published with GitHub Pages which can be found here - https://humayra98.github.io/focustime/ 
 
 ## Authors:
-- Alborz Khakbazan
-- Humayra Anjum Rafi
-- Jason Tran
-- Jules Basa
-- Reymel Eusebio
+- [Alborz Khakbazan](https://github.com/alborzk)
+- [Humayra Anjum Rafi](https://github.com/Humayra98)
+- [Jason Tran](https://github.com/tranndt)
+- [Jules Basa](https://github.com/basaaj)
+- [Reymel Eusebio](https://github.com/r3ym3l)
