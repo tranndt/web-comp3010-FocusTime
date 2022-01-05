@@ -65,6 +65,7 @@ var time = 0; //in seconds, time left
 var br_time = 0;//break time left
 var task_done_input = -1; // amount of task done in percentage.
 var time_focused = -1; // amount of time user focused on work(seconds)
+var break_taken = 0; //amount of break used by user
 
 let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
@@ -125,7 +126,8 @@ const saveSession = () => {
         // }
         // sessionStorage.setItem("new_task",JSON.parse(d))
         sessionStorage.setItem("task_progress", task_done_input);
-        sessionStorage.setItem("time_focused", time_focused);
+        sessionStorage.setItem("time_focused", time_focused-1);
+        sessionStorage.setItem("break_taken", break_taken-1);
         sessionStorage.setItem("task_name", selected_task);
         sessionStorage.setItem("project_name", selected_proj);
         sessionStorage.setItem("Notes", notes);
@@ -143,6 +145,7 @@ const set_timer_to_album_length = () => {
     total_secs = album_sec;
     time = total_secs;
     br_time = Math.ceil(time*BREAK_PERCENT);
+    break_taken = 0;
 
     const [hr, min, sec] = convert_from_secs(album_sec);
     time_inputs[0].value = hr;
@@ -217,6 +220,7 @@ time_inputs.forEach(elem => {
 
         total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
         br_time = Math.ceil(total_secs*BREAK_PERCENT);
+        break_taken = 0;
         set_timer(br_hr, br_min, br_sec, br_time);
         console.log('total-secs:', total_secs);
         
@@ -359,6 +363,7 @@ const br_countdown = () => {
         set_timer(br_hr, br_min, br_sec, br_time);
     }
 
+    break_taken++;
     br_time--;
 };
 
@@ -391,6 +396,7 @@ dbox_btn_done.addEventListener('click', () => {
         task_done_input = Number(task_amount.value);
 
         saveSession();
+        break_taken = 0;
 
         dbox_elem.style.display = "none";
         // To re-enable:
@@ -412,6 +418,7 @@ dbox_btn_skip.addEventListener('click', () => {
     clear_timer(br_hr, br_min, br_sec);
     time = 0;
     br_time = 0;
+    break_taken = 0;
     state = STOPPED;
     setProgress(100);
     setTimeout(() => {
@@ -473,6 +480,7 @@ dbox_noTask_okay.addEventListener('click', () => {
     clear_timer(br_hr, br_min, br_sec);
     time = 0;
     br_time = 0;
+    break_taken = 0;
     state = STOPPED;
     setProgress(100);
     setTimeout(() => {
@@ -579,6 +587,7 @@ stop_btn.addEventListener('click', () => {
         else {
             total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
             br_time = Math.ceil(total_secs*BREAK_PERCENT);
+            break_taken = 0;
             set_timer(br_hr, br_min, br_sec, br_time);
         }
 
@@ -603,6 +612,7 @@ stop_btn.addEventListener('click', () => {
         //input field disappears, and main field appears with set time
         time = total_secs;
         br_time = Math.ceil(BREAK_PERCENT*time);
+        break_taken = 0;
 
         // set main time
         set_timer(hr_elem, min_elem, sec_elem, time);
