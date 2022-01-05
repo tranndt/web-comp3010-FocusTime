@@ -15,7 +15,8 @@ This page contains the main functionality of the music aspect for FocusTime. Thi
 
 ### My Statistics page:
 
-![My Statistics page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_statistics.png)
+![My Statistics page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_statistics.png)  
+This page shows statistics on the tasks and projects done in a week in form of bubbles. Each color represents a project and the size of the bubbles represents the amount of time spent on it. So the more time spent on a task, the bigger the circle. The users can filter the bubbles by tasks or projects so that they can see the overall stats of the projects or in details with the tasks. Users also have the option to filter by specific courses so that they can see the bubble stats and the details for the selected course.
 
 ### My Progress page (previously Upcoming Tasks):
 
@@ -24,7 +25,8 @@ As the page’s title suggests, this page keeps track of the progress of user ha
 
 ### My Settings page:
 
-![My Settings page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_settings.png)
+![My Settings page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_settings.png)  
+This page allows the users to set a homepage/home tab so that the user can be direected to the selected page everytime they click on the FocusTime logo. They can also change the background of the app. In addition, it also has a brief intro to the app as well as the GitHub user links of the authors.
 
 ## How to run:
 
