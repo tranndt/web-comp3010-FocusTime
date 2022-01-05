@@ -177,7 +177,6 @@ const updateProgressPage = () => {
         }
 
         progress_data.push(newData);
-        console.log("updating", progress_data[progress_data.length-1]);
     }
 
     if(progress_data != null) {//reload data in local storage
@@ -185,7 +184,6 @@ const updateProgressPage = () => {
     }
 
     console.log(progress_data);
-
 }
 
 const isValidInteger = (input_val, min_val, max_val) => {
