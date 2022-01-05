@@ -86,6 +86,11 @@ const enabled_text = "#a1303f";
 const main_btn_color = 'rgba(253, 152, 152, 0.932)';
 const click_color = '#B6404F';
 
+// New Task Added Flags
+const NO_TASK_ADDED = 0;
+const EDIT_TASK = 1;
+const ADD_TASK = 2;
+
 //initial state
 let state = STOPPED;
 start_pause_btn.disabled = true;
@@ -96,6 +101,8 @@ start_pause_btn.style.color = disabled_text;
 start_pause_btn.style.cursor = 'default';
 setProgress(100);
 progress.style.transition = '0s';
+sessionStorage.setItem("new_task_added",false);
+
 
 var album_sec = -1;
 
@@ -106,11 +113,23 @@ const saveSession = () => {
 
     if (typeof(Storage) !== "undefined") {
         // Store to for sessionStorage
-        localStorage.setItem("task_progress", task_done_input);
-        localStorage.setItem("time_focused", time_focused);
-        localStorage.setItem("task_name", selected_task);
-        localStorage.setItem("project_name", selected_proj);
-        localStorage.setItem("Notes", notes);
+        // d = {
+        //     taskid: `${new Date().getTime()}`,    
+        //     task: selected_task ? selected_task : null,
+        //     project: selected_proj ? selected_proj : 'Miscellaneous',
+        //     progress: task_done_input ? task_done_input : null,
+        //     date: new Date(),
+        //     duration: time_focused ? time_focused : null,
+        //     breaks: 0,
+        //     note: notes,
+        // }
+        // sessionStorage.setItem("new_task",JSON.parse(d))
+        sessionStorage.setItem("task_progress", task_done_input);
+        sessionStorage.setItem("time_focused", time_focused);
+        sessionStorage.setItem("task_name", selected_task);
+        sessionStorage.setItem("project_name", selected_proj);
+        sessionStorage.setItem("Notes", notes);
+        sessionStorage.setItem("new_task_added",true);
     } else {
         // Sorry! No Web Storage support..
     }
@@ -197,7 +216,7 @@ time_inputs.forEach(elem => {
         }
 
         total_secs = convert_to_secs(time_inputs[0].value, time_inputs[1].value, time_inputs[2].value);
-        br_time = total_secs*BREAK_PERCENT;
+        br_time = Math.ceil(total_secs*BREAK_PERCENT);
         set_timer(br_hr, br_min, br_sec, br_time);
         console.log('total-secs:', total_secs);
         

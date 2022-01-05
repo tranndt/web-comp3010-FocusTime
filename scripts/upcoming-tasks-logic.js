@@ -10,8 +10,8 @@ DATA = Array.from(
     {taskid: '7', task: 'Group Work Prep', project: 'COMP 2140', duration: '710',breaks: 75, progress: 50, date: '2022-01-24', note:'Quisque quis vehicula odio. Praesent eu massa eu mauris rhoncus porta. Fusce interdum suscipit purus, vitae euismod sapien blandit sit amet.'},
     {taskid: '8', task: 'Fix Code Bugs', project: 'COMP 2140', duration: '400',breaks: 100, progress: 75, date: '2022-02-03', note:'Praesent placerat congue nisl, sit amet congue ante pulvinar ut. Nullam dictum, lorem non rutrum euismod, ante dui pharetra nunc, et molestie nunc turpis a massa.'},
     {taskid: '9', task: 'Assignment 2', project: 'COMP 2140', duration: '300',breaks: 12, progress: 40, date: '2022-01-29', note:'In interdum purus quis urna egestas dignissim. Suspendisse potenti. Maecenas non sapien fringilla, lobortis diam vitae, rhoncus ipsum.'},
-    {taskid: '10', task: 'Quiz 12', project: 'COMP 4710', duration: '400',breaks: 0, progress: 100, date: '2021-11-13', note:'Nam eu nisi laoreet, sodales eros et, posuere orci. Nam vehicula rutrum ligula ac blandit. Curabitur scelerisque ullamcorper mauris, nec rutrum ligula. Ut hendrerit commodo est, ac consequat nisl finibus vel. Vestibulum tincidunt est odio, non tempus odio vulputate eu. Pellentesque id lectus id ex tempor laoreet. Nulla aliquet mauris vitae risus accumsan, eget venenatis magna gravida. Vestibulum consequat pellentesque elit, at dictum arcu viverra tincidunt. Etiam rutrum, mi sed pretium lacinia, lorem elit gravida dolor, sit amet commodo orci turpis in risus. Nunc consectetur magna metus, ullamcorper lobortis lectus consectetur eget. Nullam in mauris sed diam faucibus tempor in non lorem.'},
-    {taskid: '11', task: 'Group Work Prep', project: 'COMP 4710', duration: '200',breaks: 0, progress: 60, date: '2022-01-06', note:'Nam sed tincidunt odio. Sed nulla orci, semper ut mattis vel, luctus a eros. Nullam aliquam, massa commodo scelerisque aliquam, odio eros mattis libero, ut malesuada ipsum dolor in risus. Duis sagittis ipsum sem, finibus laoreet magna dapibus scelerisque. Sed a ipsum nec lectus congue tincidunt. Proin imperdiet tempor lectus ac faucibus. '},
+    {taskid: '10', task: 'Quiz 12', project: 'Miscellaneous', duration: '400',breaks: 0, progress: 100, date: '2021-11-13', note:'Nam eu nisi laoreet, sodales eros et, posuere orci. Nam vehicula rutrum ligula ac blandit. Curabitur scelerisque ullamcorper mauris, nec rutrum ligula. Ut hendrerit commodo est, ac consequat nisl finibus vel. Vestibulum tincidunt est odio, non tempus odio vulputate eu. Pellentesque id lectus id ex tempor laoreet. Nulla aliquet mauris vitae risus accumsan, eget venenatis magna gravida. Vestibulum consequat pellentesque elit, at dictum arcu viverra tincidunt. Etiam rutrum, mi sed pretium lacinia, lorem elit gravida dolor, sit amet commodo orci turpis in risus. Nunc consectetur magna metus, ullamcorper lobortis lectus consectetur eget. Nullam in mauris sed diam faucibus tempor in non lorem.'},
+    {taskid: '11', task: 'Group Work Prep', project: 'Miscellaneous', duration: '200',breaks: 0, progress: 60, date: '2022-01-06', note:'Nam sed tincidunt odio. Sed nulla orci, semper ut mattis vel, luctus a eros. Nullam aliquam, massa commodo scelerisque aliquam, odio eros mattis libero, ut malesuada ipsum dolor in risus. Duis sagittis ipsum sem, finibus laoreet magna dapibus scelerisque. Sed a ipsum nec lectus congue tincidunt. Proin imperdiet tempor lectus ac faucibus. '},
     {taskid: '12', task: 'Proofread submission', project: 'COMP 4230', duration: '400',breaks: 100, progress: 100, date: '2021-11-23', note:'Sed faucibus neque eget condimentum finibus. Proin rutrum, velit vitae laoreet ultrices, orci velit dictum arcu, non iaculis mi magna sed mi. Donec quis quam id turpis pulvinar dignissim laoreet eget erat. Sed porta quam urna, at faucibus sem mattis in. Fusce commodo nisi at velit porttitor, in vehicula purus feugiat.'}
 ]);
 
@@ -469,9 +469,54 @@ function load_accordion_listener(){
     })
 }
 
+function add_timer_new_task(){
+    d = {
+        taskid: `${new Date().getTime()}`,    
+        task: sessionStorage.task_name ? sessionStorage.task_name : null,
+        project: sessionStorage.project_name ? sessionStorage.project_name : 'Miscellaneous',
+        progress: sessionStorage.task_progress ? sessionStorage.task_progress : null,
+        date: new Date(),
+        duration: sessionStorage.time_focused ? sessionStorage.time_focused : null,
+        breaks: 0,
+        note: sessionStorage.Notes,
+    }
+    console.log(d)
+    if (task_error(d)) alert(task_error(d))
+    else{
+        DATA.push(d)
+        clear_new_task(d.project)
+        table = document.querySelector(`.project-item-table.${hyphenated(d.project)} > .project-item-table-content > tbody`);
+        span = 
+        ` ${(table.querySelector(`.th-row`) != null) ? '' : // Add table header row if not existed
+            `<tr class="th-row" style="background-color: ${color(d.project)}">
+                <th class="th-task">Task</th>
+                <th class="th-progress">Progress (%)</th>
+                <th class="th-date">${date_str}</th>
+            </tr>`}
+            <tr class="task-item" id="taskid-${d.taskid}" onclick="task_clicked('${d.taskid}')">
+                <td class="td-task">${d.task}</td>
+                <td class="td-progress">${d.progress}</td>
+                <td class="date td-date">${d.date}</td>
+            </tr>`
+        table.innerHTML += span
 
-load_projects_css();
-load_completed_items(false)
-load_completed_items(true)
-load_search_listener()
-load_accordion_listener()
+        toast_elem.className = "show";
+        toast_elem.textContent = "New task "+ " '" + d.task + "' created.";
+
+        setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);
+    }
+    update_num_tasks()
+}
+
+function init_page(){
+    load_projects_css();
+    load_completed_items(false)
+    load_completed_items(true)
+    load_search_listener()
+    load_accordion_listener()
+    if (sessionStorage.new_task_added) add_timer_new_task()
+}
+
+init_page()
+
+
