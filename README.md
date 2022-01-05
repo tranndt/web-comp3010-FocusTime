@@ -1,7 +1,29 @@
 # FocusTime
 
-## App Description: 
+## Overview:
 An app that helps user focus on tasks, save and track progress, as well as motivate user by making work fun by allowing them to work while they listen to their favourite music.
+
+## Authors:
+- [Alborz Khakbazan](https://github.com/alborzk) - khakbaza@myumanitoba.ca
+- [Humayra Anjum Rafi](https://github.com/Humayra98) - rafiha@myumanitoba.ca
+- [Jason Tran](https://github.com/tranndt) - tranndt@myumanitoba.ca 
+- [Jules Basa](https://github.com/basaaj) - basaj@myumanitoba.ca
+- [Reymel Eusebio](https://github.com/r3ym3l) - eusebior@myumanitoba.ca
+
+## How to run:
+
+Download or clone from GitHub: https://github.com/Humayra98/focustime
+
+### Via _index.html_:
+Double click on the index.html file located in the _focustime_ directory to run application.
+
+### Via Live server:
+Make sure that the extension _Live Server_ is installed in your Visual Studio Code. Open/import the _focustime_ folder in visual studio code. Navigate to the _Go Live_ buttone and click on it to run software. Or right click on the index.html file and select _Open with Live Server_ 
+
+### Via GitHub Pages:
+The application is also published with GitHub Pages. You can run it via this link - https://humayra98.github.io/focustime/ 
+
+## App Description: 
 
 ### My Timer page:
 
@@ -15,7 +37,8 @@ This page contains the main functionality of the music aspect for FocusTime. Thi
 
 ### My Statistics page:
 
-![My Statistics page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_statistics.png)
+![My Statistics page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_statistics.png)  
+This page shows statistics on the tasks and projects done in a week in form of bubbles. Each color represents a project and the size of the bubbles represents the amount of time spent on it. So the more time spent on a task, the bigger the circle. The users can filter the bubbles by tasks or projects so that they can see the overall stats of the projects or in details with the tasks. Users also have the option to filter by specific courses so that they can see the bubble stats and the details for the selected course.
 
 ### My Progress page (previously Upcoming Tasks):
 
@@ -24,24 +47,5 @@ As the page’s title suggests, this page keeps track of the progress of user ha
 
 ### My Settings page:
 
-![My Settings page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_settings.png)
-
-## How to run:
-
-Download or clone from GitHub: https://github.com/Humayra98/focustime
-
-### Via _index.html_:
-Double click on the index.html file located in the _focustime_ directory to run application.
-
-### Via Live server:
-Make sure that the extension _Live Server_ is installed in your Visual Studio Code. Open/import the _focustime_ folder in visual studio code. Navigate to the _Go Live_ buttone and click on it to run software. Or right click on the index.html file and select _Open with Live Server_ 
-
-### Via GitHub Pages:
-The application is also published with GitHub Pages which can be found here - https://humayra98.github.io/focustime/ 
-
-## Authors:
-- [Alborz Khakbazan](https://github.com/alborzk)
-- [Humayra Anjum Rafi](https://github.com/Humayra98)
-- [Jason Tran](https://github.com/tranndt)
-- [Jules Basa](https://github.com/basaaj)
-- [Reymel Eusebio](https://github.com/r3ym3l)
+![My Settings page screenshot](https://raw.githubusercontent.com/Humayra98/focustime/main/assets/readme_imgs/my_settings.png)  
+This page allows the users to set a homepage/home tab so that the user can be direected to the selected page everytime they click on the FocusTime logo. They can also change the background of the app. In addition, it also has a brief intro to the app as well as the GitHub user links of the authors.

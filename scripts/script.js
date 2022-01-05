@@ -54,11 +54,12 @@ PT_dbox_btn_cancel.addEventListener('click', () => {
 	else {
 		newItem_selectBox.value = newItem_selectBox.options[1].value;
 	}
-
+	
 	PT_dbox_elem.style.display = "none";
 	newItem_type = "";
 	newItem_selectBox = null;
-	document.getElementById('container-body').style.pointerEvents = 'auto';
+
+	document.getElementById('container-body').style.pointerEvents = 'auto'; 
 });
 
 PT_dbox_btn_skip.addEventListener('click', () => {
@@ -73,7 +74,8 @@ PT_dbox_btn_skip.addEventListener('click', () => {
 	PT_dbox_elem.style.display = "none";
 	newItem_type = "";
 	newItem_selectBox = null;
-	document.getElementById('container-body').style.pointerEvents = 'auto';
+
+	document.getElementById('container-body').style.pointerEvents = 'auto'; 
 });
 
 task_selectBox.addEventListener('change', () => {
@@ -83,7 +85,7 @@ task_selectBox.addEventListener('change', () => {
 		PT_dbox_msg.textContent = "What is the new task? (1-30 characters)";
 
 		PT_dbox_elem.style.display = "block";
-		document.getElementById('container-body').style.pointerEvents = 'none';
+		document.getElementById('container-body').style.pointerEvents = 'none';  
 	}
 
 	else {
@@ -98,7 +100,7 @@ project_selectBox.addEventListener('change', () => {
 		PT_dbox_msg.textContent = "What is the new project? (1-30 characters)";
 
 		PT_dbox_elem.style.display = "block";
-		document.getElementById('container-body').style.pointerEvents = 'none';
+		document.getElementById('container-body').style.pointerEvents = 'none';  
 	}
 });
 
@@ -107,10 +109,10 @@ PT_dbox_btn_done.addEventListener('click', () => {
         alert("New task/project name should be 1-30 characters in length. Please try again.");
     }
 
-    else {
-		PT_dbox_elem.style.display = "none";   
+    else {   
+        PT_dbox_elem.style.display = "none";
 		createNewOption(newItem_selectBox, newItem_type);
-		document.getElementById('container-body').style.pointerEvents = 'auto';
+		document.getElementById('container-body').style.pointerEvents = 'auto';   
     }
 });
 
@@ -436,87 +438,85 @@ function audioApp(album_title){
 			24:["Yeah - Bonus", "solo"]
 		};
 	}
+	// Change strings to match the music page (4 albums)
 	else if (album_title == "Certified Lover Boy") {
 		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
+			0:["Champagne Poetry", "nikes"],
+			1:["Papi's Home", "ivy"],
+			2:["Girls Want Girls (Ft. Lil Baby)", "pink+white"],
+			3:["In The Bible (Ft. Giveon & Lil Dunk)", "be_yourself"],
+			4:["Love All (Ft. JAY-Z)", "solo"],
+			5:["Fair Trade (Ft. Travis Scott)", "skyline_to"],
+			6:["Way 2 Sexy (Ft. Future & Young Thug)", "self_control"],
+			7:["TSU", "good_guy"],
+			8:["N 2 Deep (Ft. Future)", "nights"],
+			9:["Pipe Down", "solo_reprise"],
+			10:["Yebba's Heartbreak (Ft. YEBBA)", "pretty_sweet"],
+			11:["No Friends In The Industry", "facebook_story"],
+			12:["Knife Talk (Ft. 21 Savage & Project Pat)", "close_to_you"],
+			13:["7am on Bridle Path", "white_ferrari"],
+			14:["Race My Mind", "nikes"],
+			15:["Fountains (Ft. Tems)", "ivy"],
+			16:["Get Along Better (Ft. Ty Dolla $ign)", "close_to_you"],
+			17:["You Only Live Twice (Ft. Lil Wayne & Rick Ross)", "white_ferrari"],
+			18:["IMY2 (Ft. Kid Cudi)", "nikes"],
+			19:["Fucking Fans", "ivy"],
+			20:["The Remorse", "nikes"]
 		};
 	}
 	else if (album_title == "evermore") {
 		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
+			0:["willow", "nikes"],
+			1:["champagne problems", "ivy"],
+			2:["gold rush", "pink+white"],
+			3:["'tis the damn season", "be_yourself"],
+			4:["evermore (Ft. Bon Iver)", "solo"],
+			5:["happiness", "skyline_to"],
+			6:["dorothea", "self_control"],
+			7:["cowboy like me", "good_guy"],
+			8:["tolerate it", "nights"],
+			9:["coney island (Ft. The National)", "solo_reprise"],
+			10:["no body, no crime (Ft. HAIM)", "pretty_sweet"],
+			11:["marjorie", "facebook_story"],
+			12:["closure", "close_to_you"],
+			13:["long story short", "white_ferrari"],
+			14:["ivy", "ivy"]
 		};
 	}
 	else if (album_title == "SOUR") {
 		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
+			0:["brutal", "nikes"],
+			1:["traitor", "ivy"],
+			2:["drivers license", "pink+white"],
+			3:["1 step forward, 3 steps back", "be_yourself"],
+			4:["deja vu", "solo"],
+			5:["good 4 u", "skyline_to"],
+			6:["enough for you", "self_control"],
+			7:["happier", "good_guy"],
+			8:["jealousy, jealousy", "nights"],
+			9:["favorite crime", "solo_reprise"],
+			10:["hope ur ok", "pretty_sweet"]
 		};
 	}
 	else if (album_title == "After Hours") {
 		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
+			0:["Alone Again", "nikes"],
+			1:["Too Late", "ivy"],
+			2:["Hardest to Love", "pink+white"],
+			3:["Scared To Live", "be_yourself"],
+			4:["Snowchild", "solo"],
+			5:["Escape From LA", "skyline_to"],
+			6:["Heartless", "self_control"],
+			7:["Faith", "good_guy"],
+			8:["Blinding Lights", "nights"],
+			9:["In Your Eyes", "solo_reprise"],
+			10:["Save Your Tears", "pretty_sweet"],
+			11:["Repeat After Me", "facebook_story"],
+			12:["After Hours", "close_to_you"],
+			13:["Until I Bleed Out", "white_ferrari"]
 		};
 	}
-	else if (album_title == "Indie Album 1") {
+	else {
 		tracks = {
 			0:["Dorothea", "nikes"],
 			1:["Happiness", "ivy"],
@@ -533,787 +533,7 @@ function audioApp(album_title){
 			12:["Champagne Problems", "close_to_you"],
 			13:["Long Story Short", "white_ferrari"],
 			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Indie Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Indie Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Indie Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Classical Album 1") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Classical Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Classical Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Classical Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rap Album 1") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rap Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rap Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rap Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "RnB Album 1") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "RnB Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "RnB Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "RnB Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Pop Album 1") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Pop Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Pop Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Pop Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "LoFi Album 1") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "LoFi Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "LoFi Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "LoFi Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 1") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 5") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 6") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 7") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Rainy Day Album 8") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 1") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 2") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 3") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 4") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 5") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 6") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 7") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
-		};
-	}
-	else if (album_title == "Short Album 8") {
-		tracks = {
-			0:["Dorothea", "nikes"],
-			1:["Happiness", "ivy"],
-			2:["Cowboy like Me", "pink+white"],
-			3:["'Tis the Damn Season", "be_yourself"],
-			4:["Evermore (featuring Bon Iver)", "solo"],
-			5:["It's Time to Go", "skyline_to"],
-			6:["Marjorie", "self_control"],
-			7:["Willow", "good_guy"],
-			8:["Tolerate It", "nights"],
-			9:["Coney Island", "solo_reprise"],
-			10:["No Body, No Crime", "pretty_sweet"],
-			11:["Right Where You Left Me", "facebook_story"],
-			12:["Champagne Problems", "close_to_you"],
-			13:["Long Story Short", "white_ferrari"],
-			14:["Gold Rush", "nikes"],
-			15:["Ivy", "ivy"],
+			15:["Ivy", "ivy"]
 		};
 	}
 	
