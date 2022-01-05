@@ -70,7 +70,7 @@ let intervalID = null; //countdown interval
 let br_intervalID = null; //countdown interval
 
 var task_not_selected_warned = false;
-var task_warning_message = "Whoops! No task selected. You can proceed without selecting a task, but your progress will not be saved.";
+var task_warning_message = "Warning! No task selected. You can proceed without selecting a task, but your progress will not be saved.";
 
 //timer states
 const RUNNING = 0;
@@ -299,7 +299,7 @@ const countdown = () => {
         }
         else {
             dbox_elem.style.display = "block";
-            dbox_msg.textContent = "Focus time over! \nEstimate your progress percentage between 1 - 100 to save for your next session.";
+            dbox_msg.textContent = "Focus time over! \nEstimate your progress percentage between 1 - 100 to save for your session.";
         }
 
         // To disable:    
@@ -312,7 +312,7 @@ const countdown = () => {
 
         if(total_secs - time == 1) {
             toast_elem.className = "show";
-            toast_elem.textContent = "Focus time started! Don't move to other pages while the timer is running, or the session will end.";
+            toast_elem.textContent = "Focus time started! Don't move to other pages while the timer is running, or the session will end and you will lose your progress.";
 
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 8000);
 
