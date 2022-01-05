@@ -47,26 +47,45 @@ var newItem_type = "";
 var newItem_selectBox;
 
 PT_dbox_btn_cancel.addEventListener('click', () => {
-	//newItem_selectBox.value = selectBox.options[0].firstChild.textContent;
+	if (newItem_type == "task") {
+		newItem_selectBox.value = newItem_selectBox.options[0].value;
+	}
+
+	else {
+		newItem_selectBox.value = newItem_selectBox.options[1].value;
+	}
+	
 	PT_dbox_elem.style.display = "none";
 	newItem_type = "";
 	newItem_selectBox = null;
+
+	document.getElementById('container-body').style.pointerEvents = 'auto'; 
 });
 
 PT_dbox_btn_skip.addEventListener('click', () => {
-	//newItem_selectBox.value = selectBox.options[0].firstChild.textContent;
+	if (newItem_type == "task") {
+		newItem_selectBox.value = newItem_selectBox.options[0].value;
+	}
+
+	else {
+		newItem_selectBox.value = newItem_selectBox.options[1].value;
+	}
+
 	PT_dbox_elem.style.display = "none";
 	newItem_type = "";
 	newItem_selectBox = null;
+
+	document.getElementById('container-body').style.pointerEvents = 'auto'; 
 });
 
 task_selectBox.addEventListener('change', () => {
 	if (task_selectBox.value == "create-task") {
 		newItem_type = "task";
 		newItem_selectBox = task_selectBox;
-		PT_dbox_msg.textContent = "What is the new task?";
+		PT_dbox_msg.textContent = "What is the new task? (1-30 characters)";
 
 		PT_dbox_elem.style.display = "block";
+		document.getElementById('container-body').style.pointerEvents = 'none';  
 	}
 
 	else {
@@ -78,23 +97,22 @@ project_selectBox.addEventListener('change', () => {
 	if (project_selectBox.value == "create-project") {
 		newItem_type = "project";
 		newItem_selectBox = project_selectBox;
-		PT_dbox_msg.textContent = "What is the new project?";
+		PT_dbox_msg.textContent = "What is the new project? (1-30 characters)";
 
 		PT_dbox_elem.style.display = "block";
+		document.getElementById('container-body').style.pointerEvents = 'none';  
 	}
 });
 
 PT_dbox_btn_done.addEventListener('click', () => {
     if(!checkNameLength(PT_new_item.value)){
         alert("New task/project name should be 1-30 characters in length. Please try again.");
-		newItem_selectBox.value = selectBox.options[0].firstChild.textContent;
-		newItem_type = "";
-		newItem_selectBox = null;
     }
 
     else {   
         PT_dbox_elem.style.display = "none";
 		createNewOption(newItem_selectBox, newItem_type);
+		document.getElementById('container-body').style.pointerEvents = 'auto';   
     }
 });
 
