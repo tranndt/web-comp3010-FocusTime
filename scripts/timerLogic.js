@@ -152,6 +152,10 @@ const updateProgressPage = () => {
         selected_proj = "Miscellaneous";
     }
 
+    if(break_taken == 0) {
+        break_taken = 1;
+    }
+
     var proj_task_index = progress_data.findIndex(d => d.project == selected_proj && d.task == selected_task)
 
     console.log("existing task", proj_task_index);
