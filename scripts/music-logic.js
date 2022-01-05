@@ -453,6 +453,10 @@ function show_albums_by_topic(topic){
 function display_details(album_name){
     load_summary(album_name)
     load_playlist(album_name)
+    showHTMLElement("#app-a3","grid");
+    showHTMLElement("#app-a3b","grid");
+    showHTMLElement("#app-a4","grid");
+    showHTMLElement("#app-a5","grid")
     showHTMLElement("#container-a3b","grid");
     showHTMLElement("#container-a4","grid");
     showHTMLElement("#container-a5","grid");
@@ -463,6 +467,10 @@ function display_details(album_name){
 function dismiss_details(){
     writeHTML(`#album-details`,"")
     document.querySelector("#album-cover-img").src = ""
+    hideHTMLElement("#app-a3");
+    hideHTMLElement("#app-a3b");
+    hideHTMLElement("#app-a4");
+    hideHTMLElement("#app-a5");
     hideHTMLElement("#container-a3b");
     hideHTMLElement("#container-a4");
     hideHTMLElement("#container-a5");
@@ -514,9 +522,10 @@ function on_button_set_playlist_timer_clicked(){
     sessionStorage.album_chosen = sessionStorage.latest_album_viewed
     sessionStorage.flag_set_timer = ALBUM_CHOSEN_WITH_TIMER;
     //notify users of chosen album
-    toast_elem.className = "show";
-    toast_elem.textContent = "Timer set to '" + JSON.parse(sessionStorage.album_chosen).length + "'. Click 'Set' on Timer Page to Edit.";
-    setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 6000);
+    // toast_elem.className = "show";
+    // toast_elem.textContent = "'" + JSON.parse(sessionStorage.album_chosen).album_name + "' added to song queue. Timer set to '" + JSON.parse(sessionStorage.album_chosen).length + "'. Click 'Set' on Timer Page to Edit.";
+    // setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 6000);
+    window.location.href = "index.html";
 }
 
 function show_main_music_page(){
