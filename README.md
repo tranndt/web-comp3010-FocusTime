@@ -21,7 +21,7 @@ Double click on the index.html file located in the _focustime_ directory to run 
 Make sure that the extension _Live Server_ is installed in your Visual Studio Code. Open/import the _focustime_ folder in visual studio code. Navigate to the _Go Live_ buttone and click on it to run software. Or right click on the index.html file and select _Open with Live Server_ 
 
 ### Via GitHub Pages:
-The application is also published with GitHub Pages which can be found here - https://humayra98.github.io/focustime/ 
+The application is also published with GitHub Pages. You can run it via this link - https://humayra98.github.io/focustime/ 
 
 ## App Description: 
 
