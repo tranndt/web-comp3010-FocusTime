@@ -108,9 +108,9 @@ sessionStorage.setItem("new_task_added",false);
 var album_sec = -1;
 
 const saveSession = () => {
-    var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
-    var selected_proj = document.getElementById("project-selector").options[document.getElementById("project-selector").selectedIndex].text;
-    var notes = document.getElementById("notes-text").value;
+    var store_selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
+    var store_selected_proj = document.getElementById("project-selector").options[document.getElementById("project-selector").selectedIndex].text;
+    var store_notes = document.getElementById("notes-text").value;
 
     if (typeof(Storage) !== "undefined") {
         // Store to for sessionStorage
@@ -128,14 +128,65 @@ const saveSession = () => {
         sessionStorage.setItem("task_progress", task_done_input);
         sessionStorage.setItem("time_focused", time_focused-1);
         sessionStorage.setItem("break_taken", break_taken-1);
-        sessionStorage.setItem("task_name", selected_task);
-        sessionStorage.setItem("project_name", selected_proj);
-        sessionStorage.setItem("Notes", notes);
+        sessionStorage.setItem("task_name", store_selected_task);
+        sessionStorage.setItem("project_name", store_selected_proj);
+        sessionStorage.setItem("Notes", store_notes);
         sessionStorage.setItem("new_task_added",true);
+
+        updateProgressPage();
+
     } else {
         // Sorry! No Web Storage support..
     }
 };
+
+const updateProgressPage = () => {
+    
+    var selected_task = document.getElementById("task-selector").options[document.getElementById("task-selector").selectedIndex].text;
+    var selected_proj = document.getElementById("project-selector").options[document.getElementById("project-selector").selectedIndex].text;
+    var notes = document.getElementById("notes-text").value;
+
+    var progress_data = JSON.parse(localStorage.getItem("progress_data") || "[]");
+
+    if(selected_proj == "None") {
+        selected_proj = "Miscellaneous";
+    }
+
+    var proj_task_index = progress_data.findIndex(d => d.project == selected_proj && d.task == selected_task)
+
+    console.log("existing task", proj_task_index);
+
+    if(proj_task_index >= 0) { //if {proj, task} exists, modify 
+        progress_data[proj_task_index].breaks = break_taken-1;
+        progress_data[proj_task_index].duration = time_focused-1;
+        progress_data[proj_task_index].note = notes;
+        progress_data[proj_task_index].progress = task_done_input;
+    }
+    else { // add new
+
+        var currDate = new Date();
+
+        var newData = {taskid: `${new Date().getTime()}`,    
+            task: selected_task,
+            project: selected_proj,
+            progress: task_done_input,
+            date: currDate.toISOString().split('T')[0],
+            duration: time_focused-1, 
+            breaks: break_taken-1,
+            note: notes
+        }
+
+        progress_data.push(newData);
+        console.log("updating", progress_data[progress_data.length-1]);
+    }
+
+    if(progress_data != null) {//reload data in local storage
+        localStorage.setItem("progress_data", JSON.stringify(progress_data));
+    }
+
+    console.log(progress_data);
+
+}
 
 const isValidInteger = (input_val, min_val, max_val) => {
     return Number.isInteger(Number(input_val)) && Number(input_val) >= min_val && Number(input_val) <= max_val;
@@ -346,7 +397,7 @@ const br_countdown = () => {
         clearInterval(br_intervalID);
         br_time = 0;
 
-        if(time > 0) { //resume main timer,set timer in running state -> pause,stop btn
+        if(time > -1) { //resume main timer,set timer in running state -> pause,stop btn
             //notify users
             toast_elem.textContent = "Break over! Timer resumed."
             setTimeout(function(){ toast_elem.className = toast_elem.className.replace("show", ""); }, 3000);

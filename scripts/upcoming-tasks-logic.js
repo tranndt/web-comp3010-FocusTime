@@ -15,6 +15,13 @@ DATA = Array.from(
     {taskid: '12', task: 'Proofread submission', project: 'COMP 4230', duration: '400',breaks: 100, progress: 100, date: '2021-11-23', note:'Sed faucibus neque eget condimentum finibus. Proin rutrum, velit vitae laoreet ultrices, orci velit dictum arcu, non iaculis mi magna sed mi. Donec quis quam id turpis pulvinar dignissim laoreet eget erat. Sed porta quam urna, at faucibus sem mattis in. Fusce commodo nisi at velit porttitor, in vehicula purus feugiat.'}
 ]);
 
+if(JSON.parse(localStorage.getItem("progress_data")) == null) {
+    localStorage.setItem("progress_data", JSON.stringify(DATA));
+}
+
+DATA = JSON.parse(localStorage.getItem("progress_data") || DATA);
+
+
 const get_col = (array, column) => {
     const result = [];
     array.forEach(e => {
@@ -514,7 +521,7 @@ function init_page(){
     load_completed_items(true)
     load_search_listener()
     load_accordion_listener()
-    if (sessionStorage.new_task_added) add_timer_new_task()
+    // if (sessionStorage.new_task_added) add_timer_new_task()
 }
 
 init_page()
