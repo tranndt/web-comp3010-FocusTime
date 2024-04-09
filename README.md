@@ -6,7 +6,7 @@ An app that helps user focus on tasks, save and track progress, as well as motiv
 ## Authors:
 - [Alborz Khakbazan](https://github.com/alborzk) - khakbaza@myumanitoba.ca
 - [Humayra Anjum Rafi](https://github.com/Humayra98) - rafiha@myumanitoba.ca
-- [Jason Tran](https://github.com/tranndt) - tranndt@myumanitoba.ca 
+- [Jase Tran](https://github.com/tranndt) - tranndt@myumanitoba.ca 
 - [Jules Basa](https://github.com/basaaj) - basaj@myumanitoba.ca
 - [Reymel Eusebio](https://github.com/r3ym3l) - eusebior@myumanitoba.ca
 
